@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Mongo generator base class for doc comments processing
+ * Annotation attribute base class
  *
  * @property string tagName
  * @property string contextNameMsg
@@ -54,7 +54,7 @@ abstract class EAnnotationAttr extends CComponent
 	{
 		$this->_context = $context;
 		$this->_value = $attributeValue;
-		$this->_tagName = lcfirst(preg_replace('~Attr$~', '', get_class($this)));
+		$this->_tagName = lcfirst(preg_replace('~(Class|Field|Method)Attr$~', '', get_class($this)));
 
 		$this->setup();
 
@@ -65,53 +65,66 @@ abstract class EAnnotationAttr extends CComponent
 		}
 
 		// Check if tag is used in proper context
-		if($this->_context instanceof ReflectionClass && !$this instanceof MongoClassAttr)
+		if($this->_context instanceof ReflectionClass)
 		{
-			throw new MongoException(sprintf('Tag "%s" must be used on class in %s', $this->_tagName, $this->getContextNameMsg()));
+			if(!$this instanceof EAnnotationClassAttr)
+			{
+				throw new EAnnotationException(sprintf('Tag "%s" must be used on class in %s', $this->_tagName, $this->getContextNameMsg()));
+			}
 		}
-		elseif($this->_context instanceof ReflectionProperty && !$this instanceof MongoFieldAttr)
+		elseif($this->_context instanceof ReflectionProperty)
 		{
-			throw new MongoException(sprintf('Tag "%s" must be used on class field in %s', $this->_tagName, $this->getContextNameMsg()));
+			if(!$this instanceof EAnnotationFieldAttr)
+			{
+				throw new EAnnotationException(sprintf('Tag "%s" must be used on class field in %s', $this->_tagName, $this->getContextNameMsg()));
+			}
+		}
+		elseif($this->_context instanceof ReflectionMethod)
+		{
+			if(!$this instanceof EAnnotationMethodAttr)
+			{
+				throw new EAnnotationException(sprintf('Tag "%s" must be used on class field in %s', $this->_tagName, $this->getContextNameMsg()));
+			}
 		}
 		else
 		{
-			throw new MongoException(sprintf('Processing of "%s" is not supported'), get_class($this->_context));
+			throw new EAnnotationException(sprintf('Processing of "%s" is not supported by %s', get_class($this->_context), get_class($this)));
 		}
 
 		// Check uniqueness in context
 		$key = $this->getContextName();
 		if($this->isUnique)
 		{
-			if(isset(self::$_tags[$key]))
+			if(isset(self::$_tags[$key][$this->_tagName]))
 			{
-				throw new MongoException(sprintf('Tag %s must be defined only once in %s', $this->_tagName, $this->getContextNameMsg()));
+				throw new EAnnotationException(sprintf('Tag %s must be defined only once (in %s)', $this->_tagName, $this->getContextNameMsg()));
 			}
 			else
 			{
-				self::$_tags[$key] = $this;
+				self::$_tags[$key][$this->_tagName][] = $this;
 			}
 		}
 		else
 		{
-			self::$_tags[$key][] = $this;
+			self::$_tags[$key][$this->_tagName][] = $this;
 		}
-
-		// Check uniqueness in class
+		
+		// TODO Check uniqueness in class
 		$key = $this->getContextClass();
 		if($this->isUniqueInClass)
 		{
-			if(isset(self::$_classTags[$key]))
+			if(isset(self::$_classTags[$key][$this->_tagName]))
 			{
-				throw new MongoException(sprintf('Tag %s must be defined only once once in %s for class %s', $this->_tagName, $this->getContextNameMsg(), $this->getContextClass()));
+				throw new EAnnotationException(sprintf('Tag %s must be defined only once once in %s for class %s', $this->_tagName, $this->getContextNameMsg(), $this->getContextClass()));
 			}
 			else
 			{
-				self::$_classTags[$key] = $this;
+				self::$_classTags[$key][$this->_tagName][] = $this;
 			}
 		}
 		else
 		{
-			self::$_classTags[$key][] = $this;
+			self::$_classTags[$key][$this->_tagName][] = $this;
 		}
 	}
 
@@ -121,10 +134,9 @@ abstract class EAnnotationAttr extends CComponent
 	 */
 	public final function addImport($alias)
 	{
-		Yii::import($alias, true);
-		if(false == class_exists(Yii::getClassName($alias)))
+		if(false == class_exists(Yii::import($alias, true)))
 		{
-			throw new MongoException(sprintf('Class "%s" not found in %s', $alias, $this->getContextNameMsg()));
+			throw new EAnnotationException(sprintf('Class "%s" not found in %s', $alias, $this->getContextNameMsg()));
 		}
 		$key = $this->getContextClass();
 		self::$_imports[$key][] = $alias;
@@ -139,7 +151,7 @@ abstract class EAnnotationAttr extends CComponent
 	public final function hasTag($tag)
 	{
 		$key = $this->getContextName();
-		return isset(self::$_tags[$key]);
+		return isset(self::$_tags[$key][$tag]);
 	}
 
 	/**
@@ -152,7 +164,7 @@ abstract class EAnnotationAttr extends CComponent
 		if($this->hasTag($tag))
 		{
 			$key = $this->getContextName();
-			return self::$_tags[$key];
+			return self::$_tags[$key][$tag];
 		}
 		return false;
 	}
@@ -173,7 +185,7 @@ abstract class EAnnotationAttr extends CComponent
 	 */
 	public final function getIsClass()
 	{
-		return $this instanceof MongoClassAttr;
+		return $this instanceof EAnnotationClassAttr;
 	}
 
 	/**
@@ -182,7 +194,7 @@ abstract class EAnnotationAttr extends CComponent
 	 */
 	public final function getIsField()
 	{
-		return $this instanceof MongoFieldAttr;
+		return $this instanceof EAnnotationFieldAttr;
 	}
 
 	/**
@@ -195,7 +207,7 @@ abstract class EAnnotationAttr extends CComponent
 
 	public final function setTagName()
 	{
-		throw new MongoException('Tag name is readonly');
+		throw new EAnnotationException('Tag name is readonly');
 	}
 
 	/**
@@ -246,7 +258,7 @@ abstract class EAnnotationAttr extends CComponent
 		}
 		else
 		{
-			throw new MongoException(sprintf('Unsupported context in %s', $this->getContextNameMsg()));
+			throw new EAnnotationException(sprintf('Unsupported context in %s', $this->getContextNameMsg()));
 		}
 	}
 
@@ -272,7 +284,7 @@ abstract class EAnnotationAttr extends CComponent
 	 */
 	public function getContextNameMsg()
 	{
-		if($this->isClass())
+		if($this->isClass)
 		{
 			return sprintf(' tag "%s" class "%s" ', $this->getTagName(), $this->_context->name);
 		}
