@@ -12,6 +12,7 @@ class EAnnotationsBuilder
 		{
 			foreach($parameters as $params)
 			{
+				/** @todo This suffix should be configurable*/
 				$className = "{$class}Annotation";
 				$annotation = $this->instantiateAnnotation($className, $params, $targetReflection);
 				if($annotation !== false)
