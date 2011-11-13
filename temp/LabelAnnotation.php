@@ -1,0 +1,1 @@
+<?//throw new Exception(__FILE__ . ' TODO: Add suffix to all annotations');class LabelAnnotation extends EAnnotation{	public $value;}

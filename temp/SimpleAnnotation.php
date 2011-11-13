@@ -1,0 +1,1 @@
+<?phpclass SimpleAnnotation extends EAnnotation{}
