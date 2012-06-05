@@ -19,21 +19,30 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  * */
-class EAnnotation// extends CComponent
+class EAnnotation extends CComponent
 {
 	public $value;
-	private static $creationStack = array();
+
+	/**
+	 * This is annotated class instance, must be set before calling init
+	 * @var CComponent
+	 */
+	public $component;
+	
+	private static $_creationStack = array();
+
+	private $_undefinedProperties = array();
 
 	public final function __construct($data = array(), $target = false)
 	{
 		$reflection = new ReflectionClass($this);
 		$class = $reflection->getName();
-		if(isset(self::$creationStack[$class]))
+		if(isset(self::$_creationStack[$class]))
 		{
 			trigger_error("Circular annotation reference on '$class'", E_USER_ERROR);
 			return;
 		}
-		self::$creationStack[$class] = true;
+		self::$_creationStack[$class] = true;
 		foreach($data as $key => $value)
 		{
 			if($reflection->hasProperty($key))
@@ -42,12 +51,23 @@ class EAnnotation// extends CComponent
 			}
 			else
 			{
+				$this->_undefinedProperties[$key] = $value;
 				trigger_error("Property '$key' not defined for annotation '$class'");
 			}
 		}
 		$this->checkTargetConstraints($target);
 		$this->checkConstraints($target);
-		unset(self::$creationStack[$class]);
+		unset(self::$_creationStack[$class]);
+	}
+
+	public function getUndefinedProperties()
+	{
+		return $this->_undefinedProperties;
+	}
+
+	public function init()
+	{
+		
 	}
 
 	private function checkTargetConstraints($target)

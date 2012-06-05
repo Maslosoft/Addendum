@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @Label("Annotations builder")
+ */
 class EAnnotationsBuilder
 {
 	private static $cache = array();
@@ -13,7 +16,7 @@ class EAnnotationsBuilder
 			foreach($parameters as $params)
 			{
 				/** @todo This suffix should be configurable*/
-				$className = "{$class}Annotation";
+				$className = ucfirst($class) . "Annotation";
 				$annotation = $this->instantiateAnnotation($className, $params, $targetReflection);
 				if($annotation !== false)
 				{
@@ -26,8 +29,17 @@ class EAnnotationsBuilder
 
 	public function instantiateAnnotation($class, $parameters, $targetReflection = false)
 	{
+		if(EAddendum::ignores($class))
+		{
+			return false;
+		}
+		if(!@class_exists($class))
+		{
+			EAddendum::ignore($class);
+			return false;
+		}
 		$class = EAddendum::resolveClassName($class);
-		if(is_subclass_of($class, 'EAnnotation') && !EAddendum::ignores($class) || $class == 'EAnnotation')
+		if(is_subclass_of($class, 'EAnnotation') || $class == 'EAnnotation')
 		{
 			$annotationReflection = new ReflectionClass($class);
 			return $annotationReflection->newInstance($parameters, $targetReflection);

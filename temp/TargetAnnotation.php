@@ -1,0 +1,1 @@
+<?phpclass TargetAnnotation extends EAnnotation{	public $value;}

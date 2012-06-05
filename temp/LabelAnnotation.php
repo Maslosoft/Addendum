@@ -1,1 +1,1 @@
-<?//throw new Exception(__FILE__ . ' TODO: Add suffix to all annotations');class LabelAnnotation extends EAnnotation{	public $value;}
+<?//throw new Exception(__FILE__ . ' TODO: Add suffix to all annotations');class LabelAnnotation extends EAnnotation{	public $value;	public function __toString()	{		return $this->value;	}}

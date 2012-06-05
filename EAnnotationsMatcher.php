@@ -17,6 +17,7 @@ class EAnnotationsMatcher
 			{
 				return; // no more annotations
 			}
+			
 			if(($length = $annotation_matcher->matches($string, $data)) !== false)
 			{
 				$string = substr($string, $length);
