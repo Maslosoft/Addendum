@@ -1,0 +1,40 @@
+<?php
+/**
+ * NOTE: This class is automatically generated from Yii validator class.
+ * This is not actual validator. For validator class @see CRangeValidator.
+ */
+/**
+ * CRangeValidator validates that the attribute value is among the list (specified via {@link range}).
+ * You may invert the validation logic with help of the {@link not} property (available since 1.1.5).
+ *
+ * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: CRangeValidator.php 3120 2011-03-25 01:50:48Z qiang.xue $
+ * @package system.validators
+ * @since 1.0
+ */
+class RangeValidatorAnnotation extends EValidatorAnnotation
+{
+	/**
+	 * @var array list of valid values that the attribute value should be among
+	 */
+	public $range = NULL;
+
+	/**
+	 * @var boolean whether the comparison is strict (both type and value must be the same)
+	 */
+	public $strict = false;
+
+	/**
+	 * @var boolean whether the attribute value can be null or empty. Defaults to true,
+	 * meaning that if the attribute is empty, it is considered valid.
+	 */
+	public $allowEmpty = true;
+
+	/**
+	 * @var boolean whether to invert the validation logic. Defaults to false. If set to true,
+	 * the attribute value should NOT be among the list of values defined via {@link range}.
+	 * @since 1.1.5
+	 **/
+	public $not = false;
+
+}
