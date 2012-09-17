@@ -6,49 +6,115 @@ class EAddendum extends CApplicationComponent
 {
 	private static $_rawMode;
 	private static $_ignore;
-	private static $_classnames = array();
+	private static $_classnames = [];
 	private static $_annotations = false;
+	private static $_localCache = [];
+
+	/**
+	 * Cache component name for use with caching
+	 * @var string
+	 */
+	public $cache = 'cache';
+
+	/**
+	 * Cache component instance
+	 * @var CCache
+	 */
+	private $_cache = null;
+
+	public function hasAnnotations($class)
+	{
+		return (bool)isset(class_implements($class)['IAnnotated']);
+	}
 
 	/**
 	 * Use $class name or object to annotate class
 	 * Use $other in form:
-	 * propertyName - to annotate property
-	 * methodName() - to annotate method - NOTE the parethises ()
-	 * * - to annotate all properties
-	 * *() - to annotate all methods
+	 * <ul>
+	 * <li>propertyName - to annotate property</li>
+	 * <li>methodName() - to annotate method - NOTE the parethises ()</li>
+	 * <li>* - to annotate all properties</li>
+	 * <li>*() - to annotate all methods</li>
+	 * </ul>
 	 * @param string|object $class
 	 * @param string $other
 	 * @return \ReflectionAnnotatedMethod|\ReflectionAnnotatedProperty|\ReflectionAnnotatedClass
 	 */
 	public function annotate($class, $other = null)
 	{
+//		var_dump(sprintf('New instance... for class %s', is_string($class)?$class:get_class($class)));
+		if(!$this->hasAnnotations($class))
+		{
+			$className = is_object($class) ? get_class($class) : $class;
+			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface IAnnotated', $className));
+		}
 		if(null !== $other)
 		{
+			$meta = $this->annotate($class);
 			if(strstr($other, '()'))
 			{
 				if(strstr($other, '*'))
 				{
-					$meta = $this->annotate($class);
 					return $meta->getMethods();
 				}
-				return new ReflectionAnnotatedMethod($class, $other);
+				return $meta->getMethod($other);
 			}
 			else
 			{
 				if(strstr($other, '*'))
 				{
-					$meta = $this->annotate($class);
 					return $meta->getProperties();
 				}
-				return new ReflectionAnnotatedProperty($class, $other);
+				return $meta->getProperty($other);
 			}
 		}
-		return new ReflectionAnnotatedClass($class);
+		$meta = $this->cacheGet($class);
+		if(!$meta)
+		{
+			$meta = new ReflectionAnnotatedClass($class);
+			$this->cacheSet($class, $meta);
+		}
+		return $meta;
 	}
 
 	public function init()
 	{
-		
+		$this->_cache = Yii::app()->{$this->cache};
+	}
+
+	public function cacheGet($class)
+	{
+		$key = $this->getCacheKey($class);
+		if(isset(self::$_localCache[$key]))
+		{
+//			echo sprintf('Local cache hit for %s<br>', $key);
+			return self::$_localCache[$key];
+		}
+		return false;
+//		echo sprintf('Trying to get cache for %s <br>', $key);
+//		$value = $this->_cache->get($key);
+//		self::$_localCache[$key] = $value;
+//		return $value;
+	}
+
+	public function cacheSet($class, $value)
+	{
+		$key = $this->getCacheKey($class);
+		self::$_localCache[$key] = $value;
+//		$this->_cache->set($key, $value);
+	}
+
+	public function getCacheKey($class)
+	{
+		if(is_object($class))
+		{
+			$name = get_class($class);
+		}
+		else
+		{
+			$name = $class;
+		}
+		return sprintf('ext.adendum.%s.%s', __CLASS__, $name);
 	}
 
 	public static function getDocComment($reflection)

@@ -1,1 +1,1 @@
-<?//throw new Exception(__FILE__ . ' TODO: Add suffix to all annotations');class LabelAnnotation extends EAnnotation{	public $value;	public function __toString()	{		return $this->value;	}}
+<?php/** * Label for mongo documents */class LabelAnnotation extends EModelMetaAnnotation{	public $value;	public function init()	{		$this->_meta->{$this->name}->label = tx($this->value);	}	public function __toString()	{		return $this->value;	}}

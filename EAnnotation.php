@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Addendum PHP Reflection Annotations modified for Yii
  * http://code.google.com/p/addendum/
@@ -19,21 +20,18 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  * */
-class EAnnotation extends CComponent
+class EAnnotation
 {
-	public $value;
-
 	/**
 	 * This is annotated class instance, must be set before calling init
 	 * @var CComponent
 	 */
-	public $component;
-	
-	private static $_creationStack = array();
+	protected $_component;
+	private static $_creationStack = [];
+	protected $_properties = [];
+	protected $_publicProperties = [];
 
-	private $_undefinedProperties = array();
-
-	public final function __construct($data = array(), $target = false)
+	public final function __construct($data = [], $target = false)
 	{
 		$reflection = new ReflectionClass($this);
 		$class = $reflection->getName();
@@ -49,20 +47,25 @@ class EAnnotation extends CComponent
 			{
 				$this->$key = $value;
 			}
-			else
-			{
-				$this->_undefinedProperties[$key] = $value;
-				trigger_error("Property '$key' not defined for annotation '$class'");
-			}
+			$this->_properties[$key] = $value;
+		}
+		foreach($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $field)
+		{
+			$this->_publicProperties[] = $field->name;
 		}
 		$this->checkTargetConstraints($target);
 		$this->checkConstraints($target);
 		unset(self::$_creationStack[$class]);
 	}
 
+	public function setComponent(CComponent $component)
+	{
+		$this->_component = $component;
+	}
+
 	public function getUndefinedProperties()
 	{
-		return $this->_undefinedProperties;
+		return $this->_properties;
 	}
 
 	public function init()
@@ -118,5 +121,15 @@ class EAnnotation extends CComponent
 	protected function checkConstraints($target)
 	{
 
+	}
+
+	public function toArray()
+	{
+		$result = [];
+		foreach($this->_publicProperties as $field)
+		{
+			$result[$field] = $this->$field;
+		}
+		return $result;
 	}
 }
