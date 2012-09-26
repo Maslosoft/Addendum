@@ -1,15 +1,98 @@
 <?php
+
 if(!YII_DEBUG)
 {
-	throw new Exception(sprintf('Class %s should not be used on production environments', __CLASS__));
+	throw new Exception(sprintf('Class %s should not be used on production environments', 'EAnnotationUtility'));
 }
+
 /**
  * This is utility class, should not be used in production environment
  *
  * @author Piotr
  */
-class EAnnotationUtility
+class EAnnotationUtility extends CWidget
 {
+	public $searchPaths = [
+		 'temp'
+	];
+	public $outputPath = 'c:/temp';
+
+	/**
+	 * Remove "*" from doc block
+	 * @param string $comment
+	 * @return string
+	 */
+	public function removeStars($comment)
+	{
+		$cleanComment = [
+			 // Remove first line of doc block
+			 '~/\*\*\s*$~m' => '',
+			 // Remove last line
+			 '~^\s*\*/\s*$~m' => '',
+			 // Remove leading stars
+			 '~^\s*\*~m' => '',
+			 // Clean any leading whitespace
+			 '~^\s*~' => ''
+		];
+		return preg_replace(array_keys($cleanComment), array_values($cleanComment), $comment);
+	}
+
+	/**
+	 * Generate file for netbeans annotations code completition templates
+	 * NOTE: Any error in file, after importing, makes netbeans annotations list empty and there is nothing indicating that fact
+	 */
+	public function generateNetbeansHelpers()
+	{
+		$result = [];
+		$i = 0;
+		foreach($this->searchPaths as $path)
+		{
+			$path = realpath(dirname(__FILE__) . '/' . $path);
+			foreach(CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
+			{
+				$className = preg_replace('~\.php$~', '', basename($file));
+				$info = new ReflectionAnnotatedClass($className);
+				if(!$info->isSubclassOf('EAnnotation'))
+				{
+					continue;
+				}
+				$annotations = $info->getAnnotations();
+				$defaultTargets = ['FUNCTION', 'TYPE', 'FIELD', 'METHOD'];
+				$targets = [];
+				if($info->hasAnnotation('Target'))
+				{
+					foreach($annotations as $annotation)
+					{
+						if($annotation instanceof TargetAnnotation)
+						{
+							$target = str_replace('CLASS', 'TYPE', strtoupper($annotation->value));
+							// Make sure that it has proper target, or annotations file will be broken
+							if(in_array($target, $defaultTargets))
+							{
+								$targets[] = $target;
+							}
+						}
+					}
+				}
+				else
+				{
+					$targets = $defaultTargets;
+				}
+
+				$comment = $this->removeStars($info->getDocComment());
+				$name = preg_replace('~Annotation$~', '', $info->name);
+				$data = [
+					 'insertTemplate' => $name,
+					 'name' => sprintf('@%s', $name),
+					 'targets' => $targets,
+					 'description' => $comment,
+					 'i' => $i++,
+				];
+				$result[] = $this->render('netbeansAnnotations', ['data' => (object)$data], true);
+			}
+		}
+		file_put_contents(sprintf('%s/annotations.properties', $this->outputPath), implode("", $result));
+	}
 
 	/**
 	 * Generate validator annotations from existing validator classes

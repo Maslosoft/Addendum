@@ -1,1 +1,0 @@
-<?php/** * Label for mongo documents */class LabelAnnotation extends EModelMetaAnnotation{	public $value;	public function init()	{		$this->_meta->{$this->name}->label = tx($this->value);	}	public function __toString()	{		return $this->value;	}}
