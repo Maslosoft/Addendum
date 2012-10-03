@@ -1,18 +1,18 @@
 <?php
 /**
  * NOTE: This class is automatically generated from Yii validator class.
- * This is not actual validator. For validator class @see CRegularExpressionValidator.
+ * This is not actual validator. For validator class @see CMatchValidator.
  */
 /**
  * CRegularExpressionValidator validates that the attribute value matches to the specified {@link pattern regular expression}.
  * You may invert the validation logic with help of the {@link not} property (available since 1.1.5).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CRegularExpressionValidator.php 3120 2011-03-25 01:50:48Z qiang.xue $
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */
-class RegularExpressionValidatorAnnotation extends EValidatorAnnotation
+class MatchValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 	/**
 	 * @var string the regular expression to be matched with

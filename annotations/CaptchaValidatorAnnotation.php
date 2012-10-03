@@ -9,11 +9,11 @@
  * CCaptchaValidator should be used together with {@link CCaptchaAction}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CCaptchaValidator.php 3124 2011-03-25 15:48:05Z qiang.xue $
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */
-class CaptchaValidatorAnnotation extends EValidatorAnnotation
+class CaptchaValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 	/**
 	 * @var boolean whether the comparison is case sensitive. Defaults to false.

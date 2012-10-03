@@ -15,11 +15,11 @@
  * </ul>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CUniqueValidator.php 3549 2012-01-27 15:36:43Z qiang.xue $
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */
-class UniqueValidatorAnnotation extends EValidatorAnnotation
+class UniqueValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 	/**
 	 * @var boolean whether the comparison is case sensitive. Defaults to true.
@@ -51,8 +51,9 @@ class UniqueValidatorAnnotation extends EValidatorAnnotation
 	public $attributeName = NULL;
 
 	/**
-	 * @var array additional query criteria. This will be combined with the condition
-	 * that checks if the attribute value exists in the corresponding table column.
+	 * @var mixed additional query criteria. Either an array or CDbCriteria.
+	 * This will be combined with the condition that checks if the attribute
+	 * value exists in the corresponding table column.
 	 * This array will be used to instantiate a {@link CDbCriteria} object.
 	 */
 	public $criteria = array (

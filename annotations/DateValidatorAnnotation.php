@@ -14,7 +14,7 @@
  * @package system.validators
  * @since 1.1.7
  */
-class DateValidatorAnnotation extends EValidatorAnnotation
+class DateValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 	/**
 	 * @var mixed the format pattern that the date value should follow.

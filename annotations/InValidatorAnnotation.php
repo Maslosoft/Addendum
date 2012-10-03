@@ -1,18 +1,18 @@
 <?php
 /**
  * NOTE: This class is automatically generated from Yii validator class.
- * This is not actual validator. For validator class @see CRangeValidator.
+ * This is not actual validator. For validator class @see CInValidator.
  */
 /**
  * CRangeValidator validates that the attribute value is among the list (specified via {@link range}).
  * You may invert the validation logic with help of the {@link not} property (available since 1.1.5).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CRangeValidator.php 3120 2011-03-25 01:50:48Z qiang.xue $
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */
-class RangeValidatorAnnotation extends EValidatorAnnotation
+class InValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 	/**
 	 * @var array list of valid values that the attribute value should be among

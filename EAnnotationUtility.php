@@ -109,36 +109,24 @@ class EAnnotationUtility extends CWidget
 				$result[] = $this->render('netbeansAnnotations', ['data' => (object)$data], true);
 			}
 		}
+		// This is annotation for adding templates to annotations
+		$data = [
+					 'insertTemplate' => '@template ${template}',
+					 'name' => 'template',
+					 'targets' => ['TYPE'],
+					 'description' => "Type in annotation for insert template, Do NOT use '@' sign here. \n@example Label('\${label}')",
+					 'i' => $i++,
+				];
+			$result[] = $this->render('netbeansAnnotations', ['data' => (object)$data], true);
 		file_put_contents(sprintf('%s/annotations.properties', $this->outputPath), implode("", $result));
 	}
 
 	/**
 	 * Generate validator annotations from existing validator classes
 	 */
-	public static function convertValidators()
+	public function convertValidators()
 	{
-		$v = [
-			 'BooleanValidator',
-			 'CaptchaValidator',
-			 'CompareValidator',
-			 'DateValidator',
-			 'DefaultValueValidator',
-			 'EmailValidator',
-			 'ExistValidator',
-			 'FileValidator',
-			 'FilterValidator',
-			 'InlineValidator',
-			 'NumberValidator',
-			 'RangeValidator',
-			 'RegularExpressionValidator',
-			 'RequiredValidator',
-			 'SafeValidator',
-			 'StringValidator',
-			 'TypeValidator',
-			 'UniqueValidator',
-			 'UnsafeValidator',
-			 'UrlValidator',
-		];
+		$v = CValidator::$builtInValidators;
 		$template = <<<CODE
 <?php
 /**
@@ -146,7 +134,7 @@ class EAnnotationUtility extends CWidget
  * This is not actual validator. For validator class @see C%2\$s.
  */
 %1\$s
-class %2\$sAnnotation extends EValidatorAnnotation
+class %2\$sAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 %3\$s
 }
@@ -158,9 +146,9 @@ CODE;
 		}
 		$ignored['attributes'] = true;
 		$ignored['builtInValidators'] = true;
-		foreach($v as $n)
+		foreach($v as $n => $class)
 		{
-			$class = "C$n";
+			$name = ucfirst($n) . 'Validator';
 			$info = new ReflectionAnnotatedClass($class);
 			$classComment = $info->getDocComment();
 			$values = $info->getDefaultProperties();
@@ -174,8 +162,8 @@ CODE;
 				$comment = $field->getDocComment();
 				$fields[$field->name] = sprintf("\t%s\n\tpublic \$%s = %s;\n", $comment, $field->name, var_export($values[$field->name], true));
 			}
-			$code = sprintf($template, $classComment, $n, implode("\n", $fields));
-			file_put_contents("c:/temp/{$n}Annotation.php", $code);
+			$code = sprintf($template, $classComment, $name, implode("\n", $fields));
+			file_put_contents("c:/temp/{$name}Annotation.php", $code);
 		}
 	}
 }

@@ -33,28 +33,28 @@
  *
  * You can use {@link CFileValidator} to validate the file attribute.
  *
- * In addition to the {@link message} property for setting a custom error message, 
+ * In addition to the {@link message} property for setting a custom error message,
  * CFileValidator has a few custom error messages you can set that correspond to different
  * validation scenarios. When the file is too large, you may use the {@link tooLarge} property
- * to define a custom error message. Similarly for {@link tooSmall}, {@link wrongType} and 
- * {@link tooMany}. The messages may contain additional placeholders that will be replaced 
- * with the actual content. In addition to the "{attribute}" placeholder, recognized by all 
- * validators (see {@link CValidator}), CFileValidator allows for the following placeholders 
+ * to define a custom error message. Similarly for {@link tooSmall}, {@link wrongType} and
+ * {@link tooMany}. The messages may contain additional placeholders that will be replaced
+ * with the actual content. In addition to the "{attribute}" placeholder, recognized by all
+ * validators (see {@link CValidator}), CFileValidator allows for the following placeholders
  * to be specified:
  * <ul>
  * <li>{file}: replaced with the name of the file.</li>
- * <li>{limit}: when using {@link tooLarge}, replaced with {@link maxSize}; 
- * when using {@link tooSmall}, replaced with {@link maxSize}; and when using {@link tooMany} 
+ * <li>{limit}: when using {@link tooLarge}, replaced with {@link maxSize};
+ * when using {@link tooSmall}, replaced with {@link minSize}; and when using {@link tooMany}
  * replaced with {@link maxFiles}.</li>
  * <li>{extensions}: when using {@link wrongType}, it will be replaced with the allowed extensions.</li>
  * </ul>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CFileValidator.php 3491 2011-12-17 05:17:57Z jefftulsa $
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */
-class FileValidatorAnnotation extends EValidatorAnnotation
+class FileValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 	/**
 	 * @var boolean whether the attribute requires a file to be uploaded or not.
@@ -70,6 +70,16 @@ class FileValidatorAnnotation extends EValidatorAnnotation
 	 * extensions are allowed.
 	 */
 	public $types = NULL;
+
+	/**
+	 * @var mixed a list of MIME-types of the file that are allowed to be uploaded.
+	 * This can be either an array or a string consisting of MIME-types separated
+	 * by space or comma (e.g. "image/gif, image/jpeg"). MIME-types are
+	 * case-insensitive. Defaults to null, meaning all MIME-types are allowed.
+	 * In order to use this property fileinfo PECL extension should be installed.
+	 * @since 1.1.11
+	 */
+	public $mimeTypes = NULL;
 
 	/**
 	 * @var integer the minimum number of bytes required for the uploaded file.
@@ -101,9 +111,17 @@ class FileValidatorAnnotation extends EValidatorAnnotation
 
 	/**
 	 * @var string the error message used when the uploaded file has an extension name
-	 * that is not listed among {@link extensions}.
+	 * that is not listed among {@link types}.
 	 */
 	public $wrongType = NULL;
+
+	/**
+	 * @var string the error message used when the uploaded file has a MIME-type
+	 * that is not listed among {@link mimeTypes}. In order to use this property
+	 * fileinfo PECL extension should be installed.
+	 * @since 1.1.11
+	 */
+	public $wrongMimeType = NULL;
 
 	/**
 	 * @var integer the maximum file count the given attribute can hold.

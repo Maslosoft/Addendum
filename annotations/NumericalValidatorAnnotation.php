@@ -1,7 +1,7 @@
 <?php
 /**
  * NOTE: This class is automatically generated from Yii validator class.
- * This is not actual validator. For validator class @see CNumberValidator.
+ * This is not actual validator. For validator class @see CNumericalValidator.
  */
 /**
  * CNumberValidator validates that the attribute value is a number.
@@ -20,11 +20,11 @@
  * </ul>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CNumberValidator.php 3491 2011-12-17 05:17:57Z jefftulsa $
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */
-class NumberValidatorAnnotation extends EValidatorAnnotation
+class NumericalValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 	/**
 	 * @var boolean whether the attribute value can only be an integer. Defaults to false.

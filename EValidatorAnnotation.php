@@ -41,6 +41,13 @@ abstract class EValidatorAnnotation extends EModelMetaAnnotation
 	 */
 	public $enableClientValidation = true;
 
+	/**
+	 * @var array list of scenarios that the validator should not be applied to.
+	 * Each array value refers to a scenario name with the same name as its array key.
+	 * @since 1.1.11
+	 */
+	public $except = NULL;
+
 	public function init()
 	{
 //		var_dump($this->message);
