@@ -9,7 +9,7 @@ class EmbeddedArrayAnnotation extends EModelMetaAnnotation
 {
 	public function init()
 	{
-		$this->_meta->{$this->name}->embedded = $this->value;
-		$this->_meta->{$this->name}->embeddedArray = true;
+		$this->_entity->embedded = $this->value;
+		$this->_entity->embeddedArray = true;
 	}
 }

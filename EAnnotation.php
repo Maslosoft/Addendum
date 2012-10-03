@@ -20,18 +20,22 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  * */
-class EAnnotation
+class EAnnotation extends CComponent
 {
 	/**
 	 * This is annotated class instance, must be set before calling init
 	 * @var CComponent
 	 */
 	protected $_component;
-	private static $_creationStack = [];
 	protected $_properties = [];
 	protected $_publicProperties = [];
-
-	public final function __construct($data = [], $target = false)
+	/**
+	 * Value holder for simple annotations
+	 * @var mixed
+	 */
+	private $_value = null;
+	private static $_creationStack = [];
+	public function __construct($data = [], $target = false)
 	{
 		$reflection = new ReflectionClass($this);
 		$class = $reflection->getName();
@@ -97,7 +101,7 @@ class EAnnotation
 			}
 			else
 			{
-				trigger_error("Annotation '" . get_class($this) . "' not allowed on " . $this->createName($target), E_USER_ERROR);
+				trigger_error(sprintf("Annotation '%s' not allowed on %s, it's target is %s", get_class($this), $this->createName($target), $target), E_USER_ERROR);
 			}
 		}
 	}
@@ -122,6 +126,17 @@ class EAnnotation
 	{
 
 	}
+
+//	public function setValue($value)
+//	{
+//		var_dump($value);
+//		$this->_value = $value;
+//	}
+//
+//	public function getValue()
+//	{
+//		return $this->_value;
+//	}
 
 	public function toArray()
 	{

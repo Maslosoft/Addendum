@@ -2,7 +2,7 @@
 
 /**
  * If true, value should be saved in database
- *
+ * @template Persistent(${false})
  * @author Piotr
  */
 class PersistentAnnotation extends EModelMetaAnnotation
@@ -11,6 +11,6 @@ class PersistentAnnotation extends EModelMetaAnnotation
 
 	public function init()
 	{
-		$this->_meta->{$this->name}->persistent = tx($this->value);
+		$this->_entity->persistent = tx($this->value);
 	}
 }

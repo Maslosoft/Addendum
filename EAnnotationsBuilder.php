@@ -15,9 +15,7 @@ class EAnnotationsBuilder
 		{
 			foreach($parameters as $params)
 			{
-				/** @todo This suffix should be configurable*/
-				$className = ucfirst($class) . "Annotation";
-				$annotation = $this->instantiateAnnotation($className, $params, $targetReflection);
+				$annotation = $this->instantiateAnnotation($class, $params, $targetReflection);
 				if($annotation !== false)
 				{
 					$annotations[$class][] = $annotation;
@@ -29,6 +27,11 @@ class EAnnotationsBuilder
 
 	public function instantiateAnnotation($class, $parameters, $targetReflection = false)
 	{
+		/** @todo This should loop thru user-defined list of paths and annotatios
+		 * and try to Yii::import('path.to.%class%Annotation');
+		 * OR better move this to EAddendum::resolveClassName
+		 */
+		$class = ucfirst($class) . "Annotation";
 		if(EAddendum::ignores($class))
 		{
 			return false;

@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Description for mongo documents
+ * Description of field, method or class, used as help tips for users
+ * @template Description('${description}')
  */
 class DescriptionAnnotation extends EModelMetaAnnotation
 {
@@ -9,7 +10,7 @@ class DescriptionAnnotation extends EModelMetaAnnotation
 
 	public function init()
 	{
-		$this->_meta->{$this->name}->description = tx($this->value);
+		$this->_entity->description = tx($this->value);
 	}
 
 	public function __toString()

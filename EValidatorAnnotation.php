@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Description of EValidatorAnnotation
+ * Base class for validator annotations
  *
  * @author Piotr
  */
-class EValidatorAnnotation extends EModelMetaAnnotation
+abstract class EValidatorAnnotation extends EModelMetaAnnotation
 {
 	/**
 	 * @var string the user-defined error message. Different validators may define various
@@ -43,8 +43,19 @@ class EValidatorAnnotation extends EModelMetaAnnotation
 
 	public function init()
 	{
+//		var_dump($this->message);
 		$name = preg_replace('~Annotation$~', '', lcfirst(get_class($this)));
-		$this->_meta->{$this->name}->$name = $this;
+		$this->_entity->$name = $this;
+	}
+
+	public function setMessage($value)
+	{
+//		var_dump($value);
+	}
+
+	public function getMessage()
+	{
+
 	}
 
 	public function toArray()

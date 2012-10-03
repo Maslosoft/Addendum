@@ -1,1 +1,0 @@
-<?php/** * @Target('method') */class SimpleAnnotation extends EAnnotation{	public $value = __CLASS__;}

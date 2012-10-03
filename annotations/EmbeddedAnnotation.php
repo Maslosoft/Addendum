@@ -2,14 +2,17 @@
 
 /**
  * Array for embedded document in mongo
- *
+ * @Target('property')
+ * @template Embedded
  * @author Piotr
  */
 class EmbeddedAnnotation extends EModelMetaAnnotation
 {
+	public $value = true;
+	
 	public function init()
 	{
-		$this->_meta->{$this->name}->embedded = $this->value;
-		$this->_meta->{$this->name}->direct = false;
+		$this->_entity->embedded = $this->value;
+		$this->_entity->direct = false;
 	}
 }

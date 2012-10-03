@@ -2,7 +2,6 @@
 
 /**
  * Annotation used for MModelMeta
- * @todo Move to parent directory
  * @author Piotr
  */
 abstract class EModelMetaAnnotation extends EAnnotation

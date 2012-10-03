@@ -13,7 +13,7 @@ if(!YII_DEBUG)
 class EAnnotationUtility extends CWidget
 {
 	public $searchPaths = [
-		 'temp'
+		 'annotations'
 	];
 	public $outputPath = 'c:/temp';
 
@@ -57,7 +57,16 @@ class EAnnotationUtility extends CWidget
 					continue;
 				}
 				$annotations = $info->getAnnotations();
-				$defaultTargets = ['FUNCTION', 'TYPE', 'FIELD', 'METHOD'];
+				// Default target names
+				// NOTE: Netbeans uses different names than addendum.
+				// This array is also used for renaming
+				// Keys are addendum names, values are netbeans names
+				$defaultTargets = [
+					 'FUNCTION' => 'FUNCTION',
+					 'CLASS' => 'TYPE',
+					 'PROPERTY' => 'FIELD',
+					 'METHOD' => 'METHOD'
+				];
 				$targets = [];
 				if($info->hasAnnotation('Target'))
 				{
@@ -65,7 +74,7 @@ class EAnnotationUtility extends CWidget
 					{
 						if($annotation instanceof TargetAnnotation)
 						{
-							$target = str_replace('CLASS', 'TYPE', strtoupper($annotation->value));
+							$target = str_replace(array_keys($defaultTargets), array_values($defaultTargets), strtoupper($annotation->value));
 							// Make sure that it has proper target, or annotations file will be broken
 							if(in_array($target, $defaultTargets))
 							{
@@ -81,9 +90,18 @@ class EAnnotationUtility extends CWidget
 
 				$comment = $this->removeStars($info->getDocComment());
 				$name = preg_replace('~Annotation$~', '', $info->name);
+				$matches = [];
+				if(preg_match('~@template\s(.+)$~m', $comment, $matches))
+				{
+					$insertTemplate = sprintf('@%s', $matches[1]);
+				}
+				else
+				{
+					$insertTemplate = sprintf('@%s', $name);
+				}
 				$data = [
-					 'insertTemplate' => $name,
-					 'name' => sprintf('@%s', $name),
+					 'insertTemplate' => $insertTemplate,
+					 'name' => $name,
 					 'targets' => $targets,
 					 'description' => $comment,
 					 'i' => $i++,
