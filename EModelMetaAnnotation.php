@@ -4,7 +4,7 @@
  * Annotation used for MModelMeta
  * @author Piotr
  */
-abstract class EModelMetaAnnotation extends EAnnotation
+abstract class EModelMetaAnnotation extends EAnnotation implements IModelMetaAnnotation
 {
 	/**
 	 * Name of annotated field/method/class
