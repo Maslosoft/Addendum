@@ -20,7 +20,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  * */
-class EAnnotation extends CComponent
+abstract class EAnnotation extends CComponent
 {
 	/**
 	 * This is annotated class instance, must be set before calling init
@@ -29,11 +29,6 @@ class EAnnotation extends CComponent
 	protected $_component;
 	protected $_properties = [];
 	protected $_publicProperties = [];
-	/**
-	 * Value holder for simple annotations
-	 * @var mixed
-	 */
-	private $_value = null;
 	private static $_creationStack = [];
 	public function __construct($data = [], $target = false)
 	{
@@ -72,10 +67,7 @@ class EAnnotation extends CComponent
 		return $this->_properties;
 	}
 
-	public function init()
-	{
-		
-	}
+	abstract function init();
 
 	private function checkTargetConstraints($target)
 	{
@@ -95,13 +87,13 @@ class EAnnotation extends CComponent
 				if($value == 'nested' && $target === false)
 					return;
 			}
-			if($target === false)
+			if($target === false && $value == 'nested')
 			{
-				trigger_error("Annotation '" . get_class($this) . "' nesting not allowed", E_USER_ERROR);
+				throw new UnexpectedValueException("Annotation '" . get_class($this) . "' nesting not allowed");
 			}
-			else
+			elseif(in_array($value, TargetAnnotation::getTargets()))
 			{
-				trigger_error(sprintf("Annotation '%s' not allowed on %s, it's target is %s", get_class($this), $this->createName($target), $target), E_USER_ERROR);
+				throw new UnexpectedValueException(sprintf("Annotation '%s' not allowed on %s, it's target is %s", get_class($this), $this->createName($target), $value));
 			}
 		}
 	}
@@ -126,17 +118,6 @@ class EAnnotation extends CComponent
 	{
 
 	}
-
-//	public function setValue($value)
-//	{
-//		var_dump($value);
-//		$this->_value = $value;
-//	}
-//
-//	public function getValue()
-//	{
-//		return $this->_value;
-//	}
 
 	public function toArray()
 	{

@@ -1,9 +1,11 @@
 <?php
 
 /**
- * Array for embedded document in mongo
+ * Annotation for embedded document in mongo
+ * defaultClassName will be used for getting empty properties,
+ * but any type of embedded document can be stored within this field
  * @Target('property')
- * @template Embedded
+ * @template Embedded('${defaultClassName}')
  * @author Piotr
  */
 class EmbeddedAnnotation extends EModelMetaAnnotation

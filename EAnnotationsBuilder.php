@@ -36,7 +36,7 @@ class EAnnotationsBuilder
 		{
 			return false;
 		}
-		if(!@class_exists($class))
+		if(!class_exists($class))
 		{
 			EAddendum::ignore($class);
 			return false;
