@@ -50,26 +50,9 @@ abstract class EValidatorAnnotation extends EModelMetaAnnotation
 
 	public function init()
 	{
-//		var_dump($this->message);
 		$name = preg_replace('~Annotation$~', '', lcfirst(get_class($this)));
-		$this->_entity->$name = $this;
-	}
-
-	public function setMessage($value)
-	{
-//		var_dump($value);
-	}
-
-	public function getMessage()
-	{
-
-	}
-
-	public function toArray()
-	{
-		$result = parent::toArray();
-		unset($result['name']);
-		unset($result['value']);
-		return $result;
+		$value = array_intersect_key((array)$this, array_flip($this->_publicProperties));
+		unset($value['name']);
+		$this->_entity->$name = $value;
 	}
 }
