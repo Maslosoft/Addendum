@@ -21,10 +21,20 @@ As with most extensions add this to components
 				'class' => 'application.extensions.addendum.EAddendum',
 		  ],
 ~~~
+Also you have to import addendum folder
+~~~
+[php]
+// In config
+'import' => [
+	'application.extensions.addendum.*'
+]
+// Or manually
+Yii::import('application.extensions.addendum.*');
+~~~
 Then anywhere in code import folder with your annotations definiotions.
 ~~~
 [php]
-// This is default path for annotations which ships with Yii addendum
+// This is path for default annotations which ships with Yii addendum
 Yii::import('application.extensions.addendum.annotations.*');
 ~~~
 
@@ -74,10 +84,11 @@ class User extends CActiveRecord implements IAnnotated
 Now you have some annotation added. Each annotation defines some metadadata for it's **entity** - using entity i will refer to one of **class**, **property** or **method**.
 
 Next we can scrap that metadata from class definition, and put it to lightweight container.
-
 ~~~
 [php]
-$meta = EComponentMeta::create(new User);
+$meta = Yii::app()->addendum->meta(new User);
+// You can also create container directly
+// $meta = EComponentMeta::create(new User); - this will return the same as above
 echo $meta->type()->label;
 echo $meta->name->label;
 ~~~

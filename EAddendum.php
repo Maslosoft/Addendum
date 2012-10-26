@@ -28,6 +28,11 @@ class EAddendum extends CApplicationComponent
 		return (bool)isset(class_implements($class)['IAnnotated']);
 	}
 
+	public function meta($component)
+	{
+		return EComponentMeta::create($component);
+	}
+	
 	/**
 	 * Use $class name or object to annotate class
 	 * Use $other in form:
