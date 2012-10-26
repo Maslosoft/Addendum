@@ -142,9 +142,9 @@ NOTE: `@template` is special docblock used to generate netbeans completition fil
 * None! But im sure there are some
 
 ##Resources##
-* [Project page on github](https://github.com/Maslosoft/Yii-addendum)
+* [Project page](http://maslosoft.com/en/yii-addendum/)
+* [Project on github](https://github.com/Maslosoft/Yii-addendum)
 * [Report a bug](https://github.com/Maslosoft/Yii-addendum/issues)
-* [Detailed documentation](http://maslosoft.com/en/yii-addendum/)
 * [PHP Addendum library](http://code.google.com/p/addendum/)
 
 ##Big thanks goes to##
