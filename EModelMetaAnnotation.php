@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Annotation used for MModelMeta
+ * Annotation used for EComponentMeta
  * @author Piotr
  */
 abstract class EModelMetaAnnotation extends EAnnotation implements IModelMetaAnnotation
@@ -14,7 +14,7 @@ abstract class EModelMetaAnnotation extends EAnnotation implements IModelMetaAnn
 
 	/**
 	 * Model metadata object
-	 * @var MModelMeta
+	 * @var EComponentMeta
 	 */
 	protected $_meta = null;
 
@@ -27,9 +27,9 @@ abstract class EModelMetaAnnotation extends EAnnotation implements IModelMetaAnn
 
 	/**
 	 * Set metada class to be accessible for annotation for init etc. methods
-	 * @param MModelMeta $meta
+	 * @param EComponentMeta $meta
 	 */
-	public function setMeta(MModelMeta $meta)
+	public function setMeta(EComponentMeta $meta)
 	{
 		$this->_meta = $meta;
 	}

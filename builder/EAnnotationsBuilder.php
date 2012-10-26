@@ -1,4 +1,5 @@
 <?php
+Yii::import('addendum.builder.*');
 
 /**
  * @Label("Annotations builder")

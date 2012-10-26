@@ -1,4 +1,6 @@
 <?php
+Yii::import('addendum.builder.EAnnotationsBuilder');
+
 class ReflectionAnnotatedClass extends ReflectionClass
 {
 	private $annotations;

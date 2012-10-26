@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Interface for {@see MModelMeta} annotations container
+ * Interface for {@see EComponentMeta} annotations container
  * @author Piotr
  */
 interface IModelMetaAnnotation
@@ -9,9 +9,9 @@ interface IModelMetaAnnotation
 
 	/**
 	 * Set metada class to be accessible for annotation for init etc. methods
-	 * @param MModelMeta $meta
+	 * @param EComponentMeta $meta
 	 */
-	public function setMeta(MModelMeta $meta);
+	public function setMeta(EComponentMeta $meta);
 
 	/**
 	 * Set annotatins entity, it can be either class, property, or method

@@ -1,6 +1,7 @@
 <?php
 
-Yii::import('application.extensions.addendum.*');
+Yii::setPathOfAlias('addendum', dirname(__FILE__));
+Yii::import('addendum.*');
 
 class EAddendum extends CApplicationComponent
 {

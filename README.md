@@ -3,7 +3,7 @@ It's based on annotations, so adding this metadata is as easy as adding doc comm
 
 ##Background##
 
-I created this extension, because I was wanted to see all attribute properties of my models in one place and also needed more than Yii built in. I mean like validators, labels. This way i have property of model, and just above it i have all what it defines. Some models even does not require any methods, plain attributes with annotations.
+I created this extension, because I wanted to see all attribute properties of my models in one place and also needed more than Yii built in. I mean like validators, labels. This way i have property of model, and just above it i have all what it defines. Some models even does not require any methods, plain attributes with annotations.
 
 ##Key features##
 
@@ -85,7 +85,7 @@ echo $meta->name->label;
 This will output `My application user` `First name`.
 `$meta->type()` gets class (type) metadata, while class properties are available as fields, and methods with `$meta->method('methodName')` function.
 
-NOTE: setting `@Label` does **not** mean that `label` field will be set in container - it is annotation definition of what to do with it's data.
+NOTE: setting `@Label` does **not** mean that `label` field will be set in container - it is annotation responsibility of what to do with it's data.
 
 ###Defining annotation###
 
