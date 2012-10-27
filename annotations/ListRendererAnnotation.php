@@ -6,7 +6,7 @@
  * @template ListRenderer('${RendererClass}')
  * @author Piotr
  */
-class GridRendererAnnotation extends EModelMetaAnnotation
+class ListRendererAnnotation extends EModelMetaAnnotation
 {
 	public $value = null;
 

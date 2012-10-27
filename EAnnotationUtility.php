@@ -15,6 +15,7 @@ class EAnnotationUtility extends CWidget
 	public $searchPaths = [
 		 'annotations'
 	];
+	public $settingsPath = 'config/Preferences/org/netbeans/modules/php/project/';
 	public $outputPath = 'c:/temp';
 
 	/**
@@ -43,6 +44,7 @@ class EAnnotationUtility extends CWidget
 	 */
 	public function generateNetbeansHelpers()
 	{
+//		$this->outputPath = Yii::getPathOfAlias('application.runtime');
 		$result = [];
 		$i = 0;
 		foreach($this->searchPaths as $path)
@@ -117,8 +119,41 @@ class EAnnotationUtility extends CWidget
 					 'description' => "Type in annotation for insert template, Do NOT use '@' sign here. \n@example Label('\${label}')",
 					 'i' => $i++,
 				];
-			$result[] = $this->render('netbeansAnnotations', ['data' => (object)$data], true);
-		file_put_contents(sprintf('%s/annotations.properties', $this->outputPath), implode("", $result));
+		$result[] = $this->render('netbeansAnnotations', ['data' => (object)$data], true);
+		
+		// Pack it
+		$fileName = 'annotations.properties';
+		file_put_contents(sprintf('%s/%s', $this->outputPath, $fileName), implode("", $result));
+		
+		$zipName = 'annotations.zip';
+		$zipPath = sprintf('%s/%s', $this->outputPath, $zipName);
+		$zip = new ZipArchive;
+		if(!is_writable($this->outputPath))
+		{
+			throw new RuntimeException(sprintf('Path %s is not wrtable', $this->outputPath));
+		}
+		if(true !== $zip->open($zipPath, ZipArchive::OVERWRITE))
+		{
+			throw new RuntimeException(sprintf('Cannot create zip archive %s', $zipPath));
+		}
+		if(!$zip->addFile(sprintf('%s/%s', $this->outputPath, $fileName), sprintf('%s/%s', $this->settingsPath, $fileName)))
+		{
+			throw new RuntimeException(sprintf('Cannot add file %s/%s to zip archive in %s', $zipPath, $zipName, $this->outputPath));
+		}
+		if(!$zip->close())
+		{
+			throw new RuntimeException(sprintf('Cannot close zip archive %s', $zipPath));
+		}
+		if(headers_sent())
+		{
+			throw new RuntimeException('Headers sent...');
+		}
+		ob_end_clean();
+		header('Content-Type:application/zip');
+		header("Content-Disposition: attachment; filename=$zipName");
+		header("Content-Length: " . filesize($zipPath));
+		echo file_get_contents($zipPath);
+		Yii::app()->end();
 	}
 
 	/**
