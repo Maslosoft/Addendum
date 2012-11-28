@@ -6,7 +6,7 @@
  * @template ListRenderer('${RendererClass}')
  * @author Piotr
  */
-class ListRendererAnnotation extends EModelMetaAnnotation
+class ListRendererAnnotation extends EComponentMetaAnnotation
 {
 	public $value = null;
 

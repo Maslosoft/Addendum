@@ -7,7 +7,7 @@
  * @todo Add checks for value it it implements proper interface before assigning to each value
  * @author Piotr
  */
-class RendererAnnotation extends EModelMetaAnnotation
+class RendererAnnotation extends EComponentMetaAnnotation
 {
 	public $value = null;
 

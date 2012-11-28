@@ -6,7 +6,7 @@
  * @template GridRenderer('${RendererClass}')
  * @author Piotr
  */
-class GridRendererAnnotation extends EModelMetaAnnotation
+class GridRendererAnnotation extends EComponentMetaAnnotation
 {
 	public $value = null;
 

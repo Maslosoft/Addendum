@@ -4,7 +4,7 @@
  * Description of field, method or class, used as help tips for users
  * @template Description('${description}')
  */
-class DescriptionAnnotation extends EModelMetaAnnotation
+class DescriptionAnnotation extends EComponentMetaAnnotation
 {
 	public $value;
 

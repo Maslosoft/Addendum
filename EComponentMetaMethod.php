@@ -5,7 +5,7 @@
  *
  * @author Piotr
  */
-class EComponentMetaMethod
+class EComponentMetaMethod implements IAnnotationEntity
 {
 	/**
 	 * Name of method

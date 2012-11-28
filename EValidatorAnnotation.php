@@ -5,7 +5,7 @@
  *
  * @author Piotr
  */
-abstract class EValidatorAnnotation extends EModelMetaAnnotation
+abstract class EValidatorAnnotation extends EComponentMetaAnnotation
 {
 	/**
 	 * @var string the user-defined error message. Different validators may define various

@@ -4,7 +4,7 @@
  * Readonly indicator for mongo documents
  * @template Readonly
  */
-class ReadonlyAnnotation extends EModelMetaAnnotation
+class ReadonlyAnnotation extends EComponentMetaAnnotation
 {
 	public $value = true;
 

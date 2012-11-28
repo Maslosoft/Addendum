@@ -8,7 +8,7 @@
  * @template Embedded('${defaultClassName}')
  * @author Piotr
  */
-class EmbeddedAnnotation extends EModelMetaAnnotation
+class EmbeddedAnnotation extends EComponentMetaAnnotation
 {
 	public $value = true;
 	

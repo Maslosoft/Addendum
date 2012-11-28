@@ -5,7 +5,7 @@
  * @template KoBindable(${false})
  * @author Piotr
  */
-class KoBindableAnnotation extends EModelMetaAnnotation
+class KoBindableAnnotation extends EComponentMetaAnnotation
 {
 	public $value = true;
 

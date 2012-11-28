@@ -6,7 +6,7 @@
  * @template FormRenderer('${RendererClass}')
  * @author Piotr
  */
-class FormRendererAnnotation extends EModelMetaAnnotation
+class FormRendererAnnotation extends EComponentMetaAnnotation
 {
 	public $value = null;
 

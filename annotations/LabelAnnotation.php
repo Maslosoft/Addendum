@@ -5,7 +5,7 @@
  * Set translated entity 'label' field
  * @template Label('${text}')
  */
-class LabelAnnotation extends EModelMetaAnnotation
+class LabelAnnotation extends EComponentMetaAnnotation
 {
 	public $value = '';
 

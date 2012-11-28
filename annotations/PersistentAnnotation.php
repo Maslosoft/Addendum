@@ -8,7 +8,7 @@
  * @template Persistent(${false})
  * @author Piotr
  */
-class PersistentAnnotation extends EModelMetaAnnotation
+class PersistentAnnotation extends EComponentMetaAnnotation
 {
 	public $value = true;
 

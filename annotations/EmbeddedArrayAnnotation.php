@@ -8,13 +8,13 @@
  * @template EmbeddedArray('${defaultClassName}')
  * @author Piotr
  */
-class EmbeddedArrayAnnotation extends EModelMetaAnnotation
+class EmbeddedArrayAnnotation extends EComponentMetaAnnotation
 {
 	public $value = true;
 
 	public function init()
 	{
-		$this->_entity->embedded = $this->value;
+		$this->_entity->embedded = true;
 		$this->_entity->embeddedArray = true;
 		$this->_entity->direct = false;
 	}

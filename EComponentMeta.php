@@ -64,6 +64,7 @@ class EComponentMeta
 		foreach($methods as $method)
 		{
 			$hasAnnotations = false;
+			$methodMeta = new EComponentMetaMethod($method);
 			foreach($method->getAnnotations() as $annotation)
 			{
 				if(!$annotation instanceof IModelMetaAnnotation)
@@ -80,7 +81,6 @@ class EComponentMeta
 			}
 			if($hasAnnotations)
 			{
-				$methodMeta = new EComponentMetaMethod($method);
 				// Put it to metadata object
 				$this->_methods[$method->name] = $methodMeta;
 			}

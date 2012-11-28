@@ -5,7 +5,7 @@
  * @template I18N
  * @author Piotr
  */
-class I18NAnnotation extends EModelMetaAnnotation
+class I18NAnnotation extends EComponentMetaAnnotation
 {
 	public $value = true;
 	public $allowDefault = false;
