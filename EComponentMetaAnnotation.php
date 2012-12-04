@@ -4,7 +4,7 @@
  * Annotation used for EComponentMeta
  * @author Piotr
  */
-abstract class EComponentMetaAnnotation extends EAnnotation implements IModelMetaAnnotation
+abstract class EComponentMetaAnnotation extends EAnnotation implements IComponentMetaAnnotation
 {
 	/**
 	 * Name of annotated field/method/class

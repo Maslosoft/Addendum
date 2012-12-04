@@ -6,7 +6,21 @@
  * @todo Implement AllowedAnnotation
  * @author Piotr
  */
-class AllowedAnnotation
+class AllowedAnnotation extends EComponentMetaAnnotation
 {
-	
+	public $value;
+
+	public $roles = [];
+
+	public function init()
+	{
+		if(is_array($this->value))
+		{
+			$this->_entity->roles = array_merge((array)$this->_entity->roles, $this->value);
+		}
+		else
+		{
+			$this->_entity->roles[] = $this->value;
+		}
+	}
 }

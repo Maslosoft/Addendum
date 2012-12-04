@@ -4,7 +4,7 @@
  * Interface for {@see EComponentMeta} annotations container
  * @author Piotr
  */
-interface IModelMetaAnnotation
+interface IComponentMetaAnnotation
 {
 
 	/**

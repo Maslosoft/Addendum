@@ -47,9 +47,9 @@ class EComponentMeta
 		 */
 		// Setup class annotations
 		$this->_type = new EComponentMetaType($info);
-		foreach($info->getAnnotations() as $annotation)
+		foreach($info->getAllAnnotations() as $annotation)
 		{
-			if(!$annotation instanceof IModelMetaAnnotation)
+			if(!$annotation instanceof IComponentMetaAnnotation)
 			{
 				continue;
 			}
@@ -65,9 +65,9 @@ class EComponentMeta
 		{
 			$hasAnnotations = false;
 			$methodMeta = new EComponentMetaMethod($method);
-			foreach($method->getAnnotations() as $annotation)
+			foreach($method->getAllAnnotations() as $annotation)
 			{
-				if(!$annotation instanceof IModelMetaAnnotation)
+				if(!$annotation instanceof IComponentMetaAnnotation)
 				{
 					continue;
 				}
@@ -76,6 +76,8 @@ class EComponentMeta
 				$annotation->setMeta($this);
 				$annotation->setComponent($component);
 				$annotation->init();
+//				if($method->name == 'actionSitemap')
+//					var_dump(get_class($annotation));
 				$annotations[] = $annotation;
 				$hasAnnotations = true;
 			}
@@ -84,16 +86,13 @@ class EComponentMeta
 				// Put it to metadata object
 				$this->_methods[$method->name] = $methodMeta;
 			}
-		}
-
-		// Get getters and setters for properties setup
-		foreach($methods as $method)
-		{
+			// Get getters and setters for properties setup
 			if(preg_match('~^[gs]et~', $method->name) && !$method->isStatic())
 			{
 				$mes[$method->name] = true;
 			}
 		}
+		
 		// Setup properties
 		foreach($properties as $property)
 		{
@@ -110,9 +109,9 @@ class EComponentMeta
 			// Put it to metadata object
 			$this->_fields[$field->name] = $field;
 
-			foreach($property->getAnnotations() as $annotation)
+			foreach($property->getAllAnnotations() as $annotation)
 			{
-				if(!$annotation instanceof IModelMetaAnnotation)
+				if(!$annotation instanceof IComponentMetaAnnotation)
 				{
 					continue;
 				}
@@ -184,7 +183,10 @@ class EComponentMeta
 
 	/**
 	 * Get array of properties values for property field
+	 *
 	 * @param string $fieldName
+	 * @param enum $type type of entities to return EComponentMeta::Type|EComponentMeta::Field|EComponentMeta::Method
+	 * @return type
 	 */
 	public function properties($fieldName, $type = EComponentMeta::Field)
 	{
