@@ -29,6 +29,7 @@ class EAnnotationsBuilder
 	public function instantiateAnnotation($class, $parameters, $targetReflection = false)
 	{
 		/** @todo This should loop thru user-defined list of paths and annotatios
+		 * @todo Allow namespaced annotations ie. @ext.example.Annotation or @ext\example\Annotation
 		 * and try to Yii::import('path.to.%class%Annotation');
 		 * OR better move this to EAddendum::resolveClassName
 		 */
@@ -37,8 +38,9 @@ class EAnnotationsBuilder
 		{
 			return false;
 		}
-		if(!class_exists($class))
+		if(@!class_exists($class))
 		{
+			Yii::trace(Yii::t('ext.addendum', sprintf('Annotation class %s not found, ignoring', $class)), 'annotation');
 			EAddendum::ignore($class);
 			return false;
 		}

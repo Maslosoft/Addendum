@@ -39,6 +39,12 @@ class EComponentMetaProperty implements IAnnotationEntity
 	public $methodSet = '';
 
 	/**
+	 * True if property is static
+	 * @var bool
+	 */
+	public $isStatic = false;
+
+	/**
 	 * Default value of field as defined in class declaration
 	 * @var mixed
 	 */
@@ -64,6 +70,7 @@ class EComponentMetaProperty implements IAnnotationEntity
 		$this->name = $info->name;
 		$this->methodGet = 'get' . ucfirst($this->name);
 		$this->methodSet = 'set' . ucfirst($this->name);
+		$this->isStatic = $info->isStatic();
 	}
 
 	public static function __set_state($data)

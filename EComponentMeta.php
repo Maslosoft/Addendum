@@ -92,10 +92,12 @@ class EComponentMeta
 				$mes[$method->name] = true;
 			}
 		}
-		
+
 		// Setup properties
 		foreach($properties as $property)
 		{
+			$name = $property->name;
+			/* @var $property ReflectionProperty */
 			$field = new EComponentMetaProperty($property);
 
 			// Access options
@@ -104,8 +106,14 @@ class EComponentMeta
 			$field->direct = !($field->callGet || $field->callSet);
 
 			// Other
-			$field->default = $component->{$field->name};
-
+			if($field->isStatic)
+			{
+				$field->default = $component::$$name;
+			}
+			else
+			{
+				$field->default = $component->$name;
+			}
 			// Put it to metadata object
 			$this->_fields[$field->name] = $field;
 
