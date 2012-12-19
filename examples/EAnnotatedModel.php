@@ -6,7 +6,7 @@
  * define it public, and name methods yii way. For example @see __get @see __set
  * @author Piotr
  */
-abstract class EAnnotatedModel extends CModel
+abstract class EAnnotatedModel extends CModel implements IAnnotated
 {
 	/**
 	 * This holds type of this model
