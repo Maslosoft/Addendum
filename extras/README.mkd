@@ -4,7 +4,8 @@ Yii addendum extras
 Currently it contains netbeans autocomplete options.
 
 You can generate completition file by your own, and for your own annotations too by using quick and dirty utility:
-
-`(new EAnnotationUtility())->generateNetbeansHelpers();`
+```php
+(new EAnnotationUtility())->generateNetbeansHelpers();
+```
 
 This will generate zip file, which you can import in netbeans options dialog.
