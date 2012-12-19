@@ -138,8 +138,8 @@ NOTE: `@template` is special docblock used to generate netbeans completition fil
 
 ##Resources##
 * [Project page](http://maslosoft.com/en/yii-addendum/)
-* [Project on github](https://github.com/Maslosoft/Yii-addendum)
-* [Report a bug or request feature](https://github.com/Maslosoft/Yii-addendum/issues)
+* [Project on github](https://github.com/Maslosoft/YiiAddendum)
+* [Report a bug or request feature](https://github.com/Maslosoft/YiiAddendum/issues)
 * [PHP Addendum library](http://code.google.com/p/addendum/)
 
 ##Big thanks goes to##
