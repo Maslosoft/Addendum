@@ -201,4 +201,15 @@ CODE;
 			file_put_contents("c:/temp/{$name}Annotation.php", $code);
 		}
 	}
+
+	/**
+	 * This utility method find files containing $annotations
+	 * annotates them and performs callback
+	 * @param string[] $annotations
+	 * @param callback $callback
+	 */
+	public static function fileWalker($annotations, $callback)
+	{
+
+	}
 }
