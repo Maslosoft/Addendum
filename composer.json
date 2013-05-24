@@ -1,0 +1,16 @@
+{
+	"name": "maslosoft/yii-addendum",
+	"type": "yii-extension",
+	"license": "GNU LESSER GENERAL PUBLIC LICENSE",
+	"authors": [
+		{
+			"name": "Peter Maselkowski",
+			"email": "pmaselkowski@gmail.com",
+			"homepage": "http://maslosoft.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0"
+	}
+}
