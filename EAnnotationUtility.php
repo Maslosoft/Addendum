@@ -16,7 +16,7 @@ class EAnnotationUtility extends CWidget
 		 'annotations'
 	];
 	public $settingsPath = 'config/Preferences/org/netbeans/modules/php/project/';
-	public $outputPath = 'c:/temp';
+	public $outputPath = null;
 
 	/**
 	 * Remove "*" from doc block
@@ -44,7 +44,7 @@ class EAnnotationUtility extends CWidget
 	 */
 	public function generateNetbeansHelpers()
 	{
-//		$this->outputPath = Yii::getPathOfAlias('application.runtime');
+		$this->outputPath = Yii::getPathOfAlias('application.runtime');
 		$result = [];
 		$i = 0;
 		foreach($this->searchPaths as $path)

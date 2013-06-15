@@ -17,10 +17,14 @@ class RendererAnnotation extends EComponentMetaAnnotation
 		{
 			$this->_entity->renderer = new stdClass();
 		}
-		
-		$this->_entity->renderer->grid = $this->value;
-		$this->_entity->renderer->list = $this->value;
-		$this->_entity->renderer->form = $this->value;
-		$this->_entity->renderer->view = $this->value;
+		$types = ['grid', 'list', 'form', 'view'];
+		foreach($types as $type)
+		{
+			$interface = sprintf('IM%sRenderer', ucfirst($type));
+			if(in_array($interface, (array)class_implements($this->value)))
+			{
+				$this->_entity->renderer->$type = $this->value;
+			}
+		}
 	}
 }
