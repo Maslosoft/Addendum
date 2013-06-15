@@ -1,0 +1,18 @@
+{
+	"name": "maslosoft/yii-addendum",
+	"type": "yii-extension",
+	"description": "Annotations for Yii Framework",
+	"keywords" : ["annotations", "annotation", "addendum", "metadata", "yii"],
+	"license": "GNU LESSER GENERAL PUBLIC LICENSE",
+	"authors": [
+		{
+			"name": "Peter Maselkowski",
+			"email": "pmaselkowski@gmail.com",
+			"homepage": "http://maslosoft.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0"
+	}
+}
