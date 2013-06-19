@@ -31,6 +31,29 @@ class EDocComment
 		}
 	}
 
+	/**
+	 * Get doc comment for file
+	 * If file contains several classes, $className will be returned
+	 * If file name matches class name, this class will be returned
+	 * @param string $name
+	 * @param string $className
+	 */
+	public function forFile($name, $className = null)
+	{
+		if(null === $className)
+		{
+			$className = basename($name, '.' . pathinfo($name, PATHINFO_EXTENSION));
+		}
+		
+		$this->process($name);
+		$result = [
+			 'class' => self::$classes[$className],
+			 'methods' => self::$methods[$className],
+			 'fields' => self::$fields[$className]
+		];
+		return $result;
+	}
+
 	public function forClass($reflection)
 	{
 		$this->process($reflection->getFileName());

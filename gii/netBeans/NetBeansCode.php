@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../EAddendum.php';
 
 /**
  * NetBeansCode
- *
+ * 
  * @author Piotr
  */
 class NetBeansCode extends CCodeModel

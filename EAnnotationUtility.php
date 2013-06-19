@@ -206,10 +206,81 @@ CODE;
 	 * This utility method find files containing $annotations
 	 * annotates them and performs callback
 	 * @param string[] $annotations
-	 * @param callback $callback
+	 * @param callback $callback param is file path
 	 */
 	public static function fileWalker($annotations, $callback)
 	{
+		Yii::app()->language = 'en';
 
+		$patterns = [];
+
+		foreach($annotations as $annotation)
+		{
+			$annotation = preg_replace('~^@~', '', $annotation);
+			$patterns[] = sprintf('~@%s~', $annotation);
+		}
+
+		$path = Yii::getPathOfAlias('application');
+		foreach(CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
+		{
+			$parse = false;
+			$contents = file_get_contents($file);
+			foreach($patterns as $pattern)
+			{
+				if($parse)
+				{
+					continue;
+				}
+				if(preg_match($pattern, $contents))
+				{
+					$parse = true;
+				}
+			}
+			if(!$parse)
+			{
+				continue;
+			}
+			call_user_func($callback, $file, $contents);
+		}
+	}
+
+	/**
+	 * Annotate file <b>without</b> including php file and without using reflection.
+	 * This method returns raw annotation values.
+	 * <i>This is intented for various builders, which should not include files.</i>
+	 * This <b>ALWAYS</b> parses file.
+	 * @param type $file
+	 * @param type $className
+	 * @return mixed[][]
+	 */
+	public static function rawAnnotate($file, $className = null)
+	{
+		Yii::import('addendum.builder.*');
+		$docExtractor = new EDocComment();
+		$docs = $docExtractor->forFile($file);
+
+		$matcher = new EAnnotationsMatcher();
+		$class = [];
+		$matcher->matches($docs['class'], $class);
+
+		$methods = [];
+		foreach((array)$docs['methods'] as $name => $doc)
+		{
+			$methods[$name] = [];
+			$matcher->matches($doc, $methods[$name]);
+		}
+
+		$fields = [];
+		foreach((array)$docs['fields'] as $name => $doc)
+		{
+			$fields[$name] = [];
+			$matcher->matches($doc, $fields[$name]);
+		}
+		$result = [
+			 'class' => $class,
+			 'methods' => $methods,
+			 'fields' => $fields
+		];
+		return $result;
 	}
 }
