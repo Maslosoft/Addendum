@@ -7,5 +7,5 @@
  */
 class NetBeansGenerator extends CCodeGenerator
 {
-	public $codeModel = 'ext.addendum.gii.netbeans.NetBeansCode';
+	public $codeModel = 'ext.addendum.gii.netBeans.NetBeansCode';
 }
