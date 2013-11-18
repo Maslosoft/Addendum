@@ -2,6 +2,7 @@
 
 Yii::setPathOfAlias('addendum', dirname(__FILE__));
 Yii::import('addendum.*');
+Yii::import('addendum.annotations.*');
 
 class EAddendum extends CApplicationComponent
 {
