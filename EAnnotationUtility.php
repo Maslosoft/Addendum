@@ -283,4 +283,14 @@ CODE;
 		];
 		return $result;
 	}
+
+	public static function getAliasOfPath($path = __DIR__)
+	{
+		$path = str_replace(Yii::app()->basePath, '', $path);
+		$path = sprintf('application%s', $path);
+		$path = str_replace('\\', '/', $path);
+		$path = str_replace('/', '.', $path);
+		$path = preg_replace('~\.php$~', '', $path);
+		return $path;
+	}
 }

@@ -348,8 +348,8 @@ class EComponentMeta
 		}
 		if(YII_DEBUG)
 		{
-			$path = sprintf('%s/%s.php', Yii::app()->runtimePath, self::_getCacheKey($id));
-			file_put_contents($path, sprintf("<?php\n%s;", var_export($value, true)));
+//			$path = sprintf('%s/%s.php', Yii::app()->runtimePath, self::_getCacheKey($id));
+//			file_put_contents($path, sprintf("<?php\n%s;", var_export($value, true)));
 		}
 		return Yii::app()->cache->set(self::_getCacheKey($id), $value);
 	}

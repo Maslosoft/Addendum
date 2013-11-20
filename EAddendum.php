@@ -18,6 +18,11 @@ class EAddendum extends CApplicationComponent
 	 */
 	public $cache = 'cache';
 
+	public $i18nAnnotations = [
+		'Label',
+		'Description'
+	];
+
 	/**
 	 * Cache component instance
 	 * @var CCache
