@@ -45,6 +45,11 @@ class EAnnotationUtilityI18N extends CWidget
 		{
 			foreach ($annotation as $values)
 			{
+				$value = $values['value'];
+				if(!$value)
+				{
+					continue;
+				}
 				$alias = EAnnotationUtility::getAliasOfPath($file);
 				$parts = explode('.', $alias);
 				$class = array_pop($parts);
@@ -56,7 +61,7 @@ class EAnnotationUtilityI18N extends CWidget
 					'alias' => $alias,
 					'class' => $class,
 					'name' => $name,
-					'value' => $values['value']
+					'value' => $value
 						], true);
 			}
 		}
