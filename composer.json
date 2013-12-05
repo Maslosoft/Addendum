@@ -1,5 +1,5 @@
 {
-	"name": "maslosoft/yii-addendum",
+	"name": "maslosoft/addendum",
 	"type": "yii-extension",
 	"description": "Annotations for Yii Framework",
 	"keywords" : ["annotations", "annotation", "addendum", "metadata", "yii"],
