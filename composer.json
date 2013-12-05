@@ -11,8 +11,5 @@
 			"homepage": "http://maslosoft.com",
 			"role": "Developer"
 		}
-	],
-	"require": {
-		"composer/installers": "~1.0"
-	}
+	]
 }
