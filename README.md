@@ -1,3 +1,5 @@
+**This is migration to namespaces, if not needed use version 1 instead**
+
 #Yii Addendum#
 
 Goal of this extension is to provide additional metadata for any class, their properties or methods.
