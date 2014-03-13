@@ -10,7 +10,7 @@ class DescriptionAnnotation extends EComponentMetaAnnotation
 
 	public function init()
 	{
-		$this->_entity->description = tx($this->value);
+		$this->_entity->description = $this->value;
 	}
 
 	public function __toString()

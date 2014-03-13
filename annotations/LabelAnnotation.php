@@ -11,8 +11,8 @@ class LabelAnnotation extends EComponentMetaAnnotation
 
 	public function init()
 	{
-		// TODO There is no context support yet. Maybe this should be implemented in some kind of configurable callbacks?
-		$this->value = Yii::t('', $this->value);
+		// Note: Translation cannot be done here, as it depends on language, and it is cached
+		// $this->value = Yii::t('', $this->value);
 
 		$this->_entity->label = $this->value;
 	}
