@@ -301,13 +301,18 @@ CODE;
 
 	}
 
+	/**
+	 * @param type $path
+	 * @return type
+	 */
 	public static function getAliasOfPath($path = __DIR__)
 	{
-		$path = str_replace(Yii::app()->basePath, '', realpath($path));
-		$path = sprintf('application%s', $path);
+		$basePath = realpath(Yii::getPathOfAlias('application') . '/../');
+		$path = str_replace($basePath . '/', '', realpath($path));
 		$path = str_replace('\\', '/', $path);
 		$path = str_replace('/', '.', $path);
 		$path = preg_replace('~\.php$~', '', $path);
+		$path = preg_replace('~^protected\.~', 'application.', $path);
 		return $path;
 	}
 }
