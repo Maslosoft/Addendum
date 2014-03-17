@@ -2,6 +2,8 @@
 
 class EDocComment
 {
+	private static $namespaces = array();
+	private static $classNames = array();
 	private static $classes = array();
 	private static $methods = array();
 	private static $fields = array();
@@ -47,6 +49,8 @@ class EDocComment
 		
 		$this->process($name);
 		$result = [
+			 'namespace' => self::$namespaces[$className],
+			 'className' => self::$classNames[$className],
 			 'class' => self::$classes[$className],
 			 'methods' => self::$methods[$className],
 			 'fields' => self::$fields[$className]
@@ -88,6 +92,7 @@ class EDocComment
 
 	protected function parse($file)
 	{
+		$namespace = '\\';
 		$tokens = $this->getTokens($file);
 		$currentClass = false;
 		$currentBlock = false;
@@ -105,6 +110,22 @@ class EDocComment
 						$comment = $value;
 						break;
 
+					case T_NAMESPACE:
+						$comment = false;
+						for ($j = $i + 1; $j < count($tokens); $j++)
+						{
+							if ($tokens[$j][0] === T_STRING)
+							{
+								$namespace .= '\\' . $tokens[$j][1];
+							}
+							else if ($tokens[$j] === '{' || $tokens[$j] === ';')
+							{
+								break;
+							}
+						}
+						$namespace = preg_replace('~^\\\\+~', '', $namespace);
+						break;
+
 					case T_CLASS:
 						$class = $this->getString($tokens, $i, $max);
 						if($comment !== false)
@@ -112,6 +133,8 @@ class EDocComment
 							self::$classes[$class] = $comment;
 							$comment = false;
 						}
+						self::$classNames[$class] = $class;
+						self::$namespaces[$class] = $namespace;
 						break;
 
 					case T_VARIABLE:
@@ -178,5 +201,3 @@ class EDocComment
 		return token_get_all(file_get_contents($file));
 	}
 }
-
-?>

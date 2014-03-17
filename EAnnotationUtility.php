@@ -208,7 +208,7 @@ CODE;
 	 * @param string[] $annotations
 	 * @param callback $callback param is file path
 	 */
-	public static function fileWalker($annotations, $callback)
+	public static function fileWalker($annotations, $callback, $searchPaths = [])
 	{
 		Yii::app()->language = 'en';
 
@@ -219,28 +219,33 @@ CODE;
 			$annotation = preg_replace('~^@~', '', $annotation);
 			$patterns[] = sprintf('~@%s~', $annotation);
 		}
-
-		$path = Yii::getPathOfAlias('application');
-		foreach(CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
+		if(!$searchPaths)
 		{
-			$parse = false;
-			$contents = file_get_contents($file);
-			foreach($patterns as $pattern)
+			$searchPaths = Yii::getPathOfAlias('application');
+		}
+		foreach($searchPaths as $path)
+		{
+			foreach(CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
 			{
-				if($parse)
+				$parse = false;
+				$contents = file_get_contents($file);
+				foreach($patterns as $pattern)
+				{
+					if($parse)
+					{
+						continue;
+					}
+					if(preg_match($pattern, $contents))
+					{
+						$parse = true;
+					}
+				}
+				if(!$parse)
 				{
 					continue;
 				}
-				if(preg_match($pattern, $contents))
-				{
-					$parse = true;
-				}
+				call_user_func($callback, $file, $contents);
 			}
-			if(!$parse)
-			{
-				continue;
-			}
-			call_user_func($callback, $file, $contents);
 		}
 	}
 
@@ -249,16 +254,16 @@ CODE;
 	 * This method returns raw annotation values.
 	 * <i>This is intented for various builders, which should not include files.</i>
 	 * This <b>ALWAYS</b> parses file.
-	 * @param type $file
-	 * @param type $className
+	 * @param string $file
+	 * @param string $className <b>NOT RECOMMENDED!</b> Optional class name if multiple classes are declared in one file
 	 * @return mixed[][]
 	 */
 	public static function rawAnnotate($file, $className = null)
 	{
 		Yii::import('addendum.builder.*');
 		$docExtractor = new EDocComment();
-		$docs = $docExtractor->forFile($file);
-
+		$docs = $docExtractor->forFile($file, $className);
+		
 		$matcher = new EAnnotationsMatcher();
 		$class = [];
 		$matcher->matches($docs['class'], $class);
@@ -277,6 +282,8 @@ CODE;
 			$matcher->matches($doc, $fields[$name]);
 		}
 		$result = [
+			 'namespace' => $docs['namespace'],
+			 'className' => $docs['className'],
 			 'class' => $class,
 			 'methods' => $methods,
 			 'fields' => $fields
@@ -284,9 +291,19 @@ CODE;
 		return $result;
 	}
 
+	public static function getNamespace($file)
+	{
+		
+	}
+
+	public static function getClass($file)
+	{
+
+	}
+
 	public static function getAliasOfPath($path = __DIR__)
 	{
-		$path = str_replace(Yii::app()->basePath, '', $path);
+		$path = str_replace(Yii::app()->basePath, '', realpath($path));
 		$path = sprintf('application%s', $path);
 		$path = str_replace('\\', '/', $path);
 		$path = str_replace('/', '.', $path);
