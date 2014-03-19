@@ -19,7 +19,17 @@ class DecoratorAnnotation extends EComponentMetaAnnotation
 		$types = ['grid', 'list', 'form', 'view'];
 		foreach($types as $type)
 		{
-			$this->_entity->decorator->$type = $this->value;
+			if(!isset($this->_entity->decorator->$type))
+			{
+				$this->_entity->decorator->$type = [];
+			}
+			$name = array_shift($this->value);
+//			var_dump($name);
+//			var_dump($this->value);
+//			var_dump($this->_entity->decorator->$type);
+//			exit;
+			
+			$this->_entity->decorator->{$type}[$name] = $this->value;
 		}
 	}
 }
