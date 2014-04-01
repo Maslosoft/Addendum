@@ -250,7 +250,7 @@ class EComponentMeta
 	}
 
 	/**
-	 * Get all fields metadata
+	 * Get all fields metadata with field name as key
 	 * @return EComponentMetaProperty[]
 	 */
 	public function fields()
