@@ -49,11 +49,11 @@ class EDocComment
 		
 		$this->process($name);
 		$result = [
-			 'namespace' => self::$namespaces[$className],
-			 'className' => self::$classNames[$className],
-			 'class' => self::$classes[$className],
-			 'methods' => self::$methods[$className],
-			 'fields' => self::$fields[$className]
+			'namespace' => isset(self::$namespaces[$className]) ? self::$namespaces[$className] : [],
+			'className' => isset(self::$classNames[$className]) ? self::$classNames[$className] : [],
+			'class' => isset(self::$classes[$className]) ? self::$classes[$className] : [],
+			'methods' => isset(self::$methods[$className]) ? self::$methods[$className] : [],
+			'fields' => isset(self::$fields[$className]) ? self::$fields[$className] : []
 		];
 		return $result;
 	}
