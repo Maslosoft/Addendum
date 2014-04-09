@@ -66,11 +66,17 @@ class EAnnotationUtilityI18N extends CWidget
 				{
 					$name = $class;
 				}
+				$w = "'";
+				if(strstr($value, "'") !== false)
+				{
+					$w = '"';
+				}
 				$this->_file[] = $this->render('i18nEntity', [
 					'alias' => $alias,
 					'class' => $class,
 					'name' => $name,
-					'value' => $value
+					'value' => $value,
+					'w' => $w
 						], true);
 			}
 		}
