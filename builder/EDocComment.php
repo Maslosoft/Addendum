@@ -126,18 +126,23 @@ class EDocComment
 						$namespace = preg_replace('~^\\\\+~', '', $namespace);
 						break;
 
-					case T_CLASS:
-						$class = $this->getString($tokens, $i, $max);
-						if($comment !== false)
-						{
-							self::$classes[$class] = $comment;
-							$comment = false;
-						}
-						self::$classNames[$class] = $class;
-						self::$namespaces[$class] = $namespace;
-						break;
-
 					case T_TRAIT:
+					case T_CLASS:
+						/**
+						 * TODO: In new PHP there is magic constant ::class
+						 * This will result in notice  in getstring if parsed example case:
+						 *
+class Gettext extends BuildersBase
+{
+
+	public function build()
+	{
+		// Run dependent builders
+		$this->builder->runBuilders(Yii::app()->signal->gather($this, IBuilder::class)); <-- here T_CLASS is found, but it's not a class declaration
+	}
+
+}
+						 */
 						$class = $this->getString($tokens, $i, $max);
 						if($comment !== false)
 						{
@@ -194,6 +199,14 @@ class EDocComment
 	{
 		do
 		{
+			/**
+			 * TODO Workaround for problem desribed near T_CLASS token
+			 */
+			if(!isset($tokens[$i]))
+			{
+				$i++;
+				continue;
+			}
 			$token = $tokens[$i];
 			$i++;
 			if(is_array($token))
