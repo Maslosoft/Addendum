@@ -51,7 +51,7 @@ class EDocComment
 		$result = [
 			'namespace' => isset(self::$namespaces[$className]) ? self::$namespaces[$className] : [],
 			'className' => isset(self::$classNames[$className]) ? self::$classNames[$className] : [],
-			'class' => isset(self::$classes[$className]) ? self::$classes[$className] : [],
+			'class' => isset(self::$classes[$className]) ? self::$classes[$className] : '',
 			'methods' => isset(self::$methods[$className]) ? self::$methods[$className] : [],
 			'fields' => isset(self::$fields[$className]) ? self::$fields[$className] : []
 		];
@@ -127,6 +127,17 @@ class EDocComment
 						break;
 
 					case T_CLASS:
+						$class = $this->getString($tokens, $i, $max);
+						if($comment !== false)
+						{
+							self::$classes[$class] = $comment;
+							$comment = false;
+						}
+						self::$classNames[$class] = $class;
+						self::$namespaces[$class] = $namespace;
+						break;
+
+					case T_TRAIT:
 						$class = $this->getString($tokens, $i, $max);
 						if($comment !== false)
 						{

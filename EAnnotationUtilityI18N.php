@@ -10,10 +10,15 @@ class EAnnotationUtilityI18N extends CWidget
 
 	private $_file = [];
 
-	public function generate()
+	public function generate($searchAliases = [])
 	{
+		$paths = [];
+		foreach ($searchAliases as $alias)
+		{
+			$paths[] = Yii::getPathOfAlias($alias);
+		}
 		$this->_file[] = '<?php';
-		EAnnotationUtility::fileWalker(Yii::app()->addendum->i18nAnnotations, [$this, 'walk']);
+		EAnnotationUtility::fileWalker(Yii::app()->addendum->i18nAnnotations, [$this, 'walk'], $paths);
 		file_put_contents(sprintf('%s/annotated-labels.php', Yii::getPathOfAlias('autogen')), implode("\n", $this->_file));
 		return $this->_file;
 	}
@@ -45,6 +50,10 @@ class EAnnotationUtilityI18N extends CWidget
 		{
 			foreach ($annotation as $values)
 			{
+				if(!isset($values['value']))
+				{
+					continue;
+				}
 				$value = $values['value'];
 				if(!$value)
 				{
