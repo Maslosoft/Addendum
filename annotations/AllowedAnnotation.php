@@ -14,6 +14,10 @@ class AllowedAnnotation extends EComponentMetaAnnotation
 
 	public function init()
 	{
+		if(!isset($this->_entity->roles))
+		{
+			!$this->_entity->roles = [];
+		}
 		if(is_array($this->value))
 		{
 			$this->_entity->roles = array_merge((array)$this->_entity->roles, $this->value);
