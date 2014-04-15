@@ -43,4 +43,9 @@ class EComponentMetaMethod implements IAnnotationEntity
 		}
 		return $obj;
 	}
+
+	public function __get($name)
+	{
+		return null;
+	}
 }
