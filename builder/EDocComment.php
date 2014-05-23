@@ -128,21 +128,11 @@ class EDocComment
 
 					case T_TRAIT:
 					case T_CLASS:
-						/**
-						 * TODO: In new PHP there is magic constant ::class
-						 * This will result in notice  in getstring if parsed example case:
-						 *
-class Gettext extends BuildersBase
-{
-
-	public function build()
-	{
-		// Run dependent builders
-		$this->builder->runBuilders(Yii::app()->signal->gather($this, IBuilder::class)); <-- here T_CLASS is found, but it's not a class declaration
-	}
-
-}
-						 */
+						// Ignore magic constant `::class`
+						if($tokens[$i - 1][0] == T_DOUBLE_COLON)
+						{
+							break;
+						}
 						$class = $this->getString($tokens, $i, $max);
 						if($comment !== false)
 						{
