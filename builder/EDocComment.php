@@ -96,6 +96,7 @@ class EDocComment
 		$tokens = $this->getTokens($file);
 		$currentClass = false;
 		$currentBlock = false;
+		$class = false;
 		$max = count($tokens);
 		$i = 0;
 		while($i < $max)
@@ -128,6 +129,7 @@ class EDocComment
 
 					case T_TRAIT:
 					case T_CLASS:
+					case T_INTERFACE:
 						// Ignore magic constant `::class`
 						if($tokens[$i - 1][0] == T_DOUBLE_COLON)
 						{
@@ -144,7 +146,7 @@ class EDocComment
 						break;
 
 					case T_VARIABLE:
-						if($comment !== false)
+						if($comment !== false && $class)
 						{
 							$field = substr($token[1], 1);
 							self::$fields[$class][$field] = $comment;
@@ -153,7 +155,7 @@ class EDocComment
 						break;
 
 					case T_FUNCTION:
-						if($comment !== false)
+						if($comment !== false && $class)
 						{
 							$function = $this->getString($tokens, $i, $max);
 							self::$methods[$class][$function] = $comment;
