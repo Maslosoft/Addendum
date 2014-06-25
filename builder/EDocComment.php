@@ -11,6 +11,8 @@ class EDocComment
 
 	public static function clearCache()
 	{
+		self::$namespaces = array();
+		self::$classNames = array();
 		self::$classes = array();
 		self::$methods = array();
 		self::$fields = array();
