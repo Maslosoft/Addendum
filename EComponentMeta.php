@@ -284,6 +284,10 @@ class EComponentMeta
 	 */
 	public function method($name)
 	{
+		if(!isset($this->_methods[$name]))
+		{
+			return false;
+		}
 		return $this->_methods[$name];
 	}
 
