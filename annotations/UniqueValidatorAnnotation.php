@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CUniqueValidator.
  */
+
 /**
  * CUniqueValidator validates that the attribute value is unique in the corresponding database table.
  *
@@ -19,8 +24,9 @@
  * @package system.validators
  * @since 1.0
  */
-class UniqueValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class UniqueValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var boolean whether the comparison is case sensitive. Defaults to true.
 	 * Note, by setting it to false, you are assuming the attribute type is string.
@@ -56,7 +62,7 @@ class UniqueValidatorAnnotation extends EValidatorAnnotation implements IBuiltIn
 	 * value exists in the corresponding table column.
 	 * This array will be used to instantiate a {@link CDbCriteria} object.
 	 */
-	public $criteria = array (
-);
+	public $criteria = array(
+	);
 
 }

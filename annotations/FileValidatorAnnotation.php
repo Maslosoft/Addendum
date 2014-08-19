@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CFileValidator.
  */
+
 /**
  * CFileValidator verifies if an attribute is receiving a valid uploaded file.
  *
@@ -54,8 +59,9 @@
  * @package system.validators
  * @since 1.0
  */
-class FileValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class FileValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var boolean whether the attribute requires a file to be uploaded or not.
 	 * Defaults to false, meaning a file is required to be uploaded.

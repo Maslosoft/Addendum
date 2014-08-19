@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CEmailValidator.
  */
+
 /**
  * CEmailValidator validates that the attribute value is a valid email address.
  *
@@ -11,8 +16,9 @@
  * @package system.validators
  * @since 1.0
  */
-class EmailValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class EmailValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var string the regular expression used to validate the attribute value.
 	 * @see http://www.regular-expressions.info/email.html

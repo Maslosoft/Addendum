@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CCaptchaValidator.
  */
+
 /**
  * CCaptchaValidator validates that the attribute value is the same as the verification code displayed in the CAPTCHA.
  *
@@ -13,8 +18,9 @@
  * @package system.validators
  * @since 1.0
  */
-class CaptchaValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class CaptchaValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var boolean whether the comparison is case sensitive. Defaults to false.
 	 */

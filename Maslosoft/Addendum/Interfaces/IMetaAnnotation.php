@@ -1,17 +1,21 @@
 <?php
 
+namespace Maslosoft\Addendum\Interfaces;
+
+use Maslosoft\Addendum\Collections\Meta;
+
 /**
  * Interface for {@see EComponentMeta} annotations container
  * @author Piotr
  */
-interface IComponentMetaAnnotation
+interface IMetaAnnotation
 {
 
 	/**
 	 * Set metada class to be accessible for annotation for init etc. methods
-	 * @param EComponentMeta $meta
+	 * @param Meta $meta
 	 */
-	public function setMeta(EComponentMeta $meta);
+	public function setMeta(Meta $meta);
 
 	/**
 	 * Set annotatins entity, it can be either class, property, or method

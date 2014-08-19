@@ -1,7 +1,7 @@
 <?php
 /**
  * This is template for EAnnotationUtility
- * @see EAnnotationUtility::generateNetbeansHelpers()
+ * @see AnnotationUtility::generateNetbeansHelpers()
  */
 ?>
 tag.<?=$data->i?>.documentation=<?= str_replace("\n", '\r\n', str_replace("\r", "\n", str_replace("\r\n", "\n", $this->render('netbeansAnnotationsDescription', ['data' => $data], true)))) . "\r\n";?>

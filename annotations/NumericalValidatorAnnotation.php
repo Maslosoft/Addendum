@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CNumericalValidator.
  */
+
 /**
  * CNumberValidator validates that the attribute value is a number.
  *
@@ -24,8 +29,9 @@
  * @package system.validators
  * @since 1.0
  */
-class NumericalValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class NumericalValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var boolean whether the attribute value can only be an integer. Defaults to false.
 	 */

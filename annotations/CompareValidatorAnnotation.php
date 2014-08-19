@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CCompareValidator.
  */
+
 /**
  * CCompareValidator compares the specified attribute value with another value and validates if they are equal.
  *
@@ -31,8 +36,9 @@
  * @package system.validators
  * @since 1.0
  */
-class CompareValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class CompareValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var string the name of the attribute to be compared with
 	 */

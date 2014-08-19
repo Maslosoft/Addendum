@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CInValidator.
  */
+
 /**
  * CRangeValidator validates that the attribute value is among the list (specified via {@link range}).
  * You may invert the validation logic with help of the {@link not} property (available since 1.1.5).
@@ -12,8 +17,9 @@
  * @package system.validators
  * @since 1.0
  */
-class InValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class InValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var array list of valid values that the attribute value should be among
 	 */
@@ -34,7 +40,7 @@ class InValidatorAnnotation extends EValidatorAnnotation implements IBuiltInVali
 	 * @var boolean whether to invert the validation logic. Defaults to false. If set to true,
 	 * the attribute value should NOT be among the list of values defined via {@link range}.
 	 * @since 1.1.5
-	 **/
+	 * */
 	public $not = false;
 
 }

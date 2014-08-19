@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CTypeValidator.
  */
+
 /**
  * CTypeValidator verifies if the attribute is of the type specified by {@link type}.
  *
@@ -37,8 +42,9 @@
  * @package system.validators
  * @since 1.0
  */
-class TypeValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class TypeValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var string the data type that the attribute should be. Defaults to 'string'.
 	 * Valid values include 'string', 'integer', 'float', 'array', 'date', 'time' and 'datetime'.

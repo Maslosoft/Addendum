@@ -1,19 +1,36 @@
 <?php
 
-if(!YII_DEBUG)
+namespace Maslosoft\Addendum\Utilities;
+
+use CFileHelper;
+use CValidator;
+use CWidget;
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Builder\DocComment;
+use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
+use ReflectionClass;
+use ReflectionProperty;
+use RuntimeException;
+use TargetAnnotation;
+use Yii;
+use ZipArchive;
+
+if (!YII_DEBUG)
 {
-	throw new Exception(sprintf('Class %s should not be used on production environments', 'EAnnotationUtility'));
+	throw new \Exception(sprintf('Class %s should not be used on production environments', AnnotationUtility::class));
 }
 
 /**
  * This is utility class, should not be used in production environment
- *
+ * TODO Split this into separate classes
  * @author Piotr
  */
-class EAnnotationUtility extends CWidget
+class AnnotationUtility extends CWidget
 {
+
 	public $searchPaths = [
-		 'annotations'
+		'annotations'
 	];
 	public $settingsPath = 'config/Preferences/org/netbeans/modules/php/project/';
 	public $outputPath = null;
@@ -26,14 +43,14 @@ class EAnnotationUtility extends CWidget
 	public function removeStars($comment)
 	{
 		$cleanComment = [
-			 // Remove first line of doc block
-			 '~/\*\*\s*$~m' => '',
-			 // Remove last line
-			 '~^\s*\*/\s*$~m' => '',
-			 // Remove leading stars
-			 '~^\s*\*~m' => '',
-			 // Clean any leading whitespace
-			 '~^\s*~' => ''
+			// Remove first line of doc block
+			'~/\*\*\s*$~m' => '',
+			// Remove last line
+			'~^\s*\*/\s*$~m' => '',
+			// Remove leading stars
+			'~^\s*\*~m' => '',
+			// Clean any leading whitespace
+			'~^\s*~' => ''
 		];
 		return preg_replace(array_keys($cleanComment), array_values($cleanComment), $comment);
 	}
@@ -47,14 +64,14 @@ class EAnnotationUtility extends CWidget
 		$this->outputPath = Yii::getPathOfAlias('application.runtime');
 		$result = [];
 		$i = 0;
-		foreach($this->searchPaths as $path)
+		foreach ($this->searchPaths as $path)
 		{
 			$path = realpath(dirname(__FILE__) . '/' . $path);
-			foreach(CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
+			foreach (CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
 			{
 				$className = preg_replace('~\.php$~', '', basename($file));
-				$info = new Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass($className);
-				if(!$info->isSubclassOf('EAnnotation'))
+				$info = new ReflectionAnnotatedClass($className);
+				if (!$info->isSubclassOf('EAnnotation'))
 				{
 					continue;
 				}
@@ -64,21 +81,21 @@ class EAnnotationUtility extends CWidget
 				// This array is also used for renaming
 				// Keys are addendum names, values are netbeans names
 				$defaultTargets = [
-					 'FUNCTION' => 'FUNCTION',
-					 'CLASS' => 'TYPE',
-					 'PROPERTY' => 'FIELD',
-					 'METHOD' => 'METHOD'
+					'FUNCTION' => 'FUNCTION',
+					'CLASS' => 'TYPE',
+					'PROPERTY' => 'FIELD',
+					'METHOD' => 'METHOD'
 				];
 				$targets = [];
-				if($info->hasAnnotation('Target'))
+				if ($info->hasAnnotation('Target'))
 				{
-					foreach($annotations as $annotation)
+					foreach ($annotations as $annotation)
 					{
-						if($annotation instanceof TargetAnnotation)
+						if ($annotation instanceof TargetAnnotation)
 						{
 							$target = str_replace(array_keys($defaultTargets), array_values($defaultTargets), strtoupper($annotation->value));
 							// Make sure that it has proper target, or annotations file will be broken
-							if(in_array($target, $defaultTargets))
+							if (in_array($target, $defaultTargets))
 							{
 								$targets[] = $target;
 							}
@@ -93,7 +110,7 @@ class EAnnotationUtility extends CWidget
 				$comment = $this->removeStars($info->getDocComment());
 				$name = preg_replace('~Annotation$~', '', $info->name);
 				$matches = [];
-				if(preg_match('~@template\s(.+)$~m', $comment, $matches))
+				if (preg_match('~@template\s(.+)$~m', $comment, $matches))
 				{
 					$insertTemplate = sprintf('@%s', $matches[1]);
 				}
@@ -102,49 +119,49 @@ class EAnnotationUtility extends CWidget
 					$insertTemplate = sprintf('@%s', $name);
 				}
 				$data = [
-					 'insertTemplate' => $insertTemplate,
-					 'name' => $name,
-					 'targets' => $targets,
-					 'description' => $comment,
-					 'i' => $i++,
+					'insertTemplate' => $insertTemplate,
+					'name' => $name,
+					'targets' => $targets,
+					'description' => $comment,
+					'i' => $i++,
 				];
-				$result[] = $this->render('netbeansAnnotations', ['data' => (object)$data], true);
+				$result[] = $this->render('netbeansAnnotations', ['data' => (object) $data], true);
 			}
 		}
 		// This is annotation for adding templates to annotations
 		$data = [
-					 'insertTemplate' => '@template ${template}',
-					 'name' => 'template',
-					 'targets' => ['TYPE'],
-					 'description' => "Type in annotation for insert template, Do NOT use '@' sign here. \n@example Label('\${label}')",
-					 'i' => $i++,
-				];
-		$result[] = $this->render('netbeansAnnotations', ['data' => (object)$data], true);
-		
+			'insertTemplate' => '@template ${template}',
+			'name' => 'template',
+			'targets' => ['TYPE'],
+			'description' => "Type in annotation for insert template, Do NOT use '@' sign here. \n@example Label('\${label}')",
+			'i' => $i++,
+		];
+		$result[] = $this->render('netbeansAnnotations', ['data' => (object) $data], true);
+
 		// Pack it
 		$fileName = 'annotations.properties';
 		file_put_contents(sprintf('%s/%s', $this->outputPath, $fileName), implode("", $result));
-		
+
 		$zipName = 'annotations.zip';
 		$zipPath = sprintf('%s/%s', $this->outputPath, $zipName);
 		$zip = new ZipArchive;
-		if(!is_writable($this->outputPath))
+		if (!is_writable($this->outputPath))
 		{
 			throw new RuntimeException(sprintf('Path %s is not wrtable', $this->outputPath));
 		}
-		if(true !== $zip->open($zipPath, ZipArchive::OVERWRITE))
+		if (true !== $zip->open($zipPath, ZipArchive::OVERWRITE))
 		{
 			throw new RuntimeException(sprintf('Cannot create zip archive %s', $zipPath));
 		}
-		if(!$zip->addFile(sprintf('%s/%s', $this->outputPath, $fileName), sprintf('%s/%s', $this->settingsPath, $fileName)))
+		if (!$zip->addFile(sprintf('%s/%s', $this->outputPath, $fileName), sprintf('%s/%s', $this->settingsPath, $fileName)))
 		{
 			throw new RuntimeException(sprintf('Cannot add file %s/%s to zip archive in %s', $zipPath, $zipName, $this->outputPath));
 		}
-		if(!$zip->close())
+		if (!$zip->close())
 		{
 			throw new RuntimeException(sprintf('Cannot close zip archive %s', $zipPath));
 		}
-		if(headers_sent())
+		if (headers_sent())
 		{
 			throw new RuntimeException('Headers sent...');
 		}
@@ -174,23 +191,23 @@ class %2\$sAnnotation extends EValidatorAnnotation implements IBuiltInValidatorA
 %3\$s
 }
 CODE;
-		$info = new ReflectionClass('EValidatorAnnotation');
-		foreach($info->getProperties(ReflectionProperty::IS_PUBLIC) as $field)
+		$info = new ReflectionClass(ValidatorAnnotation::class);
+		foreach ($info->getProperties(ReflectionProperty::IS_PUBLIC) as $field)
 		{
 			$ignored[$field->name] = $field->name;
 		}
 		$ignored['attributes'] = true;
 		$ignored['builtInValidators'] = true;
-		foreach($v as $n => $class)
+		foreach ($v as $n => $class)
 		{
 			$name = ucfirst($n) . 'Validator';
-			$info = new Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass($class);
+			$info = new ReflectionAnnotatedClass($class);
 			$classComment = $info->getDocComment();
 			$values = $info->getDefaultProperties();
 			$fields = [];
-			foreach($info->getProperties(ReflectionProperty::IS_PUBLIC) as $field)
+			foreach ($info->getProperties(ReflectionProperty::IS_PUBLIC) as $field)
 			{
-				if(isset($ignored[$field->name]))
+				if (isset($ignored[$field->name]))
 				{
 					continue;
 				}
@@ -214,33 +231,33 @@ CODE;
 
 		$patterns = [];
 
-		foreach($annotations as $annotation)
+		foreach ($annotations as $annotation)
 		{
 			$annotation = preg_replace('~^@~', '', $annotation);
 			$patterns[] = sprintf('~@%s~', $annotation);
 		}
-		if(!$searchPaths)
+		if (!$searchPaths)
 		{
 			$searchPaths = Yii::getPathOfAlias('application');
 		}
-		foreach($searchPaths as $path)
+		foreach ($searchPaths as $path)
 		{
-			foreach(CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
+			foreach (CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
 			{
 				$parse = false;
 				$contents = file_get_contents($file);
-				foreach($patterns as $pattern)
+				foreach ($patterns as $pattern)
 				{
-					if($parse)
+					if ($parse)
 					{
 						continue;
 					}
-					if(preg_match($pattern, $contents))
+					if (preg_match($pattern, $contents))
 					{
 						$parse = true;
 					}
 				}
-				if(!$parse)
+				if (!$parse)
 				{
 					continue;
 				}
@@ -261,32 +278,32 @@ CODE;
 	public static function rawAnnotate($file, $className = null)
 	{
 		Yii::import('addendum.builder.*');
-		$docExtractor = new Maslosoft\Addendum\Builder\DocComment();
+		$docExtractor = new DocComment();
 		$docs = $docExtractor->forFile($file, $className);
-		
-		$matcher = new EAnnotationsMatcher();
+
+		$matcher = new AnnotationsMatcher();
 		$class = [];
 		$matcher->matches($docs['class'], $class);
 
 		$methods = [];
-		foreach((array)$docs['methods'] as $name => $doc)
+		foreach ((array) $docs['methods'] as $name => $doc)
 		{
 			$methods[$name] = [];
 			$matcher->matches($doc, $methods[$name]);
 		}
 
 		$fields = [];
-		foreach((array)$docs['fields'] as $name => $doc)
+		foreach ((array) $docs['fields'] as $name => $doc)
 		{
 			$fields[$name] = [];
 			$matcher->matches($doc, $fields[$name]);
 		}
 		$result = [
-			 'namespace' => $docs['namespace'],
-			 'className' => $docs['className'],
-			 'class' => $class,
-			 'methods' => $methods,
-			 'fields' => $fields
+			'namespace' => $docs['namespace'],
+			'className' => $docs['className'],
+			'class' => $class,
+			'methods' => $methods,
+			'fields' => $fields
 		];
 		return $result;
 	}
@@ -315,4 +332,5 @@ CODE;
 		$path = preg_replace('~^protected\.~', 'application.', $path);
 		return $path;
 	}
+
 }

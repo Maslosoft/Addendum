@@ -1,5 +1,7 @@
 <?php
 
+use Maslosoft\Addendum\Collections\MetaAnnotation;
+
 /**
  * Annotation for array of embedded documents in mongo
  * defaultClassName will be used for getting empty properties,
@@ -8,8 +10,9 @@
  * @template EmbeddedArray('${defaultClassName}')
  * @author Piotr
  */
-class EmbeddedArrayAnnotation extends EComponentMetaAnnotation
+class EmbeddedArrayAnnotation extends MetaAnnotation
 {
+
 	public $value = true;
 
 	public function init()
@@ -18,4 +21,5 @@ class EmbeddedArrayAnnotation extends EComponentMetaAnnotation
 		$this->_entity->embeddedArray = true;
 		$this->_entity->direct = false;
 	}
+
 }

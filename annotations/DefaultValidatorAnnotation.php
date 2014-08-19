@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CDefaultValidator.
  */
+
 /**
  * CDefaultValueValidator sets the attributes with the specified value.
  * It does not do validation but rather allows setting a default value at the
@@ -13,8 +18,9 @@
  * @version $Id$
  * @package system.validators
  */
-class DefaultValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class DefaultValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var mixed the default value to be set to the specified attributes.
 	 */

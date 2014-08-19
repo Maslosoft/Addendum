@@ -4,9 +4,9 @@ namespace Maslosoft\Addendum;
 
 use CApplicationComponent;
 use CCache;
-use EComponentMeta;
-use IAnnotated;
 use Maslosoft\Addendum\Builder\DocComment;
+use Maslosoft\Addendum\Collections\Meta;
+use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
@@ -49,7 +49,7 @@ class Addendum extends CApplicationComponent
 
 	public function meta($component)
 	{
-		return EComponentMeta::create($component);
+		return Meta::create($component);
 	}
 	
 	/**
@@ -72,7 +72,7 @@ class Addendum extends CApplicationComponent
 		if(!$this->hasAnnotations($class))
 		{
 			$className = is_object($class) ? get_class($class) : $class;
-			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface IAnnotated', $className));
+			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, IAnnotated::class));
 		}
 		if(null !== $other)
 		{

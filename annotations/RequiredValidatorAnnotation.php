@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CRequiredValidator.
  */
+
 /**
  * CRequiredValidator validates that the specified attribute does not have null or empty value.
  *
@@ -19,8 +24,9 @@
  * @package system.validators
  * @since 1.0
  */
-class RequiredValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class RequiredValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var mixed the desired value that the attribute must have.
 	 * If this is null, the validator will validate that the specified attribute does not have null or empty value.

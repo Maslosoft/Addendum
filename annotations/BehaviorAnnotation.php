@@ -1,12 +1,15 @@
 <?php
 
+use Maslosoft\Addendum\Annotation;
+
 /**
  * Description of BehaviorAnnotation
  * @Target('class')
  * @author Piotr
  */
-class BehaviorAnnotation extends Maslosoft\Addendum\Annotation
+class BehaviorAnnotation extends Annotation
 {
+
 	protected $class = '';
 	protected $_name = '';
 	private static $behaviorId = 0;
@@ -14,7 +17,7 @@ class BehaviorAnnotation extends Maslosoft\Addendum\Annotation
 	public function init()
 	{
 		$name = sprintf('aBhvr-%s-%d', '%s', self::$behaviorId++);
-		if(is_string($this->value))
+		if (is_string($this->value))
 		{
 			$name = sprintf($name, $this->value);
 			$this->_component->attachBehavior($name, Yii::createComponent($this->value));
@@ -27,4 +30,5 @@ class BehaviorAnnotation extends Maslosoft\Addendum\Annotation
 			$this->_component->attachBehavior($name, Yii::createComponent($config));
 		}
 	}
+
 }

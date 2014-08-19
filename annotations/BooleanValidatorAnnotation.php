@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CBooleanValidator.
  */
+
 /**
  * CBooleanValidator validates that the attribute value is either {@link trueValue}  or {@link falseValue}.
  *
@@ -19,8 +24,9 @@
  * @version $Id$
  * @package system.validators
  */
-class BooleanValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class BooleanValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var mixed the value representing true status. Defaults to '1'.
 	 */

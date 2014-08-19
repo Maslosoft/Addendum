@@ -1,11 +1,14 @@
 <?php
 
+use Maslosoft\Addendum\Collections\MetaAnnotation;
+
 /**
  * Description of field, method or class, used as help tips for users
  * @template Description('${description}')
  */
-class DescriptionAnnotation extends EComponentMetaAnnotation
+class DescriptionAnnotation extends MetaAnnotation
 {
+
 	public $value;
 
 	public function init()
@@ -17,4 +20,5 @@ class DescriptionAnnotation extends EComponentMetaAnnotation
 	{
 		return $this->value;
 	}
+
 }

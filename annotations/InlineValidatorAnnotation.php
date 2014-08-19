@@ -1,8 +1,12 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CInlineValidator.
  */
+
 /**
  * CInlineValidator represents a validator which is defined as a method in the object being validated.
  *
@@ -11,8 +15,9 @@
  * @package system.validators
  * @since 1.0
  */
-class InlineValidatorAnnotation extends EValidatorAnnotation
+class InlineValidatorAnnotation extends ValidatorAnnotation
 {
+
 	/**
 	 * @var string the name of the validation method defined in the active record class
 	 */

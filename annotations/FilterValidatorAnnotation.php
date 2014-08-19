@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CFilterValidator.
  */
+
 /**
  * CFilterValidator transforms the data being validated based on a filter.
  *
@@ -22,8 +27,9 @@
  * @package system.validators
  * @since 1.0
  */
-class FilterValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class FilterValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var callback the filter method
 	 */

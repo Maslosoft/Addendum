@@ -1,13 +1,19 @@
 <?php
+namespace Maslosoft\Addendum\Collections;
 
+use Maslosoft\Addendum\Interfaces\IAnnotated;
+use Maslosoft\Addendum\Interfaces\IMetaAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+use ReflectionMethod;
+use ReflectionProperty;
+use Yii;
 
 /**
  * Description of EComponentMeta
- * @property EComponentMetaProperty $field
+ * @property MetaProperty $field
  * @author Piotr
  */
-class EComponentMeta
+class Meta
 {
 	const Type = 1;
 	const Field = 2;
@@ -30,9 +36,10 @@ class EComponentMeta
 		// For example, for development annotation based extractor could be used, which could compile
 		// Metadata to arrays, and for production environment, compiled arrays could be used
 		$annotations = [];
-
+		
 		// Get reflection data
 		$info = Yii::app()->addendum->annotate($component);
+		
 		$properties = $info->getProperties(ReflectionProperty::IS_PUBLIC);
 		$methods = $info->getMethods(ReflectionMethod::IS_PUBLIC);
 
@@ -48,10 +55,10 @@ class EComponentMeta
 		 * OR add function to Annotation to setEntity, which should point to _field, _main or _method?
 		 */
 		// Setup class annotations
-		$this->_type = new EComponentMetaType($info);
+		$this->_type = new MetaType($info);
 		foreach($info->getAllAnnotations() as $annotation)
 		{
-			if(!$annotation instanceof IComponentMetaAnnotation)
+			if(!$annotation instanceof IMetaAnnotation)
 			{
 				continue;
 			}
@@ -66,10 +73,10 @@ class EComponentMeta
 		foreach($methods as $method)
 		{
 			$hasAnnotations = false;
-			$methodMeta = new EComponentMetaMethod($method);
+			$methodMeta = new MetaMethod($method);
 			foreach($method->getAllAnnotations() as $annotation)
 			{
-				if(!$annotation instanceof IComponentMetaAnnotation)
+				if(!$annotation instanceof IMetaAnnotation)
 				{
 					continue;
 				}
@@ -100,7 +107,7 @@ class EComponentMeta
 		{
 			$name = $property->name;
 			/* @var $property ReflectionAnnotatedProperty */
-			$field = new EComponentMetaProperty($property);
+			$field = new MetaProperty($property);
 
 			// Access options
 			$field->callGet = isset($mes[$field->methodGet]) && $mes[$field->methodGet];
@@ -121,7 +128,7 @@ class EComponentMeta
 			
 			foreach($property->getAllAnnotations() as $annotation)
 			{
-				if(!$annotation instanceof IComponentMetaAnnotation)
+				if(!$annotation instanceof IMetaAnnotation)
 				{
 					continue;
 				}
@@ -152,7 +159,7 @@ class EComponentMeta
 	/**
 	 * Create flyghtweight instace of EComponentMeta
 	 * @param IAnnotated $component
-	 * @return EComponentMeta
+	 * @return Meta
 	 */
 	public static function create(IAnnotated $component)
 	{
@@ -166,10 +173,11 @@ class EComponentMeta
 			}
 			else
 			{
-				self::$_instances[$id] = new self($component);
+				self::$_instances[$id] = new Meta($component);
 				self::_cacheSet($id, self::$_instances[$id]);
 			}
 		}
+		
 		return self::$_instances[$id];
 	}
 
@@ -198,7 +206,7 @@ class EComponentMeta
 	 * @param enum $type type of entities to return EComponentMeta::Type|EComponentMeta::Field|EComponentMeta::Method
 	 * @return type
 	 */
-	public function properties($fieldName, $type = EComponentMeta::Field)
+	public function properties($fieldName, $type = Meta::Field)
 	{
 		$result = array();
 		switch($type)
@@ -244,7 +252,7 @@ class EComponentMeta
 
 	/**
 	 * Get class metadata
-	 * @return EComponentMetaType
+	 * @return MetaType
 	 */
 	public function type()
 	{
@@ -253,7 +261,7 @@ class EComponentMeta
 
 	/**
 	 * Get all fields metadata with field name as key
-	 * @return EComponentMetaProperty[]
+	 * @return MetaProperty[]
 	 */
 	public function fields()
 	{
@@ -263,7 +271,7 @@ class EComponentMeta
 	/**
 	 * Get field by name
 	 * @param string $name
-	 * @return EComponentMetaProperty
+	 * @return MetaProperty
 	 */
 	public function field($name)
 	{
@@ -272,7 +280,7 @@ class EComponentMeta
 
 	/**
 	 * Get all methods metadata
-	 * @return EComponentMetaMethod[]
+	 * @return MetaMethod[]
 	 */
 	public function methods()
 	{
@@ -282,7 +290,7 @@ class EComponentMeta
 	/**
 	 * Get method metadata by name
 	 * @param string $name
-	 * @return EComponentMetaMethod
+	 * @return MetaMethod
 	 */
 	public function method($name)
 	{
@@ -296,7 +304,7 @@ class EComponentMeta
 	/**
 	 * Get fields directly-like
 	 * @param string $name
-	 * @return EComponentMetaProperty|boolean
+	 * @return MetaProperty|boolean
 	 */
 	public function __get($name)
 	{
@@ -323,7 +331,7 @@ class EComponentMeta
 	/**
 	 * Try to get metadata from cache
 	 * @param type $id
-	 * @return EComponentMeta|boolean
+	 * @return Meta|boolean
 	 */
 	private static function _cacheGet($id)
 	{
@@ -343,10 +351,10 @@ class EComponentMeta
 	/**
 	 * Set instance data to cache
 	 * @param string $id
-	 * @param EComponentMeta $value
-	 * @return EComponentMeta|boolean
+	 * @param Meta $value
+	 * @return Meta|boolean
 	 */
-	private static function _cacheSet($id, EComponentMeta $value)
+	private static function _cacheSet($id, Meta $value)
 	{
 		if(!isset(Yii::app()->cache))
 		{

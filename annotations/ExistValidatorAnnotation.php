@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CExistValidator.
  */
+
 /**
  * CExistValidator validates that the attribute value exists in a table.
  *
@@ -21,8 +26,9 @@
  * @version $Id$
  * @package system.validators
  */
-class ExistValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class ExistValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var boolean whether the comparison is case sensitive. Defaults to true.
 	 * Note, by setting it to false, you are assuming the attribute type is string.
@@ -52,8 +58,8 @@ class ExistValidatorAnnotation extends EValidatorAnnotation implements IBuiltInV
 	 * value exists in the corresponding table column.
 	 * This array will be used to instantiate a {@link CDbCriteria} object.
 	 */
-	public $criteria = array (
-);
+	public $criteria = array(
+	);
 
 	/**
 	 * @var boolean whether the attribute value can be null or empty. Defaults to true,

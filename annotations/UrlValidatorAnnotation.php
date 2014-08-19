@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CUrlValidator.
  */
+
 /**
  * CUrlValidator validates that the attribute value is a valid http or https URL.
  *
@@ -11,8 +16,9 @@
  * @package system.validators
  * @since 1.0
  */
-class UrlValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class UrlValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var string the regular expression used to validate the attribute value.
 	 * Since version 1.1.7 the pattern may contain a {schemes} token that will be replaced
@@ -24,18 +30,18 @@ class UrlValidatorAnnotation extends EValidatorAnnotation implements IBuiltInVal
 	 * @var array list of URI schemes which should be considered valid. By default, http and https
 	 * are considered to be valid schemes.
 	 * @since 1.1.7
-	 **/
-	public $validSchemes = array (
-  0 => 'http',
-  1 => 'https',
-);
+	 * */
+	public $validSchemes = array(
+		0 => 'http',
+		1 => 'https',
+	);
 
 	/**
 	 * @var string the default URI scheme. If the input doesn't contain the scheme part, the default
 	 * scheme will be prepended to it (thus changing the input). Defaults to null, meaning a URL must
 	 * contain the scheme part.
 	 * @since 1.1.7
-	 **/
+	 * */
 	public $defaultScheme = NULL;
 
 	/**

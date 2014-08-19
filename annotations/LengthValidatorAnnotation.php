@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CLengthValidator.
  */
+
 /**
  * CStringValidator validates that the attribute value is of certain length.
  *
@@ -26,8 +31,9 @@
  * @package system.validators
  * @since 1.0
  */
-class LengthValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class LengthValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var integer maximum length. Defaults to null, meaning no maximum limit.
 	 */

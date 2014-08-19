@@ -1,8 +1,13 @@
 <?php
+
+use Maslosoft\Addendum\Base\ValidatorAnnotation;
+use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
+
 /**
  * NOTE: This class is automatically generated from Yii validator class.
  * This is not actual validator. For validator class @see CDateValidator.
  */
+
 /**
  * CDateValidator verifies if the attribute represents a date, time or datetime.
  *
@@ -14,8 +19,9 @@
  * @package system.validators
  * @since 1.1.7
  */
-class DateValidatorAnnotation extends EValidatorAnnotation implements IBuiltInValidatorAnnotation
+class DateValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
+
 	/**
 	 * @var mixed the format pattern that the date value should follow.
 	 * This can be either a string or an array representing multiple formats.

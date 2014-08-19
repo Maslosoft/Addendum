@@ -1,12 +1,17 @@
 <?php
 
+namespace Maslosoft\Addendum\Base;
+
+use Maslosoft\Addendum\Collections\MetaAnnotation;
+
 /**
  * Base class for validator annotations
  *
  * @author Piotr
  */
-abstract class EValidatorAnnotation extends EComponentMetaAnnotation
+abstract class ValidatorAnnotation extends MetaAnnotation
 {
+
 	/**
 	 * @var string the user-defined error message. Different validators may define various
 	 * placeholders in the message that are to be replaced with actual values. All validators
@@ -51,8 +56,9 @@ abstract class EValidatorAnnotation extends EComponentMetaAnnotation
 	public function init()
 	{
 		$name = preg_replace('~Annotation$~', '', lcfirst(get_class($this)));
-		$value = array_intersect_key((array)$this, array_flip($this->_publicProperties));
+		$value = array_intersect_key((array) $this, array_flip($this->_publicProperties));
 		unset($value['name']);
 		$this->_entity->$name = $value;
 	}
+
 }

@@ -1,12 +1,15 @@
 <?php
 
+use Maslosoft\Addendum\Collections\MetaAnnotation;
+
 /**
  * Label
  * Set translated entity 'label' field
  * @template Label('${text}')
  */
-class LabelAnnotation extends EComponentMetaAnnotation
+class LabelAnnotation extends MetaAnnotation
 {
+
 	public $value = '';
 
 	public function init()
@@ -21,4 +24,5 @@ class LabelAnnotation extends EComponentMetaAnnotation
 	{
 		return $this->value;
 	}
+
 }

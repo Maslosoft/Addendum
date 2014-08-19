@@ -1,11 +1,16 @@
 <?php
 
+namespace Maslosoft\Addendum\Utilities;
+
+use CWidget;
+use Yii;
+
 /**
  * This utility extract i18n labels, descriptions etc.
  *
  * @author Piotr
  */
-class EAnnotationUtilityI18N extends CWidget
+class I18NExtractor extends CWidget
 {
 
 	private $_file = [];
@@ -18,8 +23,8 @@ class EAnnotationUtilityI18N extends CWidget
 			$paths[] = Yii::getPathOfAlias($alias);
 		}
 		$this->_file[] = '<?php';
-		EAnnotationUtility::fileWalker(Yii::app()->addendum->i18nAnnotations, [$this, 'walk'], $paths);
-		if(null === $outputAlias)
+		AnnotationUtility::fileWalker(Yii::app()->addendum->i18nAnnotations, [$this, 'walk'], $paths);
+		if (null === $outputAlias)
 		{
 			file_put_contents(sprintf('%s/annotated-labels.php', Yii::getPathOfAlias('autogen')), implode("\n", $this->_file));
 		}
@@ -32,7 +37,7 @@ class EAnnotationUtilityI18N extends CWidget
 
 	public function walk($file)
 	{
-		$annotations = EAnnotationUtility::rawAnnotate($file);
+		$annotations = AnnotationUtility::rawAnnotate($file);
 
 		foreach ($annotations['class'] as $type => $annotation)
 		{
@@ -57,16 +62,16 @@ class EAnnotationUtilityI18N extends CWidget
 		{
 			foreach ($annotation as $values)
 			{
-				if(!isset($values['value']))
+				if (!isset($values['value']))
 				{
 					continue;
 				}
 				$value = $values['value'];
-				if(!$value)
+				if (!$value)
 				{
 					continue;
 				}
-				$alias = EAnnotationUtility::getAliasOfPath($file);
+				$alias = AnnotationUtility::getAliasOfPath($file);
 				$parts = explode('.', $alias);
 				$class = array_pop($parts);
 				if (null === $name)
@@ -74,7 +79,7 @@ class EAnnotationUtilityI18N extends CWidget
 					$name = $class;
 				}
 				$w = "'";
-				if(strstr($value, "'") !== false)
+				if (strstr($value, "'") !== false)
 				{
 					$w = '"';
 				}

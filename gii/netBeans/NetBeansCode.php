@@ -12,7 +12,7 @@ class NetBeansCode extends CCodeModel
 
 	public function prepare()
 	{
-		$util = new EAnnotationUtility();
+		$util = new Maslosoft\Addendum\Utilities\AnnotationUtility();
 		$util->generateNetbeansHelpers();
 
 		$path = sprintf('%s/annotations.zip', Yii::getPathOfAlias('application.runtime'));

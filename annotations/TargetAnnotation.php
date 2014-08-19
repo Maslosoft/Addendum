@@ -20,6 +20,7 @@ use Maslosoft\Addendum\Annotation;
  */
 class TargetAnnotation extends Annotation
 {
+
 	const TargetClass = 'class';
 	const TargetMethod = 'method';
 	const TargetProperty = 'property';
@@ -30,9 +31,9 @@ class TargetAnnotation extends Annotation
 
 	public function init()
 	{
-		if(!in_array($this->value, self::getTargets()))
+		if (!in_array($this->value, self::getTargets()))
 		{
-			if(!$this->_component->_component instanceof $this->value)
+			if (!$this->_component->_component instanceof $this->value)
 			{
 				throw new UnexpectedValueException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s"', get_class($this->_component), get_class($this->_component->_component), $this->value));
 			}
@@ -42,10 +43,11 @@ class TargetAnnotation extends Annotation
 	public static function getTargets()
 	{
 		return [
-			 self::TargetClass,
-			 self::TargetMethod,
-			 self::TargetProperty,
-			 self::TargetNested
+			self::TargetClass,
+			self::TargetMethod,
+			self::TargetProperty,
+			self::TargetNested
 		];
 	}
+
 }

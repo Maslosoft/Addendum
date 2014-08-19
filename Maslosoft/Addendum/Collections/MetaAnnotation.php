@@ -1,13 +1,18 @@
 <?php
 
+namespace Maslosoft\Addendum\Collections;
+
 use Maslosoft\Addendum\Annotation;
+use Maslosoft\Addendum\Interfaces\IAnnotationEntity;
+use Maslosoft\Addendum\Interfaces\IMetaAnnotation;
 
 /**
- * Annotation used for EComponentMeta
+ * Annotation used for Collections\Meta
  * @author Piotr
  */
-abstract class EComponentMetaAnnotation extends Annotation implements IComponentMetaAnnotation
+abstract class MetaAnnotation extends Annotation implements IMetaAnnotation
 {
+
 	/**
 	 * Name of annotated field/method/class
 	 * @var string
@@ -16,7 +21,7 @@ abstract class EComponentMetaAnnotation extends Annotation implements IComponent
 
 	/**
 	 * Model metadata object
-	 * @var EComponentMeta
+	 * @var Meta
 	 */
 	protected $_meta = null;
 
@@ -29,9 +34,9 @@ abstract class EComponentMetaAnnotation extends Annotation implements IComponent
 
 	/**
 	 * Set metada class to be accessible for annotation for init etc. methods
-	 * @param EComponentMeta $meta
+	 * @param Meta $meta
 	 */
-	public function setMeta(EComponentMeta $meta)
+	public function setMeta(Meta $meta)
 	{
 		$this->_meta = $meta;
 	}
@@ -52,6 +57,7 @@ abstract class EComponentMetaAnnotation extends Annotation implements IComponent
 	 */
 	public function afterInit()
 	{
-
+		
 	}
+
 }
