@@ -1,5 +1,7 @@
 <?php
 
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+
 /**
  * Description of EComponentMeta
  * @property EComponentMetaProperty $field

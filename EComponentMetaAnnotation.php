@@ -1,10 +1,12 @@
 <?php
 
+use Maslosoft\Addendum\Annotation;
+
 /**
  * Annotation used for EComponentMeta
  * @author Piotr
  */
-abstract class EComponentMetaAnnotation extends EAnnotation implements IComponentMetaAnnotation
+abstract class EComponentMetaAnnotation extends Annotation implements IComponentMetaAnnotation
 {
 	/**
 	 * Name of annotated field/method/class

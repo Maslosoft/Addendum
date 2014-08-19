@@ -5,7 +5,7 @@
  * @Target('class')
  * @author Piotr
  */
-class BehaviorAnnotation extends EAnnotation
+class BehaviorAnnotation extends Maslosoft\Addendum\Annotation
 {
 	protected $class = '';
 	protected $_name = '';

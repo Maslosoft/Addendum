@@ -53,7 +53,7 @@ class EAnnotationUtility extends CWidget
 			foreach(CFileHelper::findFiles($path, ['fileTypes' => ['php']]) as $file)
 			{
 				$className = preg_replace('~\.php$~', '', basename($file));
-				$info = new ReflectionAnnotatedClass($className);
+				$info = new Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass($className);
 				if(!$info->isSubclassOf('EAnnotation'))
 				{
 					continue;
@@ -184,7 +184,7 @@ CODE;
 		foreach($v as $n => $class)
 		{
 			$name = ucfirst($n) . 'Validator';
-			$info = new ReflectionAnnotatedClass($class);
+			$info = new Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass($class);
 			$classComment = $info->getDocComment();
 			$values = $info->getDefaultProperties();
 			$fields = [];
@@ -261,7 +261,7 @@ CODE;
 	public static function rawAnnotate($file, $className = null)
 	{
 		Yii::import('addendum.builder.*');
-		$docExtractor = new EDocComment();
+		$docExtractor = new Maslosoft\Addendum\Builder\DocComment();
 		$docs = $docExtractor->forFile($file, $className);
 		
 		$matcher = new EAnnotationsMatcher();

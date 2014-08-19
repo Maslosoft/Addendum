@@ -11,5 +11,10 @@
 			"homepage": "http://maslosoft.com",
 			"role": "Developer"
 		}
-	]
+	],
+	"autoload": {
+		"psr-0": {
+			"Maslosoft\\Mangan": "./"
+		}
+	}
 }

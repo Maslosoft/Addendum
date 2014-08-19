@@ -1,5 +1,7 @@
 <?php
 
+use Maslosoft\Addendum\Annotation;
+
 /**
  * Annotation target annotation
  * This allow limiting annotation use for properties, class,
@@ -16,7 +18,7 @@
  * @todo Allow setting concrete type as target - this should limit use of annotation to selected class (interface) or subclasses
  * @template Target('${target}')
  */
-class TargetAnnotation extends EAnnotation
+class TargetAnnotation extends Annotation
 {
 	const TargetClass = 'class';
 	const TargetMethod = 'method';
