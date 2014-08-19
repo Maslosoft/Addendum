@@ -25,7 +25,7 @@ As with most extensions add this to components
 
 ##Basic usage##
 
-**This only in short summary, please refer to [full yii addendum documentation](http://maslosoft.com/en/addendum/) or docs folder of this exteion for detailed explantion and [php addendum documentation](http://code.google.com/p/addendum/w/list) for in-depth annotations docs.**
+**This only in short summary, please refer to [full yii addendum documentation](http://maslosoft.com/en/open-source/addendum/) or docs folder of this exteion for detailed explantion and [php addendum documentation](http://code.google.com/p/addendum/w/list) for in-depth annotations docs.**
 
 ###What are annotations###
 
@@ -123,7 +123,7 @@ NOTE: `@template` is special docblock used to generate netbeans completition fil
 * None! But im sure there are some
 
 ##Resources##
-* [Project page](http://maslosoft.com/en/addendum/)
+* [Project page](http://maslosoft.com/en/open-source/addendum/)
 * [Project on github](https://github.com/Maslosoft/Addendum)
 * [Report a bug or request feature](https://github.com/Maslosoft/Addendum/issues)
 * [PHP Addendum library](http://code.google.com/p/addendum/)
