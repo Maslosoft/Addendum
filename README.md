@@ -19,27 +19,13 @@ As with most extensions add this to components
 ```php
 'components' => [
 		  'addendum' => [
-				'class' => 'application.extensions.addendum.EAddendum',
+				'class' => 'Maslosoft\Addendum\Addendum',
 		  ],
-```
-Also you have to import addendum folder
-```php
-// In config
-'import' => [
-	'application.extensions.addendum.*'
-]
-// Or manually
-Yii::import('application.extensions.addendum.*');
-```
-Then anywhere in code import folder with your annotations definiotions.
-```php
-// This is path for default annotations which ships with Yii addendum
-Yii::import('application.extensions.addendum.annotations.*');
 ```
 
 ##Basic usage##
 
-**This only in short summary, please refer to [full yii addendum documentation](http://maslosoft.com/en/open-source/yii-addendum/) or docs folder of this exteion for detailed explantion and [php addendum documentation](http://code.google.com/p/addendum/w/list) for in-depth annotations docs.**
+**This only in short summary, please refer to [full yii addendum documentation](http://maslosoft.com/en/addendum/) or docs folder of this exteion for detailed explantion and [php addendum documentation](http://code.google.com/p/addendum/w/list) for in-depth annotations docs.**
 
 ###What are annotations###
 
@@ -137,9 +123,9 @@ NOTE: `@template` is special docblock used to generate netbeans completition fil
 * None! But im sure there are some
 
 ##Resources##
-* [Project page](http://maslosoft.com/en/open-source/yii-addendum/)
-* [Project on github](https://github.com/Maslosoft/YiiAddendum)
-* [Report a bug or request feature](https://github.com/Maslosoft/YiiAddendum/issues)
+* [Project page](http://maslosoft.com/en/addendum/)
+* [Project on github](https://github.com/Maslosoft/Addendum)
+* [Report a bug or request feature](https://github.com/Maslosoft/Addendum/issues)
 * [PHP Addendum library](http://code.google.com/p/addendum/)
 
 ##Big thanks goes to##
