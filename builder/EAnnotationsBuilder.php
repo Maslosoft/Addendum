@@ -33,7 +33,14 @@ class EAnnotationsBuilder
 		 * and try to Yii::import('path.to.%class%Annotation');
 		 * OR better move this to EAddendum::resolveClassName
 		 */
-		$class = ucfirst($class) . "Annotation";
+		if(strstr($class, '\\'))
+		{
+			// var_dump("Namespaced: $class");
+		}
+		else
+		{
+			$class = ucfirst($class) . "Annotation";
+		}
 		if(EAddendum::ignores($class))
 		{
 			return false;

@@ -97,7 +97,7 @@ class EComponentMeta
 		foreach($properties as $property)
 		{
 			$name = $property->name;
-			/* @var $property ReflectionProperty */
+			/* @var $property ReflectionAnnotatedProperty */
 			$field = new EComponentMetaProperty($property);
 
 			// Access options
@@ -116,7 +116,7 @@ class EComponentMeta
 			}
 			// Put it to metadata object
 			$this->_fields[$field->name] = $field;
-
+			
 			foreach($property->getAllAnnotations() as $annotation)
 			{
 				if(!$annotation instanceof IComponentMetaAnnotation)

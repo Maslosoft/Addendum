@@ -2,6 +2,11 @@
 
 class ReflectionAnnotatedProperty extends ReflectionProperty
 {
+
+	/**
+	 *
+	 * @var EAnnotationsCollection
+	 */
 	private $annotations;
 
 	public function __construct($class, $name)
@@ -36,8 +41,13 @@ class ReflectionAnnotatedProperty extends ReflectionProperty
 		return new ReflectionAnnotatedClass($class->getName());
 	}
 
+	/**
+	 * Create new annotations builder instance
+	 * @return \EAnnotationsBuilder
+	 */
 	protected function createAnnotationBuilder()
 	{
 		return new EAnnotationsBuilder();
 	}
+
 }
