@@ -15,6 +15,11 @@ I created this extension, because I wanted to see all attribute properties of my
 * Netbeans completition support
 
 ##Setup##
+Use composer to install extension:
+
+	composer require maslosoft/mangan <version>
+
+
 As with most extensions add this to components
 ```php
 'components' => [
