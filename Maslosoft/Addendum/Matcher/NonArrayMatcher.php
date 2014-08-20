@@ -2,7 +2,12 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class ValueMatcher extends ParallelMatcher
+/**
+ * Matches any value, except arrays
+ *
+ * @author Piotr Maselkowski <pmaselkowski at gmail.com>
+ */
+class NonArrayMatcher extends ParallelMatcher
 {
 
 	protected function build()
@@ -16,7 +21,6 @@ class ValueMatcher extends ParallelMatcher
 		$this->add(new ClassLiteralMatcher);
 		$this->add(new StringMatcher);
 		$this->add(new NumberMatcher);
-		$this->add(new ArrayMatcher);
 		$this->add(new StaticConstantMatcher);
 		$this->add(new NestedAnnotationMatcher);
 	}
