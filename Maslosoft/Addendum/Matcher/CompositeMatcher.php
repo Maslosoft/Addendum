@@ -2,7 +2,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class CompositeMatcher
+abstract class CompositeMatcher
 {
 
 	protected $matchers = array();
@@ -28,4 +28,5 @@ class CompositeMatcher
 		
 	}
 
+	abstract protected function match($string, &$value);
 }
