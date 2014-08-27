@@ -25,6 +25,23 @@ class TopValuesMatcher extends ParallelMatcher
 
 	protected function process($value)
 	{
+		
+		$result = [];
+		if(is_array($value))
+		{
+			foreach ($value as $key => $value)
+			{
+				if(!is_numeric($key))
+				{
+					$result[$key] = $value;
+				}
+			}
+			if($result)
+			{
+				return $result;
+			}
+			var_dump($value);
+		}
 		return ['value' => $value];
 	}
 }
