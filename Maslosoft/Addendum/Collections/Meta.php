@@ -1,8 +1,10 @@
 <?php
 namespace Maslosoft\Addendum\Collections;
 
+use Exception;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Interfaces\IMetaAnnotation;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -39,6 +41,11 @@ class Meta
 		
 		// Get reflection data
 		$info = Yii::app()->addendum->annotate($component);
+
+		if(!$info instanceof ReflectionAnnotatedClass)
+		{
+			throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
+		}
 		
 		$properties = $info->getProperties(ReflectionProperty::IS_PUBLIC);
 		$methods = $info->getMethods(ReflectionMethod::IS_PUBLIC);
