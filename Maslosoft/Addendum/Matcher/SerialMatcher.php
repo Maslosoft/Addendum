@@ -7,7 +7,8 @@ class SerialMatcher extends CompositeMatcher
 
 	protected function match($string, &$value)
 	{
-		$results = array();
+		$results = [];
+		$result = [];
 		$total_length = 0;
 		foreach ($this->matchers as $matcher)
 		{
