@@ -97,24 +97,24 @@ abstract class Annotation extends CComponent
 		 */
 		foreach ($values as $value)
 		{
-			if ($value == 'class' && $target instanceof ReflectionClass)
+			if ($value == TargetAnnotation::TargetClass && $target instanceof ReflectionClass)
 			{
 				return;
 			}
-			if ($value == 'method' && $target instanceof ReflectionMethod)
+			if ($value == TargetAnnotation::TargetMethod && $target instanceof ReflectionMethod)
 			{
 				return;
 			}
-			if ($value == 'property' && $target instanceof ReflectionProperty)
+			if ($value == TargetAnnotation::TargetProperty && $target instanceof ReflectionProperty)
 			{
 				return;
 			}
-			if ($value == 'nested' && $target === false)
+			if ($value == TargetAnnotation::TargetNested && $target === false)
 			{
 				return;
 			}
 		}
-		if ($target === false && $value == 'nested')
+		if ($target === false && $value == TargetAnnotation::TargetNested)
 		{
 			throw new UnexpectedValueException("Annotation '" . get_class($this) . "' nesting not allowed");
 		}
