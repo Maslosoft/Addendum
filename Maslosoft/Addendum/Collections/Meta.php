@@ -5,6 +5,7 @@ use Exception;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Interfaces\IMetaAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -87,6 +88,12 @@ class Meta
 				{
 					continue;
 				}
+
+				if(!$method instanceof ReflectionAnnotatedMethod)
+				{
+					throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
+				}
+
 				$annotation->name = $method->name;
 				$annotation->setEntity($methodMeta);
 				$annotation->setMeta($this);
@@ -139,6 +146,12 @@ class Meta
 				{
 					continue;
 				}
+
+				if(!$field instanceof ReflectionAnnotatedProperty)
+				{
+					throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
+				}
+
 				$annotation->name = $field->name;
 				$annotation->setEntity($field);
 				$annotation->setMeta($this);
