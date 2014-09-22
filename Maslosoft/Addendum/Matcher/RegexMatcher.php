@@ -14,6 +14,7 @@ class RegexMatcher
 
 	public function matches($string, &$value)
 	{
+		$matches = [];
 		if (preg_match("/^{$this->regex}/", $string, $matches))
 		{
 			$value = $this->process($matches);

@@ -2,6 +2,10 @@
 
 namespace Maslosoft\Addendum\Builder;
 
+use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
+
 class DocComment
 {
 
@@ -100,6 +104,7 @@ class DocComment
 		$namespace = '\\';
 		$tokens = $this->getTokens($file);
 		$class = false;
+		$comment = null;
 		$max = count($tokens);
 		$i = 0;
 		while ($i < $max)
