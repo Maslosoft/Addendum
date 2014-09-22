@@ -65,7 +65,6 @@ abstract class Annotation extends CComponent
 			$this->_publicProperties[] = $field->name;
 		}
 		$this->checkTargetConstraints($target);
-		$this->checkConstraints($target);
 		unset(self::$_creationStack[$class]);
 	}
 
@@ -139,11 +138,6 @@ abstract class Annotation extends CComponent
 		{
 			return $target->getName();
 		}
-	}
-
-	protected function checkConstraints($target)
-	{
-
 	}
 
 	public function toArray()
