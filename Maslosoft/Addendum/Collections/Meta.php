@@ -81,6 +81,11 @@ class Meta
 		// Setup methods
 		foreach($methods as $method)
 		{
+			if(!$method instanceof ReflectionAnnotatedMethod)
+			{
+				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
+			}
+			
 			$hasAnnotations = false;
 			$methodMeta = new MetaMethod($method);
 			foreach($method->getAllAnnotations() as $annotation)
@@ -88,11 +93,6 @@ class Meta
 				if(!$annotation instanceof IMetaAnnotation)
 				{
 					continue;
-				}
-
-				if(!$method instanceof ReflectionAnnotatedMethod)
-				{
-					throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
 				}
 
 				$annotation->name = $method->name;
@@ -120,6 +120,11 @@ class Meta
 		// Setup properties
 		foreach($properties as $property)
 		{
+			if(!$property instanceof ReflectionAnnotatedProperty)
+			{
+				throw new Exception(sprintf('Could not annotate `%s::%s`', get_class($component), $property->name));
+			}
+
 			$name = $property->name;
 			/* @var $property ReflectionAnnotatedProperty */
 			$field = new MetaProperty($property);
@@ -146,11 +151,6 @@ class Meta
 				if(!$annotation instanceof IMetaAnnotation)
 				{
 					continue;
-				}
-
-				if(!$field instanceof ReflectionAnnotatedProperty)
-				{
-					throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
 				}
 
 				$annotation->name = $field->name;
