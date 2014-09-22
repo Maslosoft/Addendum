@@ -39,6 +39,7 @@ class Meta
 		// For example, for development annotation based extractor could be used, which could compile
 		// Metadata to arrays, and for production environment, compiled arrays could be used
 		$annotations = [];
+		$mes = [];
 		
 		// Get reflection data
 		$info = Yii::app()->addendum->annotate($component);
