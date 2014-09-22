@@ -9,6 +9,7 @@ class ParallelMatcher extends CompositeMatcher
 	{
 		$maxLength = false;
 		$result = null;
+		$subvalue = [];
 		foreach ($this->matchers as $matcher)
 		{
 			$length = $matcher->matches($string, $subvalue);
