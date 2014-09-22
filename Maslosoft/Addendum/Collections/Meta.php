@@ -350,7 +350,7 @@ class Meta
 
 	/**
 	 * Try to get metadata from cache
-	 * @param type $id
+	 * @param string $id
 	 * @return Meta|boolean
 	 */
 	private static function _cacheGet($id)
