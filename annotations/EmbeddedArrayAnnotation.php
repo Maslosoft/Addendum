@@ -20,6 +20,7 @@ class EmbeddedArrayAnnotation extends MetaAnnotation
 		$this->_entity->embedded = true;
 		$this->_entity->embeddedArray = true;
 		$this->_entity->direct = false;
+		$this->_entity->sanitizer = Maslosoft\Mangan\Sanitizers\EmbeddedArray::class;
 	}
 
 }

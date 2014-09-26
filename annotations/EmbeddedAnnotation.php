@@ -36,6 +36,7 @@ class EmbeddedAnnotation extends MetaAnnotation
 		$this->_entity->embedded = $className;
 		$this->_entity->embeddedParams = $this->value;
 		$this->_entity->direct = false;
+		$this->_entity->sanitizer = Maslosoft\Mangan\Sanitizers\Embedded::class;
 	}
 
 }

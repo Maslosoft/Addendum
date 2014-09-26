@@ -85,7 +85,7 @@ class Meta
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
 			}
-			
+
 			$hasAnnotations = false;
 			$methodMeta = new MetaMethod($method);
 			foreach($method->getAllAnnotations() as $annotation)
