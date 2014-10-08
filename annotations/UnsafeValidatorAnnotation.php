@@ -19,4 +19,11 @@ use Maslosoft\Addendum\Interfaces\IBuiltInValidatorAnnotation;
 class UnsafeValidatorAnnotation extends ValidatorAnnotation implements IBuiltInValidatorAnnotation
 {
 
+	/**
+	 * @var boolean whether attributes listed with this validator should be considered safe for massive assignment.
+	 * Defaults to false.
+	 * @since 1.1.4
+	 */
+	public $safe = false;
+
 }
