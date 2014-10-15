@@ -319,7 +319,9 @@ CODE;
 	}
 
 	/**
+	 * TODO Remove, as this is very unrelialbe. Rely on autoload instead.
 	 * @param type $path
+	 * @deprecated since version number
 	 * @return type
 	 */
 	public static function getAliasOfPath($path = __DIR__)
