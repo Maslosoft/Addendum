@@ -11,6 +11,9 @@ use ReflectionMethod;
 use ReflectionProperty;
 use Yii;
 
+// This is to ensure importing annotations
+require_once __DIR__ . '/../Addendum.php';
+
 /**
  * Description of EComponentMeta
  * @property MetaProperty $field
