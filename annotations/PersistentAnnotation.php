@@ -17,7 +17,7 @@ class PersistentAnnotation extends MetaAnnotation
 
 	public function init()
 	{
-		$this->_entity->persistent = tx($this->value);
+		$this->_entity->persistent = (bool)$this->value;
 	}
 
 }
