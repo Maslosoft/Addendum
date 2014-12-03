@@ -85,15 +85,15 @@ class Builder
 	{
 		if($target instanceof ReflectionMethod)
 		{
-			return $target->getDeclaringClass()->getName() . '::' . $target->getName();
+			return $target->getDeclaringClass()->name . '::' . $target->name;
 		}
 		elseif($target instanceof ReflectionProperty)
 		{
-			return $target->getDeclaringClass()->getName() . '::$' . $target->getName();
+			return $target->getDeclaringClass()->name . '::$' . $target->name;
 		}
 		else
 		{
-			return $target->getName();
+			return $target->name;
 		}
 	}
 

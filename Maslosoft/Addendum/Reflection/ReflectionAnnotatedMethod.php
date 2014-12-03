@@ -36,7 +36,7 @@ class ReflectionAnnotatedMethod extends ReflectionMethod
 	public function getDeclaringClass()
 	{
 		$class = parent::getDeclaringClass();
-		return new ReflectionAnnotatedClass($class->getName());
+		return new ReflectionAnnotatedClass($class->name);
 	}
 
 	protected function createAnnotationBuilder()

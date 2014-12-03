@@ -45,7 +45,7 @@ abstract class Annotation extends CComponent
 	public function __construct($data = [], $target = false)
 	{
 		$reflection = new ReflectionClass($this);
-		$class = $reflection->getName();
+		$class = $reflection->name;
 		if (isset(self::$_creationStack[$class]))
 		{
 			trigger_error("Circular annotation reference on '$class'", E_USER_ERROR);
@@ -128,15 +128,15 @@ abstract class Annotation extends CComponent
 	{
 		if ($target instanceof ReflectionMethod)
 		{
-			return $target->getDeclaringClass()->getName() . '::' . $target->getName();
+			return $target->getDeclaringClass()->name . '::' . $target->name;
 		}
 		elseif ($target instanceof ReflectionProperty)
 		{
-			return $target->getDeclaringClass()->getName() . '::$' . $target->getName();
+			return $target->getDeclaringClass()->name . '::$' . $target->name;
 		}
 		else
 		{
-			return $target->getName();
+			return $target->name;
 		}
 	}
 

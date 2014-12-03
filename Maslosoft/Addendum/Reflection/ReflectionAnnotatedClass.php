@@ -92,16 +92,16 @@ class ReflectionAnnotatedClass extends ReflectionClass
 
 	private function createReflectionAnnotatedClass($class)
 	{
-		return ($class !== false) ? new ReflectionAnnotatedClass($class->getName()) : false;
+		return ($class !== false) ? new ReflectionAnnotatedClass($class->name) : false;
 	}
 
 	private function createReflectionAnnotatedMethod($method)
 	{
-		return ($method !== null) ? new ReflectionAnnotatedMethod($this->getName(), $method->getName()) : null;
+		return ($method !== null) ? new ReflectionAnnotatedMethod($this->name, $method->name) : null;
 	}
 
 	private function createReflectionAnnotatedProperty($property)
 	{
-		return ($property !== null) ? new ReflectionAnnotatedProperty($this->getName(), $property->getName()) : null;
+		return ($property !== null) ? new ReflectionAnnotatedProperty($this->name, $property->name) : null;
 	}
 }
