@@ -207,7 +207,7 @@ class Meta
 	 * @param IAnnotated $component
 	 * @return Meta
 	 */
-	public static function create(IAnnotated $component)
+	public static function create(IAnnotated $component, MetaOptions $options = null)
 	{
 		$id = get_class($component);
 		if (!isset(self::$_instances[$id]))
@@ -219,7 +219,7 @@ class Meta
 			}
 			else
 			{
-				self::$_instances[$id] = new Meta($component);
+				self::$_instances[$id] = new Meta($component, $options);
 				self::_cacheSet($id, self::$_instances[$id]);
 			}
 		}
