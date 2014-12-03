@@ -60,10 +60,10 @@ class Builder
 			Addendum::ignore($class);
 			return false;
 		}
-		$class = Addendum::resolveClassName($class);
-		if(is_subclass_of($class, Annotation::class) || $class == Annotation::class)
+		$resolvedClass = Addendum::resolveClassName($class);
+		if(is_subclass_of($resolvedClass, Annotation::class) || $resolvedClass == Annotation::class)
 		{
-			$annotationReflection = new ReflectionClass($class);
+			$annotationReflection = new ReflectionClass($resolvedClass);
 			return $annotationReflection->newInstance($parameters, $targetReflection);
 		}
 		return false;
