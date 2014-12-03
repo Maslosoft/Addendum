@@ -1,9 +1,11 @@
 <?php
+
 namespace Maslosoft\Addendum\Collections;
 
 use Exception;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Interfaces\IMetaAnnotation;
+use Maslosoft\Addendum\Options\MetaOptions;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
@@ -21,37 +23,57 @@ require_once __DIR__ . '/../Addendum.php';
  */
 class Meta
 {
+
 	const Type = 1;
 	const Field = 2;
 	const Method = 3;
 
 	private static $_instances = [];
+
+	/**
+	 * Container for type metadata
+	 * @var MetaType
+	 */
 	private $_type = null;
+
+	/**
+	 * Array of containers for property metadata
+	 * @var MetaProperty[]
+	 */
 	private $_fields = [];
+
+	/**
+	 * Array of containers for method metadata
+	 * @var MetaMethod[]
+	 */
 	private $_methods = [];
 	private $_annotations = [];
 
-	protected function __construct(IAnnotated $component = null)
+	protected function __construct(IAnnotated $component = null, MetaOptions $options = null)
 	{
 		// For internal use
-		if(null === $component)
+		if (null === $component)
 		{
 			return;
+		}
+		if (null === $options)
+		{
+			$options = new MetaOptions();
 		}
 		// TODO Abstract from component meta, so other kinds of meta extractors could be used
 		// For example, for development annotation based extractor could be used, which could compile
 		// Metadata to arrays, and for production environment, compiled arrays could be used
 		$annotations = [];
 		$mes = [];
-		
+
 		// Get reflection data
 		$info = Yii::app()->addendum->annotate($component);
 
-		if(!$info instanceof ReflectionAnnotatedClass)
+		if (!$info instanceof ReflectionAnnotatedClass)
 		{
 			throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
 		}
-		
+
 		$properties = $info->getProperties(ReflectionProperty::IS_PUBLIC);
 		$methods = $info->getMethods(ReflectionMethod::IS_PUBLIC);
 
@@ -67,10 +89,10 @@ class Meta
 		 * OR add function to Annotation to setEntity, which should point to _field, _main or _method?
 		 */
 		// Setup class annotations
-		$this->_type = new MetaType($info);
-		foreach($info->getAllAnnotations() as $annotation)
+		$this->_type = new $options->typeClass($info);
+		foreach ($info->getAllAnnotations() as $annotation)
 		{
-			if(!$annotation instanceof IMetaAnnotation)
+			if (!$annotation instanceof IMetaAnnotation)
 			{
 				continue;
 			}
@@ -82,18 +104,18 @@ class Meta
 			$annotations[] = $annotation;
 		}
 		// Setup methods
-		foreach($methods as $method)
+		foreach ($methods as $method)
 		{
-			if(!$method instanceof ReflectionAnnotatedMethod)
+			if (!$method instanceof ReflectionAnnotatedMethod)
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
 			}
 
 			$hasAnnotations = false;
-			$methodMeta = new MetaMethod($method);
-			foreach($method->getAllAnnotations() as $annotation)
+			$methodMeta = new $options->methodClass($method);
+			foreach ($method->getAllAnnotations() as $annotation)
 			{
-				if(!$annotation instanceof IMetaAnnotation)
+				if (!$annotation instanceof IMetaAnnotation)
 				{
 					continue;
 				}
@@ -108,29 +130,29 @@ class Meta
 				$annotations[] = $annotation;
 				$hasAnnotations = true;
 			}
-			if($hasAnnotations)
+			if ($hasAnnotations)
 			{
 				// Put it to metadata object
 				$this->_methods[$method->name] = $methodMeta;
 			}
 			// Get getters and setters for properties setup
-			if(preg_match('~^[gs]et~', $method->name) && !$method->isStatic())
+			if (preg_match('~^[gs]et~', $method->name) && !$method->isStatic())
 			{
 				$mes[$method->name] = true;
 			}
 		}
 
 		// Setup properties
-		foreach($properties as $property)
+		foreach ($properties as $property)
 		{
-			if(!$property instanceof ReflectionAnnotatedProperty)
+			if (!$property instanceof ReflectionAnnotatedProperty)
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s`', get_class($component), $property->name));
 			}
 
 			$name = $property->name;
 			/* @var $property ReflectionAnnotatedProperty */
-			$field = new MetaProperty($property);
+			$field = new $options->propertyClass($property);
 
 			// Access options
 			$field->callGet = isset($mes[$field->methodGet]) && $mes[$field->methodGet];
@@ -138,7 +160,7 @@ class Meta
 			$field->direct = !($field->callGet || $field->callSet);
 
 			// Other
-			if($field->isStatic)
+			if ($field->isStatic)
 			{
 				$field->default = $component::$$name;
 			}
@@ -148,10 +170,10 @@ class Meta
 			}
 			// Put it to metadata object
 			$this->_fields[$field->name] = $field;
-			
-			foreach($property->getAllAnnotations() as $annotation)
+
+			foreach ($property->getAllAnnotations() as $annotation)
 			{
-				if(!$annotation instanceof IMetaAnnotation)
+				if (!$annotation instanceof IMetaAnnotation)
 				{
 					continue;
 				}
@@ -164,7 +186,7 @@ class Meta
 				$annotations[] = $annotation;
 			}
 		}
-		foreach($annotations as $annotation)
+		foreach ($annotations as $annotation)
 		{
 			$annotation->afterInit();
 		}
@@ -173,7 +195,7 @@ class Meta
 	public static function __set_state($data)
 	{
 		$obj = new self(null);
-		foreach($data as $field => $value)
+		foreach ($data as $field => $value)
 		{
 			$obj->$field = $value;
 		}
@@ -188,10 +210,10 @@ class Meta
 	public static function create(IAnnotated $component)
 	{
 		$id = get_class($component);
-		if(!isset(self::$_instances[$id]))
+		if (!isset(self::$_instances[$id]))
 		{
 			$cache = self::_cacheGet($id);
-			if($cache)
+			if ($cache)
 			{
 				self::$_instances[$id] = $cache;
 			}
@@ -201,7 +223,7 @@ class Meta
 				self::_cacheSet($id, self::$_instances[$id]);
 			}
 		}
-		
+
 		return self::$_instances[$id];
 	}
 
@@ -212,10 +234,10 @@ class Meta
 	 */
 	public function initModel(IAnnotated $component)
 	{
-		foreach($this->_fields as $field)
+		foreach ($this->_fields as $field)
 		{
 			// Unset fields which are accessed by get/set
-			if(!$field->direct)
+			if (!$field->direct)
 			{
 				unset($component->{$field->name});
 			}
@@ -233,7 +255,7 @@ class Meta
 	public function properties($fieldName, $type = Meta::Field)
 	{
 		$result = array();
-		switch($type)
+		switch ($type)
 		{
 			case self::Type:
 				$from = $this->_type;
@@ -248,9 +270,9 @@ class Meta
 				$from = $this->_fields;
 				break;
 		}
-		foreach($from as $name => $field)
+		foreach ($from as $name => $field)
 		{
-			if(isset($field->$fieldName))
+			if (isset($field->$fieldName))
 			{
 				$result[$name] = $field->$fieldName;
 			}
@@ -267,7 +289,7 @@ class Meta
 	 */
 	public function annotations($fieldName = null)
 	{
-		if($fieldName)
+		if ($fieldName)
 		{
 			return $this->_annotations[$fieldName];
 		}
@@ -318,7 +340,7 @@ class Meta
 	 */
 	public function method($name)
 	{
-		if(!isset($this->_methods[$name]))
+		if (!isset($this->_methods[$name]))
 		{
 			return false;
 		}
@@ -332,7 +354,7 @@ class Meta
 	 */
 	public function __get($name)
 	{
-		if(isset($this->_fields[$name]))
+		if (isset($this->_fields[$name]))
 		{
 			return $this->_fields[$name];
 		}
@@ -365,7 +387,7 @@ class Meta
 //			return include $path;
 //		}
 //		return false;
-		if(!isset(Yii::app()->cache))
+		if (!isset(Yii::app()->cache))
 		{
 			return false;
 		}
@@ -380,15 +402,16 @@ class Meta
 	 */
 	private static function _cacheSet($id, Meta $value)
 	{
-		if(!isset(Yii::app()->cache))
+		if (!isset(Yii::app()->cache))
 		{
 			return false;
 		}
-		if(YII_DEBUG)
+		if (YII_DEBUG)
 		{
 //			$path = sprintf('%s/%s.php', Yii::app()->runtimePath, self::_getCacheKey($id));
 //			file_put_contents($path, sprintf("<?php\n%s;", var_export($value, true)));
 		}
 		return Yii::app()->cache->set(self::_getCacheKey($id), $value);
 	}
+
 }

@@ -23,6 +23,12 @@ class MetaMethod implements IAnnotationEntity
 	public $isAbstract = false;
 
 	/**
+	 * Indicates if method is static
+	 * @var bool
+	 */
+	public $isStatic = false;
+
+	/**
 	 * Class constructor, set some basic metadata
 	 * @param ReflectionMethod $info
 	 */
@@ -35,6 +41,7 @@ class MetaMethod implements IAnnotationEntity
 		}
 		$this->name = $info->name;
 		$this->isAbstract = $info->isAbstract();
+		$this->isStatic = $info->isStatic();
 	}
 
 	public static function __set_state($data)
