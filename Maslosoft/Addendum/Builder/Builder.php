@@ -56,7 +56,7 @@ class Builder
 		}
 		if(@!class_exists($class))
 		{
-			Yii::trace(Yii::t('ext.addendum', sprintf('Annotation class %s not found, ignoring', $class)), 'annotation');
+			Yii::trace(sprintf('Annotation class %s not found, ignoring', $class), 'annotation');
 			Addendum::ignore($class);
 			return false;
 		}
