@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+vendor/codeception/codeception/codecept --colors --coverage-xml=coverage.clover --coverage-html=. run

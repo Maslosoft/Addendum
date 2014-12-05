@@ -1,0 +1,9 @@
+#!/bin/bash
+touch ./toc/CHANGELOG.md
+touch ./toc/INSTALL.md
+touch ./toc/LICENCE.md
+touch ./toc/README.md
+touch ./toc/UPGRADE.md
+
+generate-md --layout ./toc/layout.html --input ./toc --output .
+cp ./toc/README.md ./README.md

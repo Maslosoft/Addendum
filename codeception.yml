@@ -1,0 +1,10 @@
+actor: Tester
+paths:
+    tests: vendor/maslosoft/addendumtest/tests
+    log: tests/_output
+    data: vendor/maslosoft/addendumtest/tests/_data
+    helpers: vendor/maslosoft/addendumtest/tests/_support
+settings:
+    bootstrap: _bootstrap.php
+    colors: false
+    memory_limit: 1024M

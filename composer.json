@@ -3,7 +3,7 @@
 	"type": "yii-extension",
 	"description": "Annotations for Yii Framework",
 	"keywords" : ["annotations", "annotation", "addendum", "metadata", "yii"],
-	"license": "GNU LESSER GENERAL PUBLIC LICENSE",
+	"license": "New BSD",
 	"authors": [
 		{
 			"name": "Peter Maselkowski",
