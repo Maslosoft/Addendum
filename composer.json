@@ -12,9 +12,13 @@
 			"role": "Developer"
 		}
 	],
+	"minimum-stability": "dev",
 	"autoload": {
 		"psr-0": {
 			"Maslosoft\\Addendum": "./"
 		}
+	},
+	"require-dev": {
+		"maslosoft/addendumtest": "dev-master"
 	}
 }
