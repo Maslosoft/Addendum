@@ -5,6 +5,7 @@ namespace Maslosoft\Addendum\Utilities;
 use CFileHelper;
 use CValidator;
 use CWidget;
+use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Base\ValidatorAnnotation;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
@@ -12,7 +13,6 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use ReflectionClass;
 use ReflectionProperty;
 use RuntimeException;
-use TargetAnnotation;
 use Yii;
 use ZipArchive;
 
