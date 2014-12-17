@@ -347,12 +347,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "8ab18dabf17f6fd88320a2f7dcac5f2d1943cf85"
+                "reference": "8b9b0d580cf4909ae5e53ea17bf44ba0b7de337a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/8ab18dabf17f6fd88320a2f7dcac5f2d1943cf85",
-                "reference": "8ab18dabf17f6fd88320a2f7dcac5f2d1943cf85",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/8b9b0d580cf4909ae5e53ea17bf44ba0b7de337a",
+                "reference": "8b9b0d580cf4909ae5e53ea17bf44ba0b7de337a",
                 "shasum": ""
             },
             "require": {
@@ -362,7 +362,9 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "AddendumTest\\": "./tests/"
+                    "AddendumTest\\": "./tests/",
+                    "Maslosoft\\AddendumTest\\Models": "./",
+                    "Maslosoft\\AddendumTest\\Annotations": "./"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -377,7 +379,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2014-12-05 15:09:45"
+            "time": "2014-12-17 14:42:59"
         },
         {
             "name": "phpunit/php-code-coverage",

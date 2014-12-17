@@ -3,6 +3,8 @@ namespace Maslosoft\Addendum\Builder;
 
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Annotation;
+use Maslosoft\Addendum\Annotations\ConflictsAnnotation;
+use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use ReflectionClass;
@@ -42,6 +44,14 @@ class Builder
 		 * and try to Yii::import('path.to.%class%Annotation');
 		 * OR better move this to EAddendum::resolveClassName
 		 */
+		if($class == 'Target')
+		{
+			$class = TargetAnnotation::class;
+		}
+		if($class == 'Conflicts')
+		{
+			$class = ConflictsAnnotation::class;
+		}
 		if(strstr($class, '\\'))
 		{
 			// var_dump("Namespaced: $class");

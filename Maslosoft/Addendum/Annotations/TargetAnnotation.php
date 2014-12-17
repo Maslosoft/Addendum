@@ -1,5 +1,7 @@
 <?php
 
+namespace Maslosoft\Addendum\Annotations;
+
 use Maslosoft\Addendum\Annotation;
 
 /**

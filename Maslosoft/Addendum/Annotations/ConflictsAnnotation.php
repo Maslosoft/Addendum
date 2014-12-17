@@ -1,4 +1,7 @@
 <?php
+
+namespace Maslosoft\Addendum\Annotations;
+
 use Maslosoft\Addendum\Annotation;
 
 /**
@@ -9,6 +12,7 @@ use Maslosoft\Addendum\Annotation;
  */
 class ConflictsAnnotation extends Annotation
 {
+
 	public function init()
 	{
 

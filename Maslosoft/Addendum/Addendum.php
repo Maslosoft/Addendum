@@ -4,6 +4,8 @@ namespace Maslosoft\Addendum;
 
 use CApplicationComponent;
 use CCache;
+use Maslosoft\Addendum\Annotations\ConflictsAnnotation;
+use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Interfaces\IAnnotated;

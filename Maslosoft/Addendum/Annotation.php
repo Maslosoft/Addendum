@@ -3,11 +3,11 @@
 namespace Maslosoft\Addendum;
 
 use CComponent;
+use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
-use TargetAnnotation;
 use UnexpectedValueException;
 
 /**
@@ -68,7 +68,7 @@ abstract class Annotation extends CComponent
 		unset(self::$_creationStack[$class]);
 	}
 
-	public function setComponent(CComponent $component)
+	public function setComponent($component)
 	{
 		$this->_component = $component;
 	}
