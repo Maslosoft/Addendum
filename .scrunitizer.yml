@@ -2,6 +2,7 @@ filter:
     excluded_paths: [vendor/*, tests/*]
 before_commands:
     - 'composer install --dev --prefer-source'
+    - 'composer update maslosoft/mangantest'
 tools:
     external_code_coverage: true
     php_mess_detector: true
