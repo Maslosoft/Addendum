@@ -8,3 +8,9 @@ settings:
     bootstrap: _bootstrap.php
     colors: false
     memory_limit: 1024M
+coverage:
+    enabled: true
+    remote: false
+    xml: coverage.clover
+    html: true
+    include:

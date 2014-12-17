@@ -7,12 +7,11 @@ matrix:
   allow_failures:
     - php: hhvm
 install:
-  - composer install
-  - composer update maslosoft/mangantest
+  - composer install --dev --prefer-source
+  - composer update maslosoft/addendumtest
 before_script:
   - phpenv config-add travis.ini
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover tests/_output/coverage.clover
-script: vendor/codeception/codeception/codecept --colors --coverage-xml=coverage.clover --coverage-html=. run
-#script: phpunit --coverage-clover=coverage.clover --bootstrap vendor/maslosoft/mangantest/bootstrap.php vendor/maslosoft/mangantest/tests
+  - php php ocular.phar code-coverage:upload --repository=g/Maslosoft/Addendum --revision=`git rev-parse HEAD` --format=php-clover ./tests/_output/coverage.clover
+script: vendor/bin/codecept run unit --coverage --html --coverage-html=. --coverage-xml=./coverage.clover
