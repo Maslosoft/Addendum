@@ -25,6 +25,7 @@ class MetaOptions
 	 * @var string
 	 */
 	public $typeClass = MetaType::class;
+
 	/**
 	 * Meta container class name for method
 	 * @var string
@@ -36,5 +37,11 @@ class MetaOptions
 	 * @var string
 	 */
 	public $propertyClass = MetaProperty::class;
+
+	/**
+	 * Default namespace for annotations
+	 * @var string
+	 */
+	public $annotationsNamespace = '';
 
 }
