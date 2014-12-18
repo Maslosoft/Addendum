@@ -41,7 +41,7 @@ class AnnotationUtility
 	 */
 	public $view = null;
 
-	public function __construct($owner = null)
+	public function __construct()
 	{
 		$this->view = new MiniView($this);
 	}
