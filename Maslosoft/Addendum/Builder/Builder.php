@@ -2,12 +2,14 @@
 
 namespace Maslosoft\Addendum\Builder;
 
+use Exception;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Annotation;
-use Maslosoft\Addendum\Annotations\ConflictsAnnotation;
-use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -19,11 +21,20 @@ use Yii;
 class Builder
 {
 
-	private static $cache = array();
+	/**
+	 * Cached values of parsing
+	 * @var string[][][]
+	 */
+	private static $_cache = array();
 
+	/**
+	 * Build annotations collection
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $targetReflection
+	 * @return AnnotationsCollection
+	 */
 	public function build($targetReflection)
 	{
-		$data = $this->parse($targetReflection);
+		$data = $this->_parse($targetReflection);
 		$annotations = array();
 		foreach ($data as $class => $parameters)
 		{
@@ -39,15 +50,22 @@ class Builder
 		return new AnnotationsCollection($annotations);
 	}
 
+	/**
+	 * Create new instance of annotation
+	 * @param string $class
+	 * @param mixed[] $parameters
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $targetReflection
+	 * @return boolean|object
+	 */
 	public function instantiateAnnotation($class, $parameters, $targetReflection = false)
 	{
 		$class = ucfirst($class) . "Annotation";
 
 		// If namespaces are empty assume global namespace
-		$fqn = $this->normalizeFqn('\\', $class);
+		$fqn = $this->_normalizeFqn('\\', $class);
 		foreach (Yii::app()->addendum->namespaces as $ns)
 		{
-			$fqn = $this->normalizeFqn($ns, $class);
+			$fqn = $this->_normalizeFqn($ns, $class);
 			if (Addendum::ignores($fqn))
 			{
 				return false;
@@ -61,15 +79,16 @@ class Builder
 				}
 				else
 				{
+					// Class exists, exit loop
 					break;
 				}
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
-				
+				// Ignore class autoloading errors
 			}
 		}
-		
+
 		try
 		{
 			if (!class_exists($fqn))
@@ -79,8 +98,10 @@ class Builder
 				return false;
 			}
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
+			// Ignore autoload errors and return false
+			Addendum::ignore($fqn);
 			return false;
 		}
 		$resolvedClass = Addendum::resolveClassName($fqn);
@@ -92,24 +113,40 @@ class Builder
 		return false;
 	}
 
-	private function normalizeFqn($ns, $class)
+	/**
+	 * Normalize class name and namespace to proper fully qualified name
+	 * @param string $ns
+	 * @param string $class
+	 * @return string
+	 */
+	private function _normalizeFqn($ns, $class)
 	{
 		return preg_replace('~\\\+~', '\\', "\\$ns\\$class");
 	}
 
-	private function parse($reflection)
+	/**
+	 * Get doc comment
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $reflection
+	 * @return mixed[]
+	 */
+	private function _parse($reflection)
 	{
-		$key = $this->createName($reflection);
-		if (!isset(self::$cache[$key]))
+		$key = $this->_createName($reflection);
+		if (!isset(self::$_cache[$key]))
 		{
 			$parser = new AnnotationsMatcher;
 			$parser->matches($this->getDocComment($reflection), $data);
-			self::$cache[$key] = $data;
+			self::$_cache[$key] = $data;
 		}
-		return self::$cache[$key];
+		return self::$_cache[$key];
 	}
 
-	private function createName($target)
+	/**
+	 * Create class name
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $target
+	 * @return string
+	 */
+	private function _createName($target)
 	{
 		if ($target instanceof ReflectionMethod)
 		{
@@ -125,14 +162,22 @@ class Builder
 		}
 	}
 
+	/**
+	 * Get doc comment
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $targetReflection
+	 * @return mixed[]
+	 */
 	protected function getDocComment($reflection)
 	{
 		return Addendum::getDocComment($reflection);
 	}
 
+	/**
+	 * Clear local parsing cache
+	 */
 	public static function clearCache()
 	{
-		self::$cache = array();
+		self::$_cache = array();
 	}
 
 }
