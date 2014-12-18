@@ -4,10 +4,10 @@ namespace Maslosoft\Addendum\Utilities;
 
 use CFileHelper;
 use CValidator;
-use CWidget;
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Base\ValidatorAnnotation;
 use Maslosoft\Addendum\Builder\DocComment;
+use Maslosoft\Addendum\Helpers\MiniView;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use ReflectionClass;
@@ -26,7 +26,7 @@ if (!YII_DEBUG)
  * TODO Split this into separate classes
  * @author Piotr
  */
-class AnnotationUtility extends CWidget
+class AnnotationUtility
 {
 
 	public $searchPaths = [
@@ -34,6 +34,17 @@ class AnnotationUtility extends CWidget
 	];
 	public $settingsPath = 'config/Preferences/org/netbeans/modules/php/project/';
 	public $outputPath = null;
+
+	/**
+	 * View Renderer
+	 * @var MiniView
+	 */
+	public $view = null;
+
+	public function __construct($owner = null)
+	{
+		$this->view = new MiniView($this);
+	}
 
 	/**
 	 * Remove "*" from doc block
@@ -125,7 +136,7 @@ class AnnotationUtility extends CWidget
 					'description' => $comment,
 					'i' => $i++,
 				];
-				$result[] = $this->render('netbeansAnnotations', ['data' => (object) $data], true);
+				$result[] = $this->view->render('netbeansAnnotations', ['data' => (object) $data], true);
 			}
 		}
 		// This is annotation for adding templates to annotations
@@ -136,7 +147,7 @@ class AnnotationUtility extends CWidget
 			'description' => "Type in annotation for insert template, Do NOT use '@' sign here. \n@example Label('\${label}')",
 			'i' => $i++,
 		];
-		$result[] = $this->render('netbeansAnnotations', ['data' => (object) $data], true);
+		$result[] = $this->view->render('netbeansAnnotations', ['data' => (object) $data], true);
 
 		// Pack it
 		$fileName = 'annotations.properties';

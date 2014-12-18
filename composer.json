@@ -20,5 +20,8 @@
 	},
 	"require-dev": {
 		"maslosoft/addendumtest": "dev-master"
+	},
+	"require": {
+		"maslosoft/miniview": "~1.0"
 	}
 }

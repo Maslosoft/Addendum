@@ -2,7 +2,7 @@
 
 namespace Maslosoft\Addendum\Utilities;
 
-use CWidget;
+use Maslosoft\Addendum\Helpers\MiniView;
 use Yii;
 
 /**
@@ -10,10 +10,21 @@ use Yii;
  *
  * @author Piotr
  */
-class I18NExtractor extends CWidget
+class I18NExtractor
 {
 
 	private $_file = [];
+
+	/**
+	 * View Renderer
+	 * @var MiniView
+	 */
+	public $view = null;
+
+	public function __construct()
+	{
+		$this->view = new MiniView($this);
+	}
 
 	public function generate($searchAliases = [], $outputAlias = null)
 	{
@@ -83,7 +94,7 @@ class I18NExtractor extends CWidget
 				{
 					$w = '"';
 				}
-				$this->_file[] = $this->render('i18nEntity', [
+				$this->_file[] = $this->view->render('i18nEntity', [
 					'alias' => $alias,
 					'class' => $class,
 					'name' => $name,
