@@ -277,16 +277,16 @@
         },
         {
             "name": "guzzlehttp/ringphp",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "9187999f80720b9494692d2167d75144acb2ad05"
+                "reference": "a903f51b692427318bc813217c0e6505287e79a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/9187999f80720b9494692d2167d75144acb2ad05",
-                "reference": "9187999f80720b9494692d2167d75144acb2ad05",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/a903f51b692427318bc813217c0e6505287e79a4",
+                "reference": "a903f51b692427318bc813217c0e6505287e79a4",
                 "shasum": ""
             },
             "require": {
@@ -323,7 +323,7 @@
                     "homepage": "https://github.com/mtdowling"
                 }
             ],
-            "time": "2014-12-02 05:01:22"
+            "time": "2014-12-11 05:50:32"
         },
         {
             "name": "guzzlehttp/streams",
@@ -381,12 +381,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "8b9b0d580cf4909ae5e53ea17bf44ba0b7de337a"
+                "reference": "6acba51b315a35c099dce7e3a29934ef51dd0bab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/8b9b0d580cf4909ae5e53ea17bf44ba0b7de337a",
-                "reference": "8b9b0d580cf4909ae5e53ea17bf44ba0b7de337a",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/6acba51b315a35c099dce7e3a29934ef51dd0bab",
+                "reference": "6acba51b315a35c099dce7e3a29934ef51dd0bab",
                 "shasum": ""
             },
             "require": {
@@ -413,7 +413,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2014-12-17 14:42:59"
+            "time": "2014-12-17 15:25:07"
         },
         {
             "name": "phpunit/php-code-coverage",
