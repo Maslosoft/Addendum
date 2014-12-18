@@ -22,7 +22,7 @@ use Maslosoft\Addendum\Annotation;
  */
 class TargetAnnotation extends Annotation
 {
-
+	const Ns = __NAMESPACE__;
 	const TargetClass = 'class';
 	const TargetMethod = 'method';
 	const TargetProperty = 'property';

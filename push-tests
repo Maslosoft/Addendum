@@ -1,5 +1,5 @@
 #!/bin/bash
 cd vendor/maslosoft/addendumtest
-git add *
+git add * -A
 git commit -am'+ Tests'
 git push

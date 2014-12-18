@@ -67,7 +67,12 @@ class Meta
 		$mes = [];
 
 		// Get reflection data
+		foreach($options->namespaces as $ns)
+		{
+			Yii::app()->addendum->addNamespace($ns);
+		}
 		$info = Yii::app()->addendum->annotate($component);
+
 
 		if (!$info instanceof ReflectionAnnotatedClass)
 		{

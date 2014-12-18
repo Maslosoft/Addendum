@@ -4,7 +4,6 @@ namespace Maslosoft\Addendum;
 
 use CApplicationComponent;
 use CCache;
-use Maslosoft\Addendum\Annotations\ConflictsAnnotation;
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\Meta;
@@ -32,6 +31,16 @@ class Addendum extends CApplicationComponent
 	 * @var string
 	 */
 	public $cache = 'cache';
+
+	/**
+	 * Namespaces to check for annotations.
+	 * By default global and addendum namespace is included.
+	 * @var string[]
+	 */
+	public $namespaces = [
+		'\\',
+		TargetAnnotation::Ns
+	];
 
 	public $i18nAnnotations = [
 		'Label',
@@ -103,6 +112,12 @@ class Addendum extends CApplicationComponent
 			$this->cacheSet($class, $meta);
 		}
 		return $meta;
+	}
+
+	public function addNamespace($ns)
+	{
+		$this->namespaces[] = $ns;
+		array_unique($this->namespaces);
 	}
 
 	public function init()

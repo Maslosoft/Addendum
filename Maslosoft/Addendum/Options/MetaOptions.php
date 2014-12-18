@@ -39,9 +39,9 @@ class MetaOptions
 	public $propertyClass = MetaProperty::class;
 
 	/**
-	 * Default namespace for annotations
-	 * @var string
+	 * Namespaces for search for annotations
+	 * @var string[]
 	 */
-	public $annotationsNamespace = '';
+	public $namespaces = [];
 
 }

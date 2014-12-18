@@ -1,4 +1,5 @@
 <?php
+
 namespace Maslosoft\Addendum\Builder;
 
 use Maslosoft\Addendum\Addendum;
@@ -17,18 +18,19 @@ use Yii;
  */
 class Builder
 {
+
 	private static $cache = array();
 
 	public function build($targetReflection)
 	{
 		$data = $this->parse($targetReflection);
 		$annotations = array();
-		foreach($data as $class => $parameters)
+		foreach ($data as $class => $parameters)
 		{
-			foreach($parameters as $params)
+			foreach ($parameters as $params)
 			{
 				$annotation = $this->instantiateAnnotation($class, $params, $targetReflection);
-				if($annotation !== false)
+				if ($annotation !== false)
 				{
 					$annotations[$class][] = $annotation;
 				}
@@ -44,34 +46,48 @@ class Builder
 		 * and try to Yii::import('path.to.%class%Annotation');
 		 * OR better move this to EAddendum::resolveClassName
 		 */
-		if($class == 'Target')
+		$class = ucfirst($class) . "Annotation";
+
+		foreach (Yii::app()->addendum->namespaces as $ns)
 		{
-			$class = TargetAnnotation::class;
+			$fqn = $this->normalizeFqn($ns, $class);
+			if (Addendum::ignores($fqn))
+			{
+				return false;
+			}
+			try
+			{
+				if (!class_exists($fqn))
+				{
+					Yii::trace(sprintf('Annotation class %s not found, ignoring', $fqn), 'annotation');
+					Addendum::ignore($fqn);
+				}
+				else
+				{
+					break;
+				}
+			}
+			catch (\Exception $e)
+			{
+				
+			}
 		}
-		if($class == 'Conflicts')
+		
+		try
 		{
-			$class = ConflictsAnnotation::class;
+			if (!class_exists($fqn))
+			{
+				Yii::trace(sprintf('Annotation class %s not found, ignoring', $fqn), 'annotation');
+				Addendum::ignore($fqn);
+				return false;
+			}
 		}
-		if(strstr($class, '\\'))
-		{
-			// var_dump("Namespaced: $class");
-		}
-		else
-		{
-			$class = ucfirst($class) . "Annotation";
-		}
-		if(Addendum::ignores($class))
+		catch (\Exception $e)
 		{
 			return false;
 		}
-		if(@!class_exists($class))
-		{
-			Yii::trace(sprintf('Annotation class %s not found, ignoring', $class), 'annotation');
-			Addendum::ignore($class);
-			return false;
-		}
-		$resolvedClass = Addendum::resolveClassName($class);
-		if(is_subclass_of($resolvedClass, Annotation::class) || $resolvedClass == Annotation::class)
+		$resolvedClass = Addendum::resolveClassName($fqn);
+		if (is_subclass_of($resolvedClass, Annotation::class) || $resolvedClass == Annotation::class)
 		{
 			$annotationReflection = new ReflectionClass($resolvedClass);
 			return $annotationReflection->newInstance($parameters, $targetReflection);
@@ -79,10 +95,15 @@ class Builder
 		return false;
 	}
 
+	private function normalizeFqn($ns, $class)
+	{
+		return preg_replace('~\\\+~', '\\', "\\$ns\\$class");
+	}
+
 	private function parse($reflection)
 	{
 		$key = $this->createName($reflection);
-		if(!isset(self::$cache[$key]))
+		if (!isset(self::$cache[$key]))
 		{
 			$parser = new AnnotationsMatcher;
 			$parser->matches($this->getDocComment($reflection), $data);
@@ -93,11 +114,11 @@ class Builder
 
 	private function createName($target)
 	{
-		if($target instanceof ReflectionMethod)
+		if ($target instanceof ReflectionMethod)
 		{
 			return $target->getDeclaringClass()->name . '::' . $target->name;
 		}
-		elseif($target instanceof ReflectionProperty)
+		elseif ($target instanceof ReflectionProperty)
 		{
 			return $target->getDeclaringClass()->name . '::$' . $target->name;
 		}
@@ -116,4 +137,5 @@ class Builder
 	{
 		self::$cache = array();
 	}
+
 }
