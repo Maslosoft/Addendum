@@ -1,5 +1,9 @@
 #Yii Addendum#
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Maslosoft/Addendum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Maslosoft/Addendum/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Maslosoft/Addendum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Maslosoft/Addendum/?branch=master)
+<img src="https://travis-ci.org/Maslosoft/Addendum.svg?branch=master" style="height:18px"/>
+
 Goal of this extension is to provide additional metadata for any class, their properties or methods.
 It's based on annotations, so adding this metadata is as easy as adding doc comments. This is build on top of [addendum](http://code.google.com/p/addendum/) php library
 
