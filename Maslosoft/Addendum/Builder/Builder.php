@@ -41,13 +41,10 @@ class Builder
 
 	public function instantiateAnnotation($class, $parameters, $targetReflection = false)
 	{
-		/** @todo This should loop thru user-defined list of paths and annotatios
-		 * @todo Allow namespaced annotations ie. @ext.example.Annotation or @ext\example\Annotation
-		 * and try to Yii::import('path.to.%class%Annotation');
-		 * OR better move this to EAddendum::resolveClassName
-		 */
 		$class = ucfirst($class) . "Annotation";
 
+		// If namespaces are empty assume global namespace
+		$fqn = $this->normalizeFqn('\\', $class);
 		foreach (Yii::app()->addendum->namespaces as $ns)
 		{
 			$fqn = $this->normalizeFqn($ns, $class);
