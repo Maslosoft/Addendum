@@ -32,6 +32,11 @@ abstract class MetaAnnotation extends Annotation implements IMetaAnnotation
 	 */
 	protected $_entity = null;
 
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+
 	/**
 	 * Set metada class to be accessible for annotation for init etc. methods
 	 * @param Meta $meta

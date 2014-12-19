@@ -10,6 +10,10 @@ use Maslosoft\Addendum\Collections\Meta;
  */
 interface IMetaAnnotation
 {
+	/**
+	 * Set entity name (class name, method name or property name)
+	 */
+	public function setName($name);
 
 	/**
 	 * Set metada class to be accessible for annotation for init etc. methods

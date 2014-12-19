@@ -101,7 +101,7 @@ class Meta
 			{
 				continue;
 			}
-			$annotation->name = $info->name;
+			$annotation->setName($info->name);
 			$annotation->setEntity($this->_type);
 			$annotation->setMeta($this);
 			$annotation->setComponent($component);
@@ -125,13 +125,11 @@ class Meta
 					continue;
 				}
 
-				$annotation->name = $method->name;
+				$annotation->setName($method->name);
 				$annotation->setEntity($methodMeta);
 				$annotation->setMeta($this);
 				$annotation->setComponent($component);
 				$annotation->init();
-//				if($method->name == 'actionSitemap')
-//					var_dump(get_class($annotation));
 				$annotations[] = $annotation;
 				$hasAnnotations = true;
 			}
@@ -183,7 +181,7 @@ class Meta
 					continue;
 				}
 
-				$annotation->name = $field->name;
+				$annotation->setName($field->name);
 				$annotation->setEntity($field);
 				$annotation->setMeta($this);
 				$annotation->setComponent($component);
