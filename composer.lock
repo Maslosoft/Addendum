@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b4c181a2558c06b772b7d89ba99358a",
+    "hash": "530b2f1b0dc258e15edd072bd8154431",
     "packages": [
         {
             "name": "maslosoft/miniview",
@@ -419,12 +419,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "6acba51b315a35c099dce7e3a29934ef51dd0bab"
+                "reference": "6838bb94b4e9876819b0b80ffff624c904c0f1cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/6acba51b315a35c099dce7e3a29934ef51dd0bab",
-                "reference": "6acba51b315a35c099dce7e3a29934ef51dd0bab",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/6838bb94b4e9876819b0b80ffff624c904c0f1cc",
+                "reference": "6838bb94b4e9876819b0b80ffff624c904c0f1cc",
                 "shasum": ""
             },
             "require": {
@@ -451,7 +451,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2014-12-17 15:25:07"
+            "time": "2014-12-18 14:34:09"
         },
         {
             "name": "phpunit/php-code-coverage",
