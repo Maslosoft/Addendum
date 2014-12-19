@@ -2,13 +2,10 @@ language: php
 php:
   - 5.6
   - 5.5
-  - 5.4
   - hhvm
 matrix:
   allow_failures:
-    - php: 
-        - hhvm
-        - 5.4
+    - php: hhvm
 install:
   - composer install --dev --prefer-source
   - composer update maslosoft/addendumtest
