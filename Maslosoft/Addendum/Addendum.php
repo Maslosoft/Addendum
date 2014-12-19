@@ -8,6 +8,7 @@ use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
+use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
@@ -162,7 +163,7 @@ class Addendum extends CApplicationComponent
 
 	public static function getDocComment($reflection)
 	{
-		if(self::checkRawDocCommentParsingNeeded())
+		if(self::_checkRawDocCommentParsingNeeded())
 		{
 			$docComment = new DocComment();
 			return $docComment->get($reflection);
@@ -174,7 +175,7 @@ class Addendum extends CApplicationComponent
 	}
 
 	/** Raw mode test */
-	private static function checkRawDocCommentParsingNeeded()
+	private static function _checkRawDocCommentParsingNeeded()
 	{
 		if(self::$_rawMode === null)
 		{
@@ -213,7 +214,7 @@ class Addendum extends CApplicationComponent
 		if(isset(self::$_classnames[$class]))
 			return self::$_classnames[$class];
 		$matching = array();
-		foreach(self::getDeclaredAnnotations() as $declared)
+		foreach(self::_getDeclaredAnnotations() as $declared)
 		{
 			if($declared == $class)
 			{
@@ -241,14 +242,14 @@ class Addendum extends CApplicationComponent
 		return $result;
 	}
 
-	private static function getDeclaredAnnotations()
+	private static function _getDeclaredAnnotations()
 	{
 		if(!self::$_annotations)
 		{
 			self::$_annotations = array();
 			foreach(get_declared_classes() as $class)
 			{
-				if(is_subclass_of($class, Annotation::class) || $class == Annotation::class)
+				if((new ReflectionClass($class))->implementsInterface(IAnnotation::class) || $class == IAnnotation::class)
 				{
 					self::$_annotations[] = $class;
 				}

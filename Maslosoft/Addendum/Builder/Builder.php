@@ -4,8 +4,8 @@ namespace Maslosoft\Addendum\Builder;
 
 use Exception;
 use Maslosoft\Addendum\Addendum;
-use Maslosoft\Addendum\Annotation;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
+use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
@@ -105,7 +105,7 @@ class Builder
 			return false;
 		}
 		$resolvedClass = Addendum::resolveClassName($fqn);
-		if (is_subclass_of($resolvedClass, Annotation::class) || $resolvedClass == Annotation::class)
+		if ((new ReflectionClass($resolvedClass))->implementsInterface(IAnnotation::class) || $resolvedClass == IAnnotation::class)
 		{
 			$annotationReflection = new ReflectionClass($resolvedClass);
 			return $annotationReflection->newInstance($parameters, $targetReflection);

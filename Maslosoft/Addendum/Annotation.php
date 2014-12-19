@@ -4,6 +4,7 @@ namespace Maslosoft\Addendum;
 
 use CComponent;
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
+use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use ReflectionClass;
 use ReflectionMethod;
@@ -30,7 +31,7 @@ use UnexpectedValueException;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  * */
-abstract class Annotation extends CComponent
+abstract class Annotation implements IAnnotation
 {
 
 	/**
@@ -64,10 +65,14 @@ abstract class Annotation extends CComponent
 		{
 			$this->_publicProperties[] = $field->name;
 		}
-		$this->checkTargetConstraints($target);
+		$this->_checkTargetConstraints($target);
 		unset(self::$_creationStack[$class]);
 	}
 
+	/**
+	 * Set working component instance
+	 * @param object $component
+	 */
 	public function setComponent($component)
 	{
 		$this->_component = $component;
@@ -78,9 +83,19 @@ abstract class Annotation extends CComponent
 		return $this->_properties;
 	}
 
-	abstract function init();
+	/**
+	 * Init annoattion
+	 */
+	abstract public function init();
 
-	private function checkTargetConstraints($target)
+	/**
+	 * Check target constraints
+	 * TODO Move to separate class
+	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty|bool $target
+	 * @return type
+	 * @throws UnexpectedValueException
+	 */
+	private function _checkTargetConstraints($target)
 	{
 		$reflection = new ReflectionAnnotatedClass($this);
 		if (!$reflection->hasAnnotation('Target'))
@@ -120,11 +135,16 @@ abstract class Annotation extends CComponent
 		}
 		elseif (in_array($value, TargetAnnotation::getTargets()))
 		{
-			throw new UnexpectedValueException(sprintf("Annotation '%s' not allowed on %s, it's target is %s", get_class($this), $this->createName($target), $value));
+			throw new UnexpectedValueException(sprintf("Annotation '%s' not allowed on %s, it's target is %s", get_class($this), $this->_createName($target), $value));
 		}
 	}
 
-	private function createName($target)
+	/**
+	 * Create name
+	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty $target
+	 * @return string
+	 */
+	private function _createName($target)
 	{
 		if ($target instanceof ReflectionMethod)
 		{
@@ -140,6 +160,10 @@ abstract class Annotation extends CComponent
 		}
 	}
 
+	/**
+	 * Convert to array
+	 * @return mixed[]
+	 */
 	public function toArray()
 	{
 		$result = [];
