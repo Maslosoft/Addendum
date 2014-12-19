@@ -18,10 +18,14 @@
 			"Maslosoft\\Addendum": "./"
 		}
 	},
+	"suggest":{
+		"monolog/monolog" : "Sends your logs to files, sockets, inboxes, databases and various web services"
+	},
 	"require-dev": {
 		"maslosoft/addendumtest": "dev-master"
 	},
 	"require": {
-		"maslosoft/miniview": "~1.0"
+		"maslosoft/miniview": "~1.0",
+		"psr/log": "~1.0"
 	}
 }
