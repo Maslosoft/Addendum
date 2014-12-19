@@ -180,7 +180,7 @@ class Addendum extends CApplicationComponent
 		if(self::$_rawMode === null)
 		{
 			$reflection = new ReflectionClass(Addendum::class);
-			$method = $reflection->getMethod('checkRawDocCommentParsingNeeded');
+			$method = $reflection->getMethod(__FUNCTION__);
 			self::setRawMode($method->getDocComment() === false);
 		}
 		return self::$_rawMode;
