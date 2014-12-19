@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "14bc7cecde3b14e077561dc4c435394e",
+    "hash": "8a9e0451996470c0d28ca8681a0425e1",
     "packages": [
         {
             "name": "maslosoft/miniview",
