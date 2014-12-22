@@ -16,9 +16,6 @@ use ReflectionClass;
 use ReflectionException;
 use Yii;
 
-Yii::setPathOfAlias('addendum', dirname(__FILE__) . '/../../');
-Yii::import('addendum.annotations.*');
-
 class Addendum extends CApplicationComponent
 {
 	private static $_rawMode;
@@ -59,6 +56,12 @@ class Addendum extends CApplicationComponent
 		return (bool)isset(class_implements($class)[IAnnotated::class]);
 	}
 
+	/**
+	 * This is deprecated because Meta can take config object as param
+	 * @deprecated since version number
+	 * @param type $component
+	 * @return type
+	 */
 	public function meta($component)
 	{
 		return Meta::create($component);
