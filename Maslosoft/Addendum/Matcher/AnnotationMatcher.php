@@ -14,7 +14,7 @@ class AnnotationMatcher extends SerialMatcher
 
 	protected function process($results)
 	{
-		return array($results[1], $results[2]);
+		return [$results[1], $results[2]];
 	}
 
 }

@@ -25,7 +25,7 @@ class Builder
 	 * Cached values of parsing
 	 * @var string[][][]
 	 */
-	private static $_cache = array();
+	private static $_cache = [];
 
 	/**
 	 * Build annotations collection
@@ -35,7 +35,7 @@ class Builder
 	public function build($targetReflection)
 	{
 		$data = $this->_parse($targetReflection);
-		$annotations = array();
+		$annotations = [];
 		foreach ($data as $class => $parameters)
 		{
 			foreach ($parameters as $params)
@@ -177,7 +177,7 @@ class Builder
 	 */
 	public static function clearCache()
 	{
-		self::$_cache = array();
+		self::$_cache = [];
 	}
 
 }

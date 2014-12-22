@@ -257,7 +257,7 @@ class Meta
 	 */
 	public function properties($fieldName, $type = Meta::Field)
 	{
-		$result = array();
+		$result = [];
 		switch ($type)
 		{
 			case self::Type:

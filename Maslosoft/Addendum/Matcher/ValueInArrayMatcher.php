@@ -7,7 +7,7 @@ class ValueInArrayMatcher extends ValueMatcher
 
 	public function process($value)
 	{
-		return array($value);
+		return [$value];
 	}
 
 }

@@ -103,7 +103,7 @@ abstract class Annotation implements IAnnotation
 			return;
 		}
 		$value = $reflection->getAnnotation('Target')->value;
-		$values = is_array($value) ? $value : array($value);
+		$values = is_array($value) ? $value : [$value];
 		/**
 		 * TODO Add concrete class constraint combined with field. ie.:
 		 * Target('Some\Target\ClassName') - Only on this class and subclasses

@@ -21,7 +21,7 @@ class Addendum extends CApplicationComponent
 	private static $_rawMode;
 	private static $_ignore;
 	private static $_classnames = [];
-	private static $_annotations = false;
+	private static $_annotations = [];
 	private static $_localCache = [];
 
 	/**
@@ -66,7 +66,7 @@ class Addendum extends CApplicationComponent
 	{
 		return Meta::create($component);
 	}
-	
+
 	/**
 	 * Use $class name or object to annotate class
 	 * Use $other in form:
@@ -196,7 +196,7 @@ class Addendum extends CApplicationComponent
 
 	public static function resetIgnoredAnnotations()
 	{
-		self::$_ignore = array();
+		self::$_ignore = [];
 	}
 
 	public static function ignores($class)
@@ -216,7 +216,7 @@ class Addendum extends CApplicationComponent
 	{
 		if(isset(self::$_classnames[$class]))
 			return self::$_classnames[$class];
-		$matching = array();
+		$matching = [];
 		foreach(self::_getDeclaredAnnotations() as $declared)
 		{
 			if($declared == $class)
@@ -249,7 +249,7 @@ class Addendum extends CApplicationComponent
 	{
 		if(!self::$_annotations)
 		{
-			self::$_annotations = array();
+			self::$_annotations = [];
 			foreach(get_declared_classes() as $class)
 			{
 				if((new ReflectionClass($class))->implementsInterface(IAnnotation::class) || $class == IAnnotation::class)

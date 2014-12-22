@@ -9,21 +9,21 @@ use ReflectionProperty;
 class DocComment
 {
 
-	private static $namespaces = array();
-	private static $classNames = array();
-	private static $classes = array();
-	private static $methods = array();
-	private static $fields = array();
-	private static $parsedFiles = array();
+	private static $namespaces = [];
+	private static $classNames = [];
+	private static $classes = [];
+	private static $methods = [];
+	private static $fields = [];
+	private static $parsedFiles = [];
 
 	public static function clearCache()
 	{
-		self::$namespaces = array();
-		self::$classNames = array();
-		self::$classes = array();
-		self::$methods = array();
-		self::$fields = array();
-		self::$parsedFiles = array();
+		self::$namespaces = [];
+		self::$classNames = [];
+		self::$classes = [];
+		self::$methods = [];
+		self::$fields = [];
+		self::$parsedFiles = [];
 	}
 
 	public function get($reflection)

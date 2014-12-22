@@ -26,7 +26,7 @@ class AnnotationsCollection
 
 	public function getAnnotations()
 	{
-		$result = array();
+		$result = [];
 		foreach($this->annotations as $instances)
 		{
 			$result[] = end($instances);
@@ -37,7 +37,7 @@ class AnnotationsCollection
 	public function getAllAnnotations($restriction = false)
 	{
 		$restriction = Addendum::resolveClassName($restriction);
-		$result = array();
+		$result = [];
 		foreach($this->annotations as $class => $instances)
 		{
 			if(!$restriction || $restriction == $class)

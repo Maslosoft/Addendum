@@ -46,7 +46,7 @@ class ReflectionAnnotatedClass extends ReflectionClass
 
 	public function getMethods($filter = -1)
 	{
-		$result = array();
+		$result = [];
 		foreach(parent::getMethods($filter) as $method)
 		{
 			$result[] = $this->createReflectionAnnotatedMethod($method);
@@ -61,7 +61,7 @@ class ReflectionAnnotatedClass extends ReflectionClass
 
 	public function getProperties($filter = -1)
 	{
-		$result = array();
+		$result = [];
 		foreach(parent::getProperties($filter) as $property)
 		{
 			$result[] = $this->createReflectionAnnotatedProperty($property);
@@ -71,7 +71,7 @@ class ReflectionAnnotatedClass extends ReflectionClass
 
 	public function getInterfaces()
 	{
-		$result = array();
+		$result = [];
 		foreach(parent::getInterfaces() as $interface)
 		{
 			$result[] = $this->createReflectionAnnotatedClass($interface);

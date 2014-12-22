@@ -14,7 +14,7 @@ class PairMatcher extends SerialMatcher
 
 	protected function process($parts)
 	{
-		return array($parts[0] => $parts[2]);
+		return [$parts[0] => $parts[2]];
 	}
 
 }

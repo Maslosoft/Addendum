@@ -7,7 +7,7 @@ class AnnotationsMatcher
 
 	public function matches($string, &$annotations)
 	{
-		$annotations = array();
+		$annotations = [];
 		$annotation_matcher = new AnnotationMatcher;
 		while (true)
 		{
