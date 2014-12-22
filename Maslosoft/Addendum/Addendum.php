@@ -78,7 +78,7 @@ class Addendum extends CApplicationComponent
 	 * </ul>
 	 * @param string|object $class
 	 * @param string $other
-	 * @return ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|ReflectionAnnotatedClass($class, $other = null)
+	 * @return ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|ReflectionAnnotatedClass
 	 *
 	 */
 	public function annotate($class, $other = null)

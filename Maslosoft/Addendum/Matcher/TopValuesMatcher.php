@@ -40,7 +40,6 @@ class TopValuesMatcher extends ParallelMatcher
 			{
 				return $result;
 			}
-			var_dump($value);
 		}
 		return ['value' => $value];
 	}
