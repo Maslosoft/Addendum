@@ -202,6 +202,7 @@ class %2\$sAnnotation extends EValidatorAnnotation implements IBuiltInValidatorA
 %3\$s
 }
 CODE;
+		$ignored = [];
 		$info = new ReflectionClass(ValidatorAnnotation::class);
 		foreach ($info->getProperties(ReflectionProperty::IS_PUBLIC) as $field)
 		{
@@ -318,32 +319,4 @@ CODE;
 		];
 		return $result;
 	}
-
-	public static function getNamespace($file)
-	{
-		
-	}
-
-	public static function getClass($file)
-	{
-
-	}
-
-	/**
-	 * TODO Remove, as this is very unrelialbe. Rely on autoload instead.
-	 * @param type $path
-	 * @deprecated since version number
-	 * @return type
-	 */
-	public static function getAliasOfPath($path = __DIR__)
-	{
-		$basePath = realpath(Yii::getPathOfAlias('application') . '/../');
-		$path = str_replace($basePath . '/', '', realpath($path));
-		$path = str_replace('\\', '/', $path);
-		$path = str_replace('/', '.', $path);
-		$path = preg_replace('~\.php$~', '', $path);
-		$path = preg_replace('~^protected\.~', 'application.', $path);
-		return $path;
-	}
-
 }

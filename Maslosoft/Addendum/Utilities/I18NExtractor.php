@@ -82,8 +82,9 @@ class I18NExtractor
 				{
 					continue;
 				}
-				$alias = AnnotationUtility::getAliasOfPath($file);
+				$alias = basename($file);
 				$parts = explode('.', $alias);
+				array_pop($parts);
 				$class = array_pop($parts);
 				if (null === $name)
 				{
