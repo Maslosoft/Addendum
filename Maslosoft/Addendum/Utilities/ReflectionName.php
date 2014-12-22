@@ -8,9 +8,7 @@
 
 namespace Maslosoft\Addendum\Utilities;
 
-use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
-use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
-use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -24,7 +22,7 @@ class ReflectionName
 
 	/**
 	 * Create class name
-	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|bool $target
+	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty|bool $target
 	 * @return string
 	 */
 	public static function createName($target)
