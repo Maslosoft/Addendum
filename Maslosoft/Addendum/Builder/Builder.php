@@ -10,6 +10,7 @@ use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+use Maslosoft\Addendum\Utilities\ReflectionName;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -131,7 +132,7 @@ class Builder
 	 */
 	private function _parse($reflection)
 	{
-		$key = $this->_createName($reflection);
+		$key = ReflectionName::createName($reflection);
 		if (!isset(self::$_cache[$key]))
 		{
 			$parser = new AnnotationsMatcher;
@@ -139,27 +140,6 @@ class Builder
 			self::$_cache[$key] = $data;
 		}
 		return self::$_cache[$key];
-	}
-
-	/**
-	 * Create class name
-	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $target
-	 * @return string
-	 */
-	private function _createName($target)
-	{
-		if ($target instanceof ReflectionMethod)
-		{
-			return $target->getDeclaringClass()->name . '::' . $target->name;
-		}
-		elseif ($target instanceof ReflectionProperty)
-		{
-			return $target->getDeclaringClass()->name . '::$' . $target->name;
-		}
-		else
-		{
-			return $target->name;
-		}
 	}
 
 	/**
