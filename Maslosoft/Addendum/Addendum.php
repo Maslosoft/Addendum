@@ -69,45 +69,15 @@ class Addendum extends CApplicationComponent
 
 	/**
 	 * Use $class name or object to annotate class
-	 * Use $other in form:
-	 * <ul>
-	 * <li>propertyName - to annotate property</li>
-	 * <li>methodName() - to annotate method - NOTE the parethises ()</li>
-	 * <li>* - to annotate all properties</li>
-	 * <li>*() - to annotate all methods</li>
-	 * </ul>
 	 * @param string|object $class
-	 * @param string $other
 	 * @return ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|ReflectionAnnotatedClass
-	 *
 	 */
-	public function annotate($class, $other = null)
+	public function annotate($class)
 	{
-//		var_dump(sprintf('New instance... for class %s', is_string($class)?$class:get_class($class)));
 		if(!$this->hasAnnotations($class))
 		{
 			$className = is_object($class) ? get_class($class) : $class;
 			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, IAnnotated::class));
-		}
-		if(null !== $other)
-		{
-			$meta = $this->annotate($class);
-			if(strstr($other, '()'))
-			{
-				if(strstr($other, '*'))
-				{
-					return $meta->getMethods();
-				}
-				return $meta->getMethod($other);
-			}
-			else
-			{
-				if(strstr($other, '*'))
-				{
-					return $meta->getProperties();
-				}
-				return $meta->getProperty($other);
-			}
 		}
 		$meta = $this->cacheGet($class);
 		if(!$meta)
@@ -118,6 +88,10 @@ class Addendum extends CApplicationComponent
 		return $meta;
 	}
 
+	/**
+	 * Add annotations namespace
+	 * @param string $ns
+	 */
 	public function addNamespace($ns)
 	{
 		$this->namespaces[] = $ns;
