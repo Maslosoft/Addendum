@@ -141,11 +141,15 @@ abstract class Annotation implements IAnnotation
 
 	/**
 	 * Create name
-	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty $target
+	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty|boolean $target
 	 * @return string
 	 */
 	private function _createName($target)
 	{
+		if(!$target)
+		{
+			return 'unknown';
+		}
 		if ($target instanceof ReflectionMethod)
 		{
 			return $target->getDeclaringClass()->name . '::' . $target->name;

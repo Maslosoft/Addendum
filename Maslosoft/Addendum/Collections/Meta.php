@@ -339,7 +339,7 @@ class Meta
 	/**
 	 * Get method metadata by name
 	 * @param string $name
-	 * @return MetaMethod
+	 * @return MetaMethod|bool
 	 */
 	public function method($name)
 	{
