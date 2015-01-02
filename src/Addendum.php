@@ -57,17 +57,6 @@ class Addendum extends CApplicationComponent
 	}
 
 	/**
-	 * This is deprecated because Meta can take config object as param
-	 * @deprecated since version number
-	 * @param type $component
-	 * @return type
-	 */
-	public function meta($component)
-	{
-		return Meta::create($component);
-	}
-
-	/**
 	 * Use $class name or object to annotate class
 	 * @param string|object $class
 	 * @return ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|ReflectionAnnotatedClass

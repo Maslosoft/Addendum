@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-vendor/bin/codecept run unit --coverage --html --coverage-html=. --coverage-xml=./coverage.clover
+vendor/bin/codecept run unit --debug

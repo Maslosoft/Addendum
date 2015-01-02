@@ -28,7 +28,17 @@ class Meta
 	const Field = 2;
 	const Method = 3;
 
+	/**
+	 * Metadata containers
+	 * @var Meta[]
+	 */
 	private static $_instances = [];
+
+	/**
+	 * Namespaces
+	 * @var string[]
+	 */
+	private static $_namespaces = [];
 
 	/**
 	 * Container for type metadata
@@ -60,6 +70,7 @@ class Meta
 		{
 			$options = new MetaOptions();
 		}
+
 		// TODO Abstract from component meta, so other kinds of meta extractors could be used
 		// For example, for development annotation based extractor could be used, which could compile
 		// Metadata to arrays, and for production environment, compiled arrays could be used
@@ -67,7 +78,7 @@ class Meta
 		$mes = [];
 
 		// Get reflection data
-		foreach($options->namespaces as $ns)
+		foreach ($options->namespaces as $ns)
 		{
 			Yii::app()->addendum->addNamespace($ns);
 		}
@@ -115,8 +126,7 @@ class Meta
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
 			}
-
-			$hasAnnotations = false;
+			
 			$methodMeta = new $options->methodClass($method);
 			foreach ($method->getAllAnnotations() as $annotation)
 			{
@@ -131,13 +141,11 @@ class Meta
 				$annotation->setComponent($component);
 				$annotation->init();
 				$annotations[] = $annotation;
-				$hasAnnotations = true;
 			}
-			if ($hasAnnotations)
-			{
-				// Put it to metadata object
-				$this->_methods[$method->name] = $methodMeta;
-			}
+
+			// Put it to metadata object
+			$this->_methods[$method->name] = $methodMeta;
+			
 			// Get getters and setters for properties setup
 			if (preg_match('~^[gs]et~', $method->name) && !$method->isStatic())
 			{
@@ -222,7 +230,7 @@ class Meta
 			}
 			else
 			{
-				self::$_instances[$id] = new Meta($component, $options);
+				self::$_instances[$id] = new static($component, $options);
 				self::_cacheSet($id, self::$_instances[$id]);
 			}
 		}
@@ -233,6 +241,7 @@ class Meta
 	/**
 	 * Apply initialization routines to concrete model instance
 	 * @todo This should fire event, which for which annotations could intercept
+	 * @deprecated since version number
 	 * @param IAnnotated $component
 	 */
 	public function initModel(IAnnotated $component)
@@ -403,7 +412,7 @@ class Meta
 	 * @param Meta $value
 	 * @return Meta|boolean
 	 */
-	private static function _cacheSet($id, Meta $value)
+	private static function _cacheSet($id, Meta $value = null)
 	{
 		if (!isset(Yii::app()->cache))
 		{
