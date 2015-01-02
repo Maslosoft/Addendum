@@ -33,16 +33,6 @@ class MetaType implements IAnnotationEntity
 		$this->name = $info->name;
 	}
 
-	public static function __set_state($data)
-	{
-		$obj = new self(null);
-		foreach ($data as $field => $value)
-		{
-			$obj->$field = $value;
-		}
-		return $obj;
-	}
-
 	public function __get($name)
 	{
 		return null;

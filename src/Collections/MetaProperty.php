@@ -82,21 +82,6 @@ class MetaProperty implements IAnnotationEntity
 		$this->isStatic = $info->isStatic();
 	}
 
-	public static function __set_state($data)
-	{
-		$obj = new self(null);
-		foreach ($data as $field => $value)
-		{
-			$obj->$field = $value;
-		}
-		return $obj;
-	}
-
-	/**
-	 * For undefined return null
-	 * @param string $name
-	 * @return null
-	 */
 	public function __get($name)
 	{
 		return null;
