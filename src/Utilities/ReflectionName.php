@@ -33,7 +33,7 @@ class ReflectionName
 		}
 		if ($target instanceof ReflectionMethod)
 		{
-			return $target->getDeclaringClass()->name . '::' . $target->name;
+			return $target->getDeclaringClass()->name . '::' . $target->name . '()';
 		}
 		elseif ($target instanceof ReflectionProperty)
 		{
