@@ -2,7 +2,7 @@
 
 namespace Maslosoft\Addendum\Annotations;
 
-use Maslosoft\Addendum\Annotation;
+use Maslosoft\Addendum\Collections\MetaAnnotation;
 
 /**
  * Disallow annotation if some other annotation exists.
@@ -10,12 +10,14 @@ use Maslosoft\Addendum\Annotation;
  * TODO Implement it similarly to target.
  * @template Conflicts('${annotation}')
  */
-class ConflictsAnnotation extends Annotation
+class ConflictsAnnotation extends MetaAnnotation
 {
+
+	public $value;
 
 	public function init()
 	{
-
+		
 	}
 
 }

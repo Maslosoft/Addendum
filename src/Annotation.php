@@ -3,7 +3,9 @@
 namespace Maslosoft\Addendum;
 
 use CComponent;
+use Maslosoft\Addendum\Exceptions\CircularReferenceException;
 use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Utilities\ConflictChecker;
 use Maslosoft\Addendum\Utilities\TargetChecker;
 use ReflectionClass;
 use ReflectionProperty;
@@ -47,7 +49,7 @@ abstract class Annotation implements IAnnotation
 		$class = $reflection->name;
 		if (isset(self::$_creationStack[$class]))
 		{
-			throw new UnexpectedValueException("Circular annotation reference on '$class'", E_USER_ERROR);
+			throw new CircularReferenceException("Circular annotation reference on '$class'", E_USER_ERROR);
 		}
 		self::$_creationStack[$class] = true;
 		foreach ($data as $key => $value)
@@ -64,6 +66,7 @@ abstract class Annotation implements IAnnotation
 		}
 		try
 		{
+			ConflictChecker::check($this, $target);
 			TargetChecker::check($this, $target);
 		}
 		catch (UnexpectedValueException $ex)

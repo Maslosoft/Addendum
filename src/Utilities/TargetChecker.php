@@ -9,12 +9,12 @@
 namespace Maslosoft\Addendum\Utilities;
 
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
+use Maslosoft\Addendum\Exceptions\TargetException;
 use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
-use UnexpectedValueException;
 
 /**
  * Check target constraits
@@ -29,7 +29,7 @@ class TargetChecker
 	 * @param IAnnotation $annotation Annotation
 	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty|bool $target
 	 * @return type
-	 * @throws UnexpectedValueException
+	 * @throws TargetException
 	 */
 	public static function check($annotation, $target)
 	{
@@ -67,11 +67,11 @@ class TargetChecker
 		}
 		if ($target === false && $value == TargetAnnotation::TargetNested)
 		{
-			throw new UnexpectedValueException("Annotation '" . get_class($annotation) . "' nesting not allowed");
+			throw new TargetException("Annotation '" . get_class($annotation) . "' nesting not allowed");
 		}
 		elseif (in_array($value, TargetAnnotation::getTargets()))
 		{
-			throw new UnexpectedValueException(sprintf("Annotation '%s' not allowed on %s, it's target is %s", get_class($annotation), ReflectionName::createName($target), $value));
+			throw new TargetException(sprintf("Annotation '%s' not allowed on %s, it's target is %s", get_class($annotation), ReflectionName::createName($target), $value));
 		}
 	}
 

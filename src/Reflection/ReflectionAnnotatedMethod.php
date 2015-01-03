@@ -10,7 +10,8 @@ class ReflectionAnnotatedMethod extends ReflectionMethod
 	public function __construct($class, $name)
 	{
 		parent::__construct($class, $name);
-		$this->annotations = $this->createAnnotationBuilder()->build($this);
+		$this->annotations = (new Builder)->build($this);
+		assert($this->annotations instanceof AnnotationsCollection);
 	}
 
 	public function hasAnnotation($class)
@@ -37,10 +38,5 @@ class ReflectionAnnotatedMethod extends ReflectionMethod
 	{
 		$class = parent::getDeclaringClass();
 		return new ReflectionAnnotatedClass($class->name);
-	}
-
-	protected function createAnnotationBuilder()
-	{
-		return new Builder();
 	}
 }

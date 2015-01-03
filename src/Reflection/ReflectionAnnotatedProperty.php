@@ -1,9 +1,11 @@
 <?php
+
 namespace Maslosoft\Addendum\Reflection;
 
 use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use ReflectionProperty;
+
 class ReflectionAnnotatedProperty extends ReflectionProperty
 {
 
@@ -16,7 +18,8 @@ class ReflectionAnnotatedProperty extends ReflectionProperty
 	public function __construct($class, $name)
 	{
 		parent::__construct($class, $name);
-		$this->annotations = $this->createAnnotationBuilder()->build($this);
+		$this->annotations = (new Builder)->build($this);
+		assert($this->annotations instanceof AnnotationsCollection);
 	}
 
 	public function hasAnnotation($class)
@@ -43,15 +46,6 @@ class ReflectionAnnotatedProperty extends ReflectionProperty
 	{
 		$class = parent::getDeclaringClass();
 		return new ReflectionAnnotatedClass($class->name);
-	}
-
-	/**
-	 * Create new annotations builder instance
-	 * @return Builder
-	 */
-	protected function createAnnotationBuilder()
-	{
-		return new Builder();
 	}
 
 }

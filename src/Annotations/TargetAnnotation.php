@@ -3,6 +3,7 @@
 namespace Maslosoft\Addendum\Annotations;
 
 use Maslosoft\Addendum\Annotation;
+use Maslosoft\Addendum\Exceptions\TargetException;
 
 /**
  * Annotation target annotation
@@ -47,7 +48,7 @@ class TargetAnnotation extends Annotation
 		{
 			if (!$this->_component->_component instanceof $this->value)
 			{
-				throw new UnexpectedValueException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s"', get_class($this->_component), get_class($this->_component->_component), $this->value));
+				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s"', get_class($this->_component), get_class($this->_component->_component), $this->value));
 			}
 		}
 	}
