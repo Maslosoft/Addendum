@@ -7,6 +7,7 @@ use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Utilities\TargetChecker;
 use ReflectionClass;
 use ReflectionProperty;
+use UnexpectedValueException;
 
 /**
  * Addendum PHP Reflection Annotations modified for Yii
@@ -46,8 +47,7 @@ abstract class Annotation implements IAnnotation
 		$class = $reflection->name;
 		if (isset(self::$_creationStack[$class]))
 		{
-			trigger_error("Circular annotation reference on '$class'", E_USER_ERROR);
-			return;
+			throw new UnexpectedValueException("Circular annotation reference on '$class'", E_USER_ERROR);
 		}
 		self::$_creationStack[$class] = true;
 		foreach ($data as $key => $value)
@@ -62,8 +62,17 @@ abstract class Annotation implements IAnnotation
 		{
 			$this->_publicProperties[] = $field->name;
 		}
-		TargetChecker::check($this, $target);
-		unset(self::$_creationStack[$class]);
+		try
+		{
+			TargetChecker::check($this, $target);
+		}
+		catch (UnexpectedValueException $ex)
+		{
+			throw $ex;
+		} finally
+		{
+			unset(self::$_creationStack[$class]);
+		}
 	}
 
 	/**
@@ -84,7 +93,7 @@ abstract class Annotation implements IAnnotation
 	 * Init annoattion
 	 */
 	abstract public function init();
-	
+
 	/**
 	 * Convert to array
 	 * @return mixed[]
