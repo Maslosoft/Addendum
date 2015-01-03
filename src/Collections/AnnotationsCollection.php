@@ -34,6 +34,11 @@ class AnnotationsCollection
 		return $result;
 	}
 
+	/**
+	 * Get all annotations with optional restriction to $restriction annotation name
+	 * @param string $restriction
+	 * @return IAnnotation[]
+	 */
 	public function getAllAnnotations($restriction = false)
 	{
 		$restriction = Addendum::resolveClassName($restriction);

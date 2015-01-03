@@ -4,6 +4,7 @@ namespace Maslosoft\Addendum\Reflection;
 
 use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
+use Maslosoft\Addendum\Utilities\ConflictChecker;
 use ReflectionProperty;
 
 class ReflectionAnnotatedProperty extends ReflectionProperty
@@ -19,7 +20,7 @@ class ReflectionAnnotatedProperty extends ReflectionProperty
 	{
 		parent::__construct($class, $name);
 		$this->annotations = (new Builder)->build($this);
-		assert($this->annotations instanceof AnnotationsCollection);
+		ConflictChecker::check($this, $this->annotations);
 	}
 
 	public function hasAnnotation($class)

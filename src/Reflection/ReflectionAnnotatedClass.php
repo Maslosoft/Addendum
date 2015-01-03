@@ -3,17 +3,23 @@ namespace Maslosoft\Addendum\Reflection;
 
 use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
+use Maslosoft\Addendum\Utilities\ConflictChecker;
 use ReflectionClass;
 
 class ReflectionAnnotatedClass extends ReflectionClass
 {
-	private $annotations;
+	/**
+	 * Annotations collection
+	 * @var AnnotationsCollection
+	 */
+	private $annotations = null;
 
 	public function __construct($class)
 	{
 		parent::__construct($class);
 		$this->annotations = (new Builder)->build($this);
-		assert($this->annotations instanceof AnnotationsCollection);
+
+		ConflictChecker::check($this, $this->annotations);
 	}
 
 	public function hasAnnotation($class)

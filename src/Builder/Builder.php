@@ -55,7 +55,7 @@ class Builder
 	 * Create new instance of annotation
 	 * @param string $class
 	 * @param mixed[] $parameters
-	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $targetReflection
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|bool $targetReflection
 	 * @return boolean|object
 	 */
 	public function instantiateAnnotation($class, $parameters, $targetReflection = false)
@@ -108,8 +108,7 @@ class Builder
 		$resolvedClass = Addendum::resolveClassName($fqn);
 		if ((new ReflectionClass($resolvedClass))->implementsInterface(IAnnotation::class) || $resolvedClass == IAnnotation::class)
 		{
-			$annotationReflection = new ReflectionClass($resolvedClass);
-			return $annotationReflection->newInstance($parameters, $targetReflection);
+			return new $resolvedClass($parameters, $targetReflection);
 		}
 		return false;
 	}

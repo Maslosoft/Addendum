@@ -376,6 +376,15 @@ class Meta
 		}
 	}
 
+	public static function clearCache()
+	{
+		self::$_instances = [];
+		if(isset(Yii::app()->cache))
+		{
+			Yii::app()->cache->flush();
+		}
+	}
+
 	/**
 	 * Get cache key
 	 * @param string $id evaluated class name

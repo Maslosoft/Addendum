@@ -5,6 +5,7 @@ namespace Maslosoft\Addendum;
 use CApplicationComponent;
 use CCache;
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
+use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
@@ -51,9 +52,14 @@ class Addendum extends CApplicationComponent
 	 */
 	private $_cache = null;
 
+	/**
+	 * Chech if class could have annotations
+	 * @param string|object $class
+	 * @return bool
+	 */
 	public function hasAnnotations($class)
 	{
-		return (bool)isset(class_implements($class)[IAnnotated::class]);
+		return (new ReflectionClass($class))->implementsInterface(IAnnotated::class);
 	}
 
 	/**
@@ -112,6 +118,13 @@ class Addendum extends CApplicationComponent
 		$key = $this->getCacheKey($class);
 		self::$_localCache[$key] = $value;
 //		$this->_cache->set($key, $value);
+	}
+
+	public function cacheClear()
+	{
+		self::$_localCache = [];
+		Builder::clearCache();
+		Meta::clearCache();
 	}
 
 	public function getCacheKey($class)

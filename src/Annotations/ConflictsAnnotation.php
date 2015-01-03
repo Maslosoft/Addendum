@@ -3,6 +3,7 @@
 namespace Maslosoft\Addendum\Annotations;
 
 use Maslosoft\Addendum\Collections\MetaAnnotation;
+use Maslosoft\Addendum\Utilities\ConflictChecker;
 
 /**
  * Disallow annotation if some other annotation exists.
@@ -17,7 +18,7 @@ class ConflictsAnnotation extends MetaAnnotation
 
 	public function init()
 	{
-		
+
 	}
 
 }

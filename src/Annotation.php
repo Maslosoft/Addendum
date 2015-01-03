@@ -66,7 +66,7 @@ abstract class Annotation implements IAnnotation
 		}
 		try
 		{
-			ConflictChecker::check($this, $target);
+			ConflictChecker::register($this, $target);
 			TargetChecker::check($this, $target);
 		}
 		catch (UnexpectedValueException $ex)

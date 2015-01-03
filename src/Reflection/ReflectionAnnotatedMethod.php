@@ -2,6 +2,7 @@
 namespace Maslosoft\Addendum\Reflection;
 
 use Maslosoft\Addendum\Builder\Builder;
+use Maslosoft\Addendum\Utilities\ConflictChecker;
 use ReflectionMethod;
 class ReflectionAnnotatedMethod extends ReflectionMethod
 {
@@ -11,7 +12,7 @@ class ReflectionAnnotatedMethod extends ReflectionMethod
 	{
 		parent::__construct($class, $name);
 		$this->annotations = (new Builder)->build($this);
-		assert($this->annotations instanceof AnnotationsCollection);
+		ConflictChecker::check($this, $this->annotations);
 	}
 
 	public function hasAnnotation($class)

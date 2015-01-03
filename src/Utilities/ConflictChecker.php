@@ -8,6 +8,7 @@
 
 namespace Maslosoft\Addendum\Utilities;
 
+use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Exceptions\ConflictException;
 use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
@@ -21,7 +22,7 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
  */
 class ConflictChecker
 {
-
+	private static $_conflicts = [];
 	/**
 	 * Check target constraints
 	 * @param IAnnotation $annotation Annotation
@@ -29,21 +30,36 @@ class ConflictChecker
 	 * @return type
 	 * @throws ConflictException
 	 */
-	public static function check($annotation, $target)
+	public static function register($annotation)
 	{
-		if(!$target)
-		{
-			return;
-		}
+		$name = AnnotationName::createName($annotation);
+
 		$reflection = new ReflectionAnnotatedClass($annotation);
-		if (!$reflection->hasAnnotation('Conflicts'))
+		if ($reflection->hasAnnotation('Conflicts'))
+		{
+			$secondName = $reflection->getAnnotation('Conflicts')->value;
+			self::$_conflicts[$name] = $secondName;
+			self::$_conflicts[$secondName] = $name;
+		}
+	}
+
+	public static function check($target, AnnotationsCollection $annotations = null)
+	{
+		if(!self::$_conflicts)
 		{
 			return;
 		}
-		$value = $reflection->getAnnotation('Conflicts')->value;
-		if($target->hasAnnotation($value))
+		foreach($annotations->getAllAnnotations() as $annotation)
 		{
-			throw new ConflictException(sprintf('Annotation `%s` cannot be used together with `%s` in `%s`', $reflection->name, $value, ReflectionName::createName($target)));
+			$name = AnnotationName::createName($annotation);
+			if(isset(self::$_conflicts[$name]))
+			{
+				$second = self::$_conflicts[$name];
+				if($annotations->hasAnnotation($second))
+				{
+					throw new ConflictException(sprintf('Annotation `%s` cannot be used together with `%s` in `%s`', $name, $second, ReflectionName::createName($target)));
+				}
+			}
 		}
 	}
 }
