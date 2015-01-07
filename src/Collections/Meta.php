@@ -90,7 +90,7 @@ class Meta
 			throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
 		}
 
-		$properties = $info->getProperties(ReflectionProperty::IS_PUBLIC);
+		$properties = $info->getDefaultProperties(ReflectionProperty::IS_PUBLIC);
 		$methods = $info->getMethods(ReflectionMethod::IS_PUBLIC);
 
 		// Setup type
@@ -177,7 +177,7 @@ class Meta
 			}
 			else
 			{
-				$field->default = $component->$name;
+				$field->default = $property->getValue();
 			}
 			// Put it to metadata object
 			$this->_fields[$field->name] = $field;
