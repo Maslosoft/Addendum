@@ -90,7 +90,9 @@ class Meta
 			throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
 		}
 
-		$properties = $info->getDefaultProperties(ReflectionProperty::IS_PUBLIC);
+		$properties = $info->getProperties(ReflectionProperty::IS_PUBLIC);
+		$defaults = $info->getDefaultProperties();
+
 		$methods = $info->getMethods(ReflectionMethod::IS_PUBLIC);
 
 		// Setup type
@@ -169,15 +171,12 @@ class Meta
 			$field->callGet = isset($mes[$field->methodGet]) && $mes[$field->methodGet];
 			$field->callSet = isset($mes[$field->methodSet]) && $mes[$field->methodSet];
 			$field->direct = !($field->callGet || $field->callSet);
+			$field->isStatic = $property->isStatic();
 
 			// Other
-			if ($field->isStatic)
+			if(array_key_exists($name, $defaults))
 			{
-				$field->default = $component::$$name;
-			}
-			else
-			{
-				$field->default = $property->getValue();
+				$field->default = $defaults[$name];
 			}
 			// Put it to metadata object
 			$this->_fields[$field->name] = $field;
