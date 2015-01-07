@@ -69,7 +69,7 @@ class Builder
 			$fqn = $this->_normalizeFqn($ns, $class);
 			if (Addendum::ignores($fqn))
 			{
-				return false;
+				continue;
 			}
 			try
 			{
@@ -89,7 +89,10 @@ class Builder
 				// Ignore class autoloading errors
 			}
 		}
-
+		if (Addendum::ignores($fqn))
+		{
+			return false;
+		}
 		try
 		{
 			if (!class_exists($fqn))
@@ -135,6 +138,7 @@ class Builder
 		if (!isset(self::$_cache[$key]))
 		{
 			$parser = new AnnotationsMatcher;
+			$data = [];
 			$parser->matches($this->getDocComment($reflection), $data);
 			self::$_cache[$key] = $data;
 		}
