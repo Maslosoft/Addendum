@@ -22,13 +22,13 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
  */
 class ConflictChecker
 {
+
 	private static $_conflicts = [];
+
 	/**
-	 * Check target constraints
+	 * Register annotation for later check
 	 * @param IAnnotation $annotation Annotation
-	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|bool $target Target entity
-	 * @return type
-	 * @throws ConflictException
+	 * @return void
 	 */
 	public static function register($annotation)
 	{
@@ -43,23 +43,32 @@ class ConflictChecker
 		}
 	}
 
+	/**
+	 * Check target constraints
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|bool $target Target entity
+	 * @param AnnotationsCollection $annotations
+	 * @return void
+	 * @throws ConflictException
+	 */
 	public static function check($target, AnnotationsCollection $annotations = null)
 	{
-		if(!self::$_conflicts)
+		if (!self::$_conflicts)
 		{
 			return;
 		}
-		foreach($annotations->getAllAnnotations() as $annotation)
+		foreach ($annotations->getAllAnnotations() as $annotation)
 		{
 			$name = AnnotationName::createName($annotation);
-			if(isset(self::$_conflicts[$name]))
+			if (!isset(self::$_conflicts[$name]))
 			{
-				$second = self::$_conflicts[$name];
-				if($annotations->hasAnnotation($second))
-				{
-					throw new ConflictException(sprintf('Annotation `%s` cannot be used together with `%s` in `%s`', $name, $second, ReflectionName::createName($target)));
-				}
+				continue;
+			}
+			$second = self::$_conflicts[$name];
+			if ($annotations->hasAnnotation($second))
+			{
+				throw new ConflictException(sprintf('Annotation `%s` cannot be used together with `%s` in `%s`', $name, $second, ReflectionName::createName($target)));
 			}
 		}
 	}
+
 }

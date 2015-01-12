@@ -147,7 +147,7 @@ class Builder
 
 	/**
 	 * Get doc comment
-	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $targetReflection
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $reflection
 	 * @return mixed[]
 	 */
 	protected function getDocComment($reflection)
