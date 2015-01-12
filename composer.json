@@ -22,7 +22,8 @@
 		"monolog/monolog" : "Sends your logs to files, sockets, inboxes, databases and various web services"
 	},
 	"require-dev": {
-		"maslosoft/addendumtest": "dev-master"
+		"maslosoft/addendumtest": "dev-master",
+		"codeception/specify": "0.4.*"
 	},
 	"require": {
 		"php": ">=5.5.0",

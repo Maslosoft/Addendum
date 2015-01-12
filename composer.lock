@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e7399df06059d1489bcb1423378b4f25",
+    "hash": "9f43edbf83ba040c87d351cefe193a6b",
     "packages": [
         {
             "name": "maslosoft/miniview",
@@ -160,6 +160,43 @@
                 "unit testing"
             ],
             "time": "2014-12-19 23:54:20"
+        },
+        {
+            "name": "codeception/specify",
+            "version": "0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/Specify.git",
+                "reference": "0c0ae07adfc231115b3b72ade22f44c23c199ded"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/Specify/zipball/0c0ae07adfc231115b3b72ade22f44c23c199ded",
+                "reference": "0c0ae07adfc231115b3b72ade22f44c23c199ded",
+                "shasum": ""
+            },
+            "require": {
+                "myclabs/deep-copy": "~1.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Codeception\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Michael Bodnarchuk",
+                    "email": "davert.php@mailican.com"
+                }
+            ],
+            "description": "BDD code blocks for PHPUnit and Codeception",
+            "time": "2014-10-17 00:06:51"
         },
         {
             "name": "doctrine/instantiator",
@@ -453,6 +490,48 @@
                 }
             ],
             "time": "2015-01-03 15:04:34"
+        },
+        {
+            "name": "myclabs/deep-copy",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/DeepCopy.git",
+                "reference": "d93c485e71bcd22df0a994e9e3e03a3ef3a3e3f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/d93c485e71bcd22df0a994e9e3e03a3ef3a3e3f3",
+                "reference": "d93c485e71bcd22df0a994e9e3e03a3ef3a3e3f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "doctrine/collections": "1.*",
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Create deep copies (clones) of your objects",
+            "homepage": "https://github.com/myclabs/DeepCopy",
+            "keywords": [
+                "clone",
+                "copy",
+                "duplicate",
+                "object",
+                "object graph"
+            ],
+            "time": "2014-11-20 05:11:17"
         },
         {
             "name": "phpunit/php-code-coverage",
