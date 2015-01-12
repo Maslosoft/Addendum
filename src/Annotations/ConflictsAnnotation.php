@@ -3,13 +3,14 @@
 namespace Maslosoft\Addendum\Annotations;
 
 use Maslosoft\Addendum\Collections\MetaAnnotation;
-use Maslosoft\Addendum\Utilities\ConflictChecker;
+use Maslosoft\Addendum\Interfaces\IAnnotation;
 
 /**
  * Disallow annotation if some other annotation exists.
- * This should be used only on annotation classes
- * TODO Implement it similarly to target.
+ * This should be used only on annotation classes.
+ * @Target(\Maslosoft\Addendum\Interfaces\IAnnotation)
  * @template Conflicts('${annotation}')
+ * @see IAnnotation
  */
 class ConflictsAnnotation extends MetaAnnotation
 {
@@ -18,7 +19,7 @@ class ConflictsAnnotation extends MetaAnnotation
 
 	public function init()
 	{
-
+		// Init not required, $value is directly used
 	}
 
 }
