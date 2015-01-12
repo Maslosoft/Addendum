@@ -24,6 +24,7 @@ if (!YII_DEBUG)
 /**
  * This is utility class, should not be used in production environment
  * TODO Split this into separate classes
+ * @codeCoverageIgnore
  * @author Piotr
  */
 class AnnotationUtility

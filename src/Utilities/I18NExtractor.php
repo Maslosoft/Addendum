@@ -7,7 +7,7 @@ use Yii;
 
 /**
  * This utility extract i18n labels, descriptions etc.
- *
+ * @codeCoverageIgnore
  * @author Piotr
  */
 class I18NExtractor
