@@ -7,7 +7,7 @@ class StaticConstantMatcher extends RegexMatcher
 
 	public function __construct()
 	{
-		parent::__construct('(\w+::\w+)');
+		parent::__construct('([\w\\\]+::\w+)');
 	}
 
 	protected function process($matches)
