@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "maslosoft/embedi",
-            "version": "0.0.6",
+            "version": "0.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/EmbeDi.git",
-                "reference": "bf3db41d1f7ff6423e43303bb075d8e1e49e63be"
+                "reference": "cb4dc8030e9ab6d48b9ba2c2abbf4165756b654b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/bf3db41d1f7ff6423e43303bb075d8e1e49e63be",
-                "reference": "bf3db41d1f7ff6423e43303bb075d8e1e49e63be",
+                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/cb4dc8030e9ab6d48b9ba2c2abbf4165756b654b",
+                "reference": "cb4dc8030e9ab6d48b9ba2c2abbf4165756b654b",
                 "shasum": ""
             },
             "require-dev": {
@@ -42,7 +42,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2015-01-14 19:02:14"
+            "time": "2015-01-14 20:06:58"
         },
         {
             "name": "maslosoft/miniview",

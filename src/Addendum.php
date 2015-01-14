@@ -26,12 +26,6 @@ class Addendum
 	private static $_localCache = [];
 
 	/**
-	 * Cache component name for use with caching
-	 * @var string
-	 */
-	public $cache = 'cache';
-
-	/**
 	 * Runtime path
 	 * @var string
 	 */
