@@ -4,21 +4,62 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9f43edbf83ba040c87d351cefe193a6b",
+    "hash": "16fe74b97cc256cdef5bef39fb4af621",
     "packages": [
         {
-            "name": "maslosoft/miniview",
-            "version": "1.0.4",
+            "name": "maslosoft/embedi",
+            "version": "0.0.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Maslosoft/MiniView.git",
-                "reference": "bf0f91e7cc2d1a657aea9b688d3da83b82523581"
+                "url": "https://github.com/Maslosoft/EmbeDi.git",
+                "reference": "bf3db41d1f7ff6423e43303bb075d8e1e49e63be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/MiniView/zipball/bf0f91e7cc2d1a657aea9b688d3da83b82523581",
-                "reference": "bf0f91e7cc2d1a657aea9b688d3da83b82523581",
+                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/bf3db41d1f7ff6423e43303bb075d8e1e49e63be",
+                "reference": "bf3db41d1f7ff6423e43303bb075d8e1e49e63be",
                 "shasum": ""
+            },
+            "require-dev": {
+                "maslosoft/embeditest": "dev-master",
+                "maslosoft/hedron": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Maslosoft\\EmbeDi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "New BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Peter Maselkowski",
+                    "email": "pmaselkowski@gmail.com",
+                    "homepage": "http://maslosoft.com",
+                    "role": "Developer"
+                }
+            ],
+            "time": "2015-01-14 19:02:14"
+        },
+        {
+            "name": "maslosoft/miniview",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Maslosoft/MiniView.git",
+                "reference": "5e26a602f3050b158fa3b45e884c9cb6e11521aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Maslosoft/MiniView/zipball/5e26a602f3050b158fa3b45e884c9cb6e11521aa",
+                "reference": "5e26a602f3050b158fa3b45e884c9cb6e11521aa",
+                "shasum": ""
+            },
+            "require-dev": {
+                "maslosoft/hedron": "~1"
             },
             "type": "library",
             "autoload": {
@@ -37,7 +78,8 @@
                 }
             ],
             "description": "Mini view is minimal template rendering library based on Yii controller renderer",
-            "time": "2015-01-02 22:01:16"
+            "homepage": "http://maslosoft.com/miniview/",
+            "time": "2015-01-13 16:54:06"
         },
         {
             "name": "psr/log",
@@ -457,12 +499,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "d64f47c31780c8b35f1c054135a8dfcf0977ab3c"
+                "reference": "b723ec8d636b1ff31d86afe0de4e64e61ed57d7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/d64f47c31780c8b35f1c054135a8dfcf0977ab3c",
-                "reference": "d64f47c31780c8b35f1c054135a8dfcf0977ab3c",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/b723ec8d636b1ff31d86afe0de4e64e61ed57d7d",
+                "reference": "b723ec8d636b1ff31d86afe0de4e64e61ed57d7d",
                 "shasum": ""
             },
             "require": {
@@ -489,7 +531,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2015-01-03 15:04:34"
+            "time": "2015-01-12 11:34:16"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1269,7 +1311,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v2.6.2",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/BrowserKit",
             "source": {
                 "type": "git",
@@ -1324,7 +1366,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.6.2",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
@@ -1381,7 +1423,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.6.2",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
@@ -1432,7 +1474,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.6.2",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
@@ -1485,7 +1527,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.6.2",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
@@ -1543,7 +1585,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.6.2",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
@@ -1590,7 +1632,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.2",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",

@@ -17,7 +17,7 @@ use ReflectionClass;
 use ReflectionException;
 use Yii;
 
-class Addendum extends CApplicationComponent
+class Addendum
 {
 	private static $_rawMode;
 	private static $_ignore;
@@ -30,6 +30,12 @@ class Addendum extends CApplicationComponent
 	 * @var string
 	 */
 	public $cache = 'cache';
+
+	/**
+	 * Runtime path
+	 * @var string
+	 */
+	public $runtimePath = 'runtime';
 
 	/**
 	 * Namespaces to check for annotations.

@@ -13,9 +13,6 @@ use ReflectionMethod;
 use ReflectionProperty;
 use Yii;
 
-// This is to ensure importing annotations
-require_once __DIR__ . '/../Addendum.php';
-
 /**
  * Description of EComponentMeta
  * @property MetaProperty $field
@@ -128,7 +125,7 @@ class Meta
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
 			}
-			
+
 			$methodMeta = new $options->methodClass($method);
 			foreach ($method->getAllAnnotations() as $annotation)
 			{
@@ -147,7 +144,7 @@ class Meta
 
 			// Put it to metadata object
 			$this->_methods[$method->name] = $methodMeta;
-			
+
 			// Get getters and setters for properties setup
 			if (preg_match('~^[gs]et~', $method->name) && !$method->isStatic())
 			{
@@ -174,7 +171,7 @@ class Meta
 			$field->isStatic = $property->isStatic();
 
 			// Other
-			if(array_key_exists($name, $defaults))
+			if (array_key_exists($name, $defaults))
 			{
 				$field->default = $defaults[$name];
 			}
@@ -378,7 +375,7 @@ class Meta
 	public static function clearCache()
 	{
 		self::$_instances = [];
-		if(isset(Yii::app()->cache))
+		if (isset(Yii::app()->cache))
 		{
 			Yii::app()->cache->flush();
 		}
