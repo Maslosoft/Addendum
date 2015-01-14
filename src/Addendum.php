@@ -2,8 +2,6 @@
 
 namespace Maslosoft\Addendum;
 
-use CApplicationComponent;
-use CCache;
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Builder\DocComment;
@@ -13,12 +11,17 @@ use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+use Maslosoft\EmbeDi\EmbeDi;
 use ReflectionClass;
 use ReflectionException;
-use Yii;
 
 class Addendum
 {
+
+	/**
+	 * TODO Move below static variables to static storage
+	 * @var type
+	 */
 	private static $_rawMode;
 	private static $_ignore;
 	private static $_classnames = [];
@@ -40,17 +43,27 @@ class Addendum
 		'\\',
 		TargetAnnotation::Ns
 	];
-
 	public $i18nAnnotations = [
 		'Label',
 		'Description'
 	];
 
 	/**
-	 * Cache component instance
-	 * @var CCache
+	 * DI
+	 * @var EmbeDi
 	 */
-	private $_cache = null;
+	private $di = null;
+
+	public function __construct()
+	{
+		$this->di = new EmbeDi(EmbeDi::DefaultInstanceId);
+		$this->di->configure($this);
+	}
+
+	public function init()
+	{
+		$this->di->store($this);
+	}
 
 	/**
 	 * Chech if class could have annotations
@@ -69,13 +82,13 @@ class Addendum
 	 */
 	public function annotate($class)
 	{
-		if(!$this->hasAnnotations($class))
+		if (!$this->hasAnnotations($class))
 		{
 			$className = is_object($class) ? get_class($class) : $class;
 			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, IAnnotated::class));
 		}
 		$meta = $this->cacheGet($class);
-		if(!$meta)
+		if (!$meta)
 		{
 			$meta = new ReflectionAnnotatedClass($class);
 			$this->cacheSet($class, $meta);
@@ -93,31 +106,20 @@ class Addendum
 		array_unique($this->namespaces);
 	}
 
-	public function init()
-	{
-		$this->_cache = Yii::app()->{$this->cache};
-	}
-
 	public function cacheGet($class)
 	{
 		$key = $this->getCacheKey($class);
-		if(isset(self::$_localCache[$key]))
+		if (isset(self::$_localCache[$key]))
 		{
-//			echo sprintf('Local cache hit for %s<br>', $key);
 			return self::$_localCache[$key];
 		}
 		return false;
-//		echo sprintf('Trying to get cache for %s <br>', $key);
-//		$value = $this->_cache->get($key);
-//		self::$_localCache[$key] = $value;
-//		return $value;
 	}
 
 	public function cacheSet($class, $value)
 	{
 		$key = $this->getCacheKey($class);
 		self::$_localCache[$key] = $value;
-//		$this->_cache->set($key, $value);
 	}
 
 	public function cacheClear()
@@ -129,7 +131,7 @@ class Addendum
 
 	public function getCacheKey($class)
 	{
-		if(is_object($class))
+		if (is_object($class))
 		{
 			$name = get_class($class);
 		}
@@ -142,7 +144,7 @@ class Addendum
 
 	public static function getDocComment($reflection)
 	{
-		if(self::_checkRawDocCommentParsingNeeded())
+		if (self::_checkRawDocCommentParsingNeeded())
 		{
 			$docComment = new DocComment();
 			return $docComment->get($reflection);
@@ -156,7 +158,7 @@ class Addendum
 	/** Raw mode test */
 	private static function _checkRawDocCommentParsingNeeded()
 	{
-		if(self::$_rawMode === null)
+		if (self::$_rawMode === null)
 		{
 			$reflection = new ReflectionClass(Addendum::class);
 			$method = $reflection->getMethod(__FUNCTION__);
@@ -182,7 +184,7 @@ class Addendum
 
 	public static function ignore()
 	{
-		foreach(func_get_args() as $class)
+		foreach (func_get_args() as $class)
 		{
 			self::$_ignore[$class] = true;
 		}
@@ -190,26 +192,28 @@ class Addendum
 
 	public static function resolveClassName($class)
 	{
-		if(isset(self::$_classnames[$class]))
-			return self::$_classnames[$class];
-		$matching = [];
-		foreach(self::_getDeclaredAnnotations() as $declared)
+		if (isset(self::$_classnames[$class]))
 		{
-			if($declared == $class)
+			return self::$_classnames[$class];
+		}
+		$matching = [];
+		foreach (self::_getDeclaredAnnotations() as $declared)
+		{
+			if ($declared == $class)
 			{
 				$matching[] = $declared;
 			}
 			else
 			{
 				$pos = strrpos($declared, "_$class");
-				if($pos !== false && ($pos + strlen($class) == strlen($declared) - 1))
+				if ($pos !== false && ($pos + strlen($class) == strlen($declared) - 1))
 				{
 					$matching[] = $declared;
 				}
 			}
 		}
 		$result = null;
-		switch(count($matching))
+		switch (count($matching))
 		{
 			case 0: $result = $class;
 				break;
@@ -223,12 +227,12 @@ class Addendum
 
 	private static function _getDeclaredAnnotations()
 	{
-		if(!self::$_annotations)
+		if (!self::$_annotations)
 		{
 			self::$_annotations = [];
-			foreach(get_declared_classes() as $class)
+			foreach (get_declared_classes() as $class)
 			{
-				if((new ReflectionClass($class))->implementsInterface(IAnnotation::class) || $class == IAnnotation::class)
+				if ((new ReflectionClass($class))->implementsInterface(IAnnotation::class) || $class == IAnnotation::class)
 				{
 					self::$_annotations[] = $class;
 				}
@@ -236,4 +240,5 @@ class Addendum
 		}
 		return self::$_annotations;
 	}
+
 }

@@ -32,12 +32,6 @@ class Meta
 	private static $_instances = [];
 
 	/**
-	 * Namespaces
-	 * @var string[]
-	 */
-	private static $_namespaces = [];
-
-	/**
 	 * Container for type metadata
 	 * @var MetaType
 	 */
