@@ -50,7 +50,7 @@ class ConflictChecker
 	 * @return void
 	 * @throws ConflictException
 	 */
-	public static function check($target, AnnotationsCollection $annotations = null)
+	public static function check($target, AnnotationsCollection $annotations)
 	{
 		if (!self::$_conflicts)
 		{
