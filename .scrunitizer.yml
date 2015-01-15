@@ -1,7 +1,7 @@
 filter:
     excluded_paths: [vendor/*, tests/*]
 before_commands:
-    - 'composer install --dev --prefer-source'
+    - 'composer install --dev --prefer-dist'
     - 'composer update maslosoft/addendumtest'
 tools:
     external_code_coverage: true
