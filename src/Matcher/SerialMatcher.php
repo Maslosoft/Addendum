@@ -24,6 +24,11 @@ class SerialMatcher extends CompositeMatcher
 		return $total_length;
 	}
 
+	/**
+	 * 
+	 * @param mixed[] $results
+	 * @return mixed
+	 */
 	protected function process($results)
 	{
 		return implode('', $results);
