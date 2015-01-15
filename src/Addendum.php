@@ -21,7 +21,7 @@ class Addendum
 
 	/**
 	 * If true raw doc comment parsing will be used
-	 * @var type
+	 * @var boolean
 	 */
 	private static $_rawMode;
 
