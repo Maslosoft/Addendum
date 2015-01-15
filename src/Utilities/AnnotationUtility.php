@@ -26,12 +26,6 @@ class AnnotationUtility
 	public $outputPath = null;
 
 	/**
-	 * View Renderer
-	 * @var MiniView
-	 */
-	public $view = null;
-
-	/**
 	 * This utility method find files containing $annotations
 	 * annotates them and performs callback
 	 * @param string[] $annotations

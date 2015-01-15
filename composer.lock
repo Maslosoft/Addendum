@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "16fe74b97cc256cdef5bef39fb4af621",
+    "hash": "8a4f1552821c83cc39ab3fbdad84cb51",
     "packages": [
         {
             "name": "maslosoft/embedi",
@@ -43,43 +43,6 @@
                 }
             ],
             "time": "2015-01-14 20:06:58"
-        },
-        {
-            "name": "maslosoft/miniview",
-            "version": "1.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Maslosoft/MiniView.git",
-                "reference": "5e26a602f3050b158fa3b45e884c9cb6e11521aa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/MiniView/zipball/5e26a602f3050b158fa3b45e884c9cb6e11521aa",
-                "reference": "5e26a602f3050b158fa3b45e884c9cb6e11521aa",
-                "shasum": ""
-            },
-            "require-dev": {
-                "maslosoft/hedron": "~1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Maslosoft\\MiniView\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "New BSD"
-            ],
-            "authors": [
-                {
-                    "name": "Peter Maselkowski",
-                    "email": "pmaselkowski@gmail.com"
-                }
-            ],
-            "description": "Mini view is minimal template rendering library based on Yii controller renderer",
-            "homepage": "http://maslosoft.com/miniview/",
-            "time": "2015-01-13 16:54:06"
         },
         {
             "name": "psr/log",
@@ -499,12 +462,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "b723ec8d636b1ff31d86afe0de4e64e61ed57d7d"
+                "reference": "e078d6f3d91ffb1720c3105c45d06c258e998ae1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/b723ec8d636b1ff31d86afe0de4e64e61ed57d7d",
-                "reference": "b723ec8d636b1ff31d86afe0de4e64e61ed57d7d",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/e078d6f3d91ffb1720c3105c45d06c258e998ae1",
+                "reference": "e078d6f3d91ffb1720c3105c45d06c258e998ae1",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +494,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2015-01-12 11:34:16"
+            "time": "2015-01-14 21:01:52"
         },
         {
             "name": "myclabs/deep-copy",
