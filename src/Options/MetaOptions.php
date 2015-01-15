@@ -8,6 +8,7 @@
 
 namespace Maslosoft\Addendum\Options;
 
+use Maslosoft\Addendum\Adapters\MetaAddendumAdapter;
 use Maslosoft\Addendum\Collections\MetaMethod;
 use Maslosoft\Addendum\Collections\MetaProperty;
 use Maslosoft\Addendum\Collections\MetaType;
@@ -39,7 +40,14 @@ class MetaOptions
 	public $propertyClass = MetaProperty::class;
 
 	/**
+	 * Extracting adapter class
+	 * @var string
+	 */
+	public $adapterClass = MetaAddendumAdapter::class;
+
+	/**
 	 * Namespaces for search for annotations
+	 * @deprecated since version number
 	 * @var string[]
 	 */
 	public $namespaces = [];

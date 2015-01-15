@@ -3,6 +3,7 @@
 namespace Maslosoft\Addendum\Collections;
 
 use Exception;
+use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Interfaces\IMetaAnnotation;
 use Maslosoft\Addendum\Options\MetaOptions;
@@ -62,6 +63,8 @@ class Meta
 			$options = new MetaOptions();
 		}
 
+		// TODO Use adapter here
+
 		// TODO Abstract from component meta, so other kinds of meta extractors could be used
 		// For example, for development annotation based extractor could be used, which could compile
 		// Metadata to arrays, and for production environment, compiled arrays could be used
@@ -69,11 +72,8 @@ class Meta
 		$mes = [];
 
 		// Get reflection data
-		foreach ($options->namespaces as $ns)
-		{
-			Yii::app()->addendum->addNamespace($ns);
-		}
-		$info = Yii::app()->addendum->annotate($component);
+		$info = (new Addendum())->annotate($component);
+//		$info = Yii::app()->addendum->annotate($component);
 
 
 		if (!$info instanceof ReflectionAnnotatedClass)
