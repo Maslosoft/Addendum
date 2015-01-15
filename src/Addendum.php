@@ -11,6 +11,7 @@ use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+use Maslosoft\Addendum\Storage\AddendumStorage;
 use Maslosoft\EmbeDi\EmbeDi;
 use ReflectionClass;
 use ReflectionException;
@@ -19,13 +20,36 @@ class Addendum
 {
 
 	/**
-	 * TODO Move below static variables to static storage
+	 * If true raw doc comment parsing will be used
 	 * @var type
 	 */
 	private static $_rawMode;
+
+	/**
+	 * Array with ignored classes.
+	 * Class name is key
+	 * @var bool[]
+	 */
 	private static $_ignore;
+
+	/**
+	 * Cache for resolved annotations class names.
+	 * Key is shor annotation name.
+	 * @var string[]
+	 */
 	private static $_classnames = [];
+
+	/**
+	 * This holds information about all declared classes implementing IAnnotated.
+	 * @see IAnnotated
+	 * @var type
+	 */
 	private static $_annotations = [];
+
+	/**
+	 *
+	 * @var type
+	 */
 	private static $_localCache = [];
 
 	/**
@@ -87,13 +111,13 @@ class Addendum
 			$className = is_object($class) ? get_class($class) : $class;
 			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, IAnnotated::class));
 		}
-		$meta = $this->cacheGet($class);
-		if (!$meta)
+		$reflection = $this->cacheGet($class);
+		if (!$reflection)
 		{
-			$meta = new ReflectionAnnotatedClass($class);
-			$this->cacheSet($class, $meta);
+			$reflection = new ReflectionAnnotatedClass($class);
+			$this->cacheSet($class, $reflection);
 		}
-		return $meta;
+		return $reflection;
 	}
 
 	/**
@@ -106,6 +130,11 @@ class Addendum
 		array_unique($this->namespaces);
 	}
 
+	/**
+	 * Get reflection annotated class from local cache if cached or false.
+	 * @param string $class
+	 * @return boolean|ReflectionAnnotatedClass
+	 */
 	public function cacheGet($class)
 	{
 		$key = $this->getCacheKey($class);
@@ -116,15 +145,27 @@ class Addendum
 		return false;
 	}
 
-	public function cacheSet($class, $value)
+	/**
+	 * Set reflection annotated class to local cache
+	 * @param string $class
+	 * @param ReflectionAnnotatedClass $value
+	 */
+	public function cacheSet($class, ReflectionAnnotatedClass $value)
 	{
 		$key = $this->getCacheKey($class);
 		self::$_localCache[$key] = $value;
 	}
 
+	/**
+	 * Clear local cache
+	 */
 	public function cacheClear()
 	{
+		self::$_annotations = [];
+		self::$_classnames = [];
+		self::$_ignore = [];
 		self::$_localCache = [];
+		self::$_rawMode = null;
 		Builder::clearCache();
 		Meta::clearCache();
 	}
@@ -142,6 +183,11 @@ class Addendum
 		return sprintf('ext.adendum.%s.%s', __CLASS__, $name);
 	}
 
+	/**
+	 * TODO This should not be static
+	 * @param type $reflection
+	 * @return type
+	 */
 	public static function getDocComment($reflection)
 	{
 		if (self::_checkRawDocCommentParsingNeeded())
