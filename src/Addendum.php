@@ -42,13 +42,13 @@ class Addendum
 	/**
 	 * This holds information about all declared classes implementing IAnnotated.
 	 * @see IAnnotated
-	 * @var type
+	 * @var string[]
 	 */
 	private static $_annotations = [];
 
 	/**
-	 *
-	 * @var type
+	 * Reflection annotated class cache
+	 * @var ReflectionAnnotatedClass[]
 	 */
 	private static $_localCache = [];
 
@@ -106,16 +106,16 @@ class Addendum
 	 */
 	public function annotate($class)
 	{
+		$className = is_object($class) ? get_class($class) : $class;
 		if (!$this->hasAnnotations($class))
 		{
-			$className = is_object($class) ? get_class($class) : $class;
 			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, IAnnotated::class));
 		}
-		$reflection = $this->cacheGet($class);
+		$reflection = $this->cacheGet($className);
 		if (!$reflection)
 		{
 			$reflection = new ReflectionAnnotatedClass($class);
-			$this->cacheSet($class, $reflection);
+			$this->cacheSet($className, $reflection);
 		}
 		return $reflection;
 	}
