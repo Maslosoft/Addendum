@@ -13,7 +13,6 @@ use SplFileInfo;
 
 /**
  * This is utility class, should not be used in production environment
- * TODO Split this into separate classes
  * @codeCoverageIgnore
  * @author Piotr
  */
@@ -31,11 +30,6 @@ class AnnotationUtility
 	 * @var MiniView
 	 */
 	public $view = null;
-
-	public function __construct()
-	{
-		$this->view = new MiniView($this);
-	}
 
 	/**
 	 * This utility method find files containing $annotations
