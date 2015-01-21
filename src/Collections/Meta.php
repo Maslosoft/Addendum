@@ -382,7 +382,7 @@ class Meta
 	 */
 	private static function _getCacheKey($id)
 	{
-		return sprintf('annotation-v%s-%s-%s', Yii::app()->getVersion(), __CLASS__, $id);
+		return sprintf('annotation-v%s-%s-%s', getmyinode(), __CLASS__, $id);
 	}
 
 	/**

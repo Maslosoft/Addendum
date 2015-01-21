@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a4f1552821c83cc39ab3fbdad84cb51",
+    "hash": "d3fa34d33e3c02144b6d136beeeaf25c",
     "packages": [
         {
             "name": "maslosoft/embedi",
@@ -43,6 +43,53 @@
                 }
             ],
             "time": "2015-01-20 16:35:31"
+        },
+        {
+            "name": "maslosoft/signals",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Maslosoft/Signals.git",
+                "reference": "677bd1922d5c502b51b2cd9bd309efad2c66a996"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/677bd1922d5c502b51b2cd9bd309efad2c66a996",
+                "reference": "677bd1922d5c502b51b2cd9bd309efad2c66a996",
+                "shasum": ""
+            },
+            "require": {
+                "maslosoft/addendum": "~3"
+            },
+            "type": "yii-extension",
+            "autoload": {
+                "psr-4": {
+                    "Maslosoft\\Signals\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GNU LESSER GENERAL PUBLIC LICENSE"
+            ],
+            "authors": [
+                {
+                    "name": "Peter Maselkowski",
+                    "email": "pmaselkowski@gmail.com",
+                    "homepage": "http://maslosoft.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Cross-component communication for Yii",
+            "keywords": [
+                "event",
+                "events",
+                "signal",
+                "signals",
+                "slot",
+                "slots",
+                "yii"
+            ],
+            "time": "2015-01-03 15:11:10"
         },
         {
             "name": "psr/log",

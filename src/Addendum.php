@@ -11,26 +11,64 @@ use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
-use Maslosoft\Addendum\Storage\AddendumStorage;
+use Maslosoft\Addendum\Signals\NamespacesSignal;
+use Maslosoft\Addendum\Utilities\Blacklister;
 use Maslosoft\EmbeDi\EmbeDi;
+use Maslosoft\Signals\Signal;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use ReflectionClass;
 use ReflectionException;
 
-class Addendum
+class Addendum implements LoggerAwareInterface
 {
+
+	const DefaultInstanceId = 'addendum';
+
+	/**
+	 * Runtime path
+	 * @var string
+	 */
+	public $runtimePath = 'runtime';
+
+	/**
+	 * Namespaces to check for annotations.
+	 * By default global and addendum namespace is included.
+	 * @var string[]
+	 */
+	public $namespaces = [
+		'\\',
+		TargetAnnotation::Ns
+	];
+
+	/**
+	 * Translatable annotations
+	 * TODO This should be moved to `maslosoft/addendum-i18n-extractor`
+	 * @var string[]
+	 */
+	public $i18nAnnotations = [
+		'Label',
+		'Description'
+	];
+
+	/**
+	 * DI
+	 * @var EmbeDi
+	 */
+	private $di = null;
+
+	/**
+	 * Logger
+	 * @var LoggerInterface
+	 */
+	private $_logger;
 
 	/**
 	 * If true raw doc comment parsing will be used
 	 * @var boolean
 	 */
 	private static $_rawMode;
-
-	/**
-	 * Array with ignored classes.
-	 * Class name is key
-	 * @var bool[]
-	 */
-	private static $_ignore;
 
 	/**
 	 * Cache for resolved annotations class names.
@@ -52,40 +90,18 @@ class Addendum
 	 */
 	private static $_localCache = [];
 
-	/**
-	 * Runtime path
-	 * @var string
-	 */
-	public $runtimePath = 'runtime';
-
-	/**
-	 * Namespaces to check for annotations.
-	 * By default global and addendum namespace is included.
-	 * @var string[]
-	 */
-	public $namespaces = [
-		'\\',
-		TargetAnnotation::Ns
-	];
-	public $i18nAnnotations = [
-		'Label',
-		'Description'
-	];
-
-	/**
-	 * DI
-	 * @var EmbeDi
-	 */
-	private $di = null;
-
-	public function __construct()
+	public function __construct($instanceId = self::DefaultInstanceId)
 	{
-		$this->di = new EmbeDi(EmbeDi::DefaultInstanceId);
+		$this->di = new EmbeDi($instanceId);
 		$this->di->configure($this);
 	}
 
 	public function init()
 	{
+		if (!$this->di->isStored($this))
+		{
+			(new Signal())->emit(new NamespacesSignal($this));
+		}
 		$this->di->store($this);
 	}
 
@@ -121,7 +137,30 @@ class Addendum
 	}
 
 	/**
+	 * Logger
+	 * @param LoggerInterface $logger
+	 */
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->_logger = $logger;
+	}
+
+	/**
+	 * Get logger
+	 * @return LoggerInterface Get logger
+	 */
+	public function getLogger()
+	{
+		if (null === $this->_logger)
+		{
+			$this->_logger = new NullLogger;
+		}
+		return $this->_logger;
+	}
+
+	/**
 	 * Add annotations namespace
+	 * TODO Normalize namespace beofre add
 	 * @param string $ns
 	 */
 	public function addNamespace($ns)
@@ -163,9 +202,9 @@ class Addendum
 	{
 		self::$_annotations = [];
 		self::$_classnames = [];
-		self::$_ignore = [];
 		self::$_localCache = [];
 		self::$_rawMode = null;
+		Blacklister::reset();
 		Builder::clearCache();
 		Meta::clearCache();
 	}
@@ -216,24 +255,6 @@ class Addendum
 	public static function setRawMode($enabled = true)
 	{
 		self::$_rawMode = $enabled;
-	}
-
-	public static function resetIgnoredAnnotations()
-	{
-		self::$_ignore = [];
-	}
-
-	public static function ignores($class)
-	{
-		return isset(self::$_ignore[$class]);
-	}
-
-	public static function ignore()
-	{
-		foreach (func_get_args() as $class)
-		{
-			self::$_ignore[$class] = true;
-		}
 	}
 
 	public static function resolveClassName($class)

@@ -10,11 +10,9 @@ use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+use Maslosoft\Addendum\Utilities\Blacklister;
 use Maslosoft\Addendum\Utilities\ReflectionName;
 use ReflectionClass;
-use ReflectionMethod;
-use ReflectionProperty;
-use Yii;
 
 /**
  * @Label("Annotations builder")
@@ -27,6 +25,8 @@ class Builder
 	 * @var string[][][]
 	 */
 	private static $_cache = [];
+
+	private static $_addendum = null;
 
 	/**
 	 * Build annotations collection
@@ -64,10 +64,14 @@ class Builder
 
 		// If namespaces are empty assume global namespace
 		$fqn = $this->_normalizeFqn('\\', $class);
-		foreach (Yii::app()->addendum->namespaces as $ns)
+		if(null === self::$_addendum)
+		{
+			self::$_addendum = new Addendum();
+		}
+		foreach (self::$_addendum->namespaces as $ns)
 		{
 			$fqn = $this->_normalizeFqn($ns, $class);
-			if (Addendum::ignores($fqn))
+			if (Blacklister::ignores($fqn))
 			{
 				continue;
 			}
@@ -75,8 +79,8 @@ class Builder
 			{
 				if (!class_exists($fqn))
 				{
-					Yii::trace(sprintf('Annotation class %s not found, ignoring', $fqn), 'annotation');
-					Addendum::ignore($fqn);
+					self::$_addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
+					Blacklister::ignore($fqn);
 				}
 				else
 				{
@@ -89,7 +93,7 @@ class Builder
 				// Ignore class autoloading errors
 			}
 		}
-		if (Addendum::ignores($fqn))
+		if (Blacklister::ignores($fqn))
 		{
 			return false;
 		}
@@ -97,15 +101,15 @@ class Builder
 		{
 			if (!class_exists($fqn))
 			{
-				Yii::trace(sprintf('Annotation class %s not found, ignoring', $fqn), 'annotation');
-				Addendum::ignore($fqn);
+				self::$_addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
+				Blacklister::ignore($fqn);
 				return false;
 			}
 		}
 		catch (Exception $e)
 		{
 			// Ignore autoload errors and return false
-			Addendum::ignore($fqn);
+			Blacklister::ignore($fqn);
 			return false;
 		}
 		$resolvedClass = Addendum::resolveClassName($fqn);

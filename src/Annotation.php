@@ -12,7 +12,7 @@ use ReflectionProperty;
 use UnexpectedValueException;
 
 /**
- * Addendum PHP Reflection Annotations modified for Yii
+ * Modernized Addendum PHP Reflection Annotations
  * http://code.google.com/p/addendum/
  *
  * Copyright (C) 2006-2009 Jan "johno Suchal <johno@jsmf.net>
