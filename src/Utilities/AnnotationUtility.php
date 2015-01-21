@@ -13,7 +13,6 @@ use SplFileInfo;
 
 /**
  * This is utility class, should not be used in production environment
- * @codeCoverageIgnore
  * @author Piotr
  */
 class AnnotationUtility
