@@ -462,12 +462,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "e078d6f3d91ffb1720c3105c45d06c258e998ae1"
+                "reference": "45abb4dda829330646980d51a35c49767bd42344"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/e078d6f3d91ffb1720c3105c45d06c258e998ae1",
-                "reference": "e078d6f3d91ffb1720c3105c45d06c258e998ae1",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/45abb4dda829330646980d51a35c49767bd42344",
+                "reference": "45abb4dda829330646980d51a35c49767bd42344",
                 "shasum": ""
             },
             "require": {
@@ -476,10 +476,10 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "AddendumTest\\": "./tests/",
-                    "Maslosoft\\AddendumTest\\Models": "./",
-                    "Maslosoft\\AddendumTest\\Annotations": "./"
+                "psr-4": {
+                    "AddendumTest\\": "tests",
+                    "Maslosoft\\AddendumTest\\Models\\": "models",
+                    "Maslosoft\\AddendumTest\\Annotations\\": "annotations"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -494,7 +494,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2015-01-14 21:01:52"
+            "time": "2015-01-21 11:27:12"
         },
         {
             "name": "myclabs/deep-copy",

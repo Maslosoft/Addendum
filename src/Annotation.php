@@ -87,7 +87,7 @@ abstract class Annotation implements IAnnotation
 		$this->_component = $component;
 	}
 
-	public function getUndefinedProperties()
+	public function getProperties()
 	{
 		return $this->_properties;
 	}

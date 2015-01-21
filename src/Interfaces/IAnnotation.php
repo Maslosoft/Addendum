@@ -29,9 +29,9 @@ interface IAnnotation
 	public function setComponent($component);
 
 	/**
-	 * TODO Rename it, as it returns array of properties set by annotation, excluding those defined in annotation class
+	 * Get array of properties set by annotation, excluding default values from annotations class
 	 */
-	public function getUndefinedProperties();
+	public function getProperties();
 
 	/**
 	 * Init annoattion

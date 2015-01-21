@@ -45,10 +45,9 @@ class AnnotationUtility
 			$directoryIterator = new RecursiveDirectoryIterator($path);
 			$iterator = new RecursiveIteratorIterator($directoryIterator);
 			$regexIterator = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
-			foreach ($regexIterator as $fileInfo)
+			foreach ($regexIterator as $matches)
 			{
-				/* @var $fileInfo SplFileInfo */
-				$file = $fileInfo->getPathname();
+				$file = $matches[0];
 				$parse = false;
 				$contents = file_get_contents($file);
 				foreach ($patterns as $pattern)
