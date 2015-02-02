@@ -22,7 +22,7 @@ class PhpCache
 
 	private function __construct(Addendum $addendum, $owner)
 	{
-		$this->storage = new AddendumStorage($owner, 1);
+		$this->storage = new AddendumStorage($owner, Addendum::DefaultInstanceId);
 		$this->persister = new StoragePersister($this->storage, $addendum->runtimePath);
 		$this->persister->load();
 		register_shutdown_function([$this->persister, 'save']);
