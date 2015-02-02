@@ -15,7 +15,7 @@
 	"minimum-stability": "stable",
 	"autoload": {
 		"psr-4": {
-			"Maslosoft\\Addendum\\": "src/"
+			"Maslosoft\\Addendum\\": "src"
 		}
 	},
 	"suggest":{

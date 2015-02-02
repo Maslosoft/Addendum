@@ -46,9 +46,9 @@ class TargetAnnotation extends Annotation
 		// Other checks are made in Annotation class via TargetChecker
 		if (!in_array($this->value, self::getTargets()))
 		{
-			if (!$this->_component->_component instanceof $this->value)
+			if (!$this->_component instanceof $this->value)
 			{
-				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s"', get_class($this->_component), get_class($this->_component->_component), $this->value));
+				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s"', get_class($this), get_class($this->_component), $this->value));
 			}
 		}
 	}
