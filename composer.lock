@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3c2dfb1698855ed160fb6062384b1052",
+    "hash": "5badf1d9bc36e7bc3e7c0912364aae65",
     "packages": [
         {
             "name": "maslosoft/embedi",
@@ -515,16 +515,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "fd1ed02552b9c834491382a17c0bf5127d866602"
+                "reference": "e4635c88a2c790a7d346247a6fda333d219f5d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/fd1ed02552b9c834491382a17c0bf5127d866602",
-                "reference": "fd1ed02552b9c834491382a17c0bf5127d866602",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/e4635c88a2c790a7d346247a6fda333d219f5d2f",
+                "reference": "e4635c88a2c790a7d346247a6fda333d219f5d2f",
                 "shasum": ""
             },
             "require": {
-                "codeception/codeception": "*"
+                "codeception/codeception": "*",
+                "codeception/specify": "0.4.*"
             },
             "type": "library",
             "autoload": {
@@ -546,7 +547,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2015-02-02 18:59:36"
+            "time": "2015-02-02 19:07:38"
         },
         {
             "name": "myclabs/deep-copy",
