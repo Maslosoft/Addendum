@@ -2,8 +2,8 @@
 
 namespace Maslosoft\Addendum;
 
-use CComponent;
 use Maslosoft\Addendum\Exceptions\CircularReferenceException;
+use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Utilities\ConflictChecker;
 use Maslosoft\Addendum\Utilities\TargetChecker;
@@ -36,7 +36,7 @@ abstract class Annotation implements IAnnotation
 
 	/**
 	 * This is annotated class instance, must be set before calling init
-	 * @var CComponent
+	 * @var IAnnotated
 	 */
 	protected $_component;
 	protected $_properties = [];
