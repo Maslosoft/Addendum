@@ -37,9 +37,13 @@ class ConflictChecker
 		$reflection = new ReflectionAnnotatedClass($annotation);
 		if ($reflection->hasAnnotation('Conflicts'))
 		{
-			$secondName = $reflection->getAnnotation('Conflicts')->value;
-			self::$_conflicts[$name] = $secondName;
-			self::$_conflicts[$secondName] = $name;
+			$value = $reflection->getAnnotation('Conflicts')->value;
+			$values = is_array($value) ? $value : [$value];
+			foreach($values as $secondName)
+			{
+				self::$_conflicts[$name] = $secondName;
+				self::$_conflicts[$secondName] = $name;
+			}
 		}
 	}
 

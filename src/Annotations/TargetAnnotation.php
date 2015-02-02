@@ -3,7 +3,6 @@
 namespace Maslosoft\Addendum\Annotations;
 
 use Maslosoft\Addendum\Annotation;
-use Maslosoft\Addendum\Exceptions\TargetException;
 
 /**
  * Annotation target annotation
