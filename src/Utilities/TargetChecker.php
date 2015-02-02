@@ -40,12 +40,7 @@ class TargetChecker
 		}
 		$value = $reflection->getAnnotation('Target')->value;
 		$values = is_array($value) ? $value : [$value];
-		/**
-		 * TODO Add concrete class constraint combined with field. ie.:
-		 * Target('Some\Target\ClassName') - Only on this class and subclasses
-		 * Target('Some\Target\ClassName', 'property') - Only on this class and subclasses properties
-		 * Target('Some\Target\ClassName', 'method') - Only on this class and subclasses methods
-		 */
+		
 		foreach ($values as $value)
 		{
 			if ($value == TargetAnnotation::TargetClass && $target instanceof ReflectionClass)
@@ -63,6 +58,27 @@ class TargetChecker
 			if ($value == TargetAnnotation::TargetNested && $target === false)
 			{
 				return;
+			}
+		}
+		if ($target !== false && !in_array($value, [
+					TargetAnnotation::TargetClass,
+					TargetAnnotation::TargetMethod,
+					TargetAnnotation::TargetProperty,
+					TargetAnnotation::TargetNested
+				]))
+		{
+			if ($target instanceof ReflectionClass)
+			{
+				$interfaceTarget = $target;
+			}
+			else
+			{
+				/* @var $target ReflectionProperty */
+				$interfaceTarget = new ReflectionClass($target->class);
+			}
+			if (!$interfaceTarget->implementsInterface($value))
+			{
+				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s"', $reflection->name, $interfaceTarget->name, $value));
 			}
 		}
 		if ($target === false && $value == TargetAnnotation::TargetNested)

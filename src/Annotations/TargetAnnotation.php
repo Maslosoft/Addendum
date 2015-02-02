@@ -18,11 +18,17 @@ use Maslosoft\Addendum\Exceptions\TargetException;
  * <li>Any existing class name - to restrict use of annotation only on concrete class or its descendants</li>
  * <ul>
  * Examples:
- * Target('Some\Target\ClassName') - Only on this class and subclasses
- * Target('Some\Target\ClassName', 'property') - Only on this class and subclasses properties
- * Target('Some\Target\ClassName', 'method') - Only on this class and subclasses methods
- * FIXME Make sure below todo works, or disable it for now
- * @todo Allow setting concrete type as target - this should limit use of annotation to selected class (interface) or subclasses
+ *		&commat;Target(Some\Target\ClassName) - Only on this class and subclasses
+ * Several targets can be specified.
+ * Only on this class and subclasses - on properties:
+ *		&commat;Target(Some\Target\ClassName)
+ *		&commat;Target('property')
+ * Only on this class and subclasses - on methods:
+ *		&commat;Target('Some\Target\ClassName')
+ *		&commat;Target('method')
+ * On methods and properties:
+ *		&commat;Target('method')
+ *		&commat;Target('property')
  * @template Target('${target}')
  */
 class TargetAnnotation extends Annotation
@@ -40,19 +46,6 @@ class TargetAnnotation extends Annotation
 	public $value;
 	public $class = '';
 
-	public function init()
-	{
-		// Here only interface or concrete class target is checked
-		// Other checks are made in Annotation class via TargetChecker
-		if (!in_array($this->value, self::getTargets()))
-		{
-			if (!$this->_component instanceof $this->value)
-			{
-				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s"', get_class($this), get_class($this->_component), $this->value));
-			}
-		}
-	}
-
 	public static function getTargets()
 	{
 		return [
@@ -61,6 +54,11 @@ class TargetAnnotation extends Annotation
 			self::TargetProperty,
 			self::TargetNested
 		];
+	}
+
+	public function init()
+	{
+
 	}
 
 }
