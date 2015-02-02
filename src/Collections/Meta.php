@@ -12,7 +12,6 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use ReflectionMethod;
 use ReflectionProperty;
-use Yii;
 
 /**
  * Description of EComponentMeta
@@ -369,10 +368,10 @@ class Meta
 	public static function clearCache()
 	{
 		self::$_instances = [];
-		if (isset(Yii::app()->cache))
-		{
-			Yii::app()->cache->flush();
-		}
+//		if (isset(Yii::app()->cache))
+//		{
+//			Yii::app()->cache->flush();
+//		}
 	}
 
 	/**
@@ -398,11 +397,11 @@ class Meta
 //			return include $path;
 //		}
 //		return false;
-		if (!isset(Yii::app()->cache))
-		{
-			return false;
-		}
-		return Yii::app()->cache->get(self::_getCacheKey($id));
+//		if (!isset(Yii::app()->cache))
+//		{
+//			return false;
+//		}
+//		return Yii::app()->cache->get(self::_getCacheKey($id));
 	}
 
 	/**
@@ -413,16 +412,16 @@ class Meta
 	 */
 	private static function _cacheSet($id, Meta $value = null)
 	{
-		if (!isset(Yii::app()->cache))
-		{
-			return false;
-		}
-		if (YII_DEBUG)
-		{
+//		if (!isset(Yii::app()->cache))
+//		{
+//			return false;
+//		}
+//		if (YII_DEBUG)
+//		{
 //			$path = sprintf('%s/%s.php', Yii::app()->runtimePath, self::_getCacheKey($id));
 //			file_put_contents($path, sprintf("<?php\n%s;", var_export($value, true)));
-		}
-		return Yii::app()->cache->set(self::_getCacheKey($id), $value);
+//		}
+//		return Yii::app()->cache->set(self::_getCacheKey($id), $value);
 	}
 
 }

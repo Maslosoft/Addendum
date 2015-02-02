@@ -1,8 +1,7 @@
 {
 	"name": "maslosoft/addendum",
-	"type": "yii-extension",
-	"description": "Annotations for Yii Framework",
-	"keywords" : ["annotations", "annotation", "addendum", "metadata", "yii"],
+	"description": "Easy to use php annotations",
+	"keywords" : ["annotations", "annotation", "addendum", "metadata"],
 	"license": "New BSD",
 	"authors": [
 		{
@@ -22,13 +21,12 @@
 		"monolog/monolog" : "Sends your logs to files, sockets, inboxes, databases and various web services"
 	},
 	"require-dev": {
-		"maslosoft/addendumtest": "dev-master",
-		"codeception/specify": "0.4.*"
+		"maslosoft/addendumtest": "dev-master"
 	},
 	"require": {
 		"php": ">=5.5.0",
 		"psr/log": "~1.0",
 		"maslosoft/embedi": "*",
-		"maslosoft/signals": "~1"
+		"maslosoft/signals": "*"
 	}
 }
