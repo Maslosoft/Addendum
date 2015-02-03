@@ -25,8 +25,6 @@ class TopValuesMatcher extends ParallelMatcher
 
 	protected function process($value)
 	{
-		
-		$result = [];
 		return ['value' => $value];
 	}
 }
