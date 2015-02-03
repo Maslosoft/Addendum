@@ -30,7 +30,7 @@ class ConflictChecker
 	 * @param IAnnotation $annotation Annotation
 	 * @return void
 	 */
-	public static function register($annotation)
+	public static function register(IAnnotation $annotation)
 	{
 		$name = AnnotationName::createName($annotation);
 

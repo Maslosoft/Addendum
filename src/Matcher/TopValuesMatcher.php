@@ -27,20 +27,6 @@ class TopValuesMatcher extends ParallelMatcher
 	{
 		
 		$result = [];
-		if(is_array($value))
-		{
-			foreach ($value as $key => $value)
-			{
-				if(!is_numeric($key))
-				{
-					$result[$key] = $value;
-				}
-			}
-			if($result)
-			{
-				return $result;
-			}
-		}
 		return ['value' => $value];
 	}
 }

@@ -17,7 +17,7 @@ class ClassLiteralMatcher extends RegexMatcher
 {
 	public function __construct()
 	{
-		parent::__construct('([a-zA-Z0-9_\\\]+)');
+		parent::__construct('([A-Z\\\][a-zA-Z0-9_\\\]+)');
 	}
 
 	protected function process($matches)

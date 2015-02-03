@@ -60,7 +60,7 @@ class TargetChecker
 				return;
 			}
 		}
-		if ($target !== false && !in_array($value, [
+		if ($target !== false && $value && !in_array($value, [
 					TargetAnnotation::TargetClass,
 					TargetAnnotation::TargetMethod,
 					TargetAnnotation::TargetProperty,
