@@ -6,6 +6,7 @@ use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\Meta;
+use Maslosoft\Addendum\Exceptions\ConfigurationException;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
@@ -160,11 +161,19 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * Add annotations namespace
-	 * TODO Normalize namespace beofre add
+	 * TODO Normalize namespace before add
 	 * @param string $ns
 	 */
 	public function addNamespace($ns)
 	{
+		/**
+		 * TODO Uncomment below if new signals will be available to satisfy above TODO
+		 */
+		//Maslosoft\Signals\Helpers\NameNormalizer::normalize($ns);
+		if ($this->di->isStored($this))
+		{
+			throw new ConfigurationException("All namespaces must be added before initialization. Tried to add `%s`.", $ns);
+		}
 		$this->namespaces[] = $ns;
 		array_unique($this->namespaces);
 	}
