@@ -76,9 +76,13 @@ class TargetChecker
 				/* @var $target ReflectionProperty */
 				$interfaceTarget = new ReflectionClass($target->class);
 			}
+			if(!class_exists($value))
+			{
+				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s" (see @Target)', $reflection->name, $interfaceTarget->name, $value));
+			}
 			if (!$interfaceTarget->implementsInterface($value))
 			{
-				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s"', $reflection->name, $interfaceTarget->name, $value));
+				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s" (see @Target)', $reflection->name, $interfaceTarget->name, $value));
 			}
 		}
 		if ($target === false && $value == TargetAnnotation::TargetNested)
@@ -87,7 +91,7 @@ class TargetChecker
 		}
 		elseif (in_array($value, TargetAnnotation::getTargets()))
 		{
-			throw new TargetException(sprintf("Annotation '%s' not allowed on %s, it's target is %s", get_class($annotation), ReflectionName::createName($target), $value));
+			throw new TargetException(sprintf("Annotation '%s' not allowed on %s, it's target is %s  (see @Target)", get_class($annotation), ReflectionName::createName($target), $value));
 		}
 	}
 
