@@ -10,6 +10,7 @@ use Maslosoft\Addendum\Options\MetaOptions;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+use Maslosoft\Addendum\Utilities\IgnoredChecker;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -118,7 +119,10 @@ class Meta
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
 			}
-
+			if(IgnoredChecker::check($method))
+			{
+				continue;
+			}
 			$methodMeta = new $options->methodClass($method);
 			foreach ($method->getAllAnnotations() as $annotation)
 			{
@@ -152,7 +156,11 @@ class Meta
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s`', get_class($component), $property->name));
 			}
-
+			
+			if(IgnoredChecker::check($property))
+			{
+				continue;
+			}
 			$name = $property->name;
 			/* @var $property ReflectionAnnotatedProperty */
 			$field = new $options->propertyClass($property);

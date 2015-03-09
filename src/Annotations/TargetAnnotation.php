@@ -57,7 +57,7 @@ class TargetAnnotation extends Annotation
 
 	public function init()
 	{
-
+		
 	}
 
 }
