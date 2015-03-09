@@ -2,13 +2,14 @@ language: php
 php:
   - 5.6
   - 5.5
-  - php-nightly
+  - nightly
   - hhvm
+  - hhvm-nightly
 matrix:
   allow_failures:
     - php:
-      - hhvm
-      - php-nightly
+      - hhvm-nightly
+      - nightly
 install:
   - composer install --dev --prefer-source
   - composer update maslosoft/addendumtest
