@@ -125,8 +125,7 @@ NOTE: `@template` is special docblock used to generate netbeans completition fil
 
 
 ##Requirements##
-* PHP 5.4
-* *Some* Yii, tested on 1.1.12
+* PHP 5.5
 
 ##Known bugs##
 * https://github.com/Maslosoft/Addendum/issues/8
