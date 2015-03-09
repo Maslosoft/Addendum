@@ -1,42 +1,49 @@
-#Yii Addendum#
+#Maslosoft Addendum
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Maslosoft/Addendum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Maslosoft/Addendum/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Maslosoft/Addendum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Maslosoft/Addendum/?branch=master)
 <img src="https://travis-ci.org/Maslosoft/Addendum.svg?branch=master" style="height:18px"/>
+[![HHVM Status](http://hhvm.h4cc.de/badge/maslosoft/addendum.svg)](http://hhvm.h4cc.de/package/maslosoft/addendum)
 
 Goal of this extension is to provide additional metadata for any class, their properties or methods.
 It's based on annotations, so adding this metadata is as easy as adding doc comments. This is build on top of [addendum](http://code.google.com/p/addendum/) php library
 
-##Background##
+##Background
 
 I created this extension, because I wanted to see all attribute properties of my models in one place and also needed more than Yii built in. I mean like validators, labels. This way i have property of model, and just above it i have all what it defines. Some models even does not require any methods, plain attributes with annotations.
 
-##Key features##
+##Key features
 
 * Easy add metadata
 * Lightweight container
 * Extendable
 * Netbeans completition support
 
-##Setup##
+##Setup
 Use composer to install extension:
 
-	composer require maslosoft/addendum <version>
+	composer require maslosoft/addendum:"*"
 
-
-As with most extensions add this to components
+## Yii integration
+	
+Addendum uses EmbeDi for configuration, so configure and preload embedi too:
 ```php
+'preload' => ['embedi'],
 'components' => [
-		  'addendum' => [
-				'class' => 'Maslosoft\Addendum\Addendum',
-		  ],
+	'embedi' => [
+		'class' => \Maslosoft\EmbeDi\Adapters\YiiEmbeDi::class
+	],
+	'addendum' => [
+		'class' => Maslosoft\Addendum\Addendum::class,
+	],
+]
 ```
 
-##Basic usage##
+##Basic usage
 
 **This only in short summary, please refer to [full yii addendum documentation](http://maslosoft.com/en/open-source/addendum/) or docs folder of this exteion for detailed explantion and [php addendum documentation](http://code.google.com/p/addendum/w/list) for in-depth annotations docs.**
 
-###What are annotations###
+###What are annotations
 
 *If you are familiar with annotations, skip this chapter.*
 
@@ -52,7 +59,7 @@ $name = '';
 ```
 `@var` is well known doc tag, while `@Label` defines label for this attribute. `@Persistent` indicates that attribute is persistent and `@RequiredValidator` *might* add built in `required` validator. Notice the word might, as annotations are not classes, what they do can be defined elsewhere. For detailed annotations syntax please visit [addendum documentation](http://code.google.com/p/addendum/wiki/ShortTutorialByExample).
 
-###Using annotations in your application###
+###Using annotations in your application
 
 First of all, if you want your class to be used by addendum engine, you have to "implement" IAnnotated interface. Implement is a big word here, as it is just empty interface, used only to allow annotating class.
 
@@ -89,7 +96,7 @@ This will output `My application user` `First name`.
 
 NOTE: setting `@Label` does **not** mean that `label` field will be set in container - it is annotation responsibility of what to do with it's data.
 
-###Defining annotation###
+###Defining annotation
 
 Creating your own annotation is very easy. Ill demonstrate it on `@Label`. Just create class with `Annotation` suffix, and make sure it is imported.
 
@@ -124,18 +131,18 @@ Here special property `_entity` have set `label` field. `_entity` is container f
 NOTE: `@template` is special docblock used to generate netbeans completition files.
 
 
-##Requirements##
+##Requirements
 * PHP 5.5
 
-##Known bugs##
+##Known bugs
 * https://github.com/Maslosoft/Addendum/issues/8
 
-##Resources##
-* [Project page](http://maslosoft.com/en/open-source/addendum/)
+##Resources
+* [Project page](http://maslosoft.com/addendum/)
 * [Project on github](https://github.com/Maslosoft/Addendum)
 * [Report a bug or request feature](https://github.com/Maslosoft/Addendum/issues)
 * [PHP Addendum library](http://code.google.com/p/addendum/)
 
-##Big thanks goes to##
+##Big thanks goes to
 * Jan Suchal for creating php addendum
 * be next here:)

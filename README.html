@@ -394,10 +394,11 @@ pre code, pre tt {
     </style>
 </head>
 <body>
-    <a name="yii_addendum"></a><h1>Yii Addendum<a class="anchorlink" href="#yii_addendum"></a></h1>
+    <a name="maslosoft_addendum"></a><h1>Maslosoft Addendum<a class="anchorlink" href="#maslosoft_addendum"></a></h1>
 <p><a href="https://scrutinizer-ci.com/g/Maslosoft/Addendum/?branch=master"><img src="https://scrutinizer-ci.com/g/Maslosoft/Addendum/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
 <a href="https://scrutinizer-ci.com/g/Maslosoft/Addendum/?branch=master"><img src="https://scrutinizer-ci.com/g/Maslosoft/Addendum/badges/coverage.png?b=master" alt="Code Coverage"></a>
-<img src="https://travis-ci.org/Maslosoft/Addendum.svg?branch=master" style="height:18px"/></p>
+<img src="https://travis-ci.org/Maslosoft/Addendum.svg?branch=master" style="height:18px"/>
+<a href="http://hhvm.h4cc.de/package/maslosoft/addendum"><img src="http://hhvm.h4cc.de/badge/maslosoft/addendum.svg" alt="HHVM Status"></a></p>
 <p>Goal of this extension is to provide additional metadata for any class, their properties or methods.
 It&#39;s based on annotations, so adding this metadata is as easy as adding doc comments. This is build on top of <a href="http://code.google.com/p/addendum/">addendum</a> php library</p>
 <a name="background"></a><h2>Background<a class="anchorlink" href="#background"></a></h2>
@@ -411,12 +412,18 @@ It&#39;s based on annotations, so adding this metadata is as easy as adding doc 
 </ul>
 <a name="setup"></a><h2>Setup<a class="anchorlink" href="#setup"></a></h2>
 <p>Use composer to install extension:</p>
-<pre class="prettyprint">composer require maslosoft/addendum &lt;version&gt;</pre>
-<p>As with most extensions add this to components</p>
-<pre class="prettyprint">&#39;components&#39; =&gt; [
-          &#39;addendum&#39; =&gt; [
-                &#39;class&#39; =&gt; &#39;Maslosoft\Addendum\Addendum&#39;,
-          ],</pre>
+<pre class="prettyprint">composer require maslosoft/addendum:&quot;*&quot;</pre>
+<a name="yii_integration"></a><h2>Yii integration<a class="anchorlink" href="#yii_integration"></a></h2>
+<p>Addendum uses EmbeDi for configuration, so configure and preload embedi too:</p>
+<pre class="prettyprint">&#39;preload&#39; =&gt; [&#39;embedi&#39;],
+&#39;components&#39; =&gt; [
+    &#39;embedi&#39; =&gt; [
+        &#39;class&#39; =&gt; \Maslosoft\EmbeDi\Adapters\YiiEmbeDi::class
+    ],
+    &#39;addendum&#39; =&gt; [
+        &#39;class&#39; =&gt; Maslosoft\Addendum\Addendum::class,
+    ],
+]</pre>
 <a name="basic_usage"></a><h2>Basic usage<a class="anchorlink" href="#basic_usage"></a></h2>
 <p><strong>This only in short summary, please refer to <a href="http://maslosoft.com/en/open-source/addendum/">full yii addendum documentation</a> or docs folder of this exteion for detailed explantion and <a href="http://code.google.com/p/addendum/w/list">php addendum documentation</a> for in-depth annotations docs.</strong></p>
 <a name="what_are_annotations"></a><h3>What are annotations<a class="anchorlink" href="#what_are_annotations"></a></h3>
@@ -484,16 +491,15 @@ class LabelAnnotation extends EComponentMetaAnnotation
 <p>NOTE: <code>@template</code> is special docblock used to generate netbeans completition files.</p>
 <a name="requirements"></a><h2>Requirements<a class="anchorlink" href="#requirements"></a></h2>
 <ul class="list">
-<li>PHP 5.4</li>
-<li><em>Some</em> Yii, tested on 1.1.12</li>
+<li>PHP 5.5</li>
 </ul>
 <a name="known_bugs"></a><h2>Known bugs<a class="anchorlink" href="#known_bugs"></a></h2>
 <ul class="list">
-<li>None! But im sure there are some</li>
+<li><a href="https://github.com/Maslosoft/Addendum/issues/8">https://github.com/Maslosoft/Addendum/issues/8</a></li>
 </ul>
 <a name="resources"></a><h2>Resources<a class="anchorlink" href="#resources"></a></h2>
 <ul class="list">
-<li><a href="http://maslosoft.com/en/open-source/addendum/">Project page</a></li>
+<li><a href="http://maslosoft.com/addendum/">Project page</a></li>
 <li><a href="https://github.com/Maslosoft/Addendum">Project on github</a></li>
 <li><a href="https://github.com/Maslosoft/Addendum/issues">Report a bug or request feature</a></li>
 <li><a href="http://code.google.com/p/addendum/">PHP Addendum library</a></li>
