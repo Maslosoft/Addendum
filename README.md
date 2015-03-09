@@ -129,7 +129,7 @@ NOTE: `@template` is special docblock used to generate netbeans completition fil
 * *Some* Yii, tested on 1.1.12
 
 ##Known bugs##
-* None! But im sure there are some
+* https://github.com/Maslosoft/Addendum/issues/8
 
 ##Resources##
 * [Project page](http://maslosoft.com/en/open-source/addendum/)
