@@ -2,14 +2,19 @@ language: php
 php:
   - 5.6
   - 5.5
+  - php-nightly
   - hhvm
 matrix:
   allow_failures:
-    - php: hhvm
+    - php:
+      - hhvm
+      - php-nightly
 install:
   - composer install --dev --prefer-source
   - composer update maslosoft/addendumtest
 after_script:
   - wget --no-check-certificate https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --repository=g/Maslosoft/Addendum --revision=`git rev-parse HEAD` --format=php-clover ./tests/_output/coverage.clover
-script: vendor/bin/codecept run unit --coverage --html --coverage-html=. --coverage-xml=./coverage.clover
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php ocular.phar code-coverage:upload --repository=g/Maslosoft/Addendum --revision=`git rev-parse HEAD` --format=php-clover ./tests/_output/coverage.clover; fi;'
+script:
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then vendor/bin/codecept run unit; fi;'
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then vendor/bin/codecept run unit --coverage --html --coverage-html=. --coverage-xml=./coverage.clover; fi;'
