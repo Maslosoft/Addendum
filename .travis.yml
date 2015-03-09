@@ -5,6 +5,10 @@ php:
   - nightly
   - hhvm
   - hhvm-nightly
+env:
+  - TRAVIS_PHP_VERSION="*" COV=1
+  - TRAVIS_PHP_VERSION="hhvm" COV=0
+  - TRAVIS_PHP_VERSION="nightly" COV=0
 matrix:
   allow_failures:
     - php:
