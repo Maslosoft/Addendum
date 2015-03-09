@@ -9,8 +9,6 @@ matrix:
 install:
   - composer install --dev --prefer-source
   - composer update maslosoft/addendumtest
-before_script:
-  - phpenv config-add travis.ini
 after_script:
   - wget --no-check-certificate https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --repository=g/Maslosoft/Addendum --revision=`git rev-parse HEAD` --format=php-clover ./tests/_output/coverage.clover
