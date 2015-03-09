@@ -4,22 +4,16 @@ php:
   - 5.5
   - nightly
   - hhvm
-  - hhvm-nightly
-env:
-  - TRAVIS_PHP_VERSION="*" COV=1
-  - TRAVIS_PHP_VERSION="hhvm" COV=0
-  - TRAVIS_PHP_VERSION="nightly" COV=0
 matrix:
   allow_failures:
     - php:
-      - hhvm-nightly
       - nightly
 install:
   - composer install --dev --prefer-source
   - composer update maslosoft/addendumtest
 after_script:
   - wget --no-check-certificate https://scrutinizer-ci.com/ocular.phar
-  - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php ocular.phar code-coverage:upload --repository=g/Maslosoft/Addendum --revision=`git rev-parse HEAD` --format=php-clover ./tests/_output/coverage.clover; fi;'
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --repository=g/Maslosoft/Addendum --revision=`git rev-parse HEAD` --format=php-clover ./tests/_output/coverage.clover; fi;'
 script:
-  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then vendor/bin/codecept run unit; fi;'
-  - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then vendor/bin/codecept run unit --coverage --html --coverage-html=. --coverage-xml=./coverage.clover; fi;'
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "hhvm" ] || [ "$TRAVIS_PHP_VERSION" == "nightly" ]; then vendor/bin/codecept run unit; fi;'
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then vendor/bin/codecept run unit --coverage --html --coverage-html=. --coverage-xml=./coverage.clover; fi;'
