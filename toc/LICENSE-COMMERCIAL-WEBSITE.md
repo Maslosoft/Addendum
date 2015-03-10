@@ -1,0 +1,112 @@
+<div id="license">
+	<div class="container terms">
+		<h2>IMPORTANT, PLEASE READ CAREFULLY. THIS IS A LICENSE AGREEMENT</h2>
+		<p>
+			<b>
+				This SOFTWARE PRODUCT is protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties. This SOFTWARE PRODUCT is licensed, not sold.
+			</b>
+		</p>
+		<h3>End User License Agreement</h3>
+		<p>
+			<b>This End User License Agreement ("EULA") is a legal agreement between you (either an individual or a single entity) and Piotr Masełkowski  (hereinafter, “Maslosoft”) with regard to the copyrighted Software (herein referred to as "SOFTWARE PRODUCT" or "SOFTWARE") provided with this EULA. The SOFTWARE PRODUCT includes computer software, the associated media, any printed materials, and any "online" or electronic documentation. Use of any software and related documentation ("Software") provided to you by Maslosoft in whatever form or media, will constitute your acceptance of these terms, unless separate terms are provided by the software supplier, in which case certain additional or different terms may apply. If you do not agree with the terms of this EULA, do not download, install, copy or use the Software. By installing, copying or otherwise using the SOFTWARE PRODUCT, you agree to be bound by the terms of this EULA. If you do not agree to the terms of this EULA, Maslosoft is unwilling to license the SOFTWARE PRODUCT to you. </b>
+
+		</p>
+		<ol class="list">
+			<li>
+				<p><b>Eligible Licensees.</b> This Software is available for license solely to SOFTWARE owners, with no right of duplication or further distribution, licensing, or sub-licensing. IF YOU DO NOT OWN THE SOFTWARE, THEN DO NOT DOWNLOAD, INSTALL, COPY OR USE THE SOFTWARE.</p>
+			</li><li>
+				<p><b>License Grant.</b> Maslosoft grants to you a personal, non-transferable and non-exclusive right to use the copy of the Software provided with this EULA. You agree you will not copy the Software except as necessary to use it on a single computer. You agree that you may not copy the written materials accompanying the Software. Modifying, translating, renting, copying, transferring or assigning all or part of the Software, or any rights granted hereunder, to any other persons and removing any proprietary notices, labels or marks from the Software is strictly prohibited. Furthermore, you hereby agree not to create derivative works based on the Software. You may not transfer this Software.</p>
+				<ol class="list">
+					<li>
+						<p><b>Limited:</b> Licensee may use Software for the purpose of:</p>
+						<ol class="list">
+							<li>Running Software on Licensee’s one Website and Server;</li>
+							<li>Allowing 3rd Parties to run Software on Licensee’s one Website and Server;</li>
+							<li>Publishing Software’s output to Licensee and 3rd Parties;</li>
+							<li>Distribute verbatim copies of Software’s output (including compiled binaries);</li>
+							<li>Modify Software to suit Licensee’s needs and specifications.</li>
+						</ol> </li><li><b>Binary Restricted:</b> Licensee may sublicense Software as a part of a larger work containing more than Software, distributed solely in Object or Binary form under a personal, non-sublicensable, limited license. Such redistribution shall be limited to unlimited codebases.</li><li>
+						<p><b>Non Assignable &amp; Non-Transferable:</b> Licensee may not assign or transfer his rights and duties under this license.</p>
+					</li><li>
+						<p><b>Commercial, Royalty Free: </b>Licensee may use Software for any purpose, including paid-services, without any royalties</p>
+					</li>
+
+				</ol>
+			</li>
+			<li> <b>Term &amp; Termination:</b> The Term of this license shall be until terminated. Licensor may terminate this Agreement, including Licensee’s license in the case where Licensee : <ol class="list">
+					<li>
+						<p>became insolvent or otherwise entered into any liquidation process; or</p>
+					</li>
+					<li>
+						<p>exported The Software to any jurisdiction where licensor may not enforce his rights under this agreements in; or</p>
+					</li>
+					<li>
+						<p>Licensee was in breach of any of this license&#39;s terms and conditions and such   breach was not cured, immediately upon notification; or</p>
+					</li>
+					<li>
+						<p>Licensee in breach of any of the terms of clause 2 to this license; or</p>
+					</li>
+					<li>
+						<p>Licensee otherwise entered into any arrangement which caused Licensor to be unable to enforce his rights under this License.</p>
+					</li>
+				</ol></li>
+			<li><b>Copyright.</b> The Software is licensed, not sold. You acknowledge that no title to the intellectual property in the Software is transferred to you. You further acknowledge that title and full ownership rights to the Software will remain the exclusive property of Maslosoft and/or its suppliers, and you will not acquire any rights to the Software, except as expressly set forth above. All copies of the Software will contain the same proprietary notices as contained in or on the Software. All title and copyrights in and to the SOFTWARE PRODUCT (including but not limited to any images, photographs, animations, video, audio, music, text and "applets," incorporated into the SOFTWARE PRODUCT), the accompanying printed materials, and any copies of the SOFTWARE PRODUCT, are owned by Maslosoft or its suppliers. The SOFTWARE PRODUCT is protected by copyright laws and international treaty provisions. You may not copy the printed materials accompanying the SOFTWARE PRODUCT.</li>
+			<li><b>Reverse Engineering.</b> You agree that you will not attempt, and if you are a corporation, you will use your best efforts to prevent your employees and contractors from attempting to reverse compile, modify, translate or disassemble the Software in whole or in part. Any failure to comply with the above or any other terms and conditions contained herein will result in the automatic termination of this license and the reversion of the rights granted hereunder to Maslosoft.</li>
+			<li><b>Payment:</b> In consideration of the License granted under clause 2, Licensee shall pay Licensor a fee, via Credit-Card, PayPal or any other mean which Licensor may deem adequate. Failure to perform payment shall construe as material breach of this Agreement. </li>
+			<li>
+				<p><b>Upgrades, Updates and Fixes:</b> Licensor may provide Licensee, from time to time, with Upgrades,   Updates or Fixes, as detailed herein and according to his sole   discretion. Licensee hereby warrants to keep The Software up-to-date and   install all relevant updates and fixes, and may, at his sole discretion,   purchase upgrades, according to the rates set by Licensor. Licensor   shall provide any update or Fix free of charge; however, nothing in this   Agreement shall require Licensor to provide Updates or Fixes.</p>
+				<ol class="list">
+					<li>
+						<p><b>Upgrades:</b> for the purpose of this license, an Upgrade  shall be a material amendment in The Software, which contains new features   and or major performance improvements and shall be marked as a new   version number. For example, should Licensee purchase The Software under   version 1.X.X, an upgrade shall commence under number 2.0.0.</p>
+					</li>
+					<li>
+						<p><b>Updates: </b> for the purpose of this license, an update shall be a minor amendment   in The Software, which may contain new features or minor improvements and   shall be marked as a new sub-version number. For example, should   Licensee purchase The Software under version 1.1.X, an upgrade shall   commence under number 1.2.0.</p>
+					</li>
+					<li>
+						<p><b>Fix:</b> for the purpose of this license, a fix shall be a minor amendment in   The Software, intended to remove bugs or alter minor features which impair   the The Software&#39;s functionality. A fix shall be marked as a new   sub-sub-version number. For example, should Licensee purchase Software   under version 1.1.1, an upgrade shall commence under number 1.1.2.</p>
+					</li>
+				</ol></li>
+			<li>
+				<p><b>Support.</b> Software is provided under an AS-IS basis and without any support, updates or maintenance. Nothing in this Agreement shall require Licensor to provide Licensee with support or fixes to any bug, failure, mis-performance or other defect in The Software.</p>
+				<ol class="list">
+					<li>
+						<p><b>Bug Notification. </b> Licensee may provide Licensor of details regarding any bug, defect or   failure in The Software promptly and with no delay from such event;  Licensee  shall comply with Licensor&#39;s request for information regarding  bugs,  defects or failures and furnish him with information,  screenshots and  try to reproduce such bugs, defects or failures.</p>
+					</li>
+					<li>
+						<p><b>Feature Request. </b> Licensee may request additional features in Software, provided,   however, that (i) Licensee shall waive any claim or right in such feature   should feature be developed by Licensor; (ii) Licensee shall be   prohibited from developing the feature, or disclose such feature   request, or feature, to any 3rd party directly competing with Licensor   or any 3rd party which may be, following the development of such   feature, in direct competition with Licensor; (iii) Licensee warrants   that feature does not infringe any 3rd party patent, trademark,   trade-secret or any other intellectual property right; and (iv) Licensee   developed, envisioned or created the feature solely by himself.</p>
+					</li>
+				</ol></li>
+			<li>
+				<p><b>Liability. </b> To the extent permitted under Law, The Software is provided under an   AS-IS basis. Licensor shall never, and without any limit, be liable for   any damage, cost, expense or any other payment incurred by Licensee as a   result of Software’s actions, failure, bugs and/or any other  interaction  between The Software &nbsp;and Licensee’s end-equipment, computers,  other  software or any 3rd party, end-equipment, computer or  services.  &nbsp;Moreover, Licensor shall never be liable for any defect in  source code  written by Licensee when relying on The Software or using The Software’s source  code.</p>
+			</li>
+			<li>
+				<p><b>Warranty.</b></p>
+				<ol class="list">
+					<li>
+						<p><b>Intellectual Property.</b> Licensor   hereby warrants that The Software does not violate or infringe any 3rd   party claims in regards to intellectual property, patents and/or   trademarks and that to the best of its knowledge no legal action has   been taken against it for any infringement or violation of any 3rd party   intellectual property rights.</p>
+					</li>
+					<li>
+						<p><b>No-Warranty.</b> The Software is provided without any warranty; Licensor hereby disclaims   any warranty that The Software shall be error free, without defects or code   which may cause damage to Licensee’s computers or to Licensee, and  that  Software shall be functional. Licensee shall be solely liable to  any  damage, defect or loss incurred as a result of operating software  and  undertake the risks contained in running The Software on License’s  Server and Website.</p>
+					</li>
+					<li>
+						<p><b>Prior Inspection.</b> Licensee hereby states that he inspected The Software thoroughly and found   it satisfactory and adequate to his needs, that it does not interfere   with his regular operation and that it does meet the standards and  scope  of his computer systems and architecture. Licensee found that  The Software  interacts with his development, website and server environment  and that  it does not infringe any of End User License Agreement of any  software  Licensee may use in performing his services. Licensee hereby  waives any  claims regarding The Software&#39;s incompatibility, performance,  results and  features, and warrants that he inspected the The Software.</p>
+					</li>
+				</ol></li>
+			<li>
+				<p><b>Rental.</b> You may not loan, rent, or lease the Software.</p>
+			</li>
+			<li>
+				<p><b>No Refunds.</b> Licensee warrants that he inspected The Software according to clause 10.3   and that it is adequate to his needs. Accordingly, as The Software is   intangible goods, Licensee shall not be, ever, entitled to any refund,   rebate, compensation or restitution for any reason whatsoever, even if   The Software contains material flaws.</p>
+			</li>
+			<li>
+				<p><b>No Liability for Consequential Damages.</b> In no event shall Maslosoft or its suppliers be liable for any damages whatsoever (including, without limitation, incidental, direct, indirect special and consequential damages, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of the use or inability to use this "Your Company" product, even if Maslosoft has been advised of the possibility of such damages. Because some states/countries do not allow the exclusion or limitation of liability for consequential or incidental damages, the above limitation may not apply to you.<p>
+			</li>
+			<li>
+				<p><b>Indemnification.</b> Licensee hereby warrants to hold Licensor harmless and indemnify   Licensor for any lawsuit brought against it in regards to Licensee’s use   of The Software in means that violate, breach or otherwise circumvent this   license, Licensor&#39;s intellectual property rights or Licensor&#39;s title  in  The Software. Licensor shall promptly notify Licensee in case of such  legal  action and request Licensee’s consent prior to any settlement in   relation to such lawsuit or claim.</p>
+			</li>
+			<li>
+				<p><b>Governing Law, Jurisdiction.</b> Licensee hereby agrees not to initiate class-action lawsuits against   Licensor in relation to this license and to compensate Licensor for any   legal fees, cost or attorney fees should any claim brought by Licensee   against Licensor be denied, in part or in full.</p>
+			</li>
+		</ol>
+	</div>
+</div>

@@ -2,7 +2,7 @@
 	"name": "maslosoft/addendum",
 	"description": "Easy to use php annotations",
 	"keywords" : ["annotations", "annotation", "addendum", "metadata"],
-	"license": "New BSD",
+	"license": "AGPL/Commercial",
 	"authors": [
 		{
 			"name": "Peter Maselkowski",
