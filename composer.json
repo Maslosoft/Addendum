@@ -1,8 +1,13 @@
 {
 	"name": "maslosoft/addendum",
 	"description": "Easy to use php annotations",
-	"keywords" : ["annotations", "annotation", "addendum", "metadata"],
-	"license": "AGPL/Commercial",
+	"keywords": [
+		"annotations",
+		"annotation",
+		"addendum",
+		"metadata"
+	],
+	"license": "AGPL or Commercial",
 	"authors": [
 		{
 			"name": "Peter Maselkowski",
@@ -17,8 +22,8 @@
 			"Maslosoft\\Addendum\\": "src"
 		}
 	},
-	"suggest":{
-		"monolog/monolog" : "Sends your logs to files, sockets, inboxes, databases and various web services"
+	"suggest": {
+		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services"
 	},
 	"require-dev": {
 		"maslosoft/addendumtest": "dev-master",
