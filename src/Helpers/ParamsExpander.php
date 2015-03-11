@@ -42,7 +42,7 @@ class ParamsExpander
 	 */
 	public static function expand(IAnnotation $annotation, $params, $values = null)
 	{
-		$values = $values? : $annotation->value;
+		$values = $values? : (array)$annotation->value;
 		$data = [];
 		foreach ($params as $key => $name)
 		{
