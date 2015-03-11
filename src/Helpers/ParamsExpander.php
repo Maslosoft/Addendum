@@ -50,6 +50,7 @@ class ParamsExpander
 			{
 				$data[$name] = $values[$key];
 				unset($values[$key]);
+				continue;
 			}
 			if (isset($values[$name]))
 			{
