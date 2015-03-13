@@ -16,7 +16,7 @@
 
 ### Quick Install
 ```bash
-	composer require maslosoft/addendum:"*"
+composer require maslosoft/addendum:"*"
 ```
 
 <!--/header-->
