@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ef2a0a6d340e3c7148cb0322d6b4fea",
+    "hash": "8b48d92c5e1aa21c14ed4be9529f1e0b",
     "packages": [
         {
             "name": "maslosoft/embedi",
-            "version": "0.0.9",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/EmbeDi.git",
-                "reference": "d7a533cf447bbb762b0359db9278ed8b48ce5979"
+                "reference": "9a830148da7ce1f777605d0c1db840ec9b834c7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/d7a533cf447bbb762b0359db9278ed8b48ce5979",
-                "reference": "d7a533cf447bbb762b0359db9278ed8b48ce5979",
+                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/9a830148da7ce1f777605d0c1db840ec9b834c7a",
+                "reference": "9a830148da7ce1f777605d0c1db840ec9b834c7a",
                 "shasum": ""
             },
             "require-dev": {
@@ -42,20 +42,58 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2015-01-20 16:35:31"
+            "time": "2015-03-09 11:41:03"
         },
         {
-            "name": "maslosoft/signals",
-            "version": "1.0.9",
+            "name": "maslosoft/gazebo",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Maslosoft/Signals.git",
-                "reference": "00474618c7b82f3c9be4b78db741812c012f2d72"
+                "url": "https://github.com/Maslosoft/Gazebo.git",
+                "reference": "8cc7254b930cb7b8faaee4cc2a72a0af0cdce984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/00474618c7b82f3c9be4b78db741812c012f2d72",
-                "reference": "00474618c7b82f3c9be4b78db741812c012f2d72",
+                "url": "https://api.github.com/repos/Maslosoft/Gazebo/zipball/8cc7254b930cb7b8faaee4cc2a72a0af0cdce984",
+                "reference": "8cc7254b930cb7b8faaee4cc2a72a0af0cdce984",
+                "shasum": ""
+            },
+            "require-dev": {
+                "codeception/codeception": "*",
+                "codeception/specify": "*",
+                "maslosoft/hedron": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Maslosoft\\Gazebo\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "New BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Peter Maselkowski",
+                    "email": "pmaselkowski@gmail.com"
+                }
+            ],
+            "description": "Plugin container",
+            "time": "2015-03-13 16:29:22"
+        },
+        {
+            "name": "maslosoft/signals",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Maslosoft/Signals.git",
+                "reference": "62ba6bce6f68af7df066b0e04f290d41f4793e5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/62ba6bce6f68af7df066b0e04f290d41f4793e5d",
+                "reference": "62ba6bce6f68af7df066b0e04f290d41f4793e5d",
                 "shasum": ""
             },
             "require": {
@@ -64,7 +102,7 @@
                 "psr/log": "~1"
             },
             "require-dev": {
-                "maslosoft/hedron": "dev-master",
+                "maslosoft/hedron": "*",
                 "maslosoft/signalstest": "dev-master"
             },
             "type": "library",
@@ -75,7 +113,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GNU LESSER GENERAL PUBLIC LICENSE"
+                "AGPL or Commercial"
             ],
             "authors": [
                 {
@@ -94,7 +132,7 @@
                 "slot",
                 "slots"
             ],
-            "time": "2015-02-03 14:35:04"
+            "time": "2015-03-10 11:02:58"
         },
         {
             "name": "psr/log",
@@ -513,12 +551,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "7cb4a5480fc4da7240e7d008564b7d3a44cf5d35"
+                "reference": "1fc757023de07155a0d653078fb7688b8c6117d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/7cb4a5480fc4da7240e7d008564b7d3a44cf5d35",
-                "reference": "7cb4a5480fc4da7240e7d008564b7d3a44cf5d35",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/1fc757023de07155a0d653078fb7688b8c6117d7",
+                "reference": "1fc757023de07155a0d653078fb7688b8c6117d7",
                 "shasum": ""
             },
             "require": {
@@ -545,7 +583,8 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2015-02-03 14:23:10"
+            "description": "Tests for addendum",
+            "time": "2015-03-13 16:40:04"
         },
         {
             "name": "maslosoft/hedron",

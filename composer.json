@@ -36,6 +36,7 @@
 		"php": ">=5.5.0",
 		"psr/log": "~1.0",
 		"maslosoft/embedi": "*",
-		"maslosoft/signals": "*"
+		"maslosoft/signals": "*",
+		"maslosoft/gazebo": "*"
 	}
 }
