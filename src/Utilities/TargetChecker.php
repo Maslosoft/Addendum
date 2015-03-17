@@ -82,7 +82,7 @@ class TargetChecker
 				/* @var $target ReflectionProperty */
 				$interfaceTarget = new ReflectionClass($target->class);
 			}
-			if(!class_exists($value) && !interface_exists($value))
+			if(!ClassChecker::exists($value))
 			{
 				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s", but this class does not exists (see @Target)', basename($reflection->name), $interfaceTarget->name, $value));
 			}

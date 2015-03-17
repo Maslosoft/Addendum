@@ -16,6 +16,7 @@ namespace Maslosoft\Addendum\Matcher;
 
 use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
 use Maslosoft\Addendum\Matcher\Helpers\Processor;
+use Maslosoft\Addendum\Utilities\ClassChecker;
 
 /**
  * ClassLiteralMatcher
@@ -42,7 +43,7 @@ class ClassLiteralMatcher implements IMatcher
 		{
 			$value = $this->process($matches);
 			Processor::process($this, $value);
-			if (!class_exists($value))
+			if (!ClassChecker::exists($value))
 			{
 				return false;
 			}
