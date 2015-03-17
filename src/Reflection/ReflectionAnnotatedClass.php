@@ -14,6 +14,7 @@
 
 namespace Maslosoft\Addendum\Reflection;
 
+use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Utilities\ConflictChecker;
@@ -27,10 +28,10 @@ class ReflectionAnnotatedClass extends ReflectionClass
 	 */
 	private $annotations = null;
 
-	public function __construct($class)
+	public function __construct($class, Addendum $addendum = null)
 	{
 		parent::__construct($class);
-		$this->annotations = (new Builder)->build($this);
+		$this->annotations = (new Builder($addendum))->build($this);
 
 		ConflictChecker::check($this, $this->annotations);
 	}

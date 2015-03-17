@@ -46,16 +46,16 @@
         },
         {
             "name": "maslosoft/gazebo",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Gazebo.git",
-                "reference": "8cc7254b930cb7b8faaee4cc2a72a0af0cdce984"
+                "reference": "bd7a394d3a7daa24d88a97fb873ee50906721fc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Gazebo/zipball/8cc7254b930cb7b8faaee4cc2a72a0af0cdce984",
-                "reference": "8cc7254b930cb7b8faaee4cc2a72a0af0cdce984",
+                "url": "https://api.github.com/repos/Maslosoft/Gazebo/zipball/bd7a394d3a7daa24d88a97fb873ee50906721fc7",
+                "reference": "bd7a394d3a7daa24d88a97fb873ee50906721fc7",
                 "shasum": ""
             },
             "require-dev": {
@@ -80,7 +80,7 @@
                 }
             ],
             "description": "Plugin container",
-            "time": "2015-03-13 16:29:22"
+            "time": "2015-03-16 11:14:23"
         },
         {
             "name": "maslosoft/signals",

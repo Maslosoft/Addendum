@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class ValueInArrayMatcher extends ValueMatcher
+class ValueInArrayMatcher extends ValueMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	public function process($value)

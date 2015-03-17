@@ -14,14 +14,14 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class ValuesMatcher extends ParallelMatcher
+class ValuesMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new TopValueMatcher);
-		$this->add(new TopValuesMatcher);
-		$this->add(new HashMatcher);
+		$this->add((new TopValueMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new TopValuesMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new HashMatcher)->setPlugins($this->getPlugins()));
 	}
 
 }

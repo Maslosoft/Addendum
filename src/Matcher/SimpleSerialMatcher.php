@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class SimpleSerialMatcher extends SerialMatcher
+class SimpleSerialMatcher extends SerialMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	private $return_part_index;

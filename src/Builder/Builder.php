@@ -38,7 +38,16 @@ class Builder
 	 */
 	private static $_cache = [];
 
-	private static $_addendum = null;
+	/**
+	 * Addendum instance
+	 * @var Addendum
+	 */
+	private $addendum = null;
+
+	public function __construct(Addendum $addendum = null)
+	{
+		$this->addendum = $addendum? : new Addendum();
+	}
 
 	/**
 	 * Build annotations collection
@@ -76,11 +85,7 @@ class Builder
 
 		// If namespaces are empty assume global namespace
 		$fqn = $this->_normalizeFqn('\\', $class);
-		if(null === self::$_addendum)
-		{
-			self::$_addendum = new Addendum();
-		}
-		foreach (self::$_addendum->namespaces as $ns)
+		foreach ($this->addendum->namespaces as $ns)
 		{
 			$fqn = $this->_normalizeFqn($ns, $class);
 			if (Blacklister::ignores($fqn))
@@ -91,7 +96,7 @@ class Builder
 			{
 				if (!class_exists($fqn))
 				{
-					self::$_addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
+					$this->addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
 					Blacklister::ignore($fqn);
 				}
 				else
@@ -113,7 +118,7 @@ class Builder
 		{
 			if (!class_exists($fqn))
 			{
-				self::$_addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
+				$this->addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
 				Blacklister::ignore($fqn);
 				return false;
 			}

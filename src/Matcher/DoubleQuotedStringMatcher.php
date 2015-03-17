@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class DoubleQuotedStringMatcher extends RegexMatcher
+class DoubleQuotedStringMatcher extends RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	public function __construct()

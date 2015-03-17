@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class StaticConstantMatcher extends RegexMatcher
+class StaticConstantMatcher extends RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	public function __construct()

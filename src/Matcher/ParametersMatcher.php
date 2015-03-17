@@ -14,18 +14,18 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class ParametersMatcher extends ParallelMatcher
+class ParametersMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new ConstantMatcher('', []));
-		$this->add(new ConstantMatcher('\(\)', []));
-		$params_matcher = new SimpleSerialMatcher(1);
-		$params_matcher->add(new RegexMatcher('\(\s*'));
-		$params_matcher->add(new ValuesMatcher);
-		$params_matcher->add(new RegexMatcher('\s*\)'));
-		$this->add($params_matcher);
+		$this->add((new ConstantMatcher('', []))->setPlugins($this->getPlugins()));
+		$this->add((new ConstantMatcher('\(\)', []))->setPlugins($this->getPlugins()));
+		$paramsMatcher = new SimpleSerialMatcher(1);
+		$paramsMatcher->add((new RegexMatcher('\(\s*'))->setPlugins($this->getPlugins()));
+		$paramsMatcher->add((new ValuesMatcher)->setPlugins($this->getPlugins()));
+		$paramsMatcher->add((new RegexMatcher('\s*\)'))->setPlugins($this->getPlugins()));
+		$this->add($paramsMatcher);
 	}
 
 }

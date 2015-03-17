@@ -14,14 +14,14 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class AnnotationMatcher extends SerialMatcher
+class AnnotationMatcher extends SerialMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new RegexMatcher('@'));
-		$this->add(new RegexMatcher('[A-Z][a-zA-Z0-9\\\_]*'));
-		$this->add(new ParametersMatcher);
+		$this->add((new RegexMatcher('@'))->setPlugins($this->getPlugins()));
+		$this->add((new RegexMatcher('[A-Z][a-zA-Z0-9\\\_]*'))->setPlugins($this->getPlugins()));
+		$this->add((new ParametersMatcher)->setPlugins($this->getPlugins()));
 	}
 
 	protected function process($results)

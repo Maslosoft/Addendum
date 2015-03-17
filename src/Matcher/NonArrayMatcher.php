@@ -19,22 +19,22 @@ namespace Maslosoft\Addendum\Matcher;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class NonArrayMatcher extends ParallelMatcher
+class NonArrayMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new ConstantMatcher('true', true));
-		$this->add(new ConstantMatcher('false', false));
-		$this->add(new ConstantMatcher('TRUE', true));
-		$this->add(new ConstantMatcher('FALSE', false));
-		$this->add(new ConstantMatcher('NULL', null));
-		$this->add(new ConstantMatcher('null', null));
-		$this->add(new ClassLiteralMatcher);
-		$this->add(new StringMatcher);
-		$this->add(new NumberMatcher);
-		$this->add(new StaticConstantMatcher);
-		$this->add(new NestedAnnotationMatcher);
+		$this->add((new ConstantMatcher('true', true))->setPlugins($this->getPlugins()));
+		$this->add((new ConstantMatcher('false', false))->setPlugins($this->getPlugins()));
+		$this->add((new ConstantMatcher('TRUE', true))->setPlugins($this->getPlugins()));
+		$this->add((new ConstantMatcher('FALSE', false))->setPlugins($this->getPlugins()));
+		$this->add((new ConstantMatcher('NULL', null))->setPlugins($this->getPlugins()));
+		$this->add((new ConstantMatcher('null', null))->setPlugins($this->getPlugins()));
+		$this->add((new ClassLiteralMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new StringMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new NumberMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new StaticConstantMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new NestedAnnotationMatcher)->setPlugins($this->getPlugins()));
 	}
 
 }

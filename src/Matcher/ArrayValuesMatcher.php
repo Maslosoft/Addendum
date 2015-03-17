@@ -14,13 +14,13 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class ArrayValuesMatcher extends ParallelMatcher
+class ArrayValuesMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new ArrayValueMatcher);
-		$this->add(new MoreValuesMatcher);
+		$this->add((new ArrayValueMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new MoreValuesMatcher)->setPlugins($this->getPlugins()));
 	}
 
 }

@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class ParallelMatcher extends CompositeMatcher
+class ParallelMatcher extends CompositeMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function match($string, &$value)

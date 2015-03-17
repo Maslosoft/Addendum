@@ -19,7 +19,7 @@ namespace Maslosoft\Addendum\Matcher;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class ClassLiteralMatcher extends RegexMatcher
+class ClassLiteralMatcher extends RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 	public function __construct()
 	{

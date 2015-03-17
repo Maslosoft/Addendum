@@ -120,6 +120,8 @@ class Addendum implements LoggerAwareInterface
 
 	public function __construct($instanceId = self::DefaultInstanceId)
 	{
+		$this->plugins = new AddendumPlugins($this->plugins);
+
 		$this->di = new EmbeDi($instanceId);
 		$this->di->configure($this);
 	}

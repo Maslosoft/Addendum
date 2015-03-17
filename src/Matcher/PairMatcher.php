@@ -14,14 +14,14 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class PairMatcher extends SerialMatcher
+class PairMatcher extends SerialMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new KeyMatcher);
-		$this->add(new RegexMatcher('\s*=\s*'));
-		$this->add(new ValueMatcher);
+		$this->add((new KeyMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new RegexMatcher('\s*=\s*'))->setPlugins($this->getPlugins()));
+		$this->add((new ValueMatcher)->setPlugins($this->getPlugins()));
 	}
 
 	protected function process($parts)

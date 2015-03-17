@@ -14,9 +14,9 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class RegexMatcher
+class RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
-
+use Traits\PluginsTrait;
 	private $regex;
 
 	public function __construct($regex)

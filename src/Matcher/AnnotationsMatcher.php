@@ -14,13 +14,16 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class AnnotationsMatcher
+class AnnotationsMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
+
+	use Traits\PluginsTrait;
 
 	public function matches($string, &$annotations)
 	{
 		$annotations = [];
-		$annotation_matcher = new AnnotationMatcher;
+		$annotationMatcher = new AnnotationMatcher;
+		$annotationMatcher->setPlugins($this->getPlugins());
 		while (true)
 		{
 			if (preg_match('/\s(?=@)/', $string, $matches, PREG_OFFSET_CAPTURE))
@@ -33,7 +36,7 @@ class AnnotationsMatcher
 				return; // no more annotations
 			}
 
-			if (($length = $annotation_matcher->matches($string, $data)) !== false)
+			if (($length = $annotationMatcher->matches($string, $data)) !== false)
 			{
 				$string = substr($string, $length);
 				list($name, $params) = $data;

@@ -19,13 +19,13 @@ namespace Maslosoft\Addendum\Matcher;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class TopValuesMatcher extends ParallelMatcher
+class TopValuesMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new NonArrayMatcher);
-		$this->add(new MoreValuesMatcher);
+		$this->add((new NonArrayMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new MoreValuesMatcher)->setPlugins($this->getPlugins()));
 	}
 
 

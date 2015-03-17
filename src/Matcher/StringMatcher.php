@@ -14,13 +14,13 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class StringMatcher extends ParallelMatcher
+class StringMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new SingleQuotedStringMatcher);
-		$this->add(new DoubleQuotedStringMatcher);
+		$this->add((new SingleQuotedStringMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new DoubleQuotedStringMatcher)->setPlugins($this->getPlugins()));
 	}
 
 }

@@ -14,14 +14,14 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class KeyMatcher extends ParallelMatcher
+class KeyMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	protected function build()
 	{
-		$this->add(new RegexMatcher('[a-zA-Z_][a-zA-Z0-9_]*'));
-		$this->add(new StringMatcher);
-		$this->add(new IntegerMatcher);
+		$this->add((new RegexMatcher('[a-zA-Z_][a-zA-Z0-9_]*'))->setPlugins($this->getPlugins()));
+		$this->add((new StringMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new IntegerMatcher)->setPlugins($this->getPlugins()));
 	}
 
 }
