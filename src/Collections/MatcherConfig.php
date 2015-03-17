@@ -8,6 +8,10 @@
 
 namespace Maslosoft\Addendum\Collections;
 
+use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\Gazebo\PluginContainer;
 
 /**
@@ -18,7 +22,16 @@ use Maslosoft\Gazebo\PluginContainer;
 class MatcherConfig extends PluginContainer
 {
 
+	/**
+	 * Addendum instance
+	 * @var Addendum
+	 */
 	public $addendum = null;
+
+	/**
+	 *
+	 * @var ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty
+	 */
 	public $reflection = null;
 
 }

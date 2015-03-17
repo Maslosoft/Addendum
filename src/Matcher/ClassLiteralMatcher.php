@@ -14,20 +14,42 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
+use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+use Maslosoft\Addendum\Matcher\Helpers\Processor;
+
 /**
  * ClassLiteralMatcher
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class ClassLiteralMatcher extends RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class ClassLiteralMatcher implements IMatcher
 {
-	public function __construct()
-	{
-		parent::__construct('([A-Z\\\][a-zA-Z0-9_\\\]+)');
-	}
+
+	use Traits\PluginsTrait;
 
 	protected function process($matches)
 	{
-		return $matches[1];
+		$value = $matches[1];
+		Processor::process($this, $value);
+		return $value;
 	}
+
+	public function matches($string, &$value)
+	{
+		$matches = [];
+		$regex = '([A-Z\\\][a-zA-Z0-9_\\\]+)';
+		if (preg_match("/^{$regex}/", $string, $matches))
+		{
+			$value = $this->process($matches);
+			Processor::process($this, $value);
+			if (!class_exists($value))
+			{
+				return false;
+			}
+			return strlen($matches[0]);
+		}
+		$value = false;
+		return false;
+	}
+
 }

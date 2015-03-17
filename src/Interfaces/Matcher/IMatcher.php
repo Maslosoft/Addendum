@@ -8,11 +8,25 @@
 
 namespace Maslosoft\Addendum\Interfaces\Matcher;
 
+use Maslosoft\Addendum\Collections\MatcherConfig;
+
 /**
- *
+ * Matcher interface
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 interface IMatcher
 {
-	//put your code here
+
+	/**
+	 * Get matcher configuration
+	 * @return MatcherConfig
+	 */
+	public function getPlugins();
+
+	/**
+	 * Set matcher configuration
+	 * @param MatcherConfig $plugins
+	 * @return IMatcher
+	 */
+	public function setPlugins(MatcherConfig $plugins);
 }

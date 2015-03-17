@@ -15,13 +15,12 @@
 namespace Maslosoft\Addendum\Utilities;
 
 use Maslosoft\Addendum\Builder\DocComment;
-use Maslosoft\Addendum\Helpers\MiniView;
+use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
 use RegexIterator;
-use SplFileInfo;
 
 /**
  * This is utility class, should not be used in production environment
@@ -98,6 +97,7 @@ class AnnotationUtility
 
 		$matcher = new AnnotationsMatcher();
 		$class = [];
+		$matcher->setPlugins(new MatcherConfig([]));
 		$matcher->matches($docs['class'], $class);
 
 		$methods = [];

@@ -8,8 +8,11 @@
 
 namespace Maslosoft\Addendum\Matcher\Traits;
 
+use Exception;
 use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 
 /**
  * PluginsTrait
@@ -26,7 +29,7 @@ trait PluginsTrait
 	private $_plugins = [];
 
 	/**
-	 *
+	 * Get matcher configuration
 	 * @return MatcherConfig
 	 */
 	public function getPlugins()
@@ -35,7 +38,7 @@ trait PluginsTrait
 	}
 
 	/**
-	 *
+	 * Set matcher configuration
 	 * @param MatcherConfig $plugins
 	 * @return IMatcher
 	 */

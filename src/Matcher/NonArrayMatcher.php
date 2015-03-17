@@ -14,12 +14,14 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
+use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+
 /**
  * Matches any value, except arrays
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class NonArrayMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class NonArrayMatcher extends ParallelMatcher implements IMatcher
 {
 
 	protected function build()
@@ -34,6 +36,7 @@ class NonArrayMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Int
 		$this->add((new StringMatcher)->setPlugins($this->getPlugins()));
 		$this->add((new NumberMatcher)->setPlugins($this->getPlugins()));
 		$this->add((new StaticConstantMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new GlobalConstantMatcher)->setPlugins($this->getPlugins()));
 		$this->add((new NestedAnnotationMatcher)->setPlugins($this->getPlugins()));
 	}
 

@@ -14,12 +14,12 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class StaticConstantMatcher extends RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class GlobalConstantMatcher extends RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
 {
 
 	public function __construct()
 	{
-		parent::__construct('([\w\\\]+::\w+)');
+		parent::__construct('([\w\\\]+)');
 	}
 
 	protected function process($matches)

@@ -30,6 +30,7 @@ class ValueMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interf
 		$this->add((new NumberMatcher)->setPlugins($this->getPlugins()));
 		$this->add((new ArrayMatcher)->setPlugins($this->getPlugins()));
 		$this->add((new StaticConstantMatcher)->setPlugins($this->getPlugins()));
+		$this->add((new GlobalConstantMatcher)->setPlugins($this->getPlugins()));
 		$this->add((new NestedAnnotationMatcher)->setPlugins($this->getPlugins()));
 	}
 
