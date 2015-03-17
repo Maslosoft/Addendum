@@ -20,7 +20,7 @@ use ReflectionProperty;
 
 class DocComment
 {
-
+	private static $use = [];
 	private static $namespaces = [];
 	private static $classNames = [];
 	private static $classes = [];
@@ -63,27 +63,36 @@ class DocComment
 	 */
 	public function forFile($name, $className = null)
 	{
-		if (null === $className)
+		$fqn = $this->process($name);
+		if($className)
 		{
-			$className = basename($name, '.' . pathinfo($name, PATHINFO_EXTENSION));
+			$fqn = $className;
 		}
-
-		$this->process($name);
 		$result = [
-			'namespace' => isset(self::$namespaces[$className]) ? self::$namespaces[$className] : [],
-			'className' => isset(self::$classNames[$className]) ? self::$classNames[$className] : [],
-			'class' => isset(self::$classes[$className]) ? self::$classes[$className] : '',
-			'methods' => isset(self::$methods[$className]) ? self::$methods[$className] : [],
-			'fields' => isset(self::$fields[$className]) ? self::$fields[$className] : []
+			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
+			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
+			'className' => isset(self::$classNames[$fqn]) ? self::$classNames[$fqn] : [],
+			'class' => isset(self::$classes[$fqn]) ? self::$classes[$fqn] : '',
+			'methods' => isset(self::$methods[$fqn]) ? self::$methods[$fqn] : [],
+			'fields' => isset(self::$fields[$fqn]) ? self::$fields[$fqn] : []
 		];
+		
 		return $result;
 	}
 
 	public function forClass($reflection)
 	{
 		$this->process($reflection->getFileName());
-		$name = $reflection->getName();
-		return isset(self::$classes[$name]) ? self::$classes[$name] : false;
+		$fqn = $reflection->getName();
+		$result = [
+			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
+			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
+			'className' => isset(self::$classNames[$fqn]) ? self::$classNames[$fqn] : [],
+			'class' => isset(self::$classes[$fqn]) ? self::$classes[$fqn] : '',
+			'methods' => isset(self::$methods[$fqn]) ? self::$methods[$fqn] : [],
+			'fields' => isset(self::$fields[$fqn]) ? self::$fields[$fqn] : []
+		];
+		return $result;
 	}
 
 	public function forMethod($reflection)
@@ -106,16 +115,19 @@ class DocComment
 	{
 		if (!isset(self::$parsedFiles[$file]))
 		{
-			$this->parse($file);
-			self::$parsedFiles[$file] = true;
+			$fqn = $this->parse($file);
+			self::$parsedFiles[$file] = $fqn;
 		}
+		return self::$parsedFiles[$file];
 	}
 
 	protected function parse($file)
 	{
+		$use = [];
 		$namespace = '\\';
 		$tokens = $this->getTokens($file);
 		$class = false;
+		$fqn = false;
 		$comment = null;
 		$max = count($tokens);
 		$i = 0;
@@ -125,6 +137,8 @@ class DocComment
 			if (is_array($token))
 			{
 				list($code, $value) = $token;
+				$tokenName = token_name($code);
+				
 				switch ($code)
 				{
 					case T_DOC_COMMENT:
@@ -146,7 +160,27 @@ class DocComment
 						}
 						$namespace = preg_replace('~^\\\\+~', '', $namespace);
 						break;
-
+					case T_USE:
+						// After class declaration, this should ignore `use` trait
+						if($class)
+						{
+							break;
+						}
+						$comment = false;
+						$useNs = '';
+						for ($j = $i + 1; $j < count($tokens); $j++)
+						{
+							if ($tokens[$j][0] === T_STRING)
+							{
+								$useNs .= '\\' . $tokens[$j][1];
+							}
+							else if ($tokens[$j] === '{' || $tokens[$j] === ';')
+							{
+								break;
+							}
+						}
+						$use[] = preg_replace('~^\\\\+~', '', $useNs);
+						break;
 					case T_TRAIT:
 					case T_CLASS:
 					case T_INTERFACE:
@@ -161,15 +195,17 @@ class DocComment
 							self::$classes[$class] = $comment;
 							$comment = false;
 						}
-						self::$classNames[$class] = $class;
-						self::$namespaces[$class] = $namespace;
+						$fqn = sprintf('%s\%s', $namespace, $class);
+						self::$namespaces[$fqn] = $namespace;
+						self::$classNames[$fqn] = $class;
+						self::$use[$fqn] = $use;
 						break;
 
 					case T_VARIABLE:
 						if ($comment !== false && $class)
 						{
 							$field = substr($token[1], 1);
-							self::$fields[$class][$field] = $comment;
+							self::$fields[$fqn][$field] = $comment;
 							$comment = false;
 						}
 						break;
@@ -178,7 +214,7 @@ class DocComment
 						if ($comment !== false && $class)
 						{
 							$function = $this->getString($tokens, $i, $max);
-							self::$methods[$class][$function] = $comment;
+							self::$methods[$fqn][$function] = $comment;
 							$comment = false;
 						}
 
@@ -205,6 +241,7 @@ class DocComment
 			}
 			$i++;
 		}
+		return $fqn;
 	}
 
 	private function getString($tokens, &$i, $max)

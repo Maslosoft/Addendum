@@ -8,6 +8,9 @@
 
 namespace Maslosoft\Addendum\Matcher\Traits;
 
+use Maslosoft\Addendum\Collections\MatcherConfig;
+use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+
 /**
  * PluginsTrait
  *
@@ -17,17 +20,26 @@ trait PluginsTrait
 {
 
 	/**
-	 * Plugins
-	 * @var mixed[]
+	 * Matcher confugration
+	 * @var MatcherConfig
 	 */
 	private $_plugins = [];
 
+	/**
+	 *
+	 * @return MatcherConfig
+	 */
 	public function getPlugins()
 	{
 		return $this->_plugins;
 	}
 
-	public function setPlugins($plugins)
+	/**
+	 *
+	 * @param MatcherConfig $plugins
+	 * @return IMatcher
+	 */
+	public function setPlugins(MatcherConfig $plugins)
 	{
 		$this->_plugins = $plugins;
 		return $this;

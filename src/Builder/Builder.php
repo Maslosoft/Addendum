@@ -17,6 +17,7 @@ namespace Maslosoft\Addendum\Builder;
 use Exception;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
+use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
@@ -160,6 +161,10 @@ class Builder
 		{
 			$parser = new AnnotationsMatcher;
 			$data = [];
+			$parser->setPlugins(new MatcherConfig([
+				'addendum' => $this->addendum,
+				'reflection' => $reflection
+			]));
 			$parser->matches($this->getDocComment($reflection), $data);
 			self::$_cache[$key] = $data;
 		}
