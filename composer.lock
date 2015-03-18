@@ -46,17 +46,20 @@
         },
         {
             "name": "maslosoft/gazebo",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Gazebo.git",
-                "reference": "bd7a394d3a7daa24d88a97fb873ee50906721fc7"
+                "reference": "ff9b0126b1383e9b43ee684f10d56abe84b05313"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Gazebo/zipball/bd7a394d3a7daa24d88a97fb873ee50906721fc7",
-                "reference": "bd7a394d3a7daa24d88a97fb873ee50906721fc7",
+                "url": "https://api.github.com/repos/Maslosoft/Gazebo/zipball/ff9b0126b1383e9b43ee684f10d56abe84b05313",
+                "reference": "ff9b0126b1383e9b43ee684f10d56abe84b05313",
                 "shasum": ""
+            },
+            "require": {
+                "maslosoft/embedi": "*"
             },
             "require-dev": {
                 "codeception/codeception": "*",
@@ -66,12 +69,14 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Maslosoft\\Gazebo\\": "src"
+                    "Maslosoft\\Gazebo\\": "src",
+                    "Maslosoft\\GazeboTest\\Model\\": "model"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "New BSD"
+                "AGPL",
+                "Commercial"
             ],
             "authors": [
                 {
@@ -80,7 +85,7 @@
                 }
             ],
             "description": "Plugin container",
-            "time": "2015-03-16 11:14:23"
+            "time": "2015-03-18 16:15:16"
         },
         {
             "name": "maslosoft/signals",
@@ -588,16 +593,16 @@
         },
         {
             "name": "maslosoft/hedron",
-            "version": "1.1.2",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Hedron.git",
-                "reference": "7cc09cba44ef65dca6f63cdccc6cce455d20b1a9"
+                "reference": "70255a6c0bf6ecff73120386b3484ec6ec4a1600"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Hedron/zipball/7cc09cba44ef65dca6f63cdccc6cce455d20b1a9",
-                "reference": "7cc09cba44ef65dca6f63cdccc6cce455d20b1a9",
+                "url": "https://api.github.com/repos/Maslosoft/Hedron/zipball/70255a6c0bf6ecff73120386b3484ec6ec4a1600",
+                "reference": "70255a6c0bf6ecff73120386b3484ec6ec4a1600",
                 "shasum": ""
             },
             "require": {
@@ -618,7 +623,8 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "New BSD"
+                "AGPL",
+                "Commercial"
             ],
             "authors": [
                 {
@@ -628,7 +634,7 @@
             ],
             "description": "PHP source code class header applier",
             "homepage": "http://maslosoft.com/hedron/",
-            "time": "2015-01-30 08:48:06"
+            "time": "2015-03-18 10:08:37"
         },
         {
             "name": "myclabs/deep-copy",
