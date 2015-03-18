@@ -64,7 +64,7 @@ class DocComment
 	public function forFile($name, $className = null)
 	{
 		$fqn = $this->process($name);
-		if($className)
+		if(null !== $className)
 		{
 			$fqn = $className;
 		}
@@ -137,7 +137,7 @@ class DocComment
 			if (is_array($token))
 			{
 				list($code, $value) = $token;
-				$tokenName = token_name($code);
+//				$tokenName = token_name($code);
 				
 				switch ($code)
 				{
@@ -147,7 +147,8 @@ class DocComment
 
 					case T_NAMESPACE:
 						$comment = false;
-						for ($j = $i + 1; $j < count($tokens); $j++)
+						$tokensCount = count($tokens);
+						for ($j = $i + 1; $j < $tokensCount; $j++)
 						{
 							if ($tokens[$j][0] === T_STRING)
 							{
@@ -168,7 +169,8 @@ class DocComment
 						}
 						$comment = false;
 						$useNs = '';
-						for ($j = $i + 1; $j < count($tokens); $j++)
+						$tokensCount = count($tokens);
+						for ($j = $i + 1; $j < $tokensCount; $j++)
 						{
 							if ($tokens[$j][0] === T_STRING)
 							{

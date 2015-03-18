@@ -30,9 +30,7 @@ class ClassLiteralMatcher implements IMatcher
 
 	protected function process($matches)
 	{
-		$value = $matches[1];
-		Processor::process($this, $value);
-		return $value;
+		return Processor::process($this, $matches[1]);
 	}
 
 	public function matches($string, &$value)
@@ -42,7 +40,6 @@ class ClassLiteralMatcher implements IMatcher
 		if (preg_match("/^{$regex}/", $string, $matches))
 		{
 			$value = $this->process($matches);
-			Processor::process($this, $value);
 			if (!ClassChecker::exists($value))
 			{
 				return false;

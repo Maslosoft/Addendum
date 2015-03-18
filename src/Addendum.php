@@ -70,7 +70,7 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * Plugins collection
-	 * @var AddendumPlugins
+	 * @var AddendumPlugins|mixed[]
 	 */
 	public $plugins = [
 		'matcher' => [

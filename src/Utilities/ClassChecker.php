@@ -33,6 +33,7 @@ class ClassChecker
 	/**
 	 * Check whenever class or trait or interface exists.
 	 * @param string $class
+	 * @return bool Returns true if class exists
 	 */
 	public static function exists($class)
 	{
@@ -48,8 +49,7 @@ class ClassChecker
 		{
 			if (class_exists($class))
 			{
-				self::confirm($class);
-				return true;
+				return self::confirm($class);
 			}
 		}
 		catch (Exception $ex)
@@ -60,8 +60,7 @@ class ClassChecker
 		{
 			if (trait_exists($class))
 			{
-				self::confirm($class);
-				return true;
+				return self::confirm($class);
 			}
 		}
 		catch (Exception $ex)
@@ -72,8 +71,7 @@ class ClassChecker
 		{
 			if (interface_exists($class))
 			{
-				self::confirm($class);
-				return true;
+				return self::confirm($class);
 			}
 		}
 		catch (Exception $ex)
@@ -81,6 +79,7 @@ class ClassChecker
 
 		}
 		Blacklister::ignore($class);
+		return false;
 	}
 
 	private static function isConfirmed($class)
@@ -91,6 +90,7 @@ class ClassChecker
 	private static function confirm($class)
 	{
 		self::$_exists[$class] = true;
+		return true;
 	}
 
 }
