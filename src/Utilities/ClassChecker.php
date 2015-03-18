@@ -54,7 +54,7 @@ class ClassChecker
 		}
 		catch (Exception $ex)
 		{
-			
+			// Some class loaders throw exception if class not found
 		}
 		try
 		{
@@ -65,7 +65,7 @@ class ClassChecker
 		}
 		catch (Exception $ex)
 		{
-
+			// Some class loaders throw exception if class not found
 		}
 		try
 		{
@@ -76,7 +76,7 @@ class ClassChecker
 		}
 		catch (Exception $ex)
 		{
-
+			// Some class loaders throw exception if class not found
 		}
 		Blacklister::ignore($class);
 		return false;
