@@ -20,7 +20,9 @@ use ReflectionProperty;
 
 class DocComment
 {
+
 	private static $use = [];
+	private static $useAliases = [];
 	private static $namespaces = [];
 	private static $classNames = [];
 	private static $classes = [];
@@ -64,19 +66,20 @@ class DocComment
 	public function forFile($name, $className = null)
 	{
 		$fqn = $this->process($name);
-		if(null !== $className)
+		if (null !== $className)
 		{
 			$fqn = $className;
 		}
 		$result = [
 			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
 			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
+			'useAliases' => isset(self::$useAliases[$fqn]) ? self::$useAliases[$fqn] : [],
 			'className' => isset(self::$classNames[$fqn]) ? self::$classNames[$fqn] : [],
 			'class' => isset(self::$classes[$fqn]) ? self::$classes[$fqn] : '',
 			'methods' => isset(self::$methods[$fqn]) ? self::$methods[$fqn] : [],
 			'fields' => isset(self::$fields[$fqn]) ? self::$fields[$fqn] : []
 		];
-		
+
 		return $result;
 	}
 
@@ -87,6 +90,7 @@ class DocComment
 		$result = [
 			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
 			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
+			'useAliases' => isset(self::$useAliases[$fqn]) ? self::$useAliases[$fqn] : [],
 			'className' => isset(self::$classNames[$fqn]) ? self::$classNames[$fqn] : [],
 			'class' => isset(self::$classes[$fqn]) ? self::$classes[$fqn] : '',
 			'methods' => isset(self::$methods[$fqn]) ? self::$methods[$fqn] : [],
@@ -124,6 +128,7 @@ class DocComment
 	protected function parse($file)
 	{
 		$use = [];
+		$aliases = [];
 		$namespace = '\\';
 		$tokens = $this->getTokens($file);
 		$class = false;
@@ -138,7 +143,7 @@ class DocComment
 			{
 				list($code, $value) = $token;
 //				$tokenName = token_name($code);
-				
+
 				switch ($code)
 				{
 					case T_DOC_COMMENT:
@@ -154,34 +159,54 @@ class DocComment
 							{
 								$namespace .= '\\' . $tokens[$j][1];
 							}
-							else if ($tokens[$j] === '{' || $tokens[$j] === ';')
+							elseif ($tokens[$j] === '{' || $tokens[$j] === ';')
 							{
 								break;
 							}
 						}
+
 						$namespace = preg_replace('~^\\\\+~', '', $namespace);
 						break;
 					case T_USE:
 						// After class declaration, this should ignore `use` trait
-						if($class)
+						if ($class)
 						{
 							break;
 						}
 						$comment = false;
 						$useNs = '';
 						$tokensCount = count($tokens);
+						$as = false;
 						for ($j = $i + 1; $j < $tokensCount; $j++)
 						{
-							if ($tokens[$j][0] === T_STRING)
+							$tokenName = $tokens[$j][0];
+							if (isset($tokens[$j][1]) && $tokens[$j][1] == 'IMatcher')
+							{
+								echo 's';
+							}
+							if ($tokenName === T_STRING && !$as)
 							{
 								$useNs .= '\\' . $tokens[$j][1];
 							}
-							else if ($tokens[$j] === '{' || $tokens[$j] === ';')
+							if ($tokenName === T_STRING && $as)
+							{
+								$alias = $tokens[$j][1];
+								break;
+							}
+							if ($tokenName === T_AS)
+							{
+								$as = true;
+							}
+							if ($tokens[$j] === '{' || $tokens[$j] === ';')
 							{
 								break;
 							}
 						}
 						$use[] = preg_replace('~^\\\\+~', '', $useNs);
+						if ($as)
+						{
+							$aliases[$useNs] = $alias;
+						}
 						break;
 					case T_TRAIT:
 					case T_CLASS:
@@ -201,6 +226,7 @@ class DocComment
 						self::$namespaces[$fqn] = $namespace;
 						self::$classNames[$fqn] = $class;
 						self::$use[$fqn] = $use;
+						self::$useAliases[$fqn] = $aliases;
 						break;
 
 					case T_VARIABLE:

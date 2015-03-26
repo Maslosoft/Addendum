@@ -8,14 +8,14 @@
 
 namespace Maslosoft\Addendum\Collections;
 
-use Maslosoft\Gazebo\PluginContainer;
+use Maslosoft\Gazebo\ConfigContainer;
 
 /**
  * Plugins container
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class AddendumPlugins extends PluginContainer
+class AddendumPlugins extends ConfigContainer
 {
 
 	/**

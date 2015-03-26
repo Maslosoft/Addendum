@@ -46,19 +46,20 @@
         },
         {
             "name": "maslosoft/gazebo",
-            "version": "1.0.3",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Gazebo.git",
-                "reference": "ff9b0126b1383e9b43ee684f10d56abe84b05313"
+                "reference": "c49f5dd4ca4bd851f2a901114ce2f0df47eb6641"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Gazebo/zipball/ff9b0126b1383e9b43ee684f10d56abe84b05313",
-                "reference": "ff9b0126b1383e9b43ee684f10d56abe84b05313",
+                "url": "https://api.github.com/repos/Maslosoft/Gazebo/zipball/c49f5dd4ca4bd851f2a901114ce2f0df47eb6641",
+                "reference": "c49f5dd4ca4bd851f2a901114ce2f0df47eb6641",
                 "shasum": ""
             },
             "require": {
+                "maslosoft/addendum": "*",
                 "maslosoft/embedi": "*"
             },
             "require-dev": {
@@ -85,7 +86,7 @@
                 }
             ],
             "description": "Plugin container",
-            "time": "2015-03-18 16:15:16"
+            "time": "2015-03-26 15:43:53"
         },
         {
             "name": "maslosoft/signals",
@@ -593,16 +594,16 @@
         },
         {
             "name": "maslosoft/hedron",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Hedron.git",
-                "reference": "70255a6c0bf6ecff73120386b3484ec6ec4a1600"
+                "reference": "e5fde0a4e917075282ed06d44fa40831fd313052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Hedron/zipball/70255a6c0bf6ecff73120386b3484ec6ec4a1600",
-                "reference": "70255a6c0bf6ecff73120386b3484ec6ec4a1600",
+                "url": "https://api.github.com/repos/Maslosoft/Hedron/zipball/e5fde0a4e917075282ed06d44fa40831fd313052",
+                "reference": "e5fde0a4e917075282ed06d44fa40831fd313052",
                 "shasum": ""
             },
             "require": {
@@ -634,20 +635,20 @@
             ],
             "description": "PHP source code class header applier",
             "homepage": "http://maslosoft.com/hedron/",
-            "time": "2015-03-18 10:08:37"
+            "time": "2015-03-19 11:05:06"
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "d93c485e71bcd22df0a994e9e3e03a3ef3a3e3f3"
+                "reference": "96fbdc07635989c35c5a1912379f4c4b2ab15fd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/d93c485e71bcd22df0a994e9e3e03a3ef3a3e3f3",
-                "reference": "d93c485e71bcd22df0a994e9e3e03a3ef3a3e3f3",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/96fbdc07635989c35c5a1912379f4c4b2ab15fd5",
+                "reference": "96fbdc07635989c35c5a1912379f4c4b2ab15fd5",
                 "shasum": ""
             },
             "require": {
@@ -676,7 +677,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2014-11-20 05:11:17"
+            "time": "2015-03-21 22:40:23"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

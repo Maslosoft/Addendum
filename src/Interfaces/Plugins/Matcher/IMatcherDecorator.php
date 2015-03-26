@@ -8,11 +8,13 @@
 
 namespace Maslosoft\Addendum\Interfaces\Plugins\Matcher;
 
+use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+
 /**
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 interface IMatcherDecorator extends IMatcherPlugin
 {
-	public function decorate(&$value);
+	public function decorate(IMatcher $matcher, &$value);
 }

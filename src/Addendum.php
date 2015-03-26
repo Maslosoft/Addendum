@@ -23,7 +23,7 @@ use Maslosoft\Addendum\Exceptions\ConfigurationException;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Matcher\ClassLiteralMatcher;
-use Maslosoft\Addendum\Plugins\Matcher\UseResolver;
+use Maslosoft\Addendum\Plugins\Matcher\UseResolverDecorator;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
@@ -75,7 +75,7 @@ class Addendum implements LoggerAwareInterface
 	public $plugins = [
 		'matcher' => [
 			ClassLiteralMatcher::class => [
-				UseResolver::class
+				UseResolverDecorator::class
 			]
 		]
 	];

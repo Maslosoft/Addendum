@@ -9,18 +9,32 @@
 namespace Maslosoft\Addendum\Collections;
 
 use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Exceptions\ConfigurationException;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
-use Maslosoft\Gazebo\PluginContainer;
 
 /**
  * MatcherConfig
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class MatcherConfig extends PluginContainer
+class MatcherConfig
 {
+
+	public function __construct($config)
+	{
+		if(!isset($config['addendum']))
+		{
+			throw new ConfigurationException('Matcher plugins require `addendum`');
+		}
+		if(!isset($config['reflection']))
+		{
+			throw new ConfigurationException('Matcher plugins require `reflectionj`');
+		}
+		$this->addendum = $config['addendum'];
+		$this->reflection = $config['reflection'];
+	}
 
 	/**
 	 * Addendum instance

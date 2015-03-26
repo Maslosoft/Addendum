@@ -20,7 +20,6 @@ class Processor
 
 	public static function process(IMatcher $matcher, $value)
 	{
-
 		return Decorator::decorate($matcher, $value);
 	}
 

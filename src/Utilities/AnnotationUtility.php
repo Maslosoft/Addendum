@@ -14,12 +14,14 @@
 
 namespace Maslosoft\Addendum\Utilities;
 
+use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
+use ReflectionClass;
 use RegexIterator;
 
 /**
@@ -97,7 +99,10 @@ class AnnotationUtility
 
 		$matcher = new AnnotationsMatcher();
 		$class = [];
-		$matcher->setPlugins(new MatcherConfig([]));
+		$matcher->setPlugins(new MatcherConfig([
+			'addendum' => new Addendum(),
+			'reflection' => new ReflectionClass($docs['namespace'] . '\\' . $docs['className'])
+		]));
 		$matcher->matches($docs['class'], $class);
 
 		$methods = [];

@@ -6,41 +6,29 @@
  * and open the template in the editor.
  */
 
-namespace Maslosoft\Addendum\Plugins\Matcher;
+namespace Maslosoft\Addendum\Utilities;
 
 use Exception;
-use Maslosoft\Addendum\Builder\DocComment;
-use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
-use Maslosoft\Addendum\Interfaces\Plugins\Matcher\IMatcherDecorator;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 
 /**
- * UseResolver
+ * ReflectionHelper
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class UseResolver implements IMatcherDecorator
+class ReflectionHelper
 {
-
-	public function decorate(IMatcher $matcher, &$value)
-	{
-		$reflection = $this->getReflectionClass($matcher);
-		$use = (new DocComment())->forClass($reflection)['use'];
-		/**
-		 * TODO Log not found classes
-		 */
-	}
 
 	/**
 	 * Get reflection class.
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedProperty|ReflectionAnnotatedMethod $reflection Reflection
 	 * @return ReflectionAnnotatedClass
 	 * @throws Exception
 	 */
-	public function getReflectionClass($matcher)
+	public static function getReflectionClass($reflection)
 	{
-		$reflection = $matcher->getPlugins()->reflection;
 		if (null === $reflection)
 		{
 			throw new Exception(sprintf('No reflection class for matcher `%s`', get_class($this)));
