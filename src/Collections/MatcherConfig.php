@@ -30,7 +30,7 @@ class MatcherConfig
 		}
 		if(!isset($config['reflection']))
 		{
-			throw new ConfigurationException('Matcher plugins require `reflectionj`');
+			throw new ConfigurationException('Matcher plugins require `reflection`');
 		}
 		$this->addendum = $config['addendum'];
 		$this->reflection = $config['reflection'];
