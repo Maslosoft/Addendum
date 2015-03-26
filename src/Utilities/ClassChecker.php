@@ -32,8 +32,9 @@ class ClassChecker
 
 	/**
 	 * Check whenever class or trait or interface exists.
+	 * It does autoload if needed.
 	 * @param string $class
-	 * @return bool Returns true if class exists
+	 * @return bool True if class or trait or interface exists
 	 */
 	public static function exists($class)
 	{
