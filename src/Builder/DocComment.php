@@ -217,12 +217,12 @@ class DocComment
 							break;
 						}
 						$class = $this->getString($tokens, $i, $max);
+						$fqn = sprintf('%s\%s', $namespace, $class);
 						if ($comment !== false)
 						{
-							self::$classes[$class] = $comment;
+							self::$classes[$fqn] = $comment;
 							$comment = false;
 						}
-						$fqn = sprintf('%s\%s', $namespace, $class);
 						self::$namespaces[$fqn] = $namespace;
 						self::$classNames[$fqn] = $class;
 						self::$use[$fqn] = $use;
