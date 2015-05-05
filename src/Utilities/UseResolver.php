@@ -10,7 +10,7 @@ namespace Maslosoft\Addendum\Utilities;
 
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Utilities\NameNormalizer;
-use ReflectionClass;
+use Reflector;
 
 /**
  * UseResolver
@@ -22,11 +22,11 @@ class UseResolver
 
 	/**
 	 * Resolve class alias
-	 * @param ReflectionClass $reflection
+	 * @param Reflector $reflection
 	 * @param string $className
 	 * @return string
 	 */
-	public static function resolve(ReflectionClass $reflection, $className)
+	public static function resolve(Reflector $reflection, $className)
 	{
 		$docs = (new DocComment())->forClass($reflection);
 		$use = $docs['use'];

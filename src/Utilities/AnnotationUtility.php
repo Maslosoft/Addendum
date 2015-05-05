@@ -18,10 +18,10 @@ use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
+use Maslosoft\Addendum\Reflection\ReflectionFile;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
-use ReflectionClass;
 use RegexIterator;
 
 /**
@@ -84,7 +84,7 @@ class AnnotationUtility
 	}
 
 	/**
-	 * Annotate file <b>without</b> including php file and without using reflection.
+	 * Annotate file without including php file and without using reflection.
 	 * This method returns raw annotation values.
 	 * <i>This is intented for various builders, which should not include files.</i>
 	 * This <b>ALWAYS</b> parses file.
@@ -94,6 +94,7 @@ class AnnotationUtility
 	 */
 	public static function rawAnnotate($file, $className = null)
 	{
+
 		$docExtractor = new DocComment();
 		$docs = $docExtractor->forFile($file, $className);
 
@@ -101,7 +102,7 @@ class AnnotationUtility
 		$class = [];
 		$matcher->setPlugins(new MatcherConfig([
 			'addendum' => new Addendum(),
-			'reflection' => new ReflectionClass($docs['namespace'] . '\\' . $docs['className'])
+			'reflection' => new ReflectionFile($file)
 		]));
 		$matcher->matches($docs['class'], $class);
 
