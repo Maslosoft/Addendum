@@ -230,21 +230,22 @@ class Meta
 	public static function create(IAnnotated $component, MetaOptions $options = null)
 	{
 		$id = get_class($component);
-		if (!isset(self::$_instances[$id]))
+		$class = get_called_class();
+		if (!isset(self::$_instances[$class][$id]))
 		{
 			$cache = self::_cacheGet($id);
 			if ($cache)
 			{
-				self::$_instances[$id] = $cache;
+				self::$_instances[$class][$id] = $cache;
 			}
 			else
 			{
-				self::$_instances[$id] = new static($component, $options);
-				self::_cacheSet($id, self::$_instances[$id]);
+				self::$_instances[$class][$id] = new static($component, $options);
+				self::_cacheSet($id, self::$_instances[$class][$id]);
 			}
 		}
 
-		return self::$_instances[$id];
+		return self::$_instances[$class][$id];
 	}
 
 	/**
@@ -401,7 +402,7 @@ class Meta
 	 */
 	private static function _getCacheKey($id)
 	{
-		return sprintf('annotation-v%s-%s-%s', getmyinode(), __CLASS__, $id);
+		return sprintf('annotation-v%s-%s-%s', getmyinode(), get_called_class(), $id);
 	}
 
 	/**
