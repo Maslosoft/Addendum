@@ -24,15 +24,22 @@ class ReflectionAnnotatedProperty extends ReflectionProperty
 {
 
 	/**
-	 *
+	 * Annotations collection
 	 * @var AnnotationsCollection
 	 */
 	private $annotations;
+
+	/**
+	 * Addendum instance
+	 * @var Addendum
+	 */
+	private $addendum;
 
 	public function __construct($class, $name, Addendum $addendum = null)
 	{
 		parent::__construct($class, $name);
 		$this->annotations = (new Builder($addendum))->build($this);
+		$this->addendum = $addendum;
 		ConflictChecker::check($this, $this->annotations);
 	}
 
@@ -59,7 +66,7 @@ class ReflectionAnnotatedProperty extends ReflectionProperty
 	public function getDeclaringClass()
 	{
 		$class = parent::getDeclaringClass();
-		return new ReflectionAnnotatedClass($class->name);
+		return new ReflectionAnnotatedClass($class->name, $this->addendum);
 	}
 
 }

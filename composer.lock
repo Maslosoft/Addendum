@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "maslosoft/embedi",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/EmbeDi.git",
-                "reference": "9a830148da7ce1f777605d0c1db840ec9b834c7a"
+                "reference": "ae36d35f67d6f0090e01ec8365b2703d42f91a29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/9a830148da7ce1f777605d0c1db840ec9b834c7a",
-                "reference": "9a830148da7ce1f777605d0c1db840ec9b834c7a",
+                "url": "https://api.github.com/repos/Maslosoft/EmbeDi/zipball/ae36d35f67d6f0090e01ec8365b2703d42f91a29",
+                "reference": "ae36d35f67d6f0090e01ec8365b2703d42f91a29",
                 "shasum": ""
             },
             "require-dev": {
@@ -32,7 +32,8 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "New BSD"
+                "AGPL",
+                "Commercial"
             ],
             "authors": [
                 {
@@ -42,7 +43,8 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2015-03-09 11:41:03"
+            "description": "Embedded DI container",
+            "time": "2015-05-14 09:34:29"
         },
         {
             "name": "maslosoft/gazebo",

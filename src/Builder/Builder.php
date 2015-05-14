@@ -95,9 +95,10 @@ class Builder
 			}
 			try
 			{
-				if (!class_exists($fqn))
+				// NOTE: @ need to be used here or php might complain
+				if (@!class_exists($fqn))
 				{
-					$this->addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
+					//$this->addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
 					Blacklister::ignore($fqn);
 				}
 				else
@@ -117,7 +118,8 @@ class Builder
 		}
 		try
 		{
-			if (!class_exists($fqn))
+			// NOTE: @ need to be used here or php might complain
+			if (@!class_exists($fqn))
 			{
 				$this->addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
 				Blacklister::ignore($fqn);

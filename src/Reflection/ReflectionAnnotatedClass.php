@@ -22,17 +22,24 @@ use ReflectionClass;
 
 class ReflectionAnnotatedClass extends ReflectionClass
 {
+
 	/**
 	 * Annotations collection
 	 * @var AnnotationsCollection
 	 */
 	private $annotations = null;
 
+	/**
+	 * Addendum instance
+	 * @var Addendum
+	 */
+	private $addendum = null;
+
 	public function __construct($class, Addendum $addendum = null)
 	{
 		parent::__construct($class);
 		$this->annotations = (new Builder($addendum))->build($this);
-
+		$this->addendum = $addendum;
 		ConflictChecker::check($this, $this->annotations);
 	}
 
@@ -69,7 +76,7 @@ class ReflectionAnnotatedClass extends ReflectionClass
 	public function getMethods($filter = -1)
 	{
 		$result = [];
-		foreach(parent::getMethods($filter) as $method)
+		foreach (parent::getMethods($filter) as $method)
 		{
 			$result[] = $this->createReflectionAnnotatedMethod($method);
 		}
@@ -84,7 +91,7 @@ class ReflectionAnnotatedClass extends ReflectionClass
 	public function getProperties($filter = -1)
 	{
 		$result = [];
-		foreach(parent::getProperties($filter) as $property)
+		foreach (parent::getProperties($filter) as $property)
 		{
 			$result[] = $this->createReflectionAnnotatedProperty($property);
 		}
@@ -94,7 +101,7 @@ class ReflectionAnnotatedClass extends ReflectionClass
 	public function getInterfaces()
 	{
 		$result = [];
-		foreach(parent::getInterfaces() as $interface)
+		foreach (parent::getInterfaces() as $interface)
 		{
 			$result[] = $this->createReflectionAnnotatedClass($interface);
 		}
@@ -109,16 +116,17 @@ class ReflectionAnnotatedClass extends ReflectionClass
 
 	private function createReflectionAnnotatedClass($class)
 	{
-		return ($class !== false) ? new ReflectionAnnotatedClass($class->name) : false;
+		return ($class !== false) ? new ReflectionAnnotatedClass($class->name, $this->addendum) : false;
 	}
 
 	private function createReflectionAnnotatedMethod($method)
 	{
-		return ($method !== null) ? new ReflectionAnnotatedMethod($this->name, $method->name) : null;
+		return ($method !== null) ? new ReflectionAnnotatedMethod($this->name, $method->name, $this->addendum) : null;
 	}
 
 	private function createReflectionAnnotatedProperty($property)
 	{
-		return ($property !== null) ? new ReflectionAnnotatedProperty($this->name, $property->name) : null;
+		return ($property !== null) ? new ReflectionAnnotatedProperty($this->name, $property->name, $this->addendum) : null;
 	}
+
 }

@@ -29,6 +29,7 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\Addendum\Signals\NamespacesSignal;
 use Maslosoft\Addendum\Utilities\Blacklister;
+use Maslosoft\Addendum\Utilities\NameNormalizer;
 use Maslosoft\EmbeDi\EmbeDi;
 use Maslosoft\Signals\Signal;
 use Psr\Log\LoggerAwareInterface;
@@ -157,11 +158,11 @@ class Addendum implements LoggerAwareInterface
 		{
 			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, IAnnotated::class));
 		}
-		$reflection = $this->cacheGet($className);
-		if (!$reflection)
+//		$reflection = $this->cacheGet($className);
+		if (!@$reflection)
 		{
-			$reflection = new ReflectionAnnotatedClass($class);
-			$this->cacheSet($className, $reflection);
+			$reflection = new ReflectionAnnotatedClass($class, $this);
+//			$this->cacheSet($className, $reflection);
 		}
 		return $reflection;
 	}
@@ -190,21 +191,34 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * Add annotations namespace
-	 * TODO Normalize namespace before add
 	 * @param string $ns
+	 * @renturn Addendum
 	 */
 	public function addNamespace($ns)
 	{
-		/**
-		 * TODO Uncomment below if new signals will be available to satisfy above TODO
-		 */
-		//Maslosoft\Signals\Helpers\NameNormalizer::normalize($ns);
-		if ($this->di->isStored($this))
+		NameNormalizer::normalize($ns);
+		if (!in_array($ns, $this->namespaces))
 		{
-			throw new ConfigurationException("All namespaces must be added before initialization. Tried to add `%s`.", $ns);
+			$this->namespaces[] = $ns;
+			array_unique($this->namespaces);
+			Meta::clearCache();
+			$this->di->store($this, [], true);
 		}
-		$this->namespaces[] = $ns;
-		array_unique($this->namespaces);
+		return $this;
+	}
+
+	/**
+	 * Add many annotaion namespaces
+	 * @param string[] $nss
+	 * @return Addendum
+	 */
+	public function addNamespaces($nss)
+	{
+		foreach ($nss as $ns)
+		{
+			$this->addNamespace($ns);
+		}
+		return $this;
 	}
 
 	/**

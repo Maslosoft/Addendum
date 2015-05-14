@@ -23,6 +23,7 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\Addendum\Utilities\IgnoredChecker;
+use Maslosoft\Signals\Helpers\NameNormalizer;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -43,6 +44,12 @@ class Meta
 	 * @var Meta[]
 	 */
 	private static $_instances = [];
+
+	/**
+	 * Namespaces cache
+	 * @var string[][]
+	 */
+	private static $_ns = [];
 
 	/**
 	 * Container for type metadata
@@ -76,7 +83,6 @@ class Meta
 		}
 
 		// TODO Use adapter here
-
 		// TODO Abstract from component meta, so other kinds of meta extractors could be used
 		// For example, for development annotation based extractor could be used, which could compile
 		// Metadata to arrays, and for production environment, compiled arrays could be used
@@ -84,7 +90,10 @@ class Meta
 		$mes = [];
 
 		// Get reflection data
-		$info = (new Addendum())->annotate($component);
+		$ad = new Addendum();
+		$ad->addNamespaces($options->namespaces);
+		$info = $ad->annotate($component);
+
 //		$info = Yii::app()->addendum->annotate($component);
 
 
@@ -131,7 +140,7 @@ class Meta
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
 			}
-			if(IgnoredChecker::check($method))
+			if (IgnoredChecker::check($method))
 			{
 				continue;
 			}
@@ -168,8 +177,8 @@ class Meta
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s`', get_class($component), $property->name));
 			}
-			
-			if(IgnoredChecker::check($property))
+
+			if (IgnoredChecker::check($property))
 			{
 				continue;
 			}
@@ -231,6 +240,18 @@ class Meta
 	{
 		$id = get_class($component);
 		$class = get_called_class();
+		if ($options && $options->namespaces)
+		{
+			foreach ($options->namespaces as $ns)
+			{
+				NameNormalizer::normalize($ns);
+				if (!isset(self::$_ns[$class][$ns]))
+				{
+					self::$_ns[$class][$ns] = true;
+					unset(self::$_instances[$class][$id]);
+				}
+			}
+		}
 		if (!isset(self::$_instances[$class][$id]))
 		{
 			$cache = self::_cacheGet($id);
@@ -256,6 +277,7 @@ class Meta
 	 */
 	public function initModel(IAnnotated $component)
 	{
+		throw new \Exception('Deprecated method call');
 		foreach ($this->_fields as $field)
 		{
 			// Unset fields which are accessed by get/set
