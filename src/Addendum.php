@@ -159,11 +159,11 @@ class Addendum implements LoggerAwareInterface
 			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, IAnnotated::class));
 		}
 //		$reflection = $this->cacheGet($className);
-		if (!@$reflection)
-		{
-			$reflection = new ReflectionAnnotatedClass($class, $this);
+//		if (!@$reflection)
+//		{
+		$reflection = new ReflectionAnnotatedClass($class, $this);
 //			$this->cacheSet($className, $reflection);
-		}
+//		}
 		return $reflection;
 	}
 

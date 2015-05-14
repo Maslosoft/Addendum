@@ -240,7 +240,7 @@ class Meta
 	{
 		$id = get_class($component);
 		$class = get_called_class();
-		if ($options && $options->namespaces)
+		if ($options && !empty($options->namespaces))
 		{
 			foreach ($options->namespaces as $ns)
 			{

@@ -53,7 +53,6 @@ class MetaOptions
 
 	/**
 	 * Namespaces for search for annotations
-	 * @deprecated since version number
 	 * @var string[]
 	 */
 	public $namespaces = [];
