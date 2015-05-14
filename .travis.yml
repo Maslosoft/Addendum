@@ -10,7 +10,7 @@ matrix:
       - nightly
 install:
   - composer install --dev --prefer-dist
-  - pushd vendor/maslosoft/addendumtest && git reset --hard && git pull && popd
+  - composer update maslosoft/addendumtest
 after_script:
   - wget --no-check-certificate https://scrutinizer-ci.com/ocular.phar
   - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --repository=g/Maslosoft/Addendum --revision=`git rev-parse HEAD` --format=php-clover ./tests/_output/coverage.clover; fi;'
