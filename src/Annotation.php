@@ -15,8 +15,8 @@
 namespace Maslosoft\Addendum;
 
 use Maslosoft\Addendum\Exceptions\CircularReferenceException;
-use Maslosoft\Addendum\Interfaces\IAnnotated;
-use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Utilities\ConflictChecker;
 use Maslosoft\Addendum\Utilities\TargetChecker;
 use ReflectionClass;
@@ -43,12 +43,12 @@ use UnexpectedValueException;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  * */
-abstract class Annotation implements IAnnotation
+abstract class Annotation implements AnnotationInterface
 {
 
 	/**
 	 * This is annotated class instance, must be set before calling init
-	 * @var IAnnotated
+	 * @var AnnotatedInterface
 	 */
 	protected $_component;
 	protected $_properties = [];

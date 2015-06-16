@@ -15,14 +15,14 @@
 namespace Maslosoft\Addendum\Collections;
 
 use Maslosoft\Addendum\Annotation;
-use Maslosoft\Addendum\Interfaces\IAnnotationEntity;
-use Maslosoft\Addendum\Interfaces\IMetaAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotationEntityInterface;
+use Maslosoft\Addendum\Interfaces\MetaAnnotationInterface;
 
 /**
  * Annotation used for Collections\Meta
  * @author Piotr
  */
-abstract class MetaAnnotation extends Annotation implements IMetaAnnotation
+abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterface
 {
 
 	/**
@@ -40,7 +40,7 @@ abstract class MetaAnnotation extends Annotation implements IMetaAnnotation
 	/**
 	 * Annotatins entity, it can be either class, property, or method
 	 * Its conrete annotation implementation responsibility to decide what to do with it.
-	 * @var IAnnotationEntity
+	 * @var AnnotationEntityInterface
 	 */
 	protected $_entity = null;
 
@@ -60,9 +60,9 @@ abstract class MetaAnnotation extends Annotation implements IMetaAnnotation
 
 	/**
 	 * Set annotatins entity, it can be either class, property, or method
-	 * @param IAnnotationEntity $entity
+	 * @param AnnotationEntityInterface $entity
 	 */
-	public function setEntity(IAnnotationEntity $entity)
+	public function setEntity(AnnotationEntityInterface $entity)
 	{
 		$this->_entity = $entity;
 	}
@@ -74,7 +74,7 @@ abstract class MetaAnnotation extends Annotation implements IMetaAnnotation
 	 */
 	public function afterInit()
 	{
-		
+
 	}
 
 }

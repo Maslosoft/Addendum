@@ -41,10 +41,10 @@ interface IMetaAnnotation
 
 	/**
 	 * Set annotatins entity, it can be either class, property, or method
-	 * @param IAnnotationEntity $entity
+	 * @param AnnotationEntityInterface $entity
 	 * @return void
 	 */
-	public function setEntity(IAnnotationEntity $entity);
+	public function setEntity(AnnotationEntityInterface $entity);
 
 	/**
 	 * This function should be called after all annotations are initialized.

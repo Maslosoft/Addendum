@@ -14,11 +14,40 @@
 
 namespace Maslosoft\Addendum\Interfaces;
 
+use Maslosoft\Addendum\Collections\Meta;
+
 /**
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 interface MetaAnnotationInterface extends IMetaAnnotation
 {
-	//put your code here
+
+	/**
+	 * Set entity name (class name, method name or property name)
+	 * @return void
+	 */
+	public function setName($name);
+
+	/**
+	 * Set metada class to be accessible for annotation for init etc. methods
+	 * @param Meta $meta
+	 * @return void
+	 */
+	public function setMeta(Meta $meta);
+
+	/**
+	 * Set annotatins entity, it can be either class, property, or method
+	 * @param AnnotationEntityInterface $entity
+	 * @return void
+	 */
+	public function setEntity(AnnotationEntityInterface $entity);
+
+	/**
+	 * This function should be called after all annotations are initialized.
+	 * Any code that depends on other annotations can be executed here.
+	 * NOTE: This is not ensured to run, its annotations container responsibility to call it.
+	 * @return void
+	 */
+	public function afterInit();
 }

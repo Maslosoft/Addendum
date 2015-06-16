@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Collections;
 
-use Maslosoft\Addendum\Interfaces\IAnnotationEntity;
+use Maslosoft\Addendum\Interfaces\AnnotationEntityInterface;
 use ReflectionMethod;
 
 /**
@@ -22,7 +22,7 @@ use ReflectionMethod;
  *
  * @author Piotr
  */
-class MetaMethod implements IAnnotationEntity
+class MetaMethod implements AnnotationEntityInterface
 {
 
 	/**
@@ -63,4 +63,5 @@ class MetaMethod implements IAnnotationEntity
 	{
 		return null;
 	}
+
 }

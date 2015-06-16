@@ -14,9 +14,9 @@
 
 namespace Maslosoft\Addendum\Utilities;
 
+use Maslosoft\Addendum\Interfaces\AnnotatedReflectorInterface;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
-use Reflector;
 
 /**
  * IgnoredChecker
@@ -28,10 +28,10 @@ class IgnoredChecker
 
 	/**
 	 * Check if entity is ignored
-	 * @param ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $target
+	 * @param ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|AnnotatedReflectorInterface $target
 	 * @return bool
 	 */
-	public static function check(Reflector $target)
+	public static function check(AnnotatedReflectorInterface $target)
 	{
 		if (!$target->hasAnnotation('Ignored'))
 		{

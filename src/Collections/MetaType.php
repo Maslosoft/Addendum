@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Collections;
 
-use Maslosoft\Addendum\Interfaces\IAnnotationEntity;
+use Maslosoft\Addendum\Interfaces\AnnotationEntityInterface;
 use ReflectionClass;
 
 /**
@@ -22,7 +22,7 @@ use ReflectionClass;
  *
  * @author Piotr
  */
-class MetaType implements IAnnotationEntity
+class MetaType implements AnnotationEntityInterface
 {
 
 	/**

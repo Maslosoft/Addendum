@@ -17,10 +17,11 @@ namespace Maslosoft\Addendum\Reflection;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
+use Maslosoft\Addendum\Interfaces\AnnotatedReflectorInterface;
 use Maslosoft\Addendum\Utilities\ConflictChecker;
 use ReflectionMethod;
 
-class ReflectionAnnotatedMethod extends ReflectionMethod
+class ReflectionAnnotatedMethod extends ReflectionMethod implements AnnotatedReflectorInterface
 {
 
 	/**

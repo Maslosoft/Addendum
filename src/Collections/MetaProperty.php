@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Collections;
 
-use Maslosoft\Addendum\Interfaces\IAnnotationEntity;
+use Maslosoft\Addendum\Interfaces\AnnotationEntityInterface;
 use ReflectionProperty;
 
 /**
@@ -22,7 +22,7 @@ use ReflectionProperty;
  *
  * @author Piotr
  */
-class MetaProperty implements IAnnotationEntity
+class MetaProperty implements AnnotationEntityInterface
 {
 
 // <editor-fold defaultstate="collapsed" desc="Access Control">
