@@ -1,10 +1,10 @@
 <?php
 
 /**
- * This software package is licensed under New BSD license.
+ * This software package is licensed under AGPL, Commercial license.
  *
  * @package maslosoft/addendum
- * @licence New BSD
+ * @licence AGPL, Commercial
  * @copyright Copyright (c) Piotr Masełkowski <pmaselkowski@gmail.com> (Meta container, further improvements, bugfixes)
  * @copyright Copyright (c) Maslosoft (Meta container, further improvements, bugfixes)
  * @copyright Copyright (c) Jan Suchal (Original version, builder, parser)
