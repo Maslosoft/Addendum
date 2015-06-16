@@ -18,7 +18,7 @@ namespace Maslosoft\Addendum\Interfaces;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface AnnotationEntityInterface extends IAnnotationEntity
+interface AnnotationEntityInterface
 {
 
 }
