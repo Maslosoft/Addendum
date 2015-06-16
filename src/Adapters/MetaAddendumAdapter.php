@@ -14,12 +14,14 @@
 
 namespace Maslosoft\Addendum\Adapters;
 
+use Maslosoft\Addendum\Interfaces\Adapters\MetaAdapterInterface;
+
 /**
  * MetaAddendumAdapter
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class MetaAddendumAdapter implements IMetaAdapter
+class MetaAddendumAdapter implements MetaAdapterInterface
 {
 
 	use AdapterTrait;

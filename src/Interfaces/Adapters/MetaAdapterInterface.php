@@ -12,7 +12,7 @@
  * @link https://code.google.com/p/addendum/ - original addendum project
  */
 
-namespace Maslosoft\Addendum\Adapters;
+namespace Maslosoft\Addendum\Interfaces\Adapters;
 
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
@@ -22,7 +22,7 @@ use Maslosoft\Addendum\Options\MetaOptions;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface IMetaAdapter
+interface MetaAdapterInterface
 {
 
 	/**
