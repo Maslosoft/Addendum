@@ -18,4 +18,8 @@ tmp/**/*
 local.properties
 .classpath
 .settings/
-.loadpath 
+.loadpath
+Addendum.komodoproject
+Addendum.phprj
+Addendum.workspace
+.codelite/

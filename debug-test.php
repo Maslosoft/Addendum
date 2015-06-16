@@ -23,4 +23,4 @@ $app->add(new Codeception\Command\Clean('clean'));
 $app->add(new Codeception\Command\GenerateGroup('generate:group'));
 $app->add(new Codeception\Command\GeneratePageObject('generate:pageobject'));
 $app->add(new Codeception\Command\GenerateStepObject('generate:stepobject'));
-$app->run(); 
+$app->run();
