@@ -118,12 +118,31 @@ class Addendum implements LoggerAwareInterface
 	 */
 	private static $_localCache = [];
 
+	/**
+	 * Version holder
+	 * @var string
+	 */
+	private static $_version = null;
+
 	public function __construct($instanceId = self::DefaultInstanceId)
 	{
 		$this->plugins = new AddendumPlugins($this->plugins);
 
 		$this->di = new EmbeDi($instanceId);
 		$this->di->configure($this);
+	}
+
+	/**
+	 * Get current addendum version
+	 * @return string
+	 */
+	public function getVersion()
+	{
+		if (null === self::$_version)
+		{
+			self::$_version = require __DIR__ . '/version.php';
+		}
+		return self::$_version;
 	}
 
 	public function init()
