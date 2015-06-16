@@ -22,5 +22,33 @@ use Maslosoft\Addendum\Interfaces\IAnnotation;
  */
 interface AnnotationInterface extends IAnnotation
 {
-	
+
+	/**
+	 * Construct class
+	 * @param mixed $data Raw annotations data
+	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty|bool $target
+	 */
+	public function __construct($data = [], $target = false);
+
+	/**
+	 * Set working component instance
+	 * @param object $component
+	 */
+	public function setComponent($component);
+
+	/**
+	 * Get array of properties set by annotation, excluding default values from annotations class
+	 */
+	public function getProperties();
+
+	/**
+	 * Init annoattion
+	 */
+	public function init();
+
+	/**
+	 * Convert to array
+	 * @return mixed[]
+	 */
+	public function toArray();
 }
