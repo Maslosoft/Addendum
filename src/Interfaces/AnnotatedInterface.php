@@ -18,7 +18,7 @@ namespace Maslosoft\Addendum\Interfaces;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface AnnotatedInterface extends IAnnotated
+interface AnnotatedInterface
 {
-//put your code here
+
 }

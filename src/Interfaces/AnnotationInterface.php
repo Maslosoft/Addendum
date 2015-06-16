@@ -14,13 +14,11 @@
 
 namespace Maslosoft\Addendum\Interfaces;
 
-use Maslosoft\Addendum\Interfaces\IAnnotation;
-
 /**
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface AnnotationInterface extends IAnnotation
+interface AnnotationInterface
 {
 
 	/**

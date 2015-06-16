@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Helpers;
 
-use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 
 /**
  * Helper class for easier annotation params setting
@@ -35,12 +35,12 @@ class ParamsExpander
 	 * Example of use:
 	 *		ParamsExpander::expand($annotation, ['class', 'items'])
 	 * This will assign `$annotation->class` and `$annotation->items` with named or anonymous params (based on order of params).
-	 * @param IAnnotation $annotation
+	 * @param AnnotationInterface $annotation
 	 * @param string[] $params List of parameters names in order.
 	 * @param mixed[] $values Values used to expand params, if not set `$annotation->value` will be used.
 	 * @return mixed[] Expanded params
 	 */
-	public static function expand(IAnnotation $annotation, $params, $values = null)
+	public static function expand(AnnotationInterface $annotation, $params, $values = null)
 	{
 		$values = $values? : (array)$annotation->value;
 		$data = [];

@@ -50,7 +50,7 @@ class AnnotationsCollection
 	/**
 	 * Get all annotations with optional restriction to $restriction annotation name
 	 * @param string $restriction
-	 * @return IAnnotation[]
+	 * @return AnnotationInterface[]
 	 */
 	public function getAllAnnotations($restriction = false)
 	{

@@ -16,7 +16,7 @@ namespace Maslosoft\Addendum\Utilities;
 
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Exceptions\TargetException;
-use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use ReflectionClass;
 use ReflectionMethod;
@@ -32,7 +32,7 @@ class TargetChecker
 
 	/**
 	 * Check target constraints
-	 * @param IAnnotation $annotation Annotation
+	 * @param AnnotationInterface $annotation Annotation
 	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty|bool $target
 	 * @return type
 	 * @throws TargetException

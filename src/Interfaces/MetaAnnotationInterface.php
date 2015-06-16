@@ -20,7 +20,7 @@ use Maslosoft\Addendum\Collections\Meta;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface MetaAnnotationInterface extends IMetaAnnotation
+interface MetaAnnotationInterface
 {
 
 	/**

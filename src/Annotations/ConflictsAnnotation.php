@@ -15,7 +15,7 @@
 namespace Maslosoft\Addendum\Annotations;
 
 use Maslosoft\Addendum\Collections\MetaAnnotation;
-use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 
 /**
  * Disallow annotation if some other annotation exists. This is to avoid using conflicting annotations.
@@ -25,9 +25,9 @@ use Maslosoft\Addendum\Interfaces\IAnnotation;
  * Example:
  * Forbid using current annotation with `CombinedAnnotation`:
  *		&commat;Conflicts('Combined')
- * @Target(\Maslosoft\Addendum\Interfaces\IAnnotation)
+ * @Target(\Maslosoft\Addendum\Interfaces\AnnotationInterface)
  * @template Conflicts('${annotation}')
- * @see IAnnotation
+ * @see AnnotationInterface
  */
 class ConflictsAnnotation extends MetaAnnotation
 {

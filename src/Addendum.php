@@ -19,8 +19,8 @@ use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\AddendumPlugins;
 use Maslosoft\Addendum\Collections\Meta;
-use Maslosoft\Addendum\Interfaces\IAnnotated;
-use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Matcher\ClassLiteralMatcher;
 use Maslosoft\Addendum\Plugins\Matcher\UseResolverDecorator;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
@@ -106,8 +106,8 @@ class Addendum implements LoggerAwareInterface
 	private static $_classnames = [];
 
 	/**
-	 * This holds information about all declared classes implementing IAnnotated.
-	 * @see IAnnotated
+	 * This holds information about all declared classes implementing AnnotatedInterface.
+	 * @see AnnotatedInterface
 	 * @var string[]
 	 */
 	private static $_annotations = [];
@@ -142,7 +142,7 @@ class Addendum implements LoggerAwareInterface
 	 */
 	public function hasAnnotations($class)
 	{
-		return (new ReflectionClass($class))->implementsInterface(IAnnotated::class);
+		return (new ReflectionClass($class))->implementsInterface(AnnotatedInterface::class);
 	}
 
 	/**
@@ -155,7 +155,7 @@ class Addendum implements LoggerAwareInterface
 		$className = is_object($class) ? get_class($class) : $class;
 		if (!$this->hasAnnotations($class))
 		{
-			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, IAnnotated::class));
+			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, AnnotatedInterface::class));
 		}
 //		$reflection = $this->cacheGet($className);
 //		if (!@$reflection)
@@ -350,7 +350,7 @@ class Addendum implements LoggerAwareInterface
 			self::$_annotations = [];
 			foreach (get_declared_classes() as $class)
 			{
-				if ((new ReflectionClass($class))->implementsInterface(IAnnotation::class) || $class == IAnnotation::class)
+				if ((new ReflectionClass($class))->implementsInterface(AnnotationInterface::class) || $class == AnnotationInterface::class)
 				{
 					self::$_annotations[] = $class;
 				}

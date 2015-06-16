@@ -18,7 +18,7 @@ use Exception;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Collections\MatcherConfig;
-use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
@@ -133,7 +133,7 @@ class Builder
 			return false;
 		}
 		$resolvedClass = Addendum::resolveClassName($fqn);
-		if ((new ReflectionClass($resolvedClass))->implementsInterface(IAnnotation::class) || $resolvedClass == IAnnotation::class)
+		if ((new ReflectionClass($resolvedClass))->implementsInterface(AnnotationInterface::class) || $resolvedClass == AnnotationInterface::class)
 		{
 			return new $resolvedClass($parameters, $targetReflection);
 		}

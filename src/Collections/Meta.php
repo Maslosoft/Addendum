@@ -16,8 +16,8 @@ namespace Maslosoft\Addendum\Collections;
 
 use Exception;
 use Maslosoft\Addendum\Addendum;
-use Maslosoft\Addendum\Interfaces\IAnnotated;
-use Maslosoft\Addendum\Interfaces\IMetaAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
+use Maslosoft\Addendum\Interfaces\MetaAnnotationInterface;
 use Maslosoft\Addendum\Options\MetaOptions;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
@@ -70,7 +70,7 @@ class Meta
 	private $_methods = [];
 	private $_annotations = [];
 
-	protected function __construct(IAnnotated $component = null, MetaOptions $options = null)
+	protected function __construct(AnnotatedInterface $component = null, MetaOptions $options = null)
 	{
 		// For internal use
 		if (null === $component)
@@ -122,7 +122,7 @@ class Meta
 		$this->_type = new $options->typeClass($info);
 		foreach ($info->getAllAnnotations() as $annotation)
 		{
-			if (!$annotation instanceof IMetaAnnotation)
+			if (!$annotation instanceof MetaAnnotationInterface)
 			{
 				continue;
 			}
@@ -147,7 +147,7 @@ class Meta
 			$methodMeta = new $options->methodClass($method);
 			foreach ($method->getAllAnnotations() as $annotation)
 			{
-				if (!$annotation instanceof IMetaAnnotation)
+				if (!$annotation instanceof MetaAnnotationInterface)
 				{
 					continue;
 				}
@@ -202,7 +202,7 @@ class Meta
 
 			foreach ($property->getAllAnnotations() as $annotation)
 			{
-				if (!$annotation instanceof IMetaAnnotation)
+				if (!$annotation instanceof MetaAnnotationInterface)
 				{
 					continue;
 				}
@@ -233,10 +233,10 @@ class Meta
 
 	/**
 	 * Create flyghtweight instace of EComponentMeta
-	 * @param IAnnotated $component
+	 * @param AnnotatedInterface $component
 	 * @return Meta
 	 */
-	public static function create(IAnnotated $component, MetaOptions $options = null)
+	public static function create(AnnotatedInterface $component, MetaOptions $options = null)
 	{
 		$id = get_class($component);
 		$class = get_called_class();
@@ -273,9 +273,9 @@ class Meta
 	 * Apply initialization routines to concrete model instance
 	 * @todo This should fire event, which for which annotations could intercept
 	 * @deprecated since version number
-	 * @param IAnnotated $component
+	 * @param AnnotatedInterface $component
 	 */
-	public function initModel(IAnnotated $component)
+	public function initModel(AnnotatedInterface $component)
 	{
 		throw new \Exception('Deprecated method call');
 	}

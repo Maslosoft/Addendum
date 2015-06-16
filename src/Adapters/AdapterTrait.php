@@ -15,7 +15,7 @@
 namespace Maslosoft\Addendum\Adapters;
 
 use Maslosoft\Addendum\Collections\Meta;
-use Maslosoft\Addendum\Interfaces\IAnnotated;
+use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Options\MetaOptions;
 
 /**
@@ -48,7 +48,7 @@ trait AdapterTrait
 	 * Set working component
 	 * @param object $component
 	 */
-	public function setComponent(IAnnotated $component = null)
+	public function setComponent(AnnotatedInterface $component = null)
 	{
 		$this->component = $component;
 	}

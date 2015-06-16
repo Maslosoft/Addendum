@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Utilities;
 
-use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 
 /**
  * AnnotationName
@@ -25,10 +25,10 @@ class AnnotationName
 {
 	/**
 	 * Create class name
-	 * @param IAnnotation $annotation
+	 * @param AnnotationInterface $annotation
 	 * @return string
 	 */
-	public static function createName(IAnnotation $annotation)
+	public static function createName(AnnotationInterface $annotation)
 	{
 		$parts = explode('\\', get_class($annotation));
 		return preg_replace('~Annotation$~', '', array_pop($parts));

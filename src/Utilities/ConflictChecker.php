@@ -16,7 +16,7 @@ namespace Maslosoft\Addendum\Utilities;
 
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Exceptions\ConflictException;
-use Maslosoft\Addendum\Interfaces\IAnnotation;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
@@ -33,10 +33,10 @@ class ConflictChecker
 
 	/**
 	 * Register annotation for later check
-	 * @param IAnnotation $annotation Annotation
+	 * @param AnnotationInterface $annotation Annotation
 	 * @return void
 	 */
-	public static function register(IAnnotation $annotation)
+	public static function register(AnnotationInterface $annotation)
 	{
 		$name = AnnotationName::createName($annotation);
 
