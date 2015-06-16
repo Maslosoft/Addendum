@@ -6,15 +6,13 @@
  * and open the template in the editor.
  */
 
-namespace Maslosoft\Addendum\Interfaces\Plugins\Matcher;
-
-use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+namespace Maslosoft\Addendum\Interfaces;
 
 /**
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface IMatcherDecorator extends IMatcherPlugin
+interface MetaAnnotationInterface extends IMetaAnnotation
 {
-	public function decorate(IMatcher $matcher, &$value);
+	//put your code here
 }

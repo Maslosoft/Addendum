@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class TopValueMatcher extends ValueMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class TopValueMatcher extends ValueMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 
 	protected function process($value)

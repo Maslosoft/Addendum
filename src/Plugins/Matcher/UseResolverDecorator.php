@@ -8,8 +8,8 @@
 
 namespace Maslosoft\Addendum\Plugins\Matcher;
 
-use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
-use Maslosoft\Addendum\Interfaces\Plugins\Matcher\IMatcherDecorator;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+use Maslosoft\Addendum\Interfaces\Plugins\Matcher\MatcherDecoratorInterface;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Addendum\Utilities\ReflectionHelper;
 use Maslosoft\Addendum\Utilities\UseResolver;
@@ -19,10 +19,10 @@ use Maslosoft\Addendum\Utilities\UseResolver;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class UseResolverDecorator implements IMatcherDecorator
+class UseResolverDecorator implements MatcherDecoratorInterface
 {
 
-	public function decorate(IMatcher $matcher, &$value)
+	public function decorate(MatcherInterface $matcher, &$value)
 	{
 		$reflection = ReflectionHelper::getReflectionClass($matcher->getPlugins()->reflection);
 		$resolved = UseResolver::resolve($reflection, $value);

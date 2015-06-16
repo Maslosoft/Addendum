@@ -6,16 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Maslosoft\Addendum\Interfaces\Tokenizer;
-
-use Maslosoft\Addendum\Builder\DocComment;
+namespace Maslosoft\Addendum\Interfaces\Plugins\Matcher;
 
 /**
- * TODO This is for refactoring of DocComment
- * @see DocComment
+ * IMatcherPlugin
+ *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface ITokenizer
+interface MatcherPluginInterface
 {
-	
+
 }

@@ -19,7 +19,7 @@ namespace Maslosoft\Addendum\Matcher;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class TopValuesMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class TopValuesMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 
 	protected function build()

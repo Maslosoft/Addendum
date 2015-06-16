@@ -6,21 +6,15 @@
  * and open the template in the editor.
  */
 
-namespace Maslosoft\Addendum\Matcher\Helpers;
+namespace Maslosoft\Addendum\Interfaces\Plugins\Matcher;
 
 use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 
 /**
- * Processor
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class Processor
+interface MatcherDecoratorInterface extends MatcherPluginInterface
 {
-
-	public static function process(MatcherInterface $matcher, $value)
-	{
-		return Decorator::decorate($matcher, $value);
-	}
-
+	public function decorate(MatcherInterface $matcher, &$value);
 }

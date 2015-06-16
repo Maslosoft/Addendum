@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class AnnotationsMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class AnnotationsMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 
 	use Traits\PluginsTrait;

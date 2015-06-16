@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class AnnotationMatcher extends SerialMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class AnnotationMatcher extends SerialMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 
 	protected function build()

@@ -1,7 +1,7 @@
-This software package is licensed under {{composer.license}} license.
+This software package is licensed under {{license}} license.
 
 @package {{composer.name}}
-@licence {{composer.license}}
+@licence {{license}}
 @copyright Copyright (c) Piotr Masełkowski <pmaselkowski@gmail.com> (Meta container, further improvements, bugfixes)
 @copyright Copyright (c) Maslosoft (Meta container, further improvements, bugfixes)
 @copyright Copyright (c) Jan Suchal (Original version, builder, parser)

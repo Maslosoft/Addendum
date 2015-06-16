@@ -15,9 +15,9 @@
 namespace Maslosoft\Addendum\Matcher;
 
 use Maslosoft\Addendum\Builder\Builder;
-use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 
-class NestedAnnotationMatcher extends AnnotationMatcher implements IMatcher
+class NestedAnnotationMatcher extends AnnotationMatcher implements MatcherInterface
 {
 
 	protected function process($result)

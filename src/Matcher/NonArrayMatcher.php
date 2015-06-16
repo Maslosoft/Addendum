@@ -14,14 +14,14 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 
 /**
  * Matches any value, except arrays
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class NonArrayMatcher extends ParallelMatcher implements IMatcher
+class NonArrayMatcher extends ParallelMatcher implements MatcherInterface
 {
 
 	protected function build()

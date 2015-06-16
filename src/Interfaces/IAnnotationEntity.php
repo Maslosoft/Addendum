@@ -13,12 +13,16 @@
  */
 
 namespace Maslosoft\Addendum\Interfaces;
+
 /**
  * This interface is to indicate annotation entity container
  * ie. contaner for field annotations, method annotations or class annotations
+ * NOTE: Use AnnotationEntityInterface instead
+ * @see AnnotationEntityInterface
+ * @deprecated since version number
  * @author Piotr
  */
 interface IAnnotationEntity
 {
-	
+
 }

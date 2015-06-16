@@ -14,7 +14,7 @@ use Maslosoft\Addendum\Collections\MatcherConfig;
  * Matcher interface
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-interface IMatcher
+interface MatcherInterface
 {
 
 	/**
@@ -26,7 +26,7 @@ interface IMatcher
 	/**
 	 * Set matcher configuration
 	 * @param MatcherConfig $plugins
-	 * @return IMatcher
+	 * @return MatcherInterface
 	 */
 	public function setPlugins(MatcherConfig $plugins);
 }

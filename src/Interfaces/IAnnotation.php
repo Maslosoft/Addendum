@@ -15,7 +15,9 @@
 namespace Maslosoft\Addendum\Interfaces;
 
 /**
- *
+ * @deprecated
+ * NOTE: Use AnnotationInterface instead
+ * @see AnnotationInterface
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
 interface IAnnotation

@@ -6,21 +6,13 @@
  * and open the template in the editor.
  */
 
-namespace Maslosoft\Addendum\Matcher\Helpers;
-
-use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+namespace Maslosoft\Addendum\Interfaces;
 
 /**
- * Processor
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class Processor
+interface AnnotatedInterface extends IAnnotated
 {
-
-	public static function process(MatcherInterface $matcher, $value)
-	{
-		return Decorator::decorate($matcher, $value);
-	}
-
+//put your code here
 }

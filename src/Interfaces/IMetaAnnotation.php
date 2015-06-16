@@ -18,10 +18,14 @@ use Maslosoft\Addendum\Collections\Meta;
 
 /**
  * Interface for {@see EComponentMeta} annotations container
+ * NOTE: Use MetaAnnotationInterface instead
+ * @deprecated since version number
+ * @see MetaAnnotationInterface
  * @author Piotr
  */
 interface IMetaAnnotation
 {
+
 	/**
 	 * Set entity name (class name, method name or property name)
 	 * @return void

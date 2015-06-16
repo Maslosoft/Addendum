@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class SerialMatcher extends CompositeMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class SerialMatcher extends CompositeMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 
 	protected function match($string, &$value)

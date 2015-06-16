@@ -9,7 +9,7 @@
 namespace Maslosoft\Addendum\Matcher\Traits;
 
 use Maslosoft\Addendum\Collections\MatcherConfig;
-use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 
 /**
  * PluginsTrait
@@ -37,7 +37,7 @@ trait PluginsTrait
 	/**
 	 * Set matcher configuration
 	 * @param MatcherConfig $plugins
-	 * @return IMatcher
+	 * @return MatcherInterface
 	 */
 	public function setPlugins(MatcherConfig $plugins)
 	{

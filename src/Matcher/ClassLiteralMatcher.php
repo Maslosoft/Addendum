@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 use Maslosoft\Addendum\Matcher\Helpers\Processor;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 
@@ -23,7 +23,7 @@ use Maslosoft\Addendum\Utilities\ClassChecker;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class ClassLiteralMatcher implements IMatcher
+class ClassLiteralMatcher implements MatcherInterface
 {
 
 	use Traits\PluginsTrait;

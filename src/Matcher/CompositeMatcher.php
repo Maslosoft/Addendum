@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-abstract class CompositeMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+abstract class CompositeMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 	use Traits\PluginsTrait;
 	protected $matchers = [];

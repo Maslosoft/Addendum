@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class ArrayMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class ArrayMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 
 	protected function build()

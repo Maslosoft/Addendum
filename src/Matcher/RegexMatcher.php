@@ -14,7 +14,7 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\IMatcher
+class RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 use Traits\PluginsTrait;
 	protected $regex;
