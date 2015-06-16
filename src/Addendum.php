@@ -19,7 +19,6 @@ use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\AddendumPlugins;
 use Maslosoft\Addendum\Collections\Meta;
-use Maslosoft\Addendum\Exceptions\ConfigurationException;
 use Maslosoft\Addendum\Interfaces\IAnnotated;
 use Maslosoft\Addendum\Interfaces\IAnnotation;
 use Maslosoft\Addendum\Matcher\ClassLiteralMatcher;

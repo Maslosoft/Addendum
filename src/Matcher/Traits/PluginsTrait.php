@@ -8,11 +8,8 @@
 
 namespace Maslosoft\Addendum\Matcher\Traits;
 
-use Exception;
 use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Interfaces\Matcher\IMatcher;
-use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
-use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 
 /**
  * PluginsTrait

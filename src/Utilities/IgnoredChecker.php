@@ -16,6 +16,7 @@ namespace Maslosoft\Addendum\Utilities;
 
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
+use Reflector;
 
 /**
  * IgnoredChecker
@@ -30,7 +31,7 @@ class IgnoredChecker
 	 * @param ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $target
 	 * @return bool
 	 */
-	public static function check($target)
+	public static function check(Reflector $target)
 	{
 		if (!$target->hasAnnotation('Ignored'))
 		{

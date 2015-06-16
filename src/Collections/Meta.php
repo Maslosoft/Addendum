@@ -278,15 +278,6 @@ class Meta
 	public function initModel(IAnnotated $component)
 	{
 		throw new \Exception('Deprecated method call');
-		foreach ($this->_fields as $field)
-		{
-			// Unset fields which are accessed by get/set
-			if (!$field->direct)
-			{
-				unset($component->{$field->name});
-			}
-		}
-		return $this;
 	}
 
 	/**
@@ -415,16 +406,6 @@ class Meta
 //		{
 //			Yii::app()->cache->flush();
 //		}
-	}
-
-	/**
-	 * Get cache key
-	 * @param string $id evaluated class name
-	 * @return string
-	 */
-	private static function _getCacheKey($id)
-	{
-		return sprintf('annotation-v%s-%s-%s', getmyinode(), get_called_class(), $id);
 	}
 
 	/**

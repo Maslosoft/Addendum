@@ -19,12 +19,6 @@ class ClassChecker
 {
 
 	/**
-	 * Array with ignored classes
-	 * @var string[]
-	 */
-	private static $_ignore = [];
-
-	/**
 	 * Array with existent classes
 	 * @var string[]
 	 */
