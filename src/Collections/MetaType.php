@@ -25,6 +25,8 @@ use ReflectionClass;
 class MetaType implements AnnotationEntityInterface
 {
 
+	use \Maslosoft\Addendum\Traits\MetaState;
+
 	/**
 	 * Class name
 	 * @var string

@@ -24,6 +24,10 @@ class NameNormalizer
 
 	public static function normalize(&$className, $trailingSlash = true)
 	{
+		if ($className === '\\')
+		{
+			return;
+		}
 		$replaces = [
 			'~\\\+~' => '\\',
 			'~^\\\~' => '',

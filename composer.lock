@@ -4,20 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b48d92c5e1aa21c14ed4be9529f1e0b",
+    "hash": "af1b3e6080e76f17c72ef6f178a58d32",
     "packages": [
         {
-            "name": "maslosoft/cli-shared",
-            "version": "0.0.4",
+            "name": "maslosoft/cache",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Maslosoft/CLIShared.git",
-                "reference": "8b778ac21667d95a6032aec4c0e15d7e8cf43526"
+                "url": "https://github.com/Maslosoft/Cache.git",
+                "reference": "0313074da6d9fb0cd3e3d7f0a7332dfd036d6d7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/CLIShared/zipball/8b778ac21667d95a6032aec4c0e15d7e8cf43526",
-                "reference": "8b778ac21667d95a6032aec4c0e15d7e8cf43526",
+                "url": "https://api.github.com/repos/Maslosoft/Cache/zipball/0313074da6d9fb0cd3e3d7f0a7332dfd036d6d7f",
+                "reference": "0313074da6d9fb0cd3e3d7f0a7332dfd036d6d7f",
+                "shasum": ""
+            },
+            "require": {
+                "maslosoft/embedi": "*"
+            },
+            "require-dev": {
+                "maslosoft/cachetest": "dev-master",
+                "maslosoft/hedron": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Maslosoft\\Cache\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "AGPL",
+                "Commercial"
+            ],
+            "authors": [
+                {
+                    "name": "Peter Maselkowski",
+                    "email": "pmaselkowski@gmail.com"
+                }
+            ],
+            "description": "Easy to use, auto configurable, extensible cache provider",
+            "time": "2015-07-06 18:02:49"
+        },
+        {
+            "name": "maslosoft/cli-shared",
+            "version": "0.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Maslosoft/CLIShared.git",
+                "reference": "ac5d8ee95d766f28d0403473028ed143b3dfcceb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Maslosoft/CLIShared/zipball/ac5d8ee95d766f28d0403473028ed143b3dfcceb",
+                "reference": "ac5d8ee95d766f28d0403473028ed143b3dfcceb",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +85,7 @@
                 }
             ],
             "description": "Shared CLI application components",
-            "time": "2015-06-16 07:06:28"
+            "time": "2015-06-19 13:11:28"
         },
         {
             "name": "maslosoft/embedi",
@@ -131,16 +172,16 @@
         },
         {
             "name": "maslosoft/signals",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Signals.git",
-                "reference": "c0fe0ffe8b01bc82d492f36ea87564a37382ba5e"
+                "reference": "0da9efad774ba53b02f4d5baeca40281a2944936"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/c0fe0ffe8b01bc82d492f36ea87564a37382ba5e",
-                "reference": "c0fe0ffe8b01bc82d492f36ea87564a37382ba5e",
+                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/0da9efad774ba53b02f4d5baeca40281a2944936",
+                "reference": "0da9efad774ba53b02f4d5baeca40281a2944936",
                 "shasum": ""
             },
             "require": {
@@ -184,7 +225,7 @@
                 "slot",
                 "slots"
             ],
-            "time": "2015-06-16 07:12:52"
+            "time": "2015-06-16 10:54:06"
         },
         {
             "name": "psr/log",
@@ -652,12 +693,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "eb17820bb35dbe20c676e25c4dbbab797609dcdb"
+                "reference": "49098f5996b43a735b09cd6ff48b90c96f05c8d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/eb17820bb35dbe20c676e25c4dbbab797609dcdb",
-                "reference": "eb17820bb35dbe20c676e25c4dbbab797609dcdb",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/49098f5996b43a735b09cd6ff48b90c96f05c8d8",
+                "reference": "49098f5996b43a735b09cd6ff48b90c96f05c8d8",
                 "shasum": ""
             },
             "require": {
@@ -685,7 +726,7 @@
                 }
             ],
             "description": "Tests for addendum",
-            "time": "2015-05-14 10:24:06"
+            "time": "2015-06-16 09:58:30"
         },
         {
             "name": "maslosoft/hedron",
@@ -885,16 +926,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.1.5",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "be2286cb8c7e1773eded49d9719219e6f74f9e3e"
+                "reference": "631e365cf26bb2c078683e8d9bcf8bc631ac4d44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/be2286cb8c7e1773eded49d9719219e6f74f9e3e",
-                "reference": "be2286cb8c7e1773eded49d9719219e6f74f9e3e",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/631e365cf26bb2c078683e8d9bcf8bc631ac4d44",
+                "reference": "631e365cf26bb2c078683e8d9bcf8bc631ac4d44",
                 "shasum": ""
             },
             "require": {
@@ -943,7 +984,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-09 13:05:42"
+            "time": "2015-06-19 07:11:55"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1079,16 +1120,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "db63be1159c81df649cd0260e30249a586d4129e"
+                "reference": "7a9b0969488c3c54fd62b4d504b3ec758fd005d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/db63be1159c81df649cd0260e30249a586d4129e",
-                "reference": "db63be1159c81df649cd0260e30249a586d4129e",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/7a9b0969488c3c54fd62b4d504b3ec758fd005d9",
+                "reference": "7a9b0969488c3c54fd62b4d504b3ec758fd005d9",
                 "shasum": ""
             },
             "require": {
@@ -1124,7 +1165,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-06-12 07:34:24"
+            "time": "2015-06-19 03:43:16"
         },
         {
             "name": "phpunit/phpunit",

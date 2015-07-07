@@ -16,6 +16,7 @@ namespace Maslosoft\Addendum\Collections;
 
 use Exception;
 use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Cache\FlyCache;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Interfaces\MetaAnnotationInterface;
 use Maslosoft\Addendum\Options\MetaOptions;
@@ -23,7 +24,6 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\Addendum\Utilities\IgnoredChecker;
-use Maslosoft\Signals\Helpers\NameNormalizer;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -90,7 +90,7 @@ class Meta
 		$mes = [];
 
 		// Get reflection data
-		$ad = new Addendum();
+		$ad = Addendum::instance($options->instanceId);
 		$ad->addNamespaces($options->namespaces);
 		$info = $ad->annotate($component);
 
@@ -140,10 +140,20 @@ class Meta
 			{
 				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
 			}
+
+			// Ignore magic methods
+			if (preg_match('~^__~', $method->name))
+			{
+				continue;
+			}
+
+			// Ignore @Ignored marked methods
 			if (IgnoredChecker::check($method))
 			{
 				continue;
 			}
+
+			// Create method holder class based on options
 			$methodMeta = new $options->methodClass($method);
 			foreach ($method->getAllAnnotations() as $annotation)
 			{
@@ -221,9 +231,14 @@ class Meta
 		}
 	}
 
+	/**
+	 * Set state implementation
+	 * @param mixed $data
+	 * @return Meta
+	 */
 	public static function __set_state($data)
 	{
-		$obj = new self(null);
+		$obj = new static(null);
 		foreach ($data as $field => $value)
 		{
 			$obj->$field = $value;
@@ -232,59 +247,30 @@ class Meta
 	}
 
 	/**
-	 * Create flyghtweight instace of EComponentMeta
+	 * Create flyghtweight instace of `Meta`.
+	 * Calling this function will create new instance only if it's not stored in cache.
+	 * This allows very effective retrieving of `Meta` container's meta data, without need of parsing annotations.
 	 * @param AnnotatedInterface $component
 	 * @return Meta
 	 */
 	public static function create(AnnotatedInterface $component, MetaOptions $options = null)
 	{
-		$id = get_class($component);
-		$class = get_called_class();
-		if ($options && !empty($options->namespaces))
+		$cache = FlyCache::instance(static::class, $component, $options);
+
+		$cached = $cache->get();
+		if (!empty($cached))
 		{
-			foreach ($options->namespaces as $ns)
-			{
-				NameNormalizer::normalize($ns);
-				if (!isset(self::$_ns[$class][$ns]))
-				{
-					self::$_ns[$class][$ns] = true;
-					unset(self::$_instances[$class][$id]);
-				}
-			}
-		}
-		if (!isset(self::$_instances[$class][$id]))
-		{
-			$cache = self::_cacheGet($id);
-			if ($cache)
-			{
-				self::$_instances[$class][$id] = $cache;
-			}
-			else
-			{
-				self::$_instances[$class][$id] = new static($component, $options);
-				self::_cacheSet($id, self::$_instances[$class][$id]);
-			}
+			return $cached;
 		}
 
-		return self::$_instances[$class][$id];
-	}
-
-	/**
-	 * Apply initialization routines to concrete model instance
-	 * @todo This should fire event, which for which annotations could intercept
-	 * @deprecated since version number
-	 * @param AnnotatedInterface $component
-	 */
-	public function initModel(AnnotatedInterface $component)
-	{
-		throw new \Exception('Deprecated method call');
+		return $cache->set(new static($component, $options));
 	}
 
 	/**
 	 * Get array of properties values for property field
 	 *
 	 * @param string $fieldName
-	 * @param enum $type type of entities to return EComponentMeta::Type|EComponentMeta::Field|EComponentMeta::Method
+	 * @param enum $type type of entities to return Meta::Type|Meta::Field|Meta::Method
 	 * @return type
 	 */
 	public function properties($fieldName, $type = Meta::Field)
@@ -397,55 +383,6 @@ class Meta
 		{
 			return false;
 		}
-	}
-
-	public static function clearCache()
-	{
-		self::$_instances = [];
-//		if (isset(Yii::app()->cache))
-//		{
-//			Yii::app()->cache->flush();
-//		}
-	}
-
-	/**
-	 * Try to get metadata from cache
-	 * @param string $id
-	 * @return Meta|boolean
-	 */
-	private static function _cacheGet($id)
-	{
-//		$path = sprintf('%s/%s.php', Yii::app()->runtimePath, self::_getCacheKey($id));
-//		if(file_exists($path))
-//		{
-//			return include $path;
-//		}
-//		return false;
-//		if (!isset(Yii::app()->cache))
-//		{
-//			return false;
-//		}
-//		return Yii::app()->cache->get(self::_getCacheKey($id));
-	}
-
-	/**
-	 * Set instance data to cache
-	 * @param string $id
-	 * @param Meta $value
-	 * @return Meta|boolean
-	 */
-	private static function _cacheSet($id, Meta $value = null)
-	{
-//		if (!isset(Yii::app()->cache))
-//		{
-//			return false;
-//		}
-//		if (YII_DEBUG)
-//		{
-//			$path = sprintf('%s/%s.php', Yii::app()->runtimePath, self::_getCacheKey($id));
-//			file_put_contents($path, sprintf("<?php\n%s;", var_export($value, true)));
-//		}
-//		return Yii::app()->cache->set(self::_getCacheKey($id), $value);
 	}
 
 }

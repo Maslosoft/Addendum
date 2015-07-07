@@ -81,10 +81,16 @@ class Addendum implements LoggerAwareInterface
 	];
 
 	/**
+	 * Current instance id
+	 * @var string
+	 */
+	protected $instanceId = self::DefaultInstanceId;
+
+	/**
 	 * DI
 	 * @var EmbeDi
 	 */
-	private $di = null;
+	protected $di = null;
 
 	/**
 	 * Logger
@@ -124,12 +130,37 @@ class Addendum implements LoggerAwareInterface
 	 */
 	private static $_version = null;
 
+	/**
+	 * Addendum instances
+	 * @var Addendum[]
+	 */
+	private static $_instances = [];
+
+	/**
+	 *
+	 * @param string $instanceId
+	 */
 	public function __construct($instanceId = self::DefaultInstanceId)
 	{
+		$this->instanceId = $instanceId;
 		$this->plugins = new AddendumPlugins($this->plugins);
 
 		$this->di = new EmbeDi($instanceId);
 		$this->di->configure($this);
+	}
+
+	/**
+	 * Get flyweight addendum instance
+	 * @param string $instanceId
+	 * @return Addendum
+	 */
+	public static function instance($instanceId = self::DefaultInstanceId)
+	{
+		if (empty(self::$_instances[$instanceId]))
+		{
+			self::$_instances[$instanceId] = (new Addendum($instanceId))->init();
+		}
+		return self::$_instances[$instanceId];
 	}
 
 	/**
@@ -145,6 +176,11 @@ class Addendum implements LoggerAwareInterface
 		return self::$_version;
 	}
 
+	/**
+	 * Initialize addendum and store configuration.
+	 * This should be called upon first intstance creation.
+	 * @return \Maslosoft\Addendum\Addendum
+	 */
 	public function init()
 	{
 		if (!$this->di->isStored($this))
@@ -152,6 +188,7 @@ class Addendum implements LoggerAwareInterface
 			(new Signal())->emit(new NamespacesSignal($this));
 		}
 		$this->di->store($this);
+		return $this;
 	}
 
 	/**
@@ -176,12 +213,7 @@ class Addendum implements LoggerAwareInterface
 		{
 			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, AnnotatedInterface::class));
 		}
-//		$reflection = $this->cacheGet($className);
-//		if (!@$reflection)
-//		{
 		$reflection = new ReflectionAnnotatedClass($class, $this);
-//			$this->cacheSet($className, $reflection);
-//		}
 		return $reflection;
 	}
 
@@ -219,8 +251,14 @@ class Addendum implements LoggerAwareInterface
 		{
 			$this->namespaces[] = $ns;
 			array_unique($this->namespaces);
-			Meta::clearCache();
+
 			$this->di->store($this, [], true);
+
+			// Reconfigure flyweight instances if present
+			if (!empty(self::$_instances[$this->instanceId]))
+			{
+				self::$_instances[$this->instanceId]->di->configure(self::$_instances[$this->instanceId]);
+			}
 		}
 		return $this;
 	}
@@ -240,32 +278,6 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Get reflection annotated class from local cache if cached or false.
-	 * @param string $class
-	 * @return boolean|ReflectionAnnotatedClass
-	 */
-	public function cacheGet($class)
-	{
-		$key = $this->getCacheKey($class);
-		if (isset(self::$_localCache[$key]))
-		{
-			return self::$_localCache[$key];
-		}
-		return false;
-	}
-
-	/**
-	 * Set reflection annotated class to local cache
-	 * @param string $class
-	 * @param ReflectionAnnotatedClass $value
-	 */
-	public function cacheSet($class, ReflectionAnnotatedClass $value)
-	{
-		$key = $this->getCacheKey($class);
-		self::$_localCache[$key] = $value;
-	}
-
-	/**
 	 * Clear local cache
 	 */
 	public function cacheClear()
@@ -276,7 +288,7 @@ class Addendum implements LoggerAwareInterface
 		self::$_rawMode = null;
 		Blacklister::reset();
 		Builder::clearCache();
-		Meta::clearCache();
+		(new Cache\MetaCache())->clear();
 	}
 
 	public function getCacheKey($class)

@@ -25,6 +25,8 @@ use ReflectionProperty;
 class MetaProperty implements AnnotationEntityInterface
 {
 
+	use \Maslosoft\Addendum\Traits\MetaState;
+
 // <editor-fold defaultstate="collapsed" desc="Access Control">
 	/**
 	 * Indicates if field has getter

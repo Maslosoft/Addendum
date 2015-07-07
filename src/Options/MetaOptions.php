@@ -15,6 +15,7 @@
 namespace Maslosoft\Addendum\Options;
 
 use Maslosoft\Addendum\Adapters\MetaAddendumAdapter;
+use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Collections\MetaMethod;
 use Maslosoft\Addendum\Collections\MetaProperty;
 use Maslosoft\Addendum\Collections\MetaType;
@@ -56,5 +57,11 @@ class MetaOptions
 	 * @var string[]
 	 */
 	public $namespaces = [];
+
+	/**
+	 * Addendum instance id
+	 * @var string
+	 */
+	public $instanceId = Addendum::DefaultInstanceId;
 
 }

@@ -22,3 +22,4 @@ Addendum.komodoproject
 Addendum.phprj
 Addendum.workspace
 .codelite/
+/runtime/*
