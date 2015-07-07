@@ -8,6 +8,9 @@ matrix:
   allow_failures:
     - php:
       - nightly
+env:
+  - ADDENDUM_CACHE_CLEAR=0
+  - ADDENDUM_CACHE_CLEAR=1
 install:
   - composer install --dev --prefer-dist
   - composer update maslosoft/addendumtest

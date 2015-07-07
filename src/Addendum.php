@@ -17,8 +17,8 @@ namespace Maslosoft\Addendum;
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Builder\DocComment;
+use Maslosoft\Addendum\Cache\MetaCache;
 use Maslosoft\Addendum\Collections\AddendumPlugins;
-use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Matcher\ClassLiteralMatcher;
@@ -179,7 +179,7 @@ class Addendum implements LoggerAwareInterface
 	/**
 	 * Initialize addendum and store configuration.
 	 * This should be called upon first intstance creation.
-	 * @return \Maslosoft\Addendum\Addendum
+	 * @return Addendum
 	 */
 	public function init()
 	{
@@ -280,7 +280,7 @@ class Addendum implements LoggerAwareInterface
 	/**
 	 * Clear local cache
 	 */
-	public function cacheClear()
+	public static function cacheClear()
 	{
 		self::$_annotations = [];
 		self::$_classnames = [];
@@ -288,20 +288,7 @@ class Addendum implements LoggerAwareInterface
 		self::$_rawMode = null;
 		Blacklister::reset();
 		Builder::clearCache();
-		(new Cache\MetaCache())->clear();
-	}
-
-	public function getCacheKey($class)
-	{
-		if (is_object($class))
-		{
-			$name = get_class($class);
-		}
-		else
-		{
-			$name = $class;
-		}
-		return sprintf('ext.adendum.%s.%s', __CLASS__, $name);
+		(new MetaCache())->clear();
 	}
 
 	/**

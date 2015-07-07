@@ -92,31 +92,7 @@ class MetaCache
 		$this->_nsCache->setOptions($options);
 	}
 
-	public function get()
-	{
-		$filename = $this->_getFilename();
-
-		if (!$this->_nsCache->valid())
-		{
-			return false;
-		}
-
-		if (isset(self::$_cache[$filename]))
-		{
-			return self::$_cache[$filename];
-		}
-
-		$data = SoftIncluder::includeFile($filename);
-
-		if (empty($data))
-		{
-			return false;
-		}
-		self::$_cache[$filename] = $data;
-		return $data;
-	}
-
-	public function set(Meta $meta)
+	public function prepare()
 	{
 		if (!file_exists($this->_path))
 		{
@@ -145,16 +121,42 @@ class MetaCache
 		{
 			mkdir(dirname($this->_getFilename()), 0777, true);
 		}
+	}
+
+	public function get()
+	{
+		$this->prepare();
+		$filename = $this->_getFilename();
+
+		if (!$this->_nsCache->valid())
+		{
+			$this->_clearCurrent();
+			return false;
+		}
+
+		if (isset(self::$_cache[$filename]))
+		{
+			return self::$_cache[$filename];
+		}
+
+		$data = SoftIncluder::includeFile($filename);
+
+		if (empty($data))
+		{
+			return false;
+		}
+		self::$_cache[$filename] = $data;
+		return $data;
+	}
+
+	public function set(Meta $meta)
+	{
+
 
 
 		$filename = $this->_getFilename();
 
 		self::$_cache[$filename] = $meta;
-
-		if (file_exists($filename))
-		{
-			return;
-		}
 
 		file_put_contents($filename, PhpExporter ::export($meta));
 		$this->_nsCache->set();
@@ -181,9 +183,9 @@ class MetaCache
 		return $this->_clear($this->_path);
 	}
 
-	private function clearCurrent()
+	private function _clearCurrent()
 	{
-
+		return $this->_classToFile(dirname($this->_getFilename()));
 	}
 
 	private function _clear($path)

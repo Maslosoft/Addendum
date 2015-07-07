@@ -258,7 +258,7 @@ class Meta
 		$cache = FlyCache::instance(static::class, $component, $options);
 
 		$cached = $cache->get();
-		if (!empty($cached))
+		if ($cached)
 		{
 			return $cached;
 		}

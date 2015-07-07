@@ -4,6 +4,9 @@ paths:
     log: tests/_output
     data: vendor/maslosoft/addendumtest/tests/_data
     helpers: vendor/maslosoft/addendumtest/tests/_support
+extensions:
+    enabled:
+        - AddendumWipe
 settings:
     bootstrap: _bootstrap.php
     colors: true
