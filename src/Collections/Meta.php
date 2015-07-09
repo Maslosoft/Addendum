@@ -90,7 +90,7 @@ class Meta
 		$mes = [];
 
 		// Get reflection data
-		$ad = Addendum::instance($options->instanceId);
+		$ad = Addendum::fly($options->instanceId);
 		$ad->addNamespaces($options->namespaces);
 		$info = $ad->annotate($component);
 

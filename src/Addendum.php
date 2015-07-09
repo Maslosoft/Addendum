@@ -134,7 +134,7 @@ class Addendum implements LoggerAwareInterface
 	 * Addendum instances
 	 * @var Addendum[]
 	 */
-	private static $_instances = [];
+	private static $_a = [];
 
 	/**
 	 *
@@ -150,21 +150,24 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Get flyweight addendum instance
+	 * Get flyweight addendum instance of `Addendum`.
+	 * Only one instance will be created for each `$instanceId`
+	 *
 	 * @param string $instanceId
 	 * @return Addendum
 	 */
-	public static function instance($instanceId = self::DefaultInstanceId)
+	public static function fly($instanceId = self::DefaultInstanceId)
 	{
-		if (empty(self::$_instances[$instanceId]))
+		if (empty(self::$_a[$instanceId]))
 		{
-			self::$_instances[$instanceId] = (new Addendum($instanceId))->init();
+			self::$_a[$instanceId] = (new Addendum($instanceId))->init();
 		}
-		return self::$_instances[$instanceId];
+		return self::$_a[$instanceId];
 	}
 
 	/**
-	 * Get current addendum version
+	 * Get current addendum version.
+	 *
 	 * @return string
 	 */
 	public function getVersion()
@@ -179,6 +182,7 @@ class Addendum implements LoggerAwareInterface
 	/**
 	 * Initialize addendum and store configuration.
 	 * This should be called upon first intstance creation.
+	 *
 	 * @return Addendum
 	 */
 	public function init()
@@ -192,7 +196,9 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Chech if class could have annotations
+	 * Chech if class could have annotations.
+	 * **NOTE:**
+	 * > This does not check check if class have annotations. It only checks if it implements `AnnotatedInterface`
 	 * @param string|object $class
 	 * @return bool
 	 */
@@ -218,17 +224,21 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Logger
+	 * Set logger
+	 *
 	 * @param LoggerInterface $logger
+	 * @return Addendum
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
 		$this->_logger = $logger;
+		return $this;
 	}
 
 	/**
 	 * Get logger
-	 * @return LoggerInterface Get logger
+	 *
+	 * @return LoggerInterface logger
 	 */
 	public function getLogger()
 	{
@@ -240,7 +250,9 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Add annotations namespace
+	 * Add annotations namespace.
+	 * Every added namespace will be included in annotation name resolving for current instance.
+	 *
 	 * @param string $ns
 	 * @renturn Addendum
 	 */
@@ -255,16 +267,26 @@ class Addendum implements LoggerAwareInterface
 			$this->di->store($this, [], true);
 
 			// Reconfigure flyweight instances if present
-			if (!empty(self::$_instances[$this->instanceId]))
+			if (!empty(self::$_a[$this->instanceId]))
 			{
-				self::$_instances[$this->instanceId]->di->configure(self::$_instances[$this->instanceId]);
+				self::$_a[$this->instanceId]->di->configure(self::$_a[$this->instanceId]);
 			}
 		}
 		return $this;
 	}
 
 	/**
-	 * Add many annotaion namespaces
+	 * Add many annotaion namespaces.
+	 * This is same as `addNamespace`, in that difference that many namespaces ant once can be added.
+	 *
+	 * It accepts array of namespaces as param:
+	 * ```php
+	 * $nss = [
+	 * 		'Maslosoft\Addendum\Annotations',
+	 * 		'Maslosoft\Mangan\Annotations'
+	 * ];
+	 * ```
+	 *
 	 * @param string[] $nss
 	 * @return Addendum
 	 */
@@ -278,7 +300,7 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Clear local cache
+	 * Clear entire annotations cache.
 	 */
 	public static function cacheClear()
 	{
@@ -293,10 +315,10 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * TODO This should not be static
-	 * @param type $reflection
-	 * @return type
+	 * @param \Reflector $reflection
+	 * @return mixed[]
 	 */
-	public static function getDocComment($reflection)
+	public static function getDocComment(\Reflector $reflection)
 	{
 		if (self::_checkRawDocCommentParsingNeeded())
 		{
@@ -309,7 +331,11 @@ class Addendum implements LoggerAwareInterface
 		}
 	}
 
-	/** Raw mode test */
+	/**
+	 * Raw mode test
+	 * **NOTE:**
+	 * > This php doc block is actually *required* for this to work
+	 */
 	private static function _checkRawDocCommentParsingNeeded()
 	{
 		if (self::$_rawMode === null)
@@ -321,11 +347,22 @@ class Addendum implements LoggerAwareInterface
 		return self::$_rawMode;
 	}
 
+	/**
+	 * Set raw parsing mode
+	 *
+	 * @param bool $enabled
+	 */
 	public static function setRawMode($enabled = true)
 	{
 		self::$_rawMode = $enabled;
 	}
 
+	/**
+	 * Resolve annotation class name to prefixed annotation class name
+	 *
+	 * @param string $class
+	 * @return string
+	 */
 	public static function resolveClassName($class)
 	{
 		if (isset(self::$_classnames[$class]))

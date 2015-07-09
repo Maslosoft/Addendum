@@ -79,7 +79,7 @@ class MetaCache
 		{
 			$this->_instanceId = $options->instanceId;
 		}
-		$this->_nsCache = new NsCache(dirname($this->_getFilename()), Addendum::instance($this->_instanceId));
+		$this->_nsCache = new NsCache(dirname($this->_getFilename()), Addendum::fly($this->_instanceId));
 	}
 
 	public function setComponent(AnnotatedInterface $component = null)
