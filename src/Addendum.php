@@ -360,11 +360,15 @@ class Addendum implements LoggerAwareInterface
 	/**
 	 * Resolve annotation class name to prefixed annotation class name
 	 *
-	 * @param string $class
+	 * @param string|bool $class
 	 * @return string
 	 */
 	public static function resolveClassName($class)
 	{
+		if (false === $class)
+		{
+			return null;
+		}
 		if (isset(self::$_classnames[$class]))
 		{
 			return self::$_classnames[$class];
