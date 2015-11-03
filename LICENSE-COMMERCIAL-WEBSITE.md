@@ -20,8 +20,8 @@
 					<li>
 						<p><b>Limited:</b> Licensee may use Software for the purpose of:</p>
 						<ol class="list">
-							<li>Running Software on Licensee’s Web Application and Servers;</li>
-							<li>Allowing 3rd Parties to run Software on Licensee’s Web Application and Servers;</li>
+							<li>Running Software on Licensee’s one Website and Server;</li>
+							<li>Allowing 3rd Parties to run Software on Licensee’s one Website and Server;</li>
 							<li>Publishing Software’s output to Licensee and 3rd Parties;</li>
 							<li>Distribute verbatim copies of Software’s output (including compiled binaries);</li>
 							<li>Modify Software to suit Licensee’s needs and specifications.</li>
@@ -86,7 +86,7 @@
 						<p><b>Intellectual Property.</b> Licensor   hereby warrants that The Software does not violate or infringe any 3rd   party claims in regards to intellectual property, patents and/or   trademarks and that to the best of its knowledge no legal action has   been taken against it for any infringement or violation of any 3rd party   intellectual property rights.</p>
 					</li>
 					<li>
-						<p><b>No-Warranty.</b> The Software is provided without any warranty; Licensor hereby disclaims   any warranty that The Software shall be error free, without defects or code   which may cause damage to Licensee’s computers or to Licensee, and  that  Software shall be functional. Licensee shall be solely liable to  any  damage, defect or loss incurred as a result of operating software  and  undertake the risks contained in running The Software on License’s  Servers  and Web Application.</p>
+						<p><b>No-Warranty.</b> The Software is provided without any warranty; Licensor hereby disclaims   any warranty that The Software shall be error free, without defects or code   which may cause damage to Licensee’s computers or to Licensee, and  that  Software shall be functional. Licensee shall be solely liable to  any  damage, defect or loss incurred as a result of operating software  and  undertake the risks contained in running The Software on License’s  Server and Website.</p>
 					</li>
 					<li>
 						<p><b>Prior Inspection.</b> Licensee hereby states that he inspected The Software thoroughly and found   it satisfactory and adequate to his needs, that it does not interfere   with his regular operation and that it does meet the standards and  scope  of his computer systems and architecture. Licensee found that  The Software  interacts with his development, website and server environment  and that  it does not infringe any of End User License Agreement of any  software  Licensee may use in performing his services. Licensee hereby  waives any  claims regarding The Software&#39;s incompatibility, performance,  results and  features, and warrants that he inspected the The Software.</p>
