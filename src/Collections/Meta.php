@@ -28,7 +28,7 @@ use ReflectionMethod;
 use ReflectionProperty;
 
 /**
- * Description of EComponentMeta
+ * Metadata container
  * @property MetaProperty $field
  * @author Piotr
  */

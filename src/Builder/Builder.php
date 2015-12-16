@@ -57,8 +57,59 @@ class Builder
 	 */
 	public function build($targetReflection)
 	{
-		$data = $this->_parse($targetReflection);
 		$annotations = [];
+		$t = [];
+
+
+
+		// Decide where from take traits
+		if ($targetReflection instanceof ReflectionClass)
+		{
+			$t = $targetReflection->getTraits();
+		}
+		else
+		{
+			$t = $targetReflection->getDeclaringClass()->getTraits();
+		}
+
+		// Get annotations from traits
+		$traitsData = [];
+		foreach ($t as $trait)
+		{
+			$targetTrait = new ReflectionAnnotatedClass($trait->name, $this->addendum);
+			$annotationsTrait = null;
+
+			// Try to get annotations from entity, be it method, property or trait itself
+			switch (true)
+			{
+				case $targetReflection instanceof \ReflectionProperty && $targetTrait->hasProperty($targetReflection->name):
+					$annotationsTrait = new ReflectionAnnotatedProperty($targetTrait->name, $targetReflection->name, $this->addendum);
+					break;
+				case $targetReflection instanceof \ReflectionMethod && $targetTrait->hasMethod($targetReflection->name):
+					$annotationsTrait = new ReflectionAnnotatedMethod($targetTrait->name, $targetReflection->name, $this->addendum);
+					break;
+				case $targetReflection instanceof \ReflectionClass:
+					$annotationsTrait = $targetTrait;
+					break;
+			}
+
+			// Does not have property or method
+			if (null === $annotationsTrait)
+			{
+				continue;
+			}
+
+			// Data from traits
+			$traitsData = $this->_parse($annotationsTrait);
+		}
+
+		// Data from class
+		$data = $this->_parse($targetReflection);
+
+		// Merge data from traits
+		$data = array_merge($traitsData, $data);
+
+		// Get annotations from current entity
 		foreach ($data as $class => $parameters)
 		{
 			foreach ($parameters as $params)

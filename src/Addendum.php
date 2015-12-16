@@ -99,12 +99,6 @@ class Addendum implements LoggerAwareInterface
 	private $_logger;
 
 	/**
-	 * If true raw doc comment parsing will be used
-	 * @var boolean
-	 */
-	private static $_rawMode;
-
-	/**
 	 * Cache for resolved annotations class names.
 	 * Key is shor annotation name.
 	 * @var string[]
@@ -277,7 +271,7 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * Add many annotaion namespaces.
-	 * This is same as `addNamespace`, in that difference that many namespaces ant once can be added.
+	 * This is same as `addNamespace`, in that difference that many namespaces at once can be added.
 	 *
 	 * It accepts array of namespaces as param:
 	 * ```php
@@ -307,7 +301,6 @@ class Addendum implements LoggerAwareInterface
 		self::$_annotations = [];
 		self::$_classnames = [];
 		self::$_localCache = [];
-		self::$_rawMode = null;
 		Blacklister::reset();
 		Builder::clearCache();
 		(new MetaCache())->clear();
@@ -320,41 +313,30 @@ class Addendum implements LoggerAwareInterface
 	 */
 	public static function getDocComment(\Reflector $reflection)
 	{
-		if (self::_checkRawDocCommentParsingNeeded())
+		// NOTE: Due to a nature of traits, raw doc parsing is always needed
+		// When using reflection's method `getDocComment` it will return
+		// doc comment like if it was pasted in code. Thus use statement
+		// from traits would be omited. See https://github.com/Maslosoft/Addendum/issues/24
+		$docComment = new DocComment();
+		if ($reflection instanceof ReflectionClass)
 		{
-			$docComment = new DocComment();
-			return $docComment->get($reflection);
+			$commentString = $docComment->get($reflection)['class'];
 		}
 		else
 		{
-			return $reflection->getDocComment();
+			$commentString = $docComment->get($reflection);
 		}
-	}
-
-	/**
-	 * Raw mode test
-	 * **NOTE:**
-	 * > This php doc block is actually *required* for this to work
-	 */
-	private static function _checkRawDocCommentParsingNeeded()
-	{
-		if (self::$_rawMode === null)
-		{
-			$reflection = new ReflectionClass(Addendum::class);
-			$method = $reflection->getMethod(__FUNCTION__);
-			self::setRawMode($method->getDocComment() === false);
-		}
-		return self::$_rawMode;
+		return $commentString;
 	}
 
 	/**
 	 * Set raw parsing mode
-	 *
+	 * @deprecated Since 4.0.4 this has no effect
 	 * @param bool $enabled
 	 */
 	public static function setRawMode($enabled = true)
 	{
-		self::$_rawMode = $enabled;
+		// Deprecated
 	}
 
 	/**
