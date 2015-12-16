@@ -4,7 +4,7 @@ before_commands:
     - 'composer install --no-dev --prefer-dist'
 tools:
     external_code_coverage:
-        timeout: 1200
+        timeout: 12000
         runs: 2
     php_mess_detector: true
     php_code_sniffer: true
