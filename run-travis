@@ -4,9 +4,7 @@ if [ "$TRAVIS_PHP_VERSION" == "hhvm" ] || [ "$TRAVIS_PHP_VERSION" == "nightly" ]
 	status=$?
 fi;
 if [ "$TRAVIS_PHP_VERSION" != "hhvm" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then 
-	# vendor/bin/codecept run unit --coverage --html --coverage-html=. --coverage-xml=./coverage.clover
-	#vendor/bin/codecept run unit
-	vendor/bin/codecept run unit  Debug/ExternalUseStmtTest.php
+	vendor/bin/codecept run unit --coverage --html --coverage-html=. --coverage-xml=./coverage.clover
 	status=$?
 fi;
 wget --no-check-certificate https://scrutinizer-ci.com/ocular.phar
