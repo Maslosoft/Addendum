@@ -33,16 +33,19 @@ class ParamsExpander
 	 * <li>&commat;Annotation(class = Class\Literal, items = 2)</li>
 	 * </ul>
 	 * Example of use:
-	 *		ParamsExpander::expand($annotation, ['class', 'items'])
+	 * 		ParamsExpander::expand($annotation, ['class', 'items'])
 	 * This will assign `$annotation->class` and `$annotation->items` with named or anonymous params (based on order of params).
 	 * @param AnnotationInterface $annotation
 	 * @param string[] $params List of parameters names in order.
-	 * @param mixed[] $values Values used to expand params, if not set `$annotation->value` will be used.
+	 * @param mixed[] $values Values used to expand params, if not set `$annotation->value` will be used if available.
 	 * @return mixed[] Expanded params
 	 */
-	public static function expand(AnnotationInterface $annotation, $params, $values = null)
+	public static function expand(AnnotationInterface $annotation, $params, $values = [])
 	{
-		$values = $values? : (array)$annotation->value;
+		if (!empty($annotation->value))
+		{
+			$values = $values? : (array) $annotation->value;
+		}
 		$data = [];
 		foreach ($params as $key => $name)
 		{
