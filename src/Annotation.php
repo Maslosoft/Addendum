@@ -46,6 +46,8 @@ use UnexpectedValueException;
 abstract class Annotation implements AnnotationInterface
 {
 
+	use Traits\MetaState;
+
 	/**
 	 * This is annotated class instance, must be set before calling init
 	 * @var AnnotatedInterface
