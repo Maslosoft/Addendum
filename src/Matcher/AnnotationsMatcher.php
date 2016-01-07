@@ -14,7 +14,10 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class AnnotationsMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
+use Maslosoft\Addendum\Exceptions\ParseException;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+
+class AnnotationsMatcher implements MatcherInterface
 {
 
 	use Traits\PluginsTrait;
@@ -26,7 +29,7 @@ class AnnotationsMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\Match
 		$annotationMatcher->setPlugins($this->getPlugins());
 		while (true)
 		{
-			if (preg_match('/\s(?=@)/', $string, $matches, PREG_OFFSET_CAPTURE))
+			if (preg_match('~\s(?=@)~', $string, $matches, PREG_OFFSET_CAPTURE))
 			{
 				$offset = $matches[0][1] + 1;
 				$string = substr($string, $offset);
@@ -38,9 +41,29 @@ class AnnotationsMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\Match
 
 			if (($length = $annotationMatcher->matches($string, $data)) !== false)
 			{
+				$srcString = $string;
 				$string = substr($string, $length);
 				list($name, $params) = $data;
 				$annotations[$name][] = $params;
+
+				// If have some params, match should be fine
+				if (!empty($params))
+				{
+					continue;
+				}
+
+				// Check if we should have some match
+				$stringParams = trim(preg_split("~[\r\n]~", $srcString)[0], '() ');
+
+				if (strlen($stringParams) > $length)
+				{
+					$msgParams = [
+						$name,
+						$stringParams
+					];
+					$msg = vsprintf('Could not parse params `%s` annotation near `%s`', $msgParams);
+					throw new ParseException($msg);
+				}
 			}
 		}
 	}
