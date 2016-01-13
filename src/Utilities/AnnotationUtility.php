@@ -62,7 +62,16 @@ class AnnotationUtility
 			{
 				$file = $matches[0];
 				$parse = false;
-				$contents = file_get_contents($file);
+
+				if (is_readable($file))
+				{
+					$contents = file_get_contents($file);
+				}
+				else
+				{
+					// TODO Log this
+					continue;
+				}
 				foreach ($patterns as $pattern)
 				{
 					if ($parse)
