@@ -78,7 +78,8 @@ class NsCache
 		{
 			return self::$_nsCache[$this->_file];
 		}
-		return SoftIncluder::includeFile($this->_file);
+		self::$_nsCache[$this->_file] = SoftIncluder::includeFile($this->_file);
+		return self::$_nsCache[$this->_file];
 	}
 
 	public function set()
@@ -88,7 +89,9 @@ class NsCache
 			$ns[$name] = true;
 		}
 		$data = PhpExporter::export($ns);
+		$mask = umask(0);
 		file_put_contents($this->_file, $data);
+		umask($mask);
 		self::$_nsCache[$this->_file] = $ns;
 	}
 
@@ -108,8 +111,7 @@ class NsCache
 		{
 			return true;
 		}
-//		var_dump($ns);
-//		exit;
+
 		foreach ($this->ad->namespaces as $name)
 		{
 			if (empty($ns[$name]))

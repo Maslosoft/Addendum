@@ -101,7 +101,7 @@ class MetaCache
 
 				if (is_writable(dirname(self::$_runtimePath)))
 				{
-					mkdir(self::$_runtimePath, 0777, true);
+					$this->mkdir(self::$_runtimePath);
 				}
 				if (!is_writable(self::$_runtimePath))
 				{
@@ -110,7 +110,7 @@ class MetaCache
 			}
 			if (is_writable(self::$_runtimePath))
 			{
-				mkdir($this->_path, 0777, true);
+				$this->mkdir($this->_path);
 			}
 			if (!is_writable($this->_path))
 			{
@@ -119,7 +119,7 @@ class MetaCache
 		}
 		if (!file_exists(dirname($this->_getFilename())))
 		{
-			mkdir(dirname($this->_getFilename()), 0777, true);
+			$this->mkdir(dirname($this->_getFilename()));
 		}
 	}
 
@@ -159,6 +159,7 @@ class MetaCache
 		self::$_cache[$filename] = $meta;
 
 		file_put_contents($filename, PhpExporter ::export($meta));
+		chmod($filename, 0666);
 		$this->_nsCache->set();
 		return $meta;
 	}
@@ -209,6 +210,18 @@ class MetaCache
 	private function _classToFile($className)
 	{
 		return str_replace('\\', '.', $className);
+	}
+
+	/**
+	 * Recursively create dir with proper permissions.
+	 * FIXME Apply chmod recursively
+	 * @param string $path
+	 */
+	private function mkdir($path)
+	{
+		$mask = umask(0000);
+		mkdir($path, 0777, true);
+		umask($mask);
 	}
 
 }
