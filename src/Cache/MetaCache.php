@@ -214,7 +214,7 @@ class MetaCache
 
 	/**
 	 * Recursively create dir with proper permissions.
-	 * FIXME Apply chmod recursively
+	 * 
 	 * @param string $path
 	 */
 	private function mkdir($path)
