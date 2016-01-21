@@ -34,7 +34,7 @@ use ReflectionProperty;
  */
 class Meta
 {
-
+	
 	const Type = 1;
 	const Field = 2;
 	const Method = 3;
@@ -55,19 +55,19 @@ class Meta
 	 * Container for type metadata
 	 * @var MetaType
 	 */
-	private $_type = null;
+	protected $_type = null;
 
 	/**
 	 * Array of containers for property metadata
 	 * @var MetaProperty[]
 	 */
-	private $_fields = [];
+	protected $_fields = [];
 
 	/**
 	 * Array of containers for method metadata
 	 * @var MetaMethod[]
 	 */
-	private $_methods = [];
+	protected $_methods = [];
 	private $_annotations = [];
 
 	protected function __construct(AnnotatedInterface $component = null, MetaOptions $options = null)
