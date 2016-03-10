@@ -39,6 +39,13 @@ class UseResolver
 		$ns = $docs['namespace'];
 		$aliases = $docs['useAliases'];
 
+		// Resolve to itself with keywords
+		if ($className === 'self' || $className === 'static')
+		{
+			$fqn = $ns . '\\' . $docs['className'];
+			return $fqn;
+		}
+
 		// This is for same namespaced class as current class
 		$aliases[$ns . '\\' . $className] = $className;
 

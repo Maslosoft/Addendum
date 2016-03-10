@@ -14,7 +14,10 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class StaticConstantMatcher extends RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+use Maslosoft\Addendum\Matcher\Helpers\Processor;
+
+class StaticConstantMatcher extends RegexMatcher implements MatcherInterface
 {
 
 	public function __construct()
@@ -25,6 +28,11 @@ class StaticConstantMatcher extends RegexMatcher implements \Maslosoft\Addendum\
 	protected function process($matches)
 	{
 		$value = $matches[1];
+		$parts = explode('::', $value);
+		$className = $parts[0];
+		$constName = $parts[1];
+		$className = Processor::process($this, $className);
+		$value = sprintf('%s::%s', $className, $constName);
 		if (!defined($value))
 		{
 			return false;
