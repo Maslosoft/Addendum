@@ -15,14 +15,14 @@
 namespace Maslosoft\Addendum\Signals;
 
 use Maslosoft\Addendum\Addendum;
-use Maslosoft\Signals\ISignal;
+use Maslosoft\Signals\Interfaces\SignalInterface;
 
 /**
  * NamespacesSignal
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class NamespacesSignal implements ISignal
+class NamespacesSignal implements SignalInterface
 {
 
 	/**
