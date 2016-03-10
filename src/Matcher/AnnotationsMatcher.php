@@ -16,14 +16,21 @@ namespace Maslosoft\Addendum\Matcher;
 
 use Maslosoft\Addendum\Exceptions\ParseException;
 use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+use Maslosoft\Addendum\Matcher\Helpers\Processor;
 
 class AnnotationsMatcher implements MatcherInterface
 {
 
 	use Traits\PluginsTrait;
 
+	protected function process($string)
+	{
+		return Processor::process($this, $string);
+	}
+
 	public function matches($string, &$annotations)
 	{
+		$string = $this->process($string);
 		$annotations = [];
 		$annotationMatcher = new AnnotationMatcher;
 		$annotationMatcher->setPlugins($this->getPlugins());

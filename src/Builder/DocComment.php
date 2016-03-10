@@ -70,6 +70,9 @@ class DocComment
 		{
 			$fqn = $className;
 		}
+		/**
+		 * TODO Use some container here with ArrayAccess interface. Array-like access is *required* here.
+		 */
 		$result = [
 			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
 			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],

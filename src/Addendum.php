@@ -21,7 +21,9 @@ use Maslosoft\Addendum\Cache\MetaCache;
 use Maslosoft\Addendum\Collections\AddendumPlugins;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Interfaces\AnnotationInterface;
+use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Matcher\ClassLiteralMatcher;
+use Maslosoft\Addendum\Plugins\Matcher\DefencerDecorator;
 use Maslosoft\Addendum\Plugins\Matcher\UseResolverDecorator;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
@@ -36,6 +38,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use ReflectionClass;
 use ReflectionException;
+use Reflector;
 
 class Addendum implements LoggerAwareInterface
 {
@@ -76,6 +79,9 @@ class Addendum implements LoggerAwareInterface
 		'matcher' => [
 			ClassLiteralMatcher::class => [
 				UseResolverDecorator::class
+			],
+			AnnotationsMatcher::class => [
+				DefencerDecorator::class
 			]
 		]
 	];
@@ -308,10 +314,10 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * TODO This should not be static
-	 * @param \Reflector $reflection
+	 * @param Reflector $reflection
 	 * @return mixed[]
 	 */
-	public static function getDocComment(\Reflector $reflection)
+	public static function getDocComment(Reflector $reflection)
 	{
 		// NOTE: Due to a nature of traits, raw doc parsing is always needed
 		// When using reflection's method `getDocComment` it will return
