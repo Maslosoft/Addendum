@@ -105,7 +105,7 @@ class MetaCache
 				}
 				if (!is_writable(self::$_runtimePath))
 				{
-					throw new RuntimeException(sprintf("Runtime path `%s` must exists and be writable", self:: $_runtimePath));
+					throw new RuntimeException(sprintf("Runtime path `%s` must exists and be writable", self::$_runtimePath));
 				}
 			}
 			if (is_writable(self::$_runtimePath))
@@ -158,7 +158,7 @@ class MetaCache
 
 		self::$_cache[$filename] = $meta;
 
-		file_put_contents($filename, PhpExporter ::export($meta));
+		file_put_contents($filename, PhpExporter::export($meta));
 		chmod($filename, 0666);
 		$this->_nsCache->set();
 		return $meta;
