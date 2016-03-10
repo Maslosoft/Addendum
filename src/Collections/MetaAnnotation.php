@@ -33,6 +33,10 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 
 	/**
 	 * Model metadata object
+	 *
+	 * NOTE: Deprecation notice is only to discourage direct use in annotations, this is actually required
+	 * @deprecated Use getMeta() instead
+	 *
 	 * @var Meta
 	 */
 	protected $_meta = null;
@@ -40,6 +44,10 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	/**
 	 * Annotatins entity, it can be either class, property, or method
 	 * Its conrete annotation implementation responsibility to decide what to do with it.
+	 *
+	 * NOTE: Deprecation notice is only to discourage direct use in annotations, this is actually required
+	 * @deprecated Use getEntity() instead
+	 *
 	 * @var AnnotationEntityInterface
 	 */
 	protected $_entity = null;
@@ -59,6 +67,19 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	}
 
 	/**
+	 * Get metadata class for whole entity.
+	 *
+	 * This allows access to type, method or property in any annotation,
+	 * regardles of it's location.
+	 * 
+	 * @return Meta
+	 */
+	public function getMeta()
+	{
+		return $this->_meta;
+	}
+
+	/**
 	 * Set annotatins entity, it can be either class, property, or method
 	 * @param AnnotationEntityInterface $entity
 	 */
@@ -68,13 +89,32 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	}
 
 	/**
+	 * Get annotated entity.
+	 *
+	 * Use this in annotations definitions to define it's params, ie:
+	 *
+	 * ```php
+	 * public function init()
+	 * {
+	 * 		$this->getEntity()->someValue = $this->value;
+	 * }
+	 * ```
+	 *
+	 * @return AnnotatedEntityInteface
+	 */
+	public function getEntity()
+	{
+		return $this->_entity;
+	}
+
+	/**
 	 * This function should be called after all annotations are initialized.
 	 * Any code that depends on other annotations can be executed here.
 	 * NOTE: This is not ensured to run, its annotations container responsibility to call it.
 	 */
 	public function afterInit()
 	{
-
+		
 	}
 
 }
