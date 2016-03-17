@@ -19,9 +19,21 @@ use Maslosoft\Addendum\Annotation;
 /**
  * Use this annotation to completely ignore method or property metadata.
  * This should be used on components. This can also be used to explicitly mark that entity should be **not** ignored.
+ *
  * Examples:
- * 		&commat;Ignore() - Ignore field or method
- * 		&commat;Ignore(false) - Explicitly mark method or property as not ignored
+ *
+ * Ignore field or method.
+ * ```
+ * @Ignored()
+ * ```
+ *
+ * Explicitly mark method or property as not ignored. This might be usefull
+ * to inform other developers that method or property must be annotated.
+ * ```
+ * @Ignored(false)
+ * ```
+ *
+ *
  * @Target('property', 'method')
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
@@ -32,7 +44,7 @@ class IgnoredAnnotation extends Annotation
 
 	public function init()
 	{
-
+		
 	}
 
 }

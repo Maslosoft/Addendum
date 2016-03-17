@@ -19,12 +19,19 @@ use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 
 /**
  * Disallow annotation if some other annotation exists. This is to avoid using conflicting annotations.
+ * 
  * This annotation can only be used on other annotation classes.
  * Only annotation name should be used here, *not* annotation class name.
+ * 
  * Do not use class literals here. Only annotation name as string is recommended.
- * Example:
- * Forbid using current annotation with `CombinedAnnotation`:
- *		&commat;Conflicts('Combined')
+ * 
+ * Assume we are defining `MyAnnotation` annotation, and want to forbid
+ * using this annotation with `CombinedAnnotation`.
+ * To achieve this use `Conflicts` annotation:
+ * 
+ * ```
+ * @Conflicts('Combined')
+ * ```
  * @Target(\Maslosoft\Addendum\Interfaces\AnnotationInterface)
  * @template Conflicts('${annotation}')
  * @see AnnotationInterface

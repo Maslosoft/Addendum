@@ -21,25 +21,42 @@ use Maslosoft\Addendum\Annotation;
  * This allow limiting annotation use for properties, class,
  * method or concrete type
  * Valid values are
- * <ul>
- * <li>class - limit annotation for class only</li>
- * <li>method - limit annotation for method only</li>
- * <li>property - limit annotation for property only</li>
- * <li>nested - set this to allow use of annotatation only as nested annotation</li>
- * <li>Any existing class name - to restrict use of annotation only on concrete class or its descendants</li>
- * <ul>
+ * 
+ * * `class` - limit annotation for class only
+ * * `method` - limit annotation for method only
+ * * `property` - limit annotation for property only
+ * * `nested` - set this to allow use of annotatation only as nested annotation
+ * * Any existing class name - to restrict use of annotation only on concrete class or its descendants
+ * 
  * Examples:
- *		&commat;Target(Some\Target\ClassName) - Only on this class and subclasses
+ *
+ * Allow only on selected class and subclasses
+ *
+ * ```
+ * @Target(Some\Target\ClassName)
+ * ```
+ *
+ * Whe use statement for `Some\Target\ClassName` is provided, it could be shortened:
+ * ```
+ * @Target(ClassName)
+ * ```
+ *
  * Several targets can be specified.
  * Only on this class and subclasses - on properties:
- *		&commat;Target(Some\Target\ClassName)
- *		&commat;Target('property')
+ * ```
+ * @Target(Some\Target\ClassName)
+ * @Target('property')
+ * ```
  * Only on this class and subclasses - on methods:
- *		&commat;Target('Some\Target\ClassName')
- *		&commat;Target('method')
+ * ```
+ * @Target('Some\Target\ClassName')
+ * @Target('method')
+ * ```
  * On methods and properties:
- *		&commat;Target('method')
- *		&commat;Target('property')
+ * ```
+ * @Target('method')
+ * @Target('property')
+ * ```
  * @template Target('${target}')
  */
 class TargetAnnotation extends Annotation
