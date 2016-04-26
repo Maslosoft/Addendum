@@ -14,6 +14,9 @@ use DirectoryIterator;
  * FileWalker
  *
  * This walks recursivelly on symlinks too, with loop detection.
+ * Will process only files starting with Capital Letters.
+ *
+ * Will skip files with identical content.
  *
  * This class is meant to replace AnnotationUtility::fileWalker method.
  *
@@ -42,9 +45,15 @@ class FileWalker
 
 	/**
 	 * List of visited real paths
-	 * @var string[]
+	 * @var bool[]
 	 */
 	private $visited = [];
+
+	/**
+	 * Wether sum was parsed
+	 * @var bool[]
+	 */
+	private $sum = [];
 
 	public function __construct($annotations, $callback, $paths)
 	{
@@ -111,6 +120,12 @@ class FileWalker
 				continue;
 			}
 
+			// Only starting with capital letter
+			if (!preg_match('~^[A-Z]~', $info->getBasename()))
+			{
+				continue;
+			}
+
 			$parse = false;
 
 			if (is_readable($file))
@@ -122,6 +137,16 @@ class FileWalker
 				// TODO Log this
 				continue;
 			}
+
+			// Check for file checksum
+			$sum = md5($contents);
+			// Check if should be processed
+			if (!empty($this->sum[$sum]))
+			{
+				continue;
+			}
+			$this->sum[$sum] = true;
+
 			foreach ($this->patterns as $pattern)
 			{
 				if ($parse)
