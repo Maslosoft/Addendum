@@ -40,6 +40,11 @@ class AnnotationUtility
 	/**
 	 * This utility method find files containing $annotations
 	 * annotates them and performs callback
+	 *
+	 * TODO: Use FileWalker after extensive tests
+	 * NOTE: It is recommended to use FileWalker class
+	 *
+	 * @see FileWalker
 	 * @param string[] $annotations
 	 * @param callback $callback param is file path
 	 */
