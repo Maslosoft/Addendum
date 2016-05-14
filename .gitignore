@@ -3,7 +3,6 @@
 /models
 /unit
 /misc
-
 *.pydevproject
 .project
 bin/**
@@ -11,7 +10,6 @@ tmp/**
 tmp/**/*
 *.tmp
 *.bak
-*.swp
 *~.nib
 local.properties
 .classpath
