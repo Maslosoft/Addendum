@@ -34,7 +34,7 @@ use ReflectionProperty;
  */
 class Meta
 {
-	
+
 	const Type = 1;
 	const Field = 2;
 	const Method = 3;
@@ -93,8 +93,6 @@ class Meta
 		$ad = Addendum::fly($options->instanceId);
 		$ad->addNamespaces($options->namespaces);
 		$info = $ad->annotate($component);
-
-//		$info = Yii::app()->addendum->annotate($component);
 
 
 		if (!$info instanceof ReflectionAnnotatedClass)

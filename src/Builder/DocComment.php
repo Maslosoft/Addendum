@@ -145,7 +145,6 @@ class DocComment
 			if (is_array($token))
 			{
 				list($code, $value) = $token;
-//				$tokenName = token_name($code);
 
 				switch ($code)
 				{

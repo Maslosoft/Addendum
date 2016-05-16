@@ -24,8 +24,11 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\Addendum\Utilities\Blacklister;
+use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Addendum\Utilities\ReflectionName;
 use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
 
 /**
  * @Label("Annotations builder")
@@ -82,10 +85,10 @@ class Builder
 			// Try to get annotations from entity, be it method, property or trait itself
 			switch (true)
 			{
-				case $targetReflection instanceof \ReflectionProperty && $targetTrait->hasProperty($targetReflection->name):
+				case $targetReflection instanceof ReflectionProperty && $targetTrait->hasProperty($targetReflection->name):
 					$annotationsTrait = new ReflectionAnnotatedProperty($targetTrait->name, $targetReflection->name, $this->addendum);
 					break;
-				case $targetReflection instanceof \ReflectionMethod && $targetTrait->hasMethod($targetReflection->name):
+				case $targetReflection instanceof ReflectionMethod && $targetTrait->hasMethod($targetReflection->name):
 					$annotationsTrait = new ReflectionAnnotatedMethod($targetTrait->name, $targetReflection->name, $this->addendum);
 					break;
 				case $targetReflection instanceof \ReflectionClass:
@@ -146,10 +149,9 @@ class Builder
 			}
 			try
 			{
-				// NOTE: @ need to be used here or php might complain
-				if (@!class_exists($fqn))
+				if (!ClassChecker::exists($fqn))
 				{
-					//$this->addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
+					$this->addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
 					Blacklister::ignore($fqn);
 				}
 				else
