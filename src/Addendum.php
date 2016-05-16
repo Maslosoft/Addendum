@@ -359,7 +359,7 @@ class Addendum implements LoggerAwareInterface
 			return self::$classNames[$class];
 		}
 		$matching = [];
-		foreach (self::_getDeclaredAnnotations() as $declared)
+		foreach (self::getDeclaredAnnotations() as $declared)
 		{
 			if ($declared == $class)
 			{
@@ -387,7 +387,7 @@ class Addendum implements LoggerAwareInterface
 		return $result;
 	}
 
-	private static function _getDeclaredAnnotations()
+	private static function getDeclaredAnnotations()
 	{
 		if (!self::$annotations)
 		{

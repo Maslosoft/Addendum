@@ -29,114 +29,114 @@ use RuntimeException;
 class MetaCache
 {
 
-	private $_metaClass = null;
-	private $_component = null;
+	private $metaClass = null;
+	private $component = null;
 
 	/**
 	 * Options
 	 * @var string
 	 */
-	private $_instanceId = null;
+	private $instanceId = null;
 
 	/**
 	 * Addendum runtime path
 	 * @var string
 	 */
-	private $_path = '';
+	private $path = '';
 
 	/**
 	 *
 	 * @var NsCache
 	 */
-	private $_nsCache = null;
+	private $nsCache = null;
 
 	/**
 	 * Runtime path
 	 * @var string
 	 */
-	private static $_runtimePath = null;
+	private static $runtimePath = null;
 
 	/**
 	 * Local cacheq
 	 * @var type
 	 */
-	private static $_cache = [];
+	private static $cache = [];
 
 	public function __construct($metaClass = null, AnnotatedInterface $component = null, MetaOptions $options = null)
 	{
-		if (null === self::$_runtimePath)
+		if (null === self::$runtimePath)
 		{
-			self::$_runtimePath = (new ConfigDetector)->getRuntimePath();
+			self::$runtimePath = (new ConfigDetector)->getRuntimePath();
 		}
-		$this->_path = self::$_runtimePath . '/addendum';
-		$this->_metaClass = $metaClass;
-		$this->_component = $component;
+		$this->path = self::$runtimePath . '/addendum';
+		$this->metaClass = $metaClass;
+		$this->component = $component;
 		if (empty($options))
 		{
-			$this->_instanceId = Addendum::DefaultInstanceId;
+			$this->instanceId = Addendum::DefaultInstanceId;
 		}
 		else
 		{
-			$this->_instanceId = $options->instanceId;
+			$this->instanceId = $options->instanceId;
 		}
-		$this->_nsCache = new NsCache(dirname($this->_getFilename()), Addendum::fly($this->_instanceId));
+		$this->nsCache = new NsCache(dirname($this->getFilename()), Addendum::fly($this->instanceId));
 	}
 
 	public function setComponent(AnnotatedInterface $component = null)
 	{
-		$this->_component = $component;
+		$this->component = $component;
 	}
 
 	public function setOptions(MetaOptions $options = null)
 	{
-		$this->_nsCache->setOptions($options);
+		$this->nsCache->setOptions($options);
 	}
 
 	public function prepare()
 	{
-		if (!file_exists($this->_path))
+		if (!file_exists($this->path))
 		{
-			if (!file_exists(self::$_runtimePath))
+			if (!file_exists(self::$runtimePath))
 			{
 
-				if (is_writable(dirname(self::$_runtimePath)))
+				if (is_writable(dirname(self::$runtimePath)))
 				{
-					$this->mkdir(self::$_runtimePath);
+					$this->mkdir(self::$runtimePath);
 				}
-				if (!is_writable(self::$_runtimePath))
+				if (!is_writable(self::$runtimePath))
 				{
-					throw new RuntimeException(sprintf("Runtime path `%s` must exists and be writable", self::$_runtimePath));
+					throw new RuntimeException(sprintf("Runtime path `%s` must exists and be writable", self::$runtimePath));
 				}
 			}
-			if (is_writable(self::$_runtimePath))
+			if (is_writable(self::$runtimePath))
 			{
-				$this->mkdir($this->_path);
+				$this->mkdir($this->path);
 			}
-			if (!is_writable($this->_path))
+			if (!is_writable($this->path))
 			{
-				throw new RuntimeException(sprintf("Addendum runtime path `%s` must exists and be writable", $this->_path));
+				throw new RuntimeException(sprintf("Addendum runtime path `%s` must exists and be writable", $this->path));
 			}
 		}
-		if (!file_exists(dirname($this->_getFilename())))
+		if (!file_exists(dirname($this->getFilename())))
 		{
-			$this->mkdir(dirname($this->_getFilename()));
+			$this->mkdir(dirname($this->getFilename()));
 		}
 	}
 
 	public function get()
 	{
 		$this->prepare();
-		$filename = $this->_getFilename();
+		$filename = $this->getFilename();
 
-		if (!$this->_nsCache->valid())
+		if (!$this->nsCache->valid())
 		{
-			$this->_clearCurrent();
+			$this->clearCurrent();
 			return false;
 		}
 
-		if (isset(self::$_cache[$filename]))
+		if (isset(self::$cache[$filename]))
 		{
-			return self::$_cache[$filename];
+			return self::$cache[$filename];
 		}
 
 		$data = SoftIncluder::includeFile($filename);
@@ -145,7 +145,7 @@ class MetaCache
 		{
 			return false;
 		}
-		self::$_cache[$filename] = $data;
+		self::$cache[$filename] = $data;
 		return $data;
 	}
 
@@ -154,20 +154,20 @@ class MetaCache
 
 
 
-		$filename = $this->_getFilename();
+		$filename = $this->getFilename();
 
-		self::$_cache[$filename] = $meta;
+		self::$cache[$filename] = $meta;
 
 		file_put_contents($filename, PhpExporter::export($meta));
 		chmod($filename, 0666);
-		$this->_nsCache->set();
+		$this->nsCache->set();
 		return $meta;
 	}
 
 	public function remove()
 	{
-		$filename = $this->_getFilename();
-		unset(self::$_cache[$filename]);
+		$filename = $this->getFilename();
+		unset(self::$cache[$filename]);
 		if (file_exists($filename))
 		{
 			return unlink($filename);
@@ -181,15 +181,15 @@ class MetaCache
 	 */
 	public function clear()
 	{
-		return $this->_clear($this->_path);
+		return $this->clearPath($this->path);
 	}
 
-	private function _clearCurrent()
+	private function clearCurrent()
 	{
-		return $this->_classToFile(dirname($this->_getFilename()));
+		return $this->classToFile(dirname($this->getFilename()));
 	}
 
-	private function _clear($path)
+	private function clearPath($path)
 	{
 		if (!file_exists($path))
 		{
@@ -202,12 +202,12 @@ class MetaCache
 		return rmdir($path);
 	}
 
-	private function _getFilename()
+	private function getFilename()
 	{
-		return sprintf('%s/%s@%s/%s.php', $this->_path, $this->_classToFile($this->_metaClass), $this->_instanceId, str_replace('\\', '/', $this->_classToFile(get_class($this->_component))));
+		return sprintf('%s/%s@%s/%s.php', $this->path, $this->classToFile($this->metaClass), $this->instanceId, str_replace('\\', '/', $this->classToFile(get_class($this->component))));
 	}
 
-	private function _classToFile($className)
+	private function classToFile($className)
 	{
 		return str_replace('\\', '.', $className);
 	}

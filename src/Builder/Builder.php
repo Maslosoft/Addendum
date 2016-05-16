@@ -25,6 +25,7 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\Addendum\Utilities\Blacklister;
 use Maslosoft\Addendum\Utilities\ClassChecker;
+use Maslosoft\Addendum\Utilities\NameNormalizer;
 use Maslosoft\Addendum\Utilities\ReflectionName;
 use ReflectionClass;
 use ReflectionMethod;
@@ -40,7 +41,7 @@ class Builder
 	 * Cached values of parsing
 	 * @var string[][][]
 	 */
-	private static $_cache = [];
+	private static $cache = [];
 
 	/**
 	 * Addendum instance
@@ -103,11 +104,11 @@ class Builder
 			}
 
 			// Data from traits
-			$traitsData = $this->_parse($annotationsTrait);
+			$traitsData = $this->parse($annotationsTrait);
 		}
 
 		// Data from class
-		$data = $this->_parse($targetReflection);
+		$data = $this->parse($targetReflection);
 
 		// Merge data from traits
 		$data = array_merge($traitsData, $data);
@@ -139,10 +140,10 @@ class Builder
 		$class = ucfirst($class) . "Annotation";
 
 		// If namespaces are empty assume global namespace
-		$fqn = $this->_normalizeFqn('\\', $class);
+		$fqn = $this->normalizeFqn('\\', $class);
 		foreach ($this->addendum->namespaces as $ns)
 		{
-			$fqn = $this->_normalizeFqn($ns, $class);
+			$fqn = $this->normalizeFqn($ns, $class);
 			if (Blacklister::ignores($fqn))
 			{
 				continue;
@@ -211,10 +212,10 @@ class Builder
 	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $reflection
 	 * @return mixed[]
 	 */
-	private function _parse($reflection)
+	private function parse($reflection)
 	{
 		$key = ReflectionName::createName($reflection);
-		if (!isset(self::$_cache[$key]))
+		if (!isset(self::$cache[$key]))
 		{
 			$parser = new AnnotationsMatcher;
 			$data = [];
@@ -223,9 +224,9 @@ class Builder
 				'reflection' => $reflection
 			]));
 			$parser->matches($this->getDocComment($reflection), $data);
-			self::$_cache[$key] = $data;
+			self::$cache[$key] = $data;
 		}
-		return self::$_cache[$key];
+		return self::$cache[$key];
 	}
 
 	/**
@@ -243,7 +244,7 @@ class Builder
 	 */
 	public static function clearCache()
 	{
-		self::$_cache = [];
+		self::$cache = [];
 	}
 
 }

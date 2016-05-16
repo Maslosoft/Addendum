@@ -40,18 +40,6 @@ class Meta
 	const Method = 3;
 
 	/**
-	 * Metadata containers
-	 * @var Meta[]
-	 */
-	private static $_instances = [];
-
-	/**
-	 * Namespaces cache
-	 * @var string[][]
-	 */
-	private static $_ns = [];
-
-	/**
 	 * Container for type metadata
 	 * @var MetaType
 	 */

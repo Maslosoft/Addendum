@@ -29,24 +29,23 @@ class NsCache
 
 	const FileName = '_ns.php';
 
-	private $_file = '';
+	private $file = '';
 
 	/**
 	 * Addendum instance
 	 * @var Addendum
 	 */
 	private $ad = null;
-	private $_ns = [];
 
 	/**
 	 *
 	 * @var
 	 */
-	private static $_nsCache = [];
+	private static $nsCache = [];
 
 	public function __construct($path, Addendum $addendum, MetaOptions $options = null)
 	{
-		$this->_file = sprintf('%s/%s', $path, self::FileName);
+		$this->file = sprintf('%s/%s', $path, self::FileName);
 		$this->ad = $addendum;
 		$this->setOptions($options);
 	}
@@ -57,7 +56,7 @@ class NsCache
 		{
 			foreach ($options->namespaces as $ns)
 			{
-				if (!$this->_valid($ns))
+				if (!$this->isValid($ns))
 				{
 					$this->ad->addNamespace($ns);
 				}
@@ -68,7 +67,7 @@ class NsCache
 	public function valid()
 	{
 		$ns = $this->get();
-		$valid = $this->_valid($ns);
+		$valid = $this->isValid($ns);
 
 		// Ovverride existing cache if not valid
 		if (!$valid)
@@ -80,12 +79,12 @@ class NsCache
 
 	public function get()
 	{
-		if (!empty(self::$_nsCache[$this->_file]))
+		if (!empty(self::$nsCache[$this->file]))
 		{
-			return self::$_nsCache[$this->_file];
+			return self::$nsCache[$this->file];
 		}
-		self::$_nsCache[$this->_file] = SoftIncluder::includeFile($this->_file);
-		return self::$_nsCache[$this->_file];
+		self::$nsCache[$this->file] = SoftIncluder::includeFile($this->file);
+		return self::$nsCache[$this->file];
 	}
 
 	public function set()
@@ -96,21 +95,21 @@ class NsCache
 		}
 		$data = PhpExporter::export($ns);
 		$mask = umask(0);
-		file_put_contents($this->_file, $data);
+		file_put_contents($this->file, $data);
 		umask($mask);
-		self::$_nsCache[$this->_file] = $ns;
+		self::$nsCache[$this->file] = $ns;
 	}
 
 	public function remove()
 	{
-		unset(self::$_nsCache[$this->_file]);
-		if (file_exists($this->_file))
+		unset(self::$nsCache[$this->file]);
+		if (file_exists($this->file))
 		{
-			unlink($this->_file);
+			unlink($this->file);
 		}
 	}
 
-	private function _valid($ns)
+	private function isValid($ns)
 	{
 		// Fresh data
 		if (empty($ns))
