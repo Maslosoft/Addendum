@@ -106,39 +106,33 @@ class Addendum implements LoggerAwareInterface
 	 * Logger
 	 * @var LoggerInterface
 	 */
-	private $_logger;
+	private $loggerInstance;
 
 	/**
 	 * Cache for resolved annotations class names.
 	 * Key is shor annotation name.
 	 * @var string[]
 	 */
-	private static $_classnames = [];
+	private static $classNames = [];
 
 	/**
 	 * This holds information about all declared classes implementing AnnotatedInterface.
 	 * @see AnnotatedInterface
 	 * @var string[]
 	 */
-	private static $_annotations = [];
-
-	/**
-	 * Reflection annotated class cache
-	 * @var ReflectionAnnotatedClass[]
-	 */
-	private static $_localCache = [];
+	private static $annotations = [];
 
 	/**
 	 * Version holder
 	 * @var string
 	 */
-	private static $_version = null;
+	private static $versionNumber = null;
 
 	/**
 	 * Addendum instances
 	 * @var Addendum[]
 	 */
-	private static $_a = [];
+	private static $addendums = [];
 
 	/**
 	 *
@@ -162,11 +156,11 @@ class Addendum implements LoggerAwareInterface
 	 */
 	public static function fly($instanceId = self::DefaultInstanceId)
 	{
-		if (empty(self::$_a[$instanceId]))
+		if (empty(self::$addendums[$instanceId]))
 		{
-			self::$_a[$instanceId] = (new Addendum($instanceId))->init();
+			self::$addendums[$instanceId] = (new Addendum($instanceId))->init();
 		}
-		return self::$_a[$instanceId];
+		return self::$addendums[$instanceId];
 	}
 
 	/**
@@ -176,11 +170,11 @@ class Addendum implements LoggerAwareInterface
 	 */
 	public function getVersion()
 	{
-		if (null === self::$_version)
+		if (null === self::$versionNumber)
 		{
-			self::$_version = require __DIR__ . '/version.php';
+			self::$versionNumber = require __DIR__ . '/version.php';
 		}
-		return self::$_version;
+		return self::$versionNumber;
 	}
 
 	/**
@@ -235,7 +229,7 @@ class Addendum implements LoggerAwareInterface
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
-		$this->_logger = $logger;
+		$this->loggerInstance = $logger;
 		return $this;
 	}
 
@@ -246,11 +240,11 @@ class Addendum implements LoggerAwareInterface
 	 */
 	public function getLogger()
 	{
-		if (null === $this->_logger)
+		if (null === $this->loggerInstance)
 		{
-			$this->_logger = new NullLogger;
+			$this->loggerInstance = new NullLogger;
 		}
-		return $this->_logger;
+		return $this->loggerInstance;
 	}
 
 	/**
@@ -271,9 +265,9 @@ class Addendum implements LoggerAwareInterface
 			$this->di->store($this, [], true);
 
 			// Reconfigure flyweight instances if present
-			if (!empty(self::$_a[$this->instanceId]))
+			if (!empty(self::$addendums[$this->instanceId]))
 			{
-				self::$_a[$this->instanceId]->di->configure(self::$_a[$this->instanceId]);
+				self::$addendums[$this->instanceId]->di->configure(self::$addendums[$this->instanceId]);
 			}
 		}
 		return $this;
@@ -308,9 +302,8 @@ class Addendum implements LoggerAwareInterface
 	 */
 	public static function cacheClear()
 	{
-		self::$_annotations = [];
-		self::$_classnames = [];
-		self::$_localCache = [];
+		self::$annotations = [];
+		self::$classNames = [];
 		Blacklister::reset();
 		Builder::clearCache();
 		(new MetaCache())->clear();
@@ -361,9 +354,9 @@ class Addendum implements LoggerAwareInterface
 		{
 			return null;
 		}
-		if (isset(self::$_classnames[$class]))
+		if (isset(self::$classNames[$class]))
 		{
-			return self::$_classnames[$class];
+			return self::$classNames[$class];
 		}
 		$matching = [];
 		foreach (self::_getDeclaredAnnotations() as $declared)
@@ -390,24 +383,24 @@ class Addendum implements LoggerAwareInterface
 				break;
 			default: trigger_error("Cannot resolve class name for '$class'. Possible matches: " . join(', ', $matching), E_USER_ERROR);
 		}
-		self::$_classnames[$class] = $result;
+		self::$classNames[$class] = $result;
 		return $result;
 	}
 
 	private static function _getDeclaredAnnotations()
 	{
-		if (!self::$_annotations)
+		if (!self::$annotations)
 		{
-			self::$_annotations = [];
+			self::$annotations = [];
 			foreach (get_declared_classes() as $class)
 			{
 				if ((new ReflectionClass($class))->implementsInterface(AnnotationInterface::class) || $class == AnnotationInterface::class)
 				{
-					self::$_annotations[] = $class;
+					self::$annotations[] = $class;
 				}
 			}
 		}
-		return self::$_annotations;
+		return self::$annotations;
 	}
 
 }
