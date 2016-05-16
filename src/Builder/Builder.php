@@ -199,9 +199,11 @@ class Builder
 	 * @param string $class
 	 * @return string
 	 */
-	private function _normalizeFqn($ns, $class)
+	private function normalizeFqn($ns, $class)
 	{
-		return preg_replace('~\\\+~', '\\', "\\$ns\\$class");
+		$fqn = "\\$ns\\$class";
+		NameNormalizer::normalize($fqn);
+		return $fqn;
 	}
 
 	/**
