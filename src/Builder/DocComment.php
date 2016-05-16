@@ -17,6 +17,7 @@ namespace Maslosoft\Addendum\Builder;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
+use Reflector;
 
 class DocComment
 {
@@ -86,7 +87,7 @@ class DocComment
 		return $result;
 	}
 
-	public function forClass($reflection)
+	public function forClass(Reflector $reflection)
 	{
 		$this->process($reflection->getFileName());
 		$fqn = $reflection->getName();
@@ -102,7 +103,7 @@ class DocComment
 		return $result;
 	}
 
-	public function forMethod($reflection)
+	public function forMethod(Reflector $reflection)
 	{
 		$this->process($reflection->getDeclaringClass()->getFileName());
 		$class = $reflection->getDeclaringClass()->getName();
@@ -110,7 +111,7 @@ class DocComment
 		return isset(self::$methods[$class][$method]) ? self::$methods[$class][$method] : false;
 	}
 
-	public function forProperty($reflection)
+	public function forProperty(Reflector $reflection)
 	{
 		$this->process($reflection->getDeclaringClass()->getFileName());
 		$class = $reflection->getDeclaringClass()->getName();
