@@ -389,7 +389,7 @@ class Addendum implements LoggerAwareInterface
 
 	private static function getDeclaredAnnotations()
 	{
-		if (!self::$annotations)
+		if (empty(self::$annotations))
 		{
 			self::$annotations = [];
 			foreach (get_declared_classes() as $class)
