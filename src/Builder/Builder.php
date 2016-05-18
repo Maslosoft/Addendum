@@ -64,50 +64,7 @@ class Builder
 		$annotations = [];
 
 
-		// Decide where from take traits and base classes.
-		// Either from class if it's being processed reflection class
-		// or from declaring class if it's being processed for properties and
-		// methods
-		if ($targetReflection instanceof ReflectionClass)
-		{
-			$targetClass = $targetReflection;
-		}
-		else
-		{
-			$targetClass = $targetReflection->getDeclaringClass();
-		}
-		$traits = $targetClass->getTraits();
-
-		// Get annotations from parent classes
-		$parentsData = [];
-		$targetParent = $targetClass;
-		while ($targetParent = $targetParent->getParentClass())
-		{
-			$parentData = $this->getDataFor($targetReflection, $targetParent->name);
-			if (false === $parentData || empty($parentData))
-			{
-				continue;
-			}
-			$parentsData = array_merge($parentsData, $parentData);
-		}
-
-		// Get annotations from traits
-		$traitsData = [];
-		foreach ($traits as $trait)
-		{
-			$traitData = $this->getDataFor($targetReflection, $trait->name);
-			if (false === $traitData)
-			{
-				continue;
-			}
-			$traitsData = array_merge($traitsData, $traitData);
-		}
-
-		// Data from class
-		$data = $this->parse($targetReflection);
-
-		// Merge data from traits
-		$data = array_merge($parentsData, $traitsData, $data);
+		$data = $this->buildOne($targetReflection);
 
 		// Get annotations from current entity
 		foreach ($data as $class => $parameters)
@@ -126,7 +83,60 @@ class Builder
 
 	private function buildOne($targetReflection)
 	{
-		
+		// Decide where from take traits and base classes.
+		// Either from class if it's being processed reflection class
+		// or from declaring class if it's being processed for properties and
+		// methods
+		if ($targetReflection instanceof ReflectionClass)
+		{
+			$targetClass = $targetReflection;
+		}
+		else
+		{
+			$targetClass = $targetReflection->getDeclaringClass();
+		}
+		$traits = $targetClass->getTraits();
+
+		// Get annotations from interfaces
+		$interfacesData = [];
+		foreach ($targetClass->getInterfaces() as $targetInterface)
+		{
+			// Recurse as interface might extend from other interfaces
+			$interfaceData = $this->buildOne($targetInterface);
+			if (empty($interfaceData))
+			{
+				continue;
+			}
+			$interfacesData = array_merge($interfacesData, $interfaceData);
+		}
+
+		// Get annotations from parent classes
+		$parentData = [];
+		$targetParent = $targetClass->getParentClass();
+		if (!empty($targetParent))
+		{
+			// Recurse if has parent class, as it might have traits 
+			// or interfaces too
+			$parentData = $this->buildOne($targetParent);
+		}
+
+		// Get annotations from traits
+		$traitsData = [];
+		foreach ($traits as $trait)
+		{
+			$traitData = $this->getDataFor($targetReflection, $trait->name);
+			if (false === $traitData || empty($traitData))
+			{
+				continue;
+			}
+			$traitsData = array_merge($traitsData, $traitData);
+		}
+
+		// Data from class
+		$data = $this->parse($targetReflection);
+
+		// Merge data from traits
+		return array_merge($interfacesData, $parentData, $traitsData, $data);
 	}
 
 	private function getDataFor($targetReflection, $name)
