@@ -62,23 +62,26 @@ class Builder
 	public function build($targetReflection)
 	{
 		$annotations = [];
-		$t = [];
+		$traits = [];
 
 
 
-		// Decide where from take traits
+		// Decide where from take traits.
+		// Either from class if it's being processed reflection class
+		// or from declaring class if it's being processed for properties and
+		// methods
 		if ($targetReflection instanceof ReflectionClass)
 		{
-			$t = $targetReflection->getTraits();
+			$traits = $targetReflection->getTraits();
 		}
 		else
 		{
-			$t = $targetReflection->getDeclaringClass()->getTraits();
+			$traits = $targetReflection->getDeclaringClass()->getTraits();
 		}
 
 		// Get annotations from traits
 		$traitsData = [];
-		foreach ($t as $trait)
+		foreach ($traits as $trait)
 		{
 			$targetTrait = new ReflectionAnnotatedClass($trait->name, $this->addendum);
 			$annotationsTrait = null;
@@ -92,7 +95,7 @@ class Builder
 				case $targetReflection instanceof ReflectionMethod && $targetTrait->hasMethod($targetReflection->name):
 					$annotationsTrait = new ReflectionAnnotatedMethod($targetTrait->name, $targetReflection->name, $this->addendum);
 					break;
-				case $targetReflection instanceof \ReflectionClass:
+				case $targetReflection instanceof ReflectionClass:
 					$annotationsTrait = $targetTrait;
 					break;
 			}
@@ -126,6 +129,11 @@ class Builder
 			}
 		}
 		return new AnnotationsCollection($annotations);
+	}
+
+	private function getDataFor($targetReflection, $name)
+	{
+
 	}
 
 	/**
