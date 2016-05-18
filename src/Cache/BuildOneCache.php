@@ -13,7 +13,7 @@ namespace Maslosoft\Addendum\Cache;
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class BuildOneCache extends MetaCache
+class BuildOneCache extends PhpCache
 {
 	
 }
