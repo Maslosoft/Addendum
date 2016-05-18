@@ -15,9 +15,15 @@
 namespace Maslosoft\Addendum\Collections;
 
 use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 
 class AnnotationsCollection
 {
+
+	/**
+	 * Annotations holder
+	 * @var AnnotationInterface[]
+	 */
 	private $annotations;
 
 	public function __construct($annotations)
@@ -25,22 +31,44 @@ class AnnotationsCollection
 		$this->annotations = $annotations;
 	}
 
-	public function hasAnnotation($class)
+	/**
+	 * Check if has annotation.
+	 * This method should be used with annotation name, not class name, ie:
+	 *
+	 * ```
+	 * $this->hasAnnotation('Label');
+	 * ```
+	 *
+	 * @param string $name
+	 * @return bool
+	 */
+	public function hasAnnotation($name)
 	{
-		$class = Addendum::resolveClassName($class);
+		$class = Addendum::resolveClassName($name);
 		return isset($this->annotations[$class]);
 	}
 
-	public function getAnnotation($class)
+	/**
+	 * Get annotation.
+	 * This method should be used with annotation name, not class name, ie:
+	 *
+	 * ```
+	 * $this->getAnnotation('Label');
+	 * ```
+	 *
+	 * @param string $name
+	 * @return AnnotationInterface
+	 */
+	public function getAnnotation($name)
 	{
-		$class = Addendum::resolveClassName($class);
+		$class = Addendum::resolveClassName($name);
 		return isset($this->annotations[$class]) ? end($this->annotations[$class]) : false;
 	}
 
 	public function getAnnotations()
 	{
 		$result = [];
-		foreach($this->annotations as $instances)
+		foreach ($this->annotations as $instances)
 		{
 			$result[] = end($instances);
 		}
@@ -56,13 +84,14 @@ class AnnotationsCollection
 	{
 		$restriction = Addendum::resolveClassName($restriction);
 		$result = [];
-		foreach($this->annotations as $class => $instances)
+		foreach ($this->annotations as $class => $instances)
 		{
-			if(!$restriction || $restriction == $class)
+			if (!$restriction || $restriction == $class)
 			{
 				$result = array_merge($result, $instances);
 			}
 		}
 		return $result;
 	}
+
 }
