@@ -62,59 +62,52 @@ class Builder
 	public function build($targetReflection)
 	{
 		$annotations = [];
-		$traits = [];
 
 
-
-		// Decide where from take traits.
+		// Decide where from take traits and base classes.
 		// Either from class if it's being processed reflection class
 		// or from declaring class if it's being processed for properties and
 		// methods
 		if ($targetReflection instanceof ReflectionClass)
 		{
-			$traits = $targetReflection->getTraits();
+			$targetClass = $targetReflection;
 		}
 		else
 		{
-			$traits = $targetReflection->getDeclaringClass()->getTraits();
+			$targetClass = $targetReflection->getDeclaringClass();
+		}
+		$traits = $targetClass->getTraits();
+
+		// Get annotations from parent classes
+		$parentsData = [];
+		$targetParent = $targetClass;
+		while ($targetParent = $targetParent->getParentClass())
+		{
+			$parentData = $this->getDataFor($targetReflection, $targetParent->name);
+			if (false === $parentData || empty($parentData))
+			{
+				continue;
+			}
+			$parentsData = array_merge($parentsData, $parentData);
 		}
 
 		// Get annotations from traits
 		$traitsData = [];
 		foreach ($traits as $trait)
 		{
-			$targetTrait = new ReflectionAnnotatedClass($trait->name, $this->addendum);
-			$annotationsTrait = null;
-
-			// Try to get annotations from entity, be it method, property or trait itself
-			switch (true)
-			{
-				case $targetReflection instanceof ReflectionProperty && $targetTrait->hasProperty($targetReflection->name):
-					$annotationsTrait = new ReflectionAnnotatedProperty($targetTrait->name, $targetReflection->name, $this->addendum);
-					break;
-				case $targetReflection instanceof ReflectionMethod && $targetTrait->hasMethod($targetReflection->name):
-					$annotationsTrait = new ReflectionAnnotatedMethod($targetTrait->name, $targetReflection->name, $this->addendum);
-					break;
-				case $targetReflection instanceof ReflectionClass:
-					$annotationsTrait = $targetTrait;
-					break;
-			}
-
-			// Does not have property or method
-			if (null === $annotationsTrait)
+			$traitData = $this->getDataFor($targetReflection, $trait->name);
+			if (false === $traitData)
 			{
 				continue;
 			}
-
-			// Data from traits
-			$traitsData = $this->parse($annotationsTrait);
+			$traitsData = array_merge($traitsData, $traitData);
 		}
 
 		// Data from class
 		$data = $this->parse($targetReflection);
 
 		// Merge data from traits
-		$data = array_merge($traitsData, $data);
+		$data = array_merge($parentsData, $traitsData, $data);
 
 		// Get annotations from current entity
 		foreach ($data as $class => $parameters)
@@ -131,9 +124,38 @@ class Builder
 		return new AnnotationsCollection($annotations);
 	}
 
+	private function buildOne($targetReflection)
+	{
+		
+	}
+
 	private function getDataFor($targetReflection, $name)
 	{
+		$target = new ReflectionAnnotatedClass($name, $this->addendum);
+		$annotations = null;
 
+		// Try to get annotations from entity, be it method, property or trait itself
+		switch (true)
+		{
+			case $targetReflection instanceof ReflectionProperty && $target->hasProperty($targetReflection->name):
+				$annotations = new ReflectionAnnotatedProperty($target->name, $targetReflection->name, $this->addendum);
+				break;
+			case $targetReflection instanceof ReflectionMethod && $target->hasMethod($targetReflection->name):
+				$annotations = new ReflectionAnnotatedMethod($target->name, $targetReflection->name, $this->addendum);
+				break;
+			case $targetReflection instanceof ReflectionClass:
+				$annotations = $target;
+				break;
+		}
+
+		// Does not have property or method
+		if (null === $annotations)
+		{
+			return false;
+		}
+
+		// Data from traits
+		return $this->parse($annotations);
 	}
 
 	/**
