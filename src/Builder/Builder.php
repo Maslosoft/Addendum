@@ -18,6 +18,7 @@ use Exception;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Collections\MatcherConfig;
+use Maslosoft\Addendum\Helpers\CoarseChecker;
 use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
@@ -62,7 +63,6 @@ class Builder
 	public function build($targetReflection)
 	{
 		$annotations = [];
-
 
 		$data = $this->buildOne($targetReflection);
 
@@ -139,6 +139,12 @@ class Builder
 		return array_merge($interfacesData, $parentData, $traitsData, $data);
 	}
 
+	/**
+	 *
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $targetReflection
+	 * @param string $name
+	 * @return boolean|mixed
+	 */
 	private function getDataFor($targetReflection, $name)
 	{
 		$target = new ReflectionAnnotatedClass($name, $this->addendum);
@@ -164,7 +170,7 @@ class Builder
 			return false;
 		}
 
-		// Data from traits
+		// Data from target
 		return $this->parse($annotations);
 	}
 
@@ -254,9 +260,15 @@ class Builder
 	 */
 	private function parse($reflection)
 	{
-		$key = ReflectionName::createName($reflection);
+		$key = sprintf('%s@%s', $this->addendum->getInstanceId(), ReflectionName::createName($reflection));
 		if (!isset(self::$cache[$key]))
 		{
+			//
+			if (!CoarseChecker::mightHaveAnnotations($reflection))
+			{
+				self::$cache[$key] = [];
+				return self::$cache[$key];
+			}
 			$parser = new AnnotationsMatcher;
 			$data = [];
 			$parser->setPlugins(new MatcherConfig([

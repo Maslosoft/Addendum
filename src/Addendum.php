@@ -53,6 +53,13 @@ class Addendum implements LoggerAwareInterface
 	public $runtimePath = 'runtime';
 
 	/**
+	 * Whether to check modification time of file to invalidate cache.
+	 * Set this to true for development, and false for production.
+	 * @var bool
+	 */
+	public $checkMTime = false;
+
+	/**
 	 * Namespaces to check for annotations.
 	 * By default global and addendum namespace is included.
 	 * @var string[]
@@ -161,6 +168,11 @@ class Addendum implements LoggerAwareInterface
 			self::$addendums[$instanceId] = (new Addendum($instanceId))->init();
 		}
 		return self::$addendums[$instanceId];
+	}
+
+	public function getInstanceId()
+	{
+		return $this->instanceId;
 	}
 
 	/**

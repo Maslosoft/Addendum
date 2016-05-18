@@ -24,9 +24,10 @@ use Maslosoft\Cli\Shared\ConfigDetector;
 use Maslosoft\Cli\Shared\Helpers\PhpExporter;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use ReflectionClass;
 use RuntimeException;
 
-class MetaCache
+class MetaCache extends PhpCache
 {
 
 	private $metaClass = null;
@@ -51,6 +52,12 @@ class MetaCache
 	private $nsCache = null;
 
 	/**
+	 *
+	 * @var Addendum
+	 */
+	private $addendum = null;
+
+	/**
 	 * Runtime path
 	 * @var string
 	 */
@@ -62,7 +69,13 @@ class MetaCache
 	 */
 	private static $cache = [];
 
-	public function __construct($metaClass = null, AnnotatedInterface $component = null, MetaOptions $options = null)
+	/**
+	 *
+	 * @param string $metaClass
+	 * @param AnnotatedInterface|string $component
+	 * @param MetaOptions $options
+	 */
+	public function __construct($metaClass = null, $component = null, MetaOptions $options = null)
 	{
 		if (null === self::$runtimePath)
 		{
@@ -79,10 +92,15 @@ class MetaCache
 		{
 			$this->instanceId = $options->instanceId;
 		}
-		$this->nsCache = new NsCache(dirname($this->getFilename()), Addendum::fly($this->instanceId));
+		$this->addendum = Addendum::fly($this->instanceId);
+		$this->nsCache = new NsCache(dirname($this->getFilename()), $this->addendum);
 	}
 
-	public function setComponent(AnnotatedInterface $component = null)
+	/**
+	 * Set working component
+	 * @param AnnotatedInterface|string $component
+	 */
+	public function setComponent($component = null)
 	{
 		$this->component = $component;
 	}
@@ -126,51 +144,62 @@ class MetaCache
 	public function get()
 	{
 		$this->prepare();
-		$filename = $this->getFilename();
+		$fileName = $this->getFilename();
 
 		if (!$this->nsCache->valid())
 		{
-			$this->clearCurrent();
+			$this->clearCurrentPath();
 			return false;
 		}
-
-		if (isset(self::$cache[$filename]))
+		$key = $this->getCacheKey($fileName);
+		if (isset(self::$cache[$key]))
 		{
-			return self::$cache[$filename];
+			return self::$cache[$key];
 		}
 
-		$data = SoftIncluder::includeFile($filename);
+		$data = SoftIncluder::includeFile($fileName);
 
 		if (empty($data))
 		{
 			return false;
 		}
-		self::$cache[$filename] = $data;
+
+		// Purge file cache if checkMTime is enabled and file obsolete
+		if ($this->addendum->checkMTime)
+		{
+			$cacheTime = filemtime($fileName);
+			$componentTime = filemtime((new ReflectionClass($this->component))->getFileName());
+			if ($componentTime > $cacheTime)
+			{
+				$this->clearCurrentFile();
+				return false;
+			}
+		}
+		self::$cache[$key] = $data;
 		return $data;
 	}
 
 	public function set(Meta $meta)
 	{
+		$fileName = $this->getFilename();
+		$this->prepare();
+		$key = $this->getCacheKey($fileName);
+		self::$cache[$key] = $meta;
 
-
-
-		$filename = $this->getFilename();
-
-		self::$cache[$filename] = $meta;
-
-		file_put_contents($filename, PhpExporter::export($meta));
-		chmod($filename, 0666);
+		file_put_contents($fileName, PhpExporter::export($meta));
+		chmod($fileName, 0666);
 		$this->nsCache->set();
 		return $meta;
 	}
 
 	public function remove()
 	{
-		$filename = $this->getFilename();
-		unset(self::$cache[$filename]);
-		if (file_exists($filename))
+		$fileName = $this->getFilename();
+		$key = $this->getCacheKey($fileName);
+		unset(self::$cache[$key]);
+		if (file_exists($fileName))
 		{
-			return unlink($filename);
+			return unlink($fileName);
 		}
 		return false;
 	}
@@ -184,9 +213,14 @@ class MetaCache
 		return $this->clearPath($this->path);
 	}
 
-	private function clearCurrent()
+	private function clearCurrentPath()
 	{
-		return $this->classToFile(dirname($this->getFilename()));
+		return $this->clearPath(dirname($this->getFilename()));
+	}
+
+	private function clearCurrentFile()
+	{
+		return $this->clearPath($this->getFilename());
 	}
 
 	private function clearPath($path)
@@ -204,9 +238,27 @@ class MetaCache
 
 	private function getFilename()
 	{
-		return sprintf('%s/%s@%s/%s.php', $this->path, $this->classToFile($this->metaClass), $this->instanceId, str_replace('\\', '/', $this->classToFile(get_class($this->component))));
+		if (is_object($this->component))
+		{
+			$className = get_class($this->component);
+		}
+		else
+		{
+			$className = $this->component;
+		}
+		return sprintf('%s/%s@%s/%s.php', $this->path, $this->classToFile($this->metaClass), $this->instanceId, str_replace('\\', '/', $this->classToFile($className)));
 	}
 
+	private function getCacheKey($fileName)
+	{
+		return sprintf('%s@%s', static::class, $fileName);
+	}
+
+	/**
+	 * Convert slash separated class name to dot separated name.
+	 * @param string $className
+	 * @return string
+	 */
 	private function classToFile($className)
 	{
 		return str_replace('\\', '.', $className);
