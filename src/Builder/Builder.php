@@ -16,6 +16,7 @@ namespace Maslosoft\Addendum\Builder;
 
 use Exception;
 use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Cache\BuildOneCache;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Helpers\CoarseChecker;
@@ -50,9 +51,16 @@ class Builder
 	 */
 	private $addendum = null;
 
+	/**
+	 * One entity build cache
+	 * @var BuildOneCache
+	 */
+	private $buildCache = null;
+
 	public function __construct(Addendum $addendum = null)
 	{
 		$this->addendum = $addendum? : new Addendum();
+		$this->buildCache = new BuildOneCache(static::class, null, $this->addendum);
 	}
 
 	/**
@@ -78,6 +86,8 @@ class Builder
 				}
 			}
 		}
+
+
 		return new AnnotationsCollection($annotations);
 	}
 
@@ -94,6 +104,21 @@ class Builder
 		else
 		{
 			$targetClass = $targetReflection->getDeclaringClass();
+		}
+
+		// Check if currently reflected component is cached
+		$this->buildCache->setComponent(ReflectionName::createName($targetReflection));
+		$cached = $this->buildCache->get();
+
+		// Check if currently reflected component class is cached
+		$this->buildCache->setComponent(ReflectionName::createName($targetClass));
+		$cachedClass = $this->buildCache->get();
+
+		// Cache is valid only if class cache is valid,
+		// this is required for Conflicts and Target checks
+		if (false !== $cached && false !== $cachedClass)
+		{
+			return $cached;
 		}
 		$traits = $targetClass->getTraits();
 
@@ -133,10 +158,12 @@ class Builder
 		}
 
 		// Data from class
-		$data = $this->parse($targetReflection);
+		$data = array_merge($interfacesData, $parentData, $traitsData, $this->parse($targetReflection));
 
+		$this->buildCache->setComponent(ReflectionName::createName($targetReflection));
+		$this->buildCache->set($data);
 		// Merge data from traits
-		return array_merge($interfacesData, $parentData, $traitsData, $data);
+		return $data;
 	}
 
 	/**
@@ -218,8 +245,8 @@ class Builder
 		}
 		try
 		{
-			// NOTE: @ need to be used here or php might complain
-			if (@!class_exists($fqn))
+			// NOTE: was class_exists here, however should be safe to use ClassChecker::exists here
+			if (!ClassChecker::exists($fqn))
 			{
 				$this->addendum->getLogger()->debug('Annotation class `{fqn}` not found, ignoring', ['fqn' => $fqn]);
 				Blacklister::ignore($fqn);
