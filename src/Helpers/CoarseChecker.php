@@ -27,6 +27,7 @@ class CoarseChecker
 	 * It does not ensure that file really contains anniotations.
 	 *
 	 * @param string|Reflector|object $entity
+	 * @return bool
 	 */
 	public static function mightHaveAnnotations($entity)
 	{
@@ -55,10 +56,9 @@ class CoarseChecker
 		if (empty($file) || !is_string($file))
 		{
 			return false;
-//			throw new \UnexpectedValueException(sprintf('Should provide file name, got: %s', gettype($file)));
 		}
 		$content = file_get_contents($file);
-		return preg_match('~@[A-Z]~', $content);
+		return !!preg_match('~@[A-Z]~', $content);
 	}
 
 }
