@@ -33,17 +33,17 @@ class ReflectionName
 	 */
 	public static function createName($target)
 	{
-		if(!$target)
+		if (!$target)
 		{
 			return 'unknown';
 		}
 		if ($target instanceof ReflectionMethod)
 		{
-			return $target->getDeclaringClass()->name . '::' . $target->name . '()';
+			return $target->getDeclaringClass()->name . '@' . $target->name . '()';
 		}
 		elseif ($target instanceof ReflectionProperty)
 		{
-			return $target->getDeclaringClass()->name . '::$' . $target->name;
+			return $target->getDeclaringClass()->name . '@$' . $target->name;
 		}
 		else
 		{
