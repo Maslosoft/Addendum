@@ -81,7 +81,7 @@
                 "shasum": "",
                 "mirrors": [
                     {
-                        "url": "http://pkg.home/repo/packagist/dists/%package%/%version%/%reference%.%type%",
+                        "url": "http://pkg.maslosoft.com/repo/packagist/dists/%package%/%version%/%reference%.%type%",
                         "preferred": true
                     }
                 ]
@@ -186,7 +186,7 @@
                 "shasum": "",
                 "mirrors": [
                     {
-                        "url": "http://pkg.home/repo/packagist/dists/%package%/%version%/%reference%.%type%",
+                        "url": "http://pkg.maslosoft.com/repo/packagist/dists/%package%/%version%/%reference%.%type%",
                         "preferred": true
                     }
                 ]
@@ -947,7 +947,7 @@
                 "shasum": "",
                 "mirrors": [
                     {
-                        "url": "http://pkg.home/repo/packagist/dists/%package%/%version%/%reference%.%type%",
+                        "url": "http://pkg.maslosoft.com/repo/packagist/dists/%package%/%version%/%reference%.%type%",
                         "preferred": true
                     }
                 ]
@@ -1119,7 +1119,7 @@
                 "shasum": "",
                 "mirrors": [
                     {
-                        "url": "http://pkg.home/repo/packagist/dists/%package%/%version%/%reference%.%type%",
+                        "url": "http://pkg.maslosoft.com/repo/packagist/dists/%package%/%version%/%reference%.%type%",
                         "preferred": true
                     }
                 ]
