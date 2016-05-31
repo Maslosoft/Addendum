@@ -71,7 +71,7 @@ abstract class PhpCache
 	/**
 	 * Hash map of prepared directories
 	 * Key is directory, value is flag indicating if it's prepared.
-	 * @var bool
+	 * @var bool[]
 	 */
 	private static $prepared = [];
 	private $fileName = null;
