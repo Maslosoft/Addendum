@@ -107,7 +107,7 @@ abstract class PhpCache
 		{
 			throw new UnexpectedValueException('Unknown options');
 		}
-
+		$this->prepare();
 		$this->addendum = Addendum::fly($this->instanceId);
 		$this->nsCache = new NsCache(dirname($this->getFilename()), $this->addendum);
 	}
@@ -125,13 +125,14 @@ abstract class PhpCache
 
 	public function setOptions(MetaOptions $options = null)
 	{
+		$this->fileName = null;
 		$this->nsCache->setOptions($options);
 	}
 
 	private function prepare()
 	{
 		$fileDir = dirname($this->getFilename());
-		if (self::$prepared[$fileDir])
+		if (isset(self::$prepared[$fileDir]) && self::$prepared[$fileDir])
 		{
 			return true;
 		}
@@ -245,12 +246,14 @@ abstract class PhpCache
 	 */
 	public function clear()
 	{
+		self::$prepared = [];
 		return $this->clearPath($this->path);
 	}
 
 	private function clearCurrentPath()
 	{
-		return $this->clearPath(dirname($this->getFilename()));
+		$path = dirname($this->getFilename());
+		return $this->clearPath($path);
 	}
 
 	private function clearPath($path)
@@ -263,6 +266,7 @@ abstract class PhpCache
 		{
 			$dir->isDir() && !$dir->isLink() ? rmdir($dir->getPathname()) : unlink($dir->getPathname());
 		}
+		self::$prepared[$path] = false;
 		return rmdir($path);
 	}
 
