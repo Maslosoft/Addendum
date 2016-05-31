@@ -14,6 +14,8 @@ env:
   - ADDENDUM_CACHE_CLEAR=1
 install:
   - composer install --dev --prefer-dist
-  - composer update maslosoft/addendumtest
+  # Get fresh tests
+  - rm -rf vendor/maslosoft/addendumtest
+  - git clone https://github.com/Maslosoft/AddendumTest.git vendor/maslosoft/addendumtest
 script:
   - run-travis
