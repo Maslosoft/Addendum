@@ -15,7 +15,10 @@
 namespace Maslosoft\Addendum\Helpers;
 
 /**
- * Fenceout
+ * Remove fence-like doc comments from comment block.
+ *
+ * This is used to remove comments blocks from parsing,
+ * so php docs can contain annotations example usage.
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
