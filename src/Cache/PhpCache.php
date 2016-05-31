@@ -69,6 +69,14 @@ abstract class PhpCache
 	private static $cache = [];
 
 	/**
+	 * Hash map of prepared directories
+	 * Key is directory, value is flag indicating if it's prepared.
+	 * @var bool
+	 */
+	private static $prepared = [];
+	private $fileName = null;
+
+	/**
 	 *
 	 * @param string $metaClass
 	 * @param AnnotatedInterface|string $component
@@ -99,6 +107,7 @@ abstract class PhpCache
 		{
 			throw new UnexpectedValueException('Unknown options');
 		}
+
 		$this->addendum = Addendum::fly($this->instanceId);
 		$this->nsCache = new NsCache(dirname($this->getFilename()), $this->addendum);
 	}
@@ -109,6 +118,8 @@ abstract class PhpCache
 	 */
 	public function setComponent($component = null)
 	{
+		// Reset filename as it depends on component
+		$this->fileName = null;
 		$this->component = $component;
 	}
 
@@ -119,6 +130,11 @@ abstract class PhpCache
 
 	private function prepare()
 	{
+		$fileDir = dirname($this->getFilename());
+		if (self::$prepared[$fileDir])
+		{
+			return true;
+		}
 		if (!file_exists($this->path))
 		{
 			if (!file_exists(self::$runtimePath))
@@ -142,10 +158,11 @@ abstract class PhpCache
 				throw new RuntimeException(sprintf("Addendum runtime path `%s` must exists and be writable", $this->path));
 			}
 		}
-		if (!file_exists(dirname($this->getFilename())))
+		if (!file_exists($fileDir))
 		{
-			$this->mkdir(dirname($this->getFilename()));
+			$this->mkdir($fileDir);
 		}
+		self::$prepared[$fileDir] = true;
 	}
 
 	public function get()
@@ -251,6 +268,10 @@ abstract class PhpCache
 
 	private function getFilename()
 	{
+		if (!empty($this->fileName))
+		{
+			return $this->fileName;
+		}
 		if (is_object($this->component))
 		{
 			$className = get_class($this->component);
@@ -259,7 +280,8 @@ abstract class PhpCache
 		{
 			$className = $this->component;
 		}
-		return sprintf('%s/%s@%s/%s.php', $this->path, $this->classToFile($this->metaClass), $this->instanceId, str_replace('\\', '/', $this->classToFile($className)));
+		$this->fileName = sprintf('%s/%s@%s/%s.php', $this->path, $this->classToFile($this->metaClass), $this->instanceId, str_replace('\\', '/', $this->classToFile($className)));
+		return $this->fileName;
 	}
 
 	private function getCacheKey()
