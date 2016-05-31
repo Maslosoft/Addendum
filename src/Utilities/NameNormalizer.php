@@ -39,6 +39,7 @@ class NameNormalizer
 		{
 			$className = '\\' . $className;
 		}
+		return $className;
 	}
 
 }
