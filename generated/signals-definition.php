@@ -4,7 +4,7 @@ return [
 	'signals' => [
 		'\\Maslosoft\\Addendum\\Signals\\NamespacesSignal' => [
 			'\\Maslosoft\\AddendumTest\\Annotations\\SignaledNs\\SlotForNamespace' => [
-				0 => 'reactOn()',
+				'\\Maslosoft\\AddendumTest\\Annotations\\SignaledNs\\SlotForNamespace@reactOn@()' => 'reactOn()',
 			],
 		],
 	],
