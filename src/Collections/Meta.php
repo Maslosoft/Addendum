@@ -220,7 +220,7 @@ class Meta
 	/**
 	 * Set state implementation
 	 * @param mixed $data
-	 * @return Meta
+	 * @return static
 	 */
 	public static function __set_state($data)
 	{
@@ -237,7 +237,7 @@ class Meta
 	 * Calling this function will create new instance only if it's not stored in cache.
 	 * This allows very effective retrieving of `Meta` container's meta data, without need of parsing annotations.
 	 * @param AnnotatedInterface $component
-	 * @return Meta
+	 * @return static
 	 */
 	public static function create(AnnotatedInterface $component, MetaOptions $options = null)
 	{
