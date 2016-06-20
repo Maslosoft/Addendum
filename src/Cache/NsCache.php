@@ -46,7 +46,7 @@ class NsCache
 	public function __construct($path, Addendum $addendum, MetaOptions $options = null)
 	{
 		$this->file = sprintf('%s/%s', $path, self::FileName);
-		$this->ad = $addendum;
+		$this->ad = clone $addendum;
 		$this->setOptions($options);
 	}
 
