@@ -56,7 +56,7 @@ class FileWalker
 	private $visited = [];
 
 	/**
-	 * Wether sum was parsed
+	 * Whether sum was parsed. This is to avoid duplicated files parsing.
 	 * @var bool[]
 	 */
 	private $sum = [];
@@ -84,7 +84,7 @@ class FileWalker
 
 	private function scan($path)
 	{
-		// Check if should be visited
+		// Check if should be visited. Using realpath prevents symlink loops.
 		$real = realpath($path);
 		if (!empty($this->visited[$real]))
 		{
