@@ -221,11 +221,11 @@
         },
         {
             "name": "maslosoft/signals",
-            "version": "1.1.16",
+            "version": "1.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/Signals.git",
-                "reference": "0f253bdeb78f5eb9a79da941a163dea78a0f72e1",
+                "reference": "7f35a082f32578313b057f5a66266bbfb866cbb1",
                 "mirrors": [
                     {
                         "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
@@ -235,8 +235,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/0f253bdeb78f5eb9a79da941a163dea78a0f72e1",
-                "reference": "0f253bdeb78f5eb9a79da941a163dea78a0f72e1",
+                "url": "https://api.github.com/repos/Maslosoft/Signals/zipball/7f35a082f32578313b057f5a66266bbfb866cbb1",
+                "reference": "7f35a082f32578313b057f5a66266bbfb866cbb1",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -286,7 +286,7 @@
                 "slot",
                 "slots"
             ],
-            "time": "2016-04-26 13:24:38"
+            "time": "2016-06-15 14:06:27"
         },
         {
             "name": "psr/log",
@@ -571,55 +571,6 @@
                 "unit testing"
             ],
             "time": "2016-06-03 12:44:06"
-        },
-        {
-            "name": "codeception/specify",
-            "version": "0.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Codeception/Specify.git",
-                "reference": "8efcd017687ebdae9c4d95bcbc1dc22a28561874",
-                "mirrors": [
-                    {
-                        "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Specify/zipball/8efcd017687ebdae9c4d95bcbc1dc22a28561874",
-                "reference": "8efcd017687ebdae9c4d95bcbc1dc22a28561874",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://pkg.maslosoft.com/repo/packagist/dists/%package%/%version%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "myclabs/deep-copy": "~1.1",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Codeception\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Michael Bodnarchuk",
-                    "email": "davert.php@mailican.com"
-                }
-            ],
-            "description": "BDD code blocks for PHPUnit and Codeception",
-            "time": "2015-11-26 23:35:52"
         },
         {
             "name": "doctrine/instantiator",
@@ -956,7 +907,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/AddendumTest.git",
-                "reference": "f0232d08255655d8a2de1f2444adb22a2d1d98a4",
+                "reference": "cc67786ee670bfd72e9acdabbd844257182bcaab",
                 "mirrors": [
                     {
                         "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
@@ -966,8 +917,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/f0232d08255655d8a2de1f2444adb22a2d1d98a4",
-                "reference": "f0232d08255655d8a2de1f2444adb22a2d1d98a4",
+                "url": "https://api.github.com/repos/Maslosoft/AddendumTest/zipball/cc67786ee670bfd72e9acdabbd844257182bcaab",
+                "reference": "cc67786ee670bfd72e9acdabbd844257182bcaab",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -977,8 +928,7 @@
                 ]
             },
             "require": {
-                "codeception/codeception": "*",
-                "codeception/specify": "0.4.*"
+                "codeception/codeception": "*"
             },
             "type": "library",
             "autoload": {
@@ -1001,7 +951,7 @@
                 }
             ],
             "description": "Tests for addendum",
-            "time": "2016-05-31 09:45:02"
+            "time": "2016-06-20 13:11:37"
         },
         {
             "name": "maslosoft/hedron",
@@ -1060,60 +1010,6 @@
             "description": "PHP source code class header applier",
             "homepage": "http://maslosoft.com/hedron/",
             "time": "2016-06-14 13:54:23"
-        },
-        {
-            "name": "myclabs/deep-copy",
-            "version": "1.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "a8773992b362b58498eed24bf85005f363c34771",
-                "mirrors": [
-                    {
-                        "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/a8773992b362b58498eed24bf85005f363c34771",
-                "reference": "a8773992b362b58498eed24bf85005f363c34771",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://pkg.maslosoft.com/repo/packagist/dists/%package%/%version%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "doctrine/collections": "1.*",
-                "phpunit/phpunit": "~4.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "DeepCopy\\": "src/DeepCopy/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Create deep copies (clones) of your objects",
-            "homepage": "https://github.com/myclabs/DeepCopy",
-            "keywords": [
-                "clone",
-                "copy",
-                "duplicate",
-                "object",
-                "object graph"
-            ],
-            "time": "2015-11-20 12:04:31"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -2091,11 +1987,11 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "7ae5513327cb536431847bcc0c10edba2701064e",
+                "reference": "42c4c2eec485ee3e159ec9884f95b431287edde4",
                 "mirrors": [
                     {
                         "url": "peter@pkg.maslosoft.com/%package%/%normalizedUrl%.%type%",
@@ -2105,8 +2001,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/7ae5513327cb536431847bcc0c10edba2701064e",
-                "reference": "7ae5513327cb536431847bcc0c10edba2701064e",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/42c4c2eec485ee3e159ec9884f95b431287edde4",
+                "reference": "42c4c2eec485ee3e159ec9884f95b431287edde4",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2120,12 +2016,13 @@
                 "sebastian/recursion-context": "~1.0"
             },
             "require-dev": {
+                "ext-mbstring": "*",
                 "phpunit/phpunit": "~4.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.3.x-dev"
                 }
             },
             "autoload": {
@@ -2165,7 +2062,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2015-06-21 07:55:53"
+            "time": "2016-06-17 09:04:28"
         },
         {
             "name": "sebastian/global-state",
