@@ -28,12 +28,16 @@ class ParamsExpander
 	 * Expand params to annotation values.
 	 * When annotation is used with multi top values, this will help assign this values to annotation.
 	 * Examples of multi valued params include:
-	 * <ul>
-	 * <li>&commat;Annotation(Class\Literal, 2)</li>
-	 * <li>&commat;Annotation(class = Class\Literal, items = 2)</li>
-	 * </ul>
+	 *
+	 * ```
+	 * @Annotation(Class\Literal, 2)
+	 * @Annotation(class = Class\Literal, items = 2)
+	 * ```
+	 *
 	 * Example of use:
-	 * 		ParamsExpander::expand($annotation, ['class', 'items'])
+	 * ```
+	 * $data = ParamsExpander::expand($annotation, ['class', 'items'])
+	 * ```
 	 * This will assign `$annotation->class` and `$annotation->items` with named or anonymous params (based on order of params).
 	 * @param AnnotationInterface $annotation
 	 * @param string[] $params List of parameters names in order.
@@ -44,7 +48,7 @@ class ParamsExpander
 	{
 		if (!empty($annotation->value))
 		{
-			$values = $values? : (array) $annotation->value;
+			$values = $values ?: (array) $annotation->value;
 		}
 		$data = [];
 		foreach ($params as $key => $name)
