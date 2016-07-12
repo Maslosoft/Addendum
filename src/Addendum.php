@@ -345,7 +345,7 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Set raw parsing mode
+	 * This method has no effect
 	 * @deprecated Since 4.0.4 this has no effect
 	 * @param bool $enabled
 	 */
