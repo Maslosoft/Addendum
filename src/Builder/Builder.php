@@ -59,7 +59,7 @@ class Builder
 
 	public function __construct(Addendum $addendum = null)
 	{
-		$this->addendum = $addendum? : new Addendum();
+		$this->addendum = $addendum ?: new Addendum();
 		$this->buildCache = new BuildOneCache(static::class, null, $this->addendum);
 	}
 
@@ -87,7 +87,6 @@ class Builder
 			}
 		}
 
-
 		return new AnnotationsCollection($annotations);
 	}
 
@@ -110,7 +109,7 @@ class Builder
 		$this->buildCache->setComponent(ReflectionName::createName($targetReflection));
 		$cached = $this->buildCache->get();
 
-		// Check if currently reflected component class is cached
+		// Check if currently reflected component *class* is cached
 		$this->buildCache->setComponent(ReflectionName::createName($targetClass));
 		$cachedClass = $this->buildCache->get();
 
@@ -157,12 +156,12 @@ class Builder
 			$traitsData = array_merge($traitsData, $traitData);
 		}
 
+		// Merge data from traits etc.
 		// Data from class
 		$data = array_merge($interfacesData, $parentData, $traitsData, $this->parse($targetReflection));
 
 		$this->buildCache->setComponent(ReflectionName::createName($targetReflection));
 		$this->buildCache->set($data);
-		// Merge data from traits
 		return $data;
 	}
 
