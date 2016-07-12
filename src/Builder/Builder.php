@@ -32,6 +32,7 @@ use Maslosoft\Addendum\Utilities\ReflectionName;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
+use Reflector;
 
 /**
  * @Label("Annotations builder")
@@ -92,6 +93,10 @@ class Builder
 
 	private function buildOne($targetReflection)
 	{
+		if (empty($targetReflection))
+		{
+			return [];
+		}
 		// Decide where from take traits and base classes.
 		// Either from class if it's being processed reflection class
 		// or from declaring class if it's being processed for properties and
@@ -126,7 +131,7 @@ class Builder
 		foreach ($targetClass->getInterfaces() as $targetInterface)
 		{
 			// Recurse as interface might extend from other interfaces
-			$interfaceData = $this->buildOne($targetInterface);
+			$interfaceData = $this->buildOne($this->getRelated($targetReflection, $targetInterface));
 			if (empty($interfaceData))
 			{
 				continue;
@@ -141,7 +146,7 @@ class Builder
 		{
 			// Recurse if has parent class, as it might have traits 
 			// or interfaces too
-			$parentData = $this->buildOne($targetParent);
+			$parentData = $this->buildOne($this->getRelated($targetReflection, $targetParent));
 		}
 
 		// Get annotations from traits
@@ -163,6 +168,32 @@ class Builder
 		$this->buildCache->setComponent(ReflectionName::createName($targetReflection));
 		$this->buildCache->set($data);
 		return $data;
+	}
+
+	/**
+	 * Get reflection for related target reflection. 
+	 * Will return class, property or method reflection from related reflection, 
+	 * based on type of target reflection.
+	 *
+	 * Will return false target reflection id for method or property, and
+	 * method or property does not exists on related reflection.
+	 *
+	 * @param Reflector $targetReflection
+	 * @param ReflectionClass $relatedReflection
+	 * @return ReflectionClass|ReflectionProperty|ReflectionMethod|bool
+	 */
+	private function getRelated(Reflector $targetReflection, ReflectionClass $relatedReflection)
+	{
+		switch (true)
+		{
+			case $targetReflection instanceof ReflectionClass:
+				return $relatedReflection;
+			case $targetReflection instanceof ReflectionProperty && $relatedReflection->hasProperty($targetReflection->name):
+				return $relatedReflection->getProperty($targetReflection->name);
+			case $targetReflection instanceof ReflectionMethod && $relatedReflection->hasMethod($targetReflection->name):
+				return $relatedReflection->getMethod($targetReflection->name);
+		}
+		return false;
 	}
 
 	/**
