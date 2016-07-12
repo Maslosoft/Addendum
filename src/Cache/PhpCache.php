@@ -184,7 +184,9 @@ abstract class PhpCache
 
 		$data = SoftIncluder::includeFile($fileName);
 
-		if (empty($data))
+		// Only false means not existing cache.
+		// NOTE: Cache might have valid `empty` value, ie. empty array.
+		if (false === $data)
 		{
 			return false;
 		}
