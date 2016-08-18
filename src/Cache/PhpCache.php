@@ -27,6 +27,11 @@ abstract class PhpCache
 {
 
 	private $metaClass = null;
+
+	/**
+	 *
+	 * @var AnnotatedInterface|object|string
+	 */
 	private $component = null;
 
 	/**
@@ -76,7 +81,7 @@ abstract class PhpCache
 	/**
 	 *
 	 * @param string $metaClass
-	 * @param AnnotatedInterface|string $component
+	 * @param AnnotatedInterface|object|string $component
 	 * @param MetaOptions|Addendum $options
 	 */
 	public function __construct($metaClass = null, $component = null, $options = null)
@@ -111,7 +116,7 @@ abstract class PhpCache
 
 	/**
 	 * Set working component
-	 * @param AnnotatedInterface|string $component
+	 * @param AnnotatedInterface|object|string $component
 	 */
 	public function setComponent($component = null)
 	{
