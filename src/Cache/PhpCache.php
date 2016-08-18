@@ -171,7 +171,13 @@ abstract class PhpCache
 		$this->prepare();
 		$fileName = $this->getFilename();
 
-		if (!$this->nsCache->valid())
+		if (!NsCache::$addeNs)
+		{
+//			codecept_debug('Skip cache check');
+//			var_dump('Will skip cache check');
+//			exit;
+		}
+		if (NsCache::$addeNs && !$this->nsCache->valid())
 		{
 			$this->clearCurrentPath();
 			return false;
@@ -264,12 +270,29 @@ abstract class PhpCache
 		{
 			return false;
 		}
-		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST) as $dir)
+		foreach (new \DirectoryIterator($path) as $dir)
 		{
-			$dir->isDir() && !$dir->isLink() ? rmdir($dir->getPathname()) : unlink($dir->getPathname());
+			if ($dir->isDot() || !$dir->isDir())
+			{
+				continue;
+			}
+			foreach (new \DirectoryIterator($dir->getPathname()) as $file)
+			{
+				if (!$file->isFile())
+				{
+					continue;
+				}
+
+				// Skip ns cache file, or it might regenerate over and over
+				// ns file cache is replaced when needed by NsCache
+				if ($file->getBasename() === NsCache::FileName)
+				{
+					continue;
+				}
+				unlink($file->getPathname());
+			}
 		}
 		self::$prepared[$path] = false;
-		return rmdir($path);
 	}
 
 	private function getFilename()
