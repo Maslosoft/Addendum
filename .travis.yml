@@ -10,6 +10,9 @@ matrix:
   allow_failures:
     - php:
       - nightly
+cache:
+  directories:
+    - vendor
 env:
   - ADDENDUM_CACHE_CLEAR=0
   - ADDENDUM_CACHE_CLEAR=1
