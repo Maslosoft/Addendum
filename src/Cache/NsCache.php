@@ -104,6 +104,7 @@ class NsCache
 
 	public function set()
 	{
+		$ns = [];
 		foreach (array_keys($this->namespaces) as $name)
 		{
 			$ns[$name] = true;
