@@ -212,7 +212,7 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Chech if class could have annotations.
+	 * Check if class could have annotations.
 	 * **NOTE:**
 	 * > This does not check check if class have annotations. It only checks if it implements `AnnotatedInterface`
 	 * @param string|object $class
