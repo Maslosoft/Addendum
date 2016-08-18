@@ -171,12 +171,6 @@ abstract class PhpCache
 		$this->prepare();
 		$fileName = $this->getFilename();
 
-		if (!NsCache::$addeNs)
-		{
-//			codecept_debug('Skip cache check');
-//			var_dump('Will skip cache check');
-//			exit;
-		}
 		if (NsCache::$addeNs && !$this->nsCache->valid())
 		{
 			$this->clearCurrentPath();
