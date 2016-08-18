@@ -132,7 +132,8 @@ class FileWalker
 				continue;
 			}
 
-			$parse = false;
+			// If patterns are empty, parse every file
+			$parse = empty($this->patterns);
 
 			if (is_readable($file))
 			{
