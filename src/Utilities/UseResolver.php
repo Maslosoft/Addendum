@@ -16,6 +16,8 @@ namespace Maslosoft\Addendum\Utilities;
 
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Utilities\NameNormalizer;
+use ReflectionMethod;
+use ReflectionProperty;
 use Reflector;
 
 /**
@@ -34,6 +36,10 @@ class UseResolver
 	 */
 	public static function resolve(Reflector $reflection, $className)
 	{
+		if ($reflection instanceof ReflectionProperty || $reflection instanceof ReflectionMethod)
+		{
+			$reflection = $reflection->getDeclaringClass();
+		}
 		$docs = (new DocComment())->forClass($reflection);
 		$use = $docs['use'];
 		$ns = $docs['namespace'];
