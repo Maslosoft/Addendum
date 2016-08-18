@@ -42,25 +42,38 @@ class NsCache
 	 * @var
 	 */
 	private static $nsCache = [];
+
+	/**
+	 * Hash map of namespaces.
+	 * Namespaces is key, while value is boolean and is not really relevant
+	 * @var array
+	 */
 	private $namespaces;
+
+	/**
+	 * @internal Flag that will trigger cache validity check for namespaces cache
+	 * @var bool
+	 */
+	public static $addeNs = true;
 
 	public function __construct($path, Addendum $addendum, MetaOptions $options = null)
 	{
 		$this->file = sprintf('%s/%s', $path, self::FileName);
-		$this->namespaces = $addendum->namespaces;
+		$this->namespaces = $addendum->nameKeys;
 		$this->ad = $addendum;
 		$this->setOptions($options);
 	}
 
 	public function setOptions(MetaOptions $options = null)
 	{
-		if (!empty($options))
+		if (!empty($options) && !empty($options->namespaces))
 		{
 			foreach ($options->namespaces as $ns)
 			{
-				if (!$this->isValid($ns))
+				if (empty($this->namespaces[$ns]))
 				{
-					$this->addNs($ns);
+					self::$addeNs = true;
+					$this->namespaces[$ns] = true;
 				}
 			}
 		}
@@ -91,7 +104,7 @@ class NsCache
 
 	public function set()
 	{
-		foreach ($this->namespaces as $name)
+		foreach (array_keys($this->namespaces) as $name)
 		{
 			$ns[$name] = true;
 		}
@@ -119,31 +132,29 @@ class NsCache
 			return true;
 		}
 
-		// Detect dynamically added namespaces
-		$diff = array_diff($this->ad->namespaces, $this->namespaces);
-		if (!empty($diff))
+		// Additional check if added namespace manually
+		if (self::$addeNs)
 		{
-			foreach ($diff as $ns)
+			$addendumDiff = array_diff_key($this->ad->nameKeys, $this->namespaces);
+			if (!empty($addendumDiff))
 			{
-				$this->namespaces[] = $ns;
-			}
-		}
-
-		// Check if namespace is cached
-		foreach ($this->namespaces as $name)
-		{
-			if (empty($ns[$name]))
-			{
+				// Add missing namespaces to cache them
+				foreach (array_keys($addendumDiff) as $ns)
+				{
+					$this->namespaces[$ns] = true;
+				}
+				self::$addeNs = false;
 				return false;
 			}
 		}
-		return true;
-	}
-
-	private function addNs($ns)
-	{
-		$this->namespaces[] = $ns;
-		array_unique($this->namespaces);
+		// Check if has all namespaces
+		$cachedDiff = array_diff_key($this->namespaces, $ns);
+		if (empty($cachedDiff))
+		{
+			self::$addeNs = false;
+			return true;
+		}
+		return false;
 	}
 
 }

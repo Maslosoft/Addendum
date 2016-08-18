@@ -70,6 +70,12 @@ class Addendum implements LoggerAwareInterface
 	];
 
 	/**
+	 * @var bool[]
+	 * @internal Do not use, this for performance only
+	 */
+	public $nameKeys = [];
+
+	/**
 	 * Translatable annotations
 	 * TODO This should be moved to `maslosoft/addendum-i18n-extractor`
 	 * @var string[]
@@ -271,8 +277,15 @@ class Addendum implements LoggerAwareInterface
 		NameNormalizer::normalize($ns, false);
 		if (!in_array($ns, $this->namespaces))
 		{
+			$before = count($this->namespaces);
 			$this->namespaces[] = $ns;
 			$this->namespaces = array_unique($this->namespaces);
+			$after = count($this->namespaces);
+			if ($after !== $before)
+			{
+				$this->nameKeys = array_flip($this->namespaces);
+				Cache\NsCache::$addeNs = true;
+			}
 
 			$this->di->store($this, [], true);
 
