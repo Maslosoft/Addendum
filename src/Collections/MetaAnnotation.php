@@ -39,18 +39,18 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	 *
 	 * @var Meta
 	 */
-	protected $_meta = null;
+	private $_meta = null;
 
 	/**
-	 * Annotatins entity, it can be either class, property, or method
-	 * Its conrete annotation implementation responsibility to decide what to do with it.
+	 * Annotations entity, it can be either class, property, or method
+	 * Its concrete annotation implementation responsibility to decide what to do with it.
 	 *
 	 * NOTE: Deprecation notice is only to discourage direct use in annotations, this is actually required
 	 * @deprecated Use getEntity() instead
 	 *
 	 * @var AnnotationEntityInterface
 	 */
-	protected $_entity = null;
+	private $_entity = null;
 
 	public function setName($name)
 	{
@@ -58,7 +58,7 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	}
 
 	/**
-	 * Set metada class to be accessible for annotation for init etc. methods
+	 * Set metadata class to be accessible for annotation for init etc. methods
 	 * @param Meta $meta
 	 */
 	public function setMeta(Meta $meta)
@@ -111,6 +111,7 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	 * This function should be called after all annotations are initialized.
 	 * Any code that depends on other annotations can be executed here.
 	 * NOTE: This is not ensured to run, its annotations container responsibility to call it.
+	 * @deprecated since version number 5
 	 */
 	public function afterInit()
 	{

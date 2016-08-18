@@ -48,11 +48,6 @@ abstract class Annotation implements AnnotationInterface
 
 	use Traits\MetaState;
 
-	/**
-	 * This is annotated class instance, must be set before calling init
-	 * @var AnnotatedInterface
-	 */
-	protected $_component;
 	protected $_properties = [];
 	protected $_publicProperties = [];
 	private static $_creationStack = [];
@@ -90,15 +85,6 @@ abstract class Annotation implements AnnotationInterface
 		{
 			unset(self::$_creationStack[$class]);
 		}
-	}
-
-	/**
-	 * Set working component instance
-	 * @param object $component
-	 */
-	public function setComponent($component)
-	{
-		$this->_component = $component;
 	}
 
 	public function getProperties()
