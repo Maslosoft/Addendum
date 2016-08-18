@@ -42,11 +42,13 @@ class NsCache
 	 * @var
 	 */
 	private static $nsCache = [];
+	private $namespaces;
 
 	public function __construct($path, Addendum $addendum, MetaOptions $options = null)
 	{
 		$this->file = sprintf('%s/%s', $path, self::FileName);
-		$this->ad = clone $addendum;
+		$this->namespaces = $addendum->namespaces;
+		$this->ad = $addendum;
 		$this->setOptions($options);
 	}
 
@@ -58,7 +60,7 @@ class NsCache
 			{
 				if (!$this->isValid($ns))
 				{
-					$this->ad->addNamespace($ns);
+					$this->addNs($ns);
 				}
 			}
 		}
@@ -89,7 +91,7 @@ class NsCache
 
 	public function set()
 	{
-		foreach ($this->ad->namespaces as $name)
+		foreach ($this->namespaces as $name)
 		{
 			$ns[$name] = true;
 		}
@@ -117,7 +119,18 @@ class NsCache
 			return true;
 		}
 
-		foreach ($this->ad->namespaces as $name)
+		// Detect dynamically added namespaces
+		$diff = array_diff($this->ad->namespaces, $this->namespaces);
+		if (!empty($diff))
+		{
+			foreach ($diff as $ns)
+			{
+				$this->namespaces[] = $ns;
+			}
+		}
+
+		// Check if namespace is cached
+		foreach ($this->namespaces as $name)
 		{
 			if (empty($ns[$name]))
 			{
@@ -125,6 +138,12 @@ class NsCache
 			}
 		}
 		return true;
+	}
+
+	private function addNs($ns)
+	{
+		$this->namespaces[] = $ns;
+		array_unique($this->namespaces);
 	}
 
 }

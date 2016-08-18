@@ -29,11 +29,11 @@ class NamespacesSignal implements SignalInterface
 	 * Addendum instance
 	 * @var Addendum
 	 */
-	private $_addendum;
+	private $addendum;
 
 	public function __construct(Addendum $addendum)
 	{
-		$this->_addendum = $addendum;
+		$this->addendum = $addendum;
 	}
 
 	/**
@@ -42,7 +42,7 @@ class NamespacesSignal implements SignalInterface
 	 */
 	public function addNamespace($namespace)
 	{
-		$this->_addendum->addNamespace($namespace);
+		$this->addendum->addNamespace($namespace);
 	}
 
 }

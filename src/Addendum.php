@@ -268,11 +268,11 @@ class Addendum implements LoggerAwareInterface
 	 */
 	public function addNamespace($ns)
 	{
-		NameNormalizer::normalize($ns);
+		NameNormalizer::normalize($ns, false);
 		if (!in_array($ns, $this->namespaces))
 		{
 			$this->namespaces[] = $ns;
-			array_unique($this->namespaces);
+			$this->namespaces = array_unique($this->namespaces);
 
 			$this->di->store($this, [], true);
 
@@ -286,7 +286,7 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * Add many annotaion namespaces.
+	 * Add many annotation namespaces.
 	 * This is same as `addNamespace`, in that difference that many namespaces at once can be added.
 	 *
 	 * It accepts array of namespaces as param:
