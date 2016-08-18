@@ -153,8 +153,9 @@ class Builder
 		$traitsData = [];
 		foreach ($traits as $trait)
 		{
-			$traitData = $this->getDataFor($targetReflection, $trait->name);
-			if (false === $traitData || empty($traitData))
+			// Need to recurse here, as trait might have traits
+			$traitData = $this->buildOne($this->getRelated($targetReflection, $trait));
+			if (false === $traitData || empty($traitData) || !is_array($traitData))
 			{
 				continue;
 			}
