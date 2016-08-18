@@ -22,6 +22,12 @@ namespace Maslosoft\Addendum\Utilities;
 class NameNormalizer
 {
 
+	/**
+	 * Normalize class name
+	 * @param string $className
+	 * @param bool $trailingSlash
+	 * @return string
+	 */
 	public static function normalize(&$className, $trailingSlash = true)
 	{
 		if ($className === '\\')
