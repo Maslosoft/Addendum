@@ -58,10 +58,17 @@ class Meta
 	protected $_methods = [];
 	private $_annotations = [];
 
-	protected function __construct(AnnotatedInterface $component = null, MetaOptions $options = null)
+	/**
+	 *
+	 * @param string|object|AnnotatedInterface $model
+	 * @param MetaOptions $options
+	 * @return type
+	 * @throws Exception
+	 */
+	protected function __construct($model = null, MetaOptions $options = null)
 	{
 		// For internal use
-		if (null === $component)
+		if (null === $model)
 		{
 			return;
 		}
@@ -80,12 +87,14 @@ class Meta
 		// Get reflection data
 		$ad = Addendum::fly($options->instanceId);
 		$ad->addNamespaces($options->namespaces);
-		$info = $ad->annotate($component);
+		$info = $ad->annotate($model);
 
+		// Class name of working component
+		$className = is_object($model) ? get_class($model) : $model;
 
 		if (!$info instanceof ReflectionAnnotatedClass)
 		{
-			throw new Exception(sprintf('Could not annotate `%s`', get_class($component)));
+			throw new Exception(sprintf('Could not annotate `%s`', $className));
 		}
 
 		$properties = $info->getProperties(ReflectionProperty::IS_PUBLIC);
@@ -115,7 +124,6 @@ class Meta
 			$annotation->setName($info->name);
 			$annotation->setEntity($this->_type);
 			$annotation->setMeta($this);
-			$annotation->setComponent($component);
 			$annotation->init();
 			$annotations[] = $annotation;
 		}
@@ -124,7 +132,7 @@ class Meta
 		{
 			if (!$method instanceof ReflectionAnnotatedMethod)
 			{
-				throw new Exception(sprintf('Could not annotate `%s::%s()`', get_class($component), $method->name));
+				throw new Exception(sprintf('Could not annotate `%s::%s()`', $className, $method->name));
 			}
 
 			// Ignore magic methods
@@ -151,7 +159,6 @@ class Meta
 				$annotation->setName($method->name);
 				$annotation->setEntity($methodMeta);
 				$annotation->setMeta($this);
-				$annotation->setComponent($component);
 				$annotation->init();
 				$annotations[] = $annotation;
 			}
@@ -171,7 +178,7 @@ class Meta
 		{
 			if (!$property instanceof ReflectionAnnotatedProperty)
 			{
-				throw new Exception(sprintf('Could not annotate `%s::%s`', get_class($component), $property->name));
+				throw new Exception(sprintf('Could not annotate `%s::%s`', $className, $property->name));
 			}
 
 			if (IgnoredChecker::check($property))
@@ -206,7 +213,6 @@ class Meta
 				$annotation->setName($field->name);
 				$annotation->setEntity($field);
 				$annotation->setMeta($this);
-				$annotation->setComponent($component);
 				$annotation->init();
 				$annotations[] = $annotation;
 			}
@@ -236,12 +242,12 @@ class Meta
 	 * Create flyghtweight instace of `Meta`.
 	 * Calling this function will create new instance only if it's not stored in cache.
 	 * This allows very effective retrieving of `Meta` container's meta data, without need of parsing annotations.
-	 * @param AnnotatedInterface $component
+	 * @param string|object|AnnotatedInterface $model
 	 * @return static
 	 */
-	public static function create(AnnotatedInterface $component, MetaOptions $options = null)
+	public static function create($model, MetaOptions $options = null)
 	{
-		$cache = FlyCache::instance(static::class, $component, $options);
+		$cache = FlyCache::instance(static::class, $model, $options);
 
 		$cached = $cache->get();
 		if ($cached)
@@ -249,7 +255,7 @@ class Meta
 			return $cached;
 		}
 
-		return $cache->set(new static($component, $options));
+		return $cache->set(new static($model, $options));
 	}
 
 	/**

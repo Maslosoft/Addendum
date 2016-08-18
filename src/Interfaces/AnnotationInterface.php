@@ -29,12 +29,6 @@ interface AnnotationInterface
 	public function __construct($data = [], $target = false);
 
 	/**
-	 * Set working component instance
-	 * @param object $component
-	 */
-	public function setComponent($component);
-
-	/**
 	 * Get array of properties set by annotation, excluding default values from annotations class
 	 */
 	public function getProperties();
