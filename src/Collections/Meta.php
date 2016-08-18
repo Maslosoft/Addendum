@@ -59,10 +59,8 @@ class Meta
 	private $_annotations = [];
 
 	/**
-	 *
 	 * @param string|object|AnnotatedInterface $model
 	 * @param MetaOptions $options
-	 * @return type
 	 * @throws Exception
 	 */
 	protected function __construct($model = null, MetaOptions $options = null)
@@ -78,7 +76,7 @@ class Meta
 		}
 
 		// TODO Use adapter here
-		// TODO Abstract from component meta, so other kinds of meta extractors could be used
+		// ?TODO Abstract from component meta, so other kinds of meta extractors could be used
 		// For example, for development annotation based extractor could be used, which could compile
 		// Metadata to arrays, and for production environment, compiled arrays could be used
 		$annotations = [];
