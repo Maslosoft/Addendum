@@ -8,15 +8,12 @@
 
 namespace Maslosoft\Addendum\Cache;
 
-use FilesystemIterator;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Helpers\SoftIncluder;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Options\MetaOptions;
 use Maslosoft\Cli\Shared\ConfigDetector;
 use Maslosoft\Cli\Shared\Helpers\PhpExporter;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use ReflectionClass;
 use RuntimeException;
 use UnexpectedValueException;
