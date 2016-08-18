@@ -36,11 +36,11 @@ class FlyCache
 	 * Get flyweight instance of meta cache.
 	 * This is based on meta class and addendum instance id.
 	 * @param string $metaClass
-	 * @param AnnotatedInterface $component
+	 * @param string|object|AnnotatedInterface $component
 	 * @param MetaOptions $options
 	 * @return MetaCache
 	 */
-	public static function instance($metaClass = null, AnnotatedInterface $component = null, MetaOptions $options = null)
+	public static function instance($metaClass = null, $component = null, MetaOptions $options = null)
 	{
 		if (empty($options))
 		{
