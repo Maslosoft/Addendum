@@ -124,47 +124,32 @@ class Builder
 		{
 			return $cached;
 		}
-		$traits = $targetClass->getTraits();
 
-		// Get annotations from interfaces
-		$interfacesData = [];
-		foreach ($targetClass->getInterfaces() as $targetInterface)
+		// Parials annotation data
+		$partialsData = [];
+
+		// Extract annotations from all partials
+		foreach ($this->getPartials($targetClass) as $partial)
 		{
-			// Recurse as interface might extend from other interfaces
-			$interfaceData = $this->buildOne($this->getRelated($targetReflection, $targetInterface));
-			if (empty($interfaceData))
+			// Need to recurse here, as:
+			//
+			// * Interface might extend from other interfaces
+			// * Parent class, might have traits or interfaces
+			// * Trait might have traits
+			$partData = $this->buildOne($this->getRelated($targetReflection, $partial));
+
+			// Check if data is present and proper
+			if (false === $partData || empty($partData) || !is_array($partData))
 			{
 				continue;
 			}
-			$interfacesData = array_merge($interfacesData, $interfaceData);
-		}
 
-		// Get annotations from parent classes
-		$parentData = [];
-		$targetParent = $targetClass->getParentClass();
-		if (!empty($targetParent))
-		{
-			// Recurse if has parent class, as it might have traits 
-			// or interfaces too
-			$parentData = $this->buildOne($this->getRelated($targetReflection, $targetParent));
-		}
-
-		// Get annotations from traits
-		$traitsData = [];
-		foreach ($traits as $trait)
-		{
-			// Need to recurse here, as trait might have traits
-			$traitData = $this->buildOne($this->getRelated($targetReflection, $trait));
-			if (false === $traitData || empty($traitData) || !is_array($traitData))
-			{
-				continue;
-			}
-			$traitsData = array_merge($traitsData, $traitData);
+			$partialsData = array_merge($partialsData, $partData);
 		}
 
 		// Merge data from traits etc.
-		// Data from class
-		$data = array_merge($interfacesData, $parentData, $traitsData, $this->parse($targetReflection));
+		// with data from class
+		$data = array_merge($partialsData, $this->parse($targetReflection));
 
 		$this->buildCache->setComponent(ReflectionName::createName($targetReflection));
 		$this->buildCache->set($data);
@@ -198,38 +183,42 @@ class Builder
 	}
 
 	/**
+	 * Get partials of class, this includes:
+	 * 
+	 * * Parent class
+	 * * Interfaces
+	 * * Traits
 	 *
-	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $targetReflection
-	 * @param string $name
-	 * @return boolean|mixed
+	 * @param ReflectionClass $targetClass
+	 * @return ReflectionAnnotatedClass[]
 	 */
-	private function getDataFor($targetReflection, $name)
+	private function getPartials(ReflectionClass $targetClass)
 	{
-		$target = new ReflectionAnnotatedClass($name, $this->addendum);
-		$annotations = null;
+		// Partial reflections
+		/* @var ReflectionAnnotatedClass[] */
+		$partials = [];
 
-		// Try to get annotations from entity, be it method, property or trait itself
-		switch (true)
+		// Collect current class interfaces
+		foreach ($targetClass->getInterfaces() as $targetInterface)
 		{
-			case $targetReflection instanceof ReflectionProperty && $target->hasProperty($targetReflection->name):
-				$annotations = new ReflectionAnnotatedProperty($target->name, $targetReflection->name, $this->addendum);
-				break;
-			case $targetReflection instanceof ReflectionMethod && $target->hasMethod($targetReflection->name):
-				$annotations = new ReflectionAnnotatedMethod($target->name, $targetReflection->name, $this->addendum);
-				break;
-			case $targetReflection instanceof ReflectionClass:
-				$annotations = $target;
-				break;
+			/* @var $targetInterface ReflectionAnnotatedClass */
+			$partials[] = $targetInterface;
 		}
 
-		// Does not have property or method
-		if (null === $annotations)
+		// Collect current class parent class
+		$targetParent = $targetClass->getParentClass();
+		if (!empty($targetParent))
 		{
-			return false;
+			$partials[] = $targetParent;
 		}
 
-		// Data from target
-		return $this->parse($annotations);
+		// Collect current class traits
+		foreach ($targetClass->getTraits() as $trait)
+		{
+			/* @var $trait ReflectionAnnotatedClass */
+			$partials[] = $trait;
+		}
+		return $partials;
 	}
 
 	/**
