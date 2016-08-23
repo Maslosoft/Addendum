@@ -38,6 +38,12 @@ class FileWalker
 	private $paths = [];
 
 	/**
+	 * Dirs to ignore
+	 * @var string[]
+	 */
+	private $ignoreDirs = [];
+
+	/**
 	 * Patterns to match for annotations
 	 * @var string[]
 	 */
@@ -61,9 +67,10 @@ class FileWalker
 	 */
 	private $sum = [];
 
-	public function __construct($annotations, $callback, $paths)
+	public function __construct($annotations, $callback, $paths, $ignoreDirs = [])
 	{
 		$this->paths = $paths;
+		$this->ignoreDirs = $ignoreDirs;
 		$this->callback = $callback;
 		$this->patterns = [];
 
@@ -105,6 +112,13 @@ class FileWalker
 			// Recurse, loop prevention check is on top of this function
 			if ($info->isDir())
 			{
+				// Skip ignored dirs,
+				// this is might be important when scanning nested projects
+				// containning it's own vendors, cache paths etc.
+				if (in_array($info->getBasename(), $this->ignoreDirs))
+				{
+					continue;
+				}
 				$this->scan($info->getPathname());
 				continue;
 			}
