@@ -301,11 +301,21 @@ abstract class PhpCache
 		{
 			$className = get_class($this->component);
 		}
-		else
+		elseif (is_string($this->component) || null === $this->component)
 		{
 			$className = $this->component;
 		}
-		$this->fileName = sprintf('%s/%s@%s/%s.php', $this->path, $this->classToFile($this->metaClass), $this->instanceId, str_replace('\\', '/', $this->classToFile($className)));
+		else
+		{
+			throw new UnexpectedValueException(sprintf('Expected string or object or null got: `%s`', gettype($className)));
+		}
+		$params = [
+			(string) $this->path,
+			(string) $this->classToFile($this->metaClass),
+			(string) $this->instanceId,
+			(string) str_replace('\\', '/', $this->classToFile($className))
+		];
+		$this->fileName = vsprintf('%s/%s@%s/%s.php', $params);
 		return $this->fileName;
 	}
 
