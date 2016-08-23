@@ -51,7 +51,14 @@ class NsCache
 	private $namespaces;
 
 	/**
+	 * Option holder
+	 * @var MetaOptions
+	 */
+	private $options = null;
+
+	/**
 	 * @internal Flag that will trigger cache validity check for namespaces cache
+	 * But only if no options provided
 	 * @var bool
 	 */
 	public static $addeNs = true;
@@ -134,7 +141,7 @@ class NsCache
 		}
 
 		// Additional check if added namespace manually
-		if (self::$addeNs)
+		if (empty($this->options) && self::$addeNs)
 		{
 			$addendumDiff = array_diff_key($this->ad->nameKeys, $this->namespaces);
 			if (!empty($addendumDiff))
