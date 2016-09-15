@@ -241,6 +241,7 @@ class Meta
 	 * Calling this function will create new instance only if it's not stored in cache.
 	 * This allows very effective retrieving of `Meta` container's meta data, without need of parsing annotations.
 	 * @param string|object|AnnotatedInterface $model
+	 * @param MetaOption|null $options
 	 * @return static
 	 */
 	public static function create($model, MetaOptions $options = null)
