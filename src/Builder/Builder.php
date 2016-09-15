@@ -157,8 +157,8 @@ class Builder
 	}
 
 	/**
-	 * Get reflection for related target reflection. 
-	 * Will return class, property or method reflection from related reflection, 
+	 * Get reflection for related target reflection.
+	 * Will return class, property or method reflection from related reflection,
 	 * based on type of target reflection.
 	 *
 	 * Will return false target reflection id for method or property, and
@@ -184,7 +184,7 @@ class Builder
 
 	/**
 	 * Get partials of class, this includes:
-	 * 
+	 *
 	 * * Parent class
 	 * * Interfaces
 	 * * Traits
