@@ -144,12 +144,12 @@ class Builder
 				continue;
 			}
 
-			$partialsData = array_merge($partialsData, $partData);
+			$partialsData = array_merge_recursive($partialsData, $partData);
 		}
 
 		// Merge data from traits etc.
 		// with data from class
-		$data = array_merge($partialsData, $this->parse($targetReflection));
+		$data = array_merge_recursive($partialsData, $this->parse($targetReflection));
 
 		$this->buildCache->setComponent(ReflectionName::createName($targetReflection));
 		$this->buildCache->set($data);
