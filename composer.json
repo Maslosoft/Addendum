@@ -40,5 +40,6 @@
 		"maslosoft/gazebo": "*",
 		"maslosoft/cli-shared": "*",
 		"maslosoft/cache": "*"
-	}
+	},
+	"homepage": "https://maslosoft.com/addendum/"
 }
