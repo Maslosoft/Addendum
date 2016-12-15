@@ -21,13 +21,13 @@ use Maslosoft\Addendum\Annotation;
  * This allow limiting annotation use for properties, class,
  * method or concrete type
  * Valid values are
- * 
+ *
  * * `class` - limit annotation for class only
  * * `method` - limit annotation for method only
  * * `property` - limit annotation for property only
- * * `nested` - set this to allow use of annotatation only as nested annotation
+ * * `nested` - set this to allow use of annotation only as nested annotation
  * * Any existing class name - to restrict use of annotation only on concrete class or its descendants
- * 
+ *
  * Examples:
  *
  * Allow only on selected class and subclasses
@@ -36,7 +36,7 @@ use Maslosoft\Addendum\Annotation;
  * @Target(Some\Target\ClassName)
  * ```
  *
- * Whe use statement for `Some\Target\ClassName` is provided, it could be shortened:
+ * When use statement for `Some\Target\ClassName` is provided, it could be shortened:
  * ```
  * @Target(ClassName)
  * ```
@@ -57,6 +57,7 @@ use Maslosoft\Addendum\Annotation;
  * @Target('method')
  * @Target('property')
  * ```
+ *
  * @template Target('${target}')
  */
 class TargetAnnotation extends Annotation
