@@ -16,6 +16,7 @@ namespace Maslosoft\Addendum\Builder;
 
 use Exception;
 use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Cache\BuildOneCache;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Collections\MatcherConfig;
@@ -234,7 +235,13 @@ class Builder
 
 		// If namespaces are empty assume global namespace
 		$fqn = $this->normalizeFqn('\\', $class);
-		foreach ($this->addendum->namespaces as $ns)
+		$mandatoryNs = TargetAnnotation::Ns;
+		$namespaces = $this->addendum->namespaces;
+		if (!in_array($mandatoryNs, $namespaces))
+		{
+			$namespaces[] = $mandatoryNs;
+		}
+		foreach ($namespaces as $ns)
 		{
 			$fqn = $this->normalizeFqn($ns, $class);
 			if (Blacklister::ignores($fqn))
