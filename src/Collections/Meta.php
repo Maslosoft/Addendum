@@ -59,6 +59,18 @@ class Meta
 	private $_annotations = [];
 
 	/**
+	 * On-hand cache
+	 * @var Meta[]
+	 */
+	private static $c = [];
+
+	/**
+	 * Flag to clear local cache if namespace was dynamically added
+	 * @var bool
+	 */
+	public static $addNs = false;
+
+	/**
 	 * @param string|object|AnnotatedInterface $model
 	 * @param MetaOptions $options
 	 * @throws Exception
@@ -246,15 +258,30 @@ class Meta
 	 */
 	public static function create($model, MetaOptions $options = null)
 	{
+		// Reset local cache if dynamically added namespace
+		if (self::$addNs)
+		{
+			self::$c = [];
+			self::$addNs = false;
+		}
+		$class = is_object($model) ? get_class($model) : $model;
+		$key = static::class . $class;
+		if (isset(self::$c[$key]))
+		{
+			return self::$c[$key];
+		}
 		$cache = FlyCache::instance(static::class, $model, $options);
 
 		$cached = $cache->get();
 		if ($cached)
 		{
+			self::$c[$key] = $cached;
 			return $cached;
 		}
 
-		return $cache->set(new static($model, $options));
+		$instance = new static($model, $options);
+		self::$c[$key] = $instance;
+		return $cache->set($instance);
 	}
 
 	/**
