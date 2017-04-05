@@ -19,6 +19,7 @@ use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Cache\MetaCache;
 use Maslosoft\Addendum\Collections\AddendumPlugins;
+use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
@@ -295,6 +296,7 @@ class Addendum implements LoggerAwareInterface
 				self::$addendums[$this->instanceId]->di->configure(self::$addendums[$this->instanceId]);
 			}
 		}
+		Meta::$addNs = true;
 		return $this;
 	}
 
