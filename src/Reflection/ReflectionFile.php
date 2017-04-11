@@ -15,11 +15,12 @@
 namespace Maslosoft\Addendum\Reflection;
 
 use Maslosoft\Addendum\Builder\DocComment;
+use Maslosoft\Addendum\Exceptions\MultipleClassesInFileException;
+use Maslosoft\Addendum\Exceptions\NoClassInFileException;
 use ReflectionExtension;
 use ReflectionMethod;
 use ReflectionProperty;
 use Reflector;
-use UnexpectedValueException;
 
 /**
  * ReflectionFile
@@ -71,23 +72,23 @@ class ReflectionFile implements Reflector
 		$this->shortName = $this->_docs['className'];
 		if (empty($this->shortName))
 		{
-			throw new UnexpectedValueException(sprintf("Could not find any class in file `%s`", $file));
+			throw new NoClassInFileException(sprintf("Could not find any class in file `%s`", $file));
 		}
 		if (is_array($this->shortName))
 		{
-			throw new UnexpectedValueException(sprintf("`%s` does not support multiple classes. Found in file `%s`", __CLASS__, $file));
+			throw new MultipleClassesInFileException(sprintf("`%s` does not support multiple classes. Found in file `%s`", __CLASS__, $file));
 		}
 		$this->name = $this->namespace . '\\' . $this->shortName;
 	}
 
 	final private function __clone()
 	{
-		
+
 	}
 
 	public function __toString()
 	{
-		
+
 	}
 
 	/**
@@ -107,7 +108,7 @@ class ReflectionFile implements Reflector
 	 */
 	public static function export()
 	{
-		
+
 	}
 
 	/**
@@ -129,7 +130,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isInternal()
 	{
-		
+
 	}
 
 	/**
@@ -151,7 +152,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isInstantiable()
 	{
-		
+
 	}
 
 	/**
@@ -162,7 +163,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isCloneable()
 	{
-		
+
 	}
 
 	/**
@@ -186,7 +187,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getStartLine()
 	{
-		
+
 	}
 
 	/**
@@ -197,7 +198,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getEndLine()
 	{
-		
+
 	}
 
 	/**
@@ -208,7 +209,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getDocComment()
 	{
-		
+
 	}
 
 	/**
@@ -220,7 +221,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getConstructor()
 	{
-		
+
 	}
 
 	/**
@@ -248,7 +249,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getMethod($name)
 	{
-		
+
 	}
 
 	/**
@@ -272,7 +273,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getMethods($filter = null)
 	{
-		
+
 	}
 
 	/**
@@ -300,7 +301,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getProperty($name)
 	{
-		
+
 	}
 
 	/**
@@ -316,7 +317,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getProperties($filter = null)
 	{
-		
+
 	}
 
 	/**
@@ -330,7 +331,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function hasConstant($name)
 	{
-		
+
 	}
 
 	/**
@@ -342,7 +343,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getConstants()
 	{
-		
+
 	}
 
 	/**
@@ -356,7 +357,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getConstant($name)
 	{
-		
+
 	}
 
 	/**
@@ -368,7 +369,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getInterfaces()
 	{
-		
+
 	}
 
 	/**
@@ -379,7 +380,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getInterfaceNames()
 	{
-		
+
 	}
 
 	/**
@@ -390,7 +391,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isInterface()
 	{
-		
+
 	}
 
 	/**
@@ -403,7 +404,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getTraits()
 	{
-		
+
 	}
 
 	/**
@@ -415,7 +416,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getTraitNames()
 	{
-		
+
 	}
 
 	/**
@@ -428,7 +429,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getTraitAliases()
 	{
-		
+
 	}
 
 	/**
@@ -440,7 +441,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isTrait()
 	{
-		
+
 	}
 
 	/**
@@ -451,7 +452,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isAbstract()
 	{
-		
+
 	}
 
 	/**
@@ -462,7 +463,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isFinal()
 	{
-		
+
 	}
 
 	/**
@@ -474,7 +475,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getModifiers()
 	{
-		
+
 	}
 
 	/**
@@ -488,7 +489,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isInstance($object)
 	{
-		
+
 	}
 
 	/**
@@ -504,7 +505,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function newInstance($args, $_ = null)
 	{
-		
+
 	}
 
 	/**
@@ -515,7 +516,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function newInstanceWithoutConstructor()
 	{
-		
+
 	}
 
 	/**
@@ -529,7 +530,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function newInstanceArgs(array $args = null)
 	{
-		
+
 	}
 
 	/**
@@ -540,7 +541,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getParentClass()
 	{
-		
+
 	}
 
 	/**
@@ -554,7 +555,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isSubclassOf($class)
 	{
-		
+
 	}
 
 	/**
@@ -565,7 +566,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getStaticProperties()
 	{
-		
+
 	}
 
 	/**
@@ -581,7 +582,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getStaticPropertyValue($name, &$def_value = null)
 	{
-		
+
 	}
 
 	/**
@@ -598,7 +599,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function setStaticPropertyValue($name, $value)
 	{
-		
+
 	}
 
 	/**
@@ -613,7 +614,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function getDefaultProperties()
 	{
-		
+
 	}
 
 	/**
@@ -624,7 +625,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isIterateable()
 	{
-		
+
 	}
 
 	/**
@@ -638,7 +639,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function implementsInterface($interface)
 	{
-		
+
 	}
 
 	/**

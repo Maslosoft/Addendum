@@ -14,8 +14,10 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
+use Maslosoft\Addendum\Exceptions\ClassNotFoundException;
 use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 use Maslosoft\Addendum\Matcher\Helpers\Processor;
+use Maslosoft\Addendum\Utilities\ClassChecker;
 
 class StaticConstantMatcher extends RegexMatcher implements MatcherInterface
 {
@@ -33,6 +35,10 @@ class StaticConstantMatcher extends RegexMatcher implements MatcherInterface
 		$constName = $parts[1];
 		$className = Processor::process($this, $className);
 		$value = sprintf('%s::%s', $className, $constName);
+		if (!ClassChecker::exists($className))
+		{
+			throw new ClassNotFoundException("Class $className not found while parsing annotations");
+		}
 		if (!defined($value))
 		{
 			return false;
