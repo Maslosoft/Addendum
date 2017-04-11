@@ -53,7 +53,10 @@ class UseResolver
 		}
 
 		// This is for same namespaced class as current class
-		$aliases[$ns . '\\' . $className] = $className;
+		if (strpos($className, '\\') === false)
+		{
+			$aliases[$ns . '\\' . $className] = $className;
+		}
 
 		if (in_array($className, $use))
 		{
