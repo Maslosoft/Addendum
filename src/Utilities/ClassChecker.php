@@ -31,6 +31,16 @@ class ClassChecker
 	private static $_exists = [];
 
 	/**
+	 * Check whenever class is anonymous.
+	 * @param string $class
+	 * @return bool True if class is anonymous
+	 */
+	public static function isAnonymous($class)
+	{
+		return strpos($class, 'class@anonymous') !== false;
+	}
+
+	/**
 	 * Check whenever class or trait or interface exists.
 	 * It does autoload if needed.
 	 * @param string $class

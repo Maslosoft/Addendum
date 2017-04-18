@@ -8,10 +8,13 @@
 
 namespace Maslosoft\Addendum\Cache;
 
+use DirectoryIterator;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Helpers\SoftIncluder;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Options\MetaOptions;
+use Maslosoft\Addendum\Utilities\ClassChecker;
+use Maslosoft\Addendum\Utilities\NameNormalizer;
 use Maslosoft\Cli\Shared\ConfigDetector;
 use Maslosoft\Cli\Shared\Helpers\PhpExporter;
 use ReflectionClass;
@@ -266,13 +269,13 @@ abstract class PhpCache
 		{
 			return false;
 		}
-		foreach (new \DirectoryIterator($path) as $dir)
+		foreach (new DirectoryIterator($path) as $dir)
 		{
 			if ($dir->isDot() || !$dir->isDir())
 			{
 				continue;
 			}
-			foreach (new \DirectoryIterator($dir->getPathname()) as $file)
+			foreach (new DirectoryIterator($dir->getPathname()) as $file)
 			{
 				if (!$file->isFile())
 				{
@@ -309,6 +312,12 @@ abstract class PhpCache
 		{
 			throw new UnexpectedValueException(sprintf('Expected string or object or null got: `%s`', gettype($className)));
 		}
+
+		if (ClassChecker::isAnonymous($className))
+		{
+			NameNormalizer::normalize($className);
+		}
+
 		$params = [
 			(string) $this->path,
 			(string) $this->classToFile($this->metaClass),

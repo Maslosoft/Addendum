@@ -14,6 +14,8 @@
 
 namespace Maslosoft\Addendum\Builder;
 
+use Maslosoft\Addendum\Utilities\ClassChecker;
+use Maslosoft\Addendum\Utilities\NameNormalizer;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -66,7 +68,7 @@ class DocComment
 	 */
 	public function forFile($name, $className = null)
 	{
-		$fqn = $this->process($name);
+		$fqn = $this->process($name, $className);
 		if (null !== $className)
 		{
 			$fqn = $className;
@@ -89,8 +91,19 @@ class DocComment
 
 	public function forClass(Reflector $reflection)
 	{
-		$this->process($reflection->getFileName());
+		if (ClassChecker::isAnonymous($reflection->name))
+		{
+			echo '';
+		}
 		$fqn = $reflection->getName();
+		$this->process($reflection->getFileName(), $fqn);
+		if (ClassChecker::isAnonymous($reflection->name))
+		{
+			$info = new \ReflectionClass($reflection->getName());
+			$anonFqn = $reflection->getName();
+			NameNormalizer::normalize($anonFqn);
+			$this->processAnonymous($info, $anonFqn);
+		}
 		$result = [
 			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
 			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
@@ -100,12 +113,20 @@ class DocComment
 			'methods' => isset(self::$methods[$fqn]) ? self::$methods[$fqn] : [],
 			'fields' => isset(self::$fields[$fqn]) ? self::$fields[$fqn] : []
 		];
+		if (ClassChecker::isAnonymous($reflection->name))
+		{
+			$result['className'] = self::$classNames[$anonFqn];
+			$result['class'] = self::$classes[$anonFqn];
+		}
 		return $result;
 	}
 
 	public function forMethod(Reflector $reflection)
 	{
 		$this->process($reflection->getDeclaringClass()->getFileName());
+
+
+
 		$class = $reflection->getDeclaringClass()->getName();
 		$method = $reflection->getName();
 		return isset(self::$methods[$class][$method]) ? self::$methods[$class][$method] : false;
@@ -114,29 +135,52 @@ class DocComment
 	public function forProperty(Reflector $reflection)
 	{
 		$this->process($reflection->getDeclaringClass()->getFileName());
+
+
 		$class = $reflection->getDeclaringClass()->getName();
 		$field = $reflection->getName();
 		return isset(self::$fields[$class][$field]) ? self::$fields[$class][$field] : false;
 	}
 
-	private function process($file)
+	private function processAnonymous(Reflector $reflection, $fqn)
+	{
+		if (!isset(self::$parsedFiles[$fqn]))
+		{
+			/* @var $reflection \Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass */
+			self::$classNames[$fqn] = $fqn;
+			self::$classes[$fqn] = $reflection->getDocComment();
+			self::$methods[$fqn] = [];
+			self::$fields[$fqn] = [];
+			foreach ($reflection->getMethods(\ReflectionMethod::IS_PUBLIC) as $method)
+			{
+				self::$methods[$fqn][$method->name] = $method->getDocComment();
+			}
+			foreach ($reflection->getProperties(\ReflectionProperty::IS_PUBLIC) as $property)
+			{
+				self::$fields[$fqn][$property->name] = $property->getDocComment();
+			}
+			self::$parsedFiles[$fqn] = $fqn;
+		}
+		return self::$parsedFiles[$fqn];
+	}
+
+	private function process($file, $fqn = false)
 	{
 		if (!isset(self::$parsedFiles[$file]))
 		{
-			$fqn = $this->parse($file);
+			$fqn = $this->parse($file, $fqn);
 			self::$parsedFiles[$file] = $fqn;
 		}
 		return self::$parsedFiles[$file];
 	}
 
-	protected function parse($file)
+	protected function parse($file, $fqn = false)
 	{
 		$use = [];
 		$aliases = [];
 		$namespace = '\\';
 		$tokens = $this->getTokens($file);
 		$class = false;
-		$fqn = false;
 		$comment = null;
 		$max = count($tokens);
 		$i = 0;
@@ -220,7 +264,10 @@ class DocComment
 							break;
 						}
 						$class = $this->getString($tokens, $i, $max);
-						$fqn = sprintf('%s\%s', $namespace, $class);
+						if (!$fqn)
+						{
+							$fqn = sprintf('%s\%s', $namespace, $class);
+						}
 						if ($comment !== false)
 						{
 							self::$classes[$fqn] = $comment;

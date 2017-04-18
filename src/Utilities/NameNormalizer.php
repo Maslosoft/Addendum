@@ -45,6 +45,18 @@ class NameNormalizer
 		{
 			$className = '\\' . $className;
 		}
+		if (ClassChecker::isAnonymous($className))
+		{
+			$patterns = [
+				"~" . DIRECTORY_SEPARATOR . "~",
+				'~[^a-zA-Z0-9-_\.]~'
+			];
+			$replacements = [
+				'_',
+				'_'
+			];
+			$className = preg_replace($patterns, $replacements, $className);
+		}
 		return $className;
 	}
 
