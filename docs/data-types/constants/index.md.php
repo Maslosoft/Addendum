@@ -5,7 +5,7 @@ use Maslosoft\Ilmatar\Widgets\MsWidget;
 <?php
 /* @var $this MsWidget */
 ?>
-<title>Constants</title>
+<title>2. Constants</title>
 
 # Constants
 

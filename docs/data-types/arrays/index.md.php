@@ -5,7 +5,7 @@ use Maslosoft\Ilmatar\Widgets\MsWidget;
 <?php
 /* @var $this MsWidget */
 ?>
-<title>Arrays</title>
+<title>4. Arrays</title>
 
 # Arrays
 

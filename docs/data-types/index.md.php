@@ -7,7 +7,7 @@ use Maslosoft\Staple\Widgets\SubNavRecursive;
 
 /* @var $this MsWidget */
 ?>
-<title>Data Types</title>
+<title>1. Data Types</title>
 
 # Data Types
 

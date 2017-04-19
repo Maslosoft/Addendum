@@ -4,7 +4,7 @@ use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Zamm\Iterator;
 use Maslosoft\Zamm\DocBlock;
 ?>
-<title>Built-in annotations</title>
+<title>2. Built-in annotations</title>
 
 # Built-in annotations
 

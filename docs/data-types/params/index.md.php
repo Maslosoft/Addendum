@@ -5,7 +5,7 @@ use Maslosoft\Ilmatar\Widgets\MsWidget;
 <?php
 /* @var $this MsWidget */
 ?>
-<title>Params</title>
+<title>5. Params</title>
 
 # Params
 

@@ -5,7 +5,7 @@ use Maslosoft\Ilmatar\Widgets\MsWidget;
 <?php
 /* @var $this MsWidget */
 ?>
-<title>Class Literals</title>
+<title>3. Class Literals</title>
 
 # Class Literals
 
