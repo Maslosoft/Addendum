@@ -5,7 +5,7 @@ use Maslosoft\Ilmatar\Widgets\MsWidget;
 <?php
 /* @var $this MsWidget */
 ?>
-<title>Scalar Values</title>
+<title>1. Scalar Values</title>
 
 # Scalar Values
 
