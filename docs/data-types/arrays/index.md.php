@@ -24,7 +24,7 @@ Example of passing array value to annotation:
 Example of passing array value with keys:
 
 ```
-@MyAnnotation({one = 1, two = 2, three = 3})
+@MyAnnotation({'one' = 1, 'two' = 2, 'three' = 3})
 ```
 
 Example with class literal, and string
