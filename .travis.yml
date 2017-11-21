@@ -19,6 +19,8 @@ env:
   - ADDENDUM_CACHE_CLEAR=0
   - ADDENDUM_CACHE_CLEAR=1
 install:
+  # Required for php 5
+  - composer update
   - composer install --dev --prefer-dist
   # Get fresh tests
   - rm -rf vendor/maslosoft/addendumtest
