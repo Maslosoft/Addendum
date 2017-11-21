@@ -53,13 +53,13 @@ class ParamsExpander
 		$data = [];
 		foreach ($params as $key => $name)
 		{
-			if (isset($values[$key]))
+			if (array_key_exists($key, $values))
 			{
 				$data[$name] = $values[$key];
 				unset($values[$key]);
 				continue;
 			}
-			if (isset($values[$name]))
+			if (array_key_exists($name, $values[$name]))
 			{
 				$data[$name] = $values[$name];
 			}
