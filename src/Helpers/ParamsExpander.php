@@ -59,7 +59,7 @@ class ParamsExpander
 				unset($values[$key]);
 				continue;
 			}
-			if (is_array($values) && array_key_exists($name, $values[$name]))
+			if (is_array($values) && array_key_exists($name, $values))
 			{
 				$data[$name] = $values[$name];
 			}
