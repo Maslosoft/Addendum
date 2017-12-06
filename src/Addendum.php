@@ -25,6 +25,7 @@ use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Matcher\ClassLiteralMatcher;
 use Maslosoft\Addendum\Matcher\StaticConstantMatcher;
+use Maslosoft\Addendum\Plugins\Matcher\ClassErrorSilencer;
 use Maslosoft\Addendum\Plugins\Matcher\DefencerDecorator;
 use Maslosoft\Addendum\Plugins\Matcher\UseResolverDecorator;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
@@ -93,7 +94,13 @@ class Addendum implements LoggerAwareInterface
 	public $plugins = [
 		'matcher' => [
 			ClassLiteralMatcher::class => [
-				UseResolverDecorator::class
+				UseResolverDecorator::class,
+				[
+					'class' => ClassErrorSilencer::class,
+					'classes' => [
+						'PHPMD'
+					]
+				]
 			],
 			StaticConstantMatcher::class => [
 				UseResolverDecorator::class
