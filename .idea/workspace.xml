@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba94222c-b59b-4d3c-91fd-5b1227218615" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/php-test-framework.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/Interfaces/Plugins/Matcher/MatcherClassNotFoundHandlerInterface.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/Plugins/Matcher/ClassErrorSilencer.php" />
-      <change beforePath="$PROJECT_DIR$/.idea/addendum.iml" afterPath="$PROJECT_DIR$/.idea/addendum.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" afterPath="$PROJECT_DIR$/.idea/php.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/Exceptions/MatcherException.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/Matcher/ArrayBracketsMatcher.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/Addendum.php" afterPath="$PROJECT_DIR$/src/Addendum.php" />
-      <change beforePath="$PROJECT_DIR$/src/Matcher/ClassLiteralMatcher.php" afterPath="$PROJECT_DIR$/src/Matcher/ClassLiteralMatcher.php" />
+      <change beforePath="$PROJECT_DIR$/docs/data-types/arrays/index.md.php" afterPath="$PROJECT_DIR$/docs/data-types/arrays/index.md.php" />
+      <change beforePath="$PROJECT_DIR$/src/Matcher/PairMatcher.php" afterPath="$PROJECT_DIR$/src/Matcher/PairMatcher.php" />
+      <change beforePath="$PROJECT_DIR$/src/Matcher/RegexMatcher.php" afterPath="$PROJECT_DIR$/src/Matcher/RegexMatcher.php" />
+      <change beforePath="$PROJECT_DIR$/src/Matcher/ValueMatcher.php" afterPath="$PROJECT_DIR$/src/Matcher/ValueMatcher.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,73 +22,71 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Addendum.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Addendum.php">
+      <file leaf-file-name="ArrayMatcher.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Matcher/ArrayMatcher.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="98" column="49" lean-forward="false" selection-start-line="98" selection-start-column="49" selection-end-line="98" selection-end-column="49" />
+            <state relative-caret-position="330">
+              <caret line="25" column="42" lean-forward="true" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClassErrorSilencer.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Plugins/Matcher/ClassErrorSilencer.php">
+      <file leaf-file-name="ArrayValuesMatcher.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Matcher/ArrayValuesMatcher.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+            <state relative-caret-position="242">
+              <caret line="21" column="33" lean-forward="false" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClassLiteralMatcher.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Matcher/ClassLiteralMatcher.php">
+      <file leaf-file-name="ArrayValueMatcher.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Matcher/ArrayValueMatcher.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="69" column="41" lean-forward="false" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
+            <state relative-caret-position="264">
+              <caret line="22" column="30" lean-forward="false" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatcherClassNotFoundHandlerInterface.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Interfaces/Plugins/Matcher/MatcherClassNotFoundHandlerInterface.php">
+      <file leaf-file-name="PairMatcher.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Matcher/PairMatcher.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="5" lean-forward="true" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+            <state relative-caret-position="264">
+              <caret line="22" column="84" lean-forward="false" selection-start-line="22" selection-start-column="84" selection-end-line="22" selection-end-column="84" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClassErrorSilencerTest.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/maslosoft/addendumtest/tests/unit/Plugins/ClassErrorSilencerTest.php">
+      <file leaf-file-name="TraitAnnotationTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/unit/Debug/TraitAnnotationTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="770">
-              <caret line="36" column="45" lean-forward="false" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-              <folding>
-                <element signature="e#27#66#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelWithSilencedClassName.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/ModelWithSilencedClassName.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="484">
+              <caret line="29" column="63" lean-forward="false" selection-start-line="29" selection-start-column="63" selection-end-line="29" selection-end-column="63" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PluginsTrait.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Matcher/Traits/PluginsTrait.php">
+      <file leaf-file-name="ArraySquareBracketTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/unit/Matcher/ArraySquareBracketTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
-              <caret line="47" column="40" lean-forward="false" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
+            <state relative-caret-position="828">
+              <caret line="74" column="27" lean-forward="false" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.md.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/data-types/arrays/index.md.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -100,7 +97,13 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>Could not fi</find>
+      <find>'Label'</find>
+      <find>{</find>
     </findStrings>
+    <replaceStrings>
+      <replace>'ArrayValue'</replace>
+      <replace>[</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src</dir>
     </dirStrings>
@@ -121,6 +124,16 @@
         <option value="$PROJECT_DIR$/src/Plugins/Matcher/ClassErrorSilencer.php" />
         <option value="$PROJECT_DIR$/src/Addendum.php" />
         <option value="$PROJECT_DIR$/src/Matcher/ClassLiteralMatcher.php" />
+        <option value="$PROJECT_DIR$/annotations/ArrayValueAnnotation.php" />
+        <option value="$PROJECT_DIR$/models/Arrays/ModelWithSquareBracketsSyntax.php" />
+        <option value="$PROJECT_DIR$/src/Matcher/ValueMatcher.php" />
+        <option value="$PROJECT_DIR$/src/Exceptions/MatcherException.php" />
+        <option value="$PROJECT_DIR$/src/Matcher/ArrayBracketsMatcher.php" />
+        <option value="$PROJECT_DIR$/src/Matcher/RegexMatcher.php" />
+        <option value="$PROJECT_DIR$/unit/Matcher/ArraySquareBracketTest.php" />
+        <option value="$PROJECT_DIR$/vendor/maslosoft/addendumtest/models/Debug/TreeTraits/Traits/SimpleTreeTrait.php" />
+        <option value="$PROJECT_DIR$/src/Matcher/PairMatcher.php" />
+        <option value="$PROJECT_DIR$/docs/data-types/arrays/index.md.php" />
       </list>
     </option>
   </component>
@@ -250,7 +263,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -261,63 +273,71 @@
             <path>
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
               <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="docs" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="docs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="build-in" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="docs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="data-types" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="docs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="data-types" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="arrays" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
               <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Arrays" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
               <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Exceptions" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
               <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Interfaces" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
-              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Interfaces" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Plugins" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
-              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Interfaces" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Plugins" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Matcher" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
-              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Matcher" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
-              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Plugins" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
-              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Plugins" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Matcher" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
               <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="unit" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="unit" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Debug" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="unit" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Matcher" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
@@ -329,6 +349,12 @@
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
               <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="composer" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
@@ -342,6 +368,44 @@
               <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="maslosoft" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="addendumtest" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="maslosoft" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="addendumtest" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="maslosoft" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="addendumtest" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Debug" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="maslosoft" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="addendumtest" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Debug" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="TreeTraits" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="addendum" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="maslosoft" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="addendumtest" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Debug" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="TreeTraits" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Traits" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="addendum" type="b2602c69:ProjectViewProjectNode" />
@@ -374,17 +438,20 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/vendor/maslosoft/addendumtest/tests/unit/Plugins/ClassErrorSilencerTest.php" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/vendor/maslosoft/addendumtest/tests/unit/Matcher/ArraySquareBracketTest.php" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Matcher" />
+      <recent name="$PROJECT_DIR$/unit/Matcher" />
       <recent name="$PROJECT_DIR$/docs/helpers" />
     </key>
   </component>
@@ -400,14 +467,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Codeception.Plugins/ClassErrorSilencer">
+  <component name="RunManager" selected="Codeception.Matcher/ArraySquareBracket">
+    <configuration name="Matcher/ArraySquareBracket" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings file="$PROJECT_DIR$/vendor/maslosoft/addendumtest/tests/unit/Matcher/ArraySquareBracketTest.php" method="" scope="File" />
+    </configuration>
     <configuration name="Plugins/ClassErrorSilencer" type="CodeceptionConfigurationType" factoryName="Codeception">
       <PhpTestRunnerSettings file="$PROJECT_DIR$/vendor/maslosoft/addendumtest/tests/unit/Plugins/ClassErrorSilencerTest.php" method="" scope="File" />
     </configuration>
     <configuration name="Plugins/ClassErrorSilencer" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/run-test" scriptParameters="Plugins/ClassErrorSilencer" />
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Codeception.Plugins/ClassErrorSilencer" />
-      <item index="1" class="java.lang.String" itemvalue="PHP Script.Plugins/ClassErrorSilencer" />
+      <item index="1" class="java.lang.String" itemvalue="Codeception.Matcher/ArraySquareBracket" />
+      <item index="2" class="java.lang.String" itemvalue="PHP Script.Plugins/ClassErrorSilencer" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -426,50 +497,51 @@
       <workItem from="1511292196952" duration="1259000" />
       <workItem from="1511294752931" duration="1391000" />
       <workItem from="1512549236303" duration="56000" />
-      <workItem from="1512549668177" duration="2710000" />
+      <workItem from="1512549668177" duration="3261000" />
+      <workItem from="1512554229958" duration="2675000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 15m 23s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 16m 35s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 16m 16s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 16m 45s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 16m 43s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 17m 10s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 17m 12s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 18m 59s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 17m 46s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 20m 54s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 18m 49s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 21m 23s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 21m 24s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 21m 53s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 22m 21s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 22m 35s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 23m 18s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 24m 42s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
-    <history-entry file="Plugins_ClassErrorSilencer - 2017.12.06 at 10h 25m 24s.xml">
-      <configuration name="Plugins/ClassErrorSilencer" configurationId="CodeceptionConfigurationType" />
+    <history-entry file="Matcher_ArraySquareBracket - 2017.12.06 at 11h 24m 56s.xml">
+      <configuration name="Matcher/ArraySquareBracket" configurationId="CodeceptionConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5416000" />
+    <option name="totallyTimeSpent" value="8642000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.257886" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26065302" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -479,7 +551,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -497,7 +569,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -527,7 +599,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -545,7 +616,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -557,19 +627,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Matcher/Traits/PluginsTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="47" column="40" lean-forward="false" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/unit/Plugins/UseResolverTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-198">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -577,7 +638,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -585,7 +645,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-132">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -619,7 +678,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -628,16 +686,6 @@
         <state relative-caret-position="5104">
           <caret line="327" column="36" lean-forward="false" selection-start-line="327" selection-start-column="36" selection-end-line="327" selection-end-column="36" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/maslosoft/addendumtest/tests/unit/Plugins/ClassErrorSilencerTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="36" column="45" lean-forward="false" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-          <folding>
-            <element signature="e#27#66#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -652,15 +700,7 @@
     <entry file="file://$PROJECT_DIR$/src/Plugins/Matcher/ClassErrorSilencer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
-          <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Interfaces/Plugins/Matcher/MatcherClassNotFoundHandlerInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="5" lean-forward="true" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -669,6 +709,212 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="569">
           <caret line="69" column="41" lean-forward="false" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Interfaces/Plugins/Matcher/MatcherClassNotFoundHandlerInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="5" lean-forward="false" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/maslosoft/addendumtest/tests/unit/Plugins/ClassErrorSilencerTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="36" column="45" lean-forward="false" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
+          <folding>
+            <element signature="e#27#66#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/Traits/PluginsTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="586">
+          <caret line="47" column="40" lean-forward="false" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit/Matcher/ConstantValueTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/DescriptionAnnotation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/RelatedAnnotation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/LabelAnnotation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="23" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/ModelWithBadTarget.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/ArrayValueAnnotation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Arrays/ModelWithSquareBracketsSyntax.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/ParametersMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="16" column="6" lean-forward="false" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/ValueMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/MatcherException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
+          <folding>
+            <element signature="e#130#144#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/composer/ClassLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="320" column="0" lean-forward="false" selection-start-line="320" selection-start-column="0" selection-end-line="320" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/RegexMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-186">
+          <caret line="33" column="19" lean-forward="false" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+          <folding>
+            <element signature="e#603#654#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/ArrayBracketsMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="21" column="44" lean-forward="false" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/AnnotationMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="23" column="34" lean-forward="false" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/ArrayMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="25" column="42" lean-forward="true" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/ArrayValuesMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="21" column="33" lean-forward="false" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/ArrayValueMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="22" column="30" lean-forward="false" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/maslosoft/addendumtest/models/Debug/TreeTraits/Traits/SimpleTreeTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="29" column="68" lean-forward="false" selection-start-line="29" selection-start-column="68" selection-end-line="29" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit/Debug/TraitAnnotationTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="29" column="63" lean-forward="false" selection-start-line="29" selection-start-column="63" selection-end-line="29" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit/Matcher/ArraySquareBracketTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="828">
+          <caret line="74" column="27" lean-forward="false" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Matcher/PairMatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="22" column="84" lean-forward="false" selection-start-line="22" selection-start-column="84" selection-end-line="22" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/data-types/arrays/index.md.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
           <folding />
         </state>
       </provider>

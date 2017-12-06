@@ -14,9 +14,13 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
+use Maslosoft\Addendum\Exceptions\MatcherException;
+use Maslosoft\Addendum\Matcher\Traits\PluginsTrait;
+
 class RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
-use Traits\PluginsTrait;
+	use PluginsTrait;
+
 	protected $regex;
 
 	public function __construct($regex)
@@ -27,10 +31,19 @@ use Traits\PluginsTrait;
 	public function matches($string, &$value)
 	{
 		$matches = [];
-		if (preg_match("/^{$this->regex}/", $string, $matches))
+		$matched = preg_match("/^{$this->regex}/", $string, $matches);
+		if ($matched)
 		{
 			$value = $this->process($matches);
 			return strlen($matches[0]);
+		}
+		if (false === $matched)
+		{
+			$params = [
+				$this->regex,
+				$string
+			];
+			throw new MatcherException(vsprintf('Could not interpret matcher regex: `%s`, When processing "%s". ', $params), preg_last_error());
 		}
 		$value = false;
 		return false;

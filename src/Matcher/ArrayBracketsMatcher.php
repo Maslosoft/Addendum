@@ -14,19 +14,18 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class PairMatcher extends SerialMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
+class ArrayBracketsMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
 {
 
 	protected function build()
 	{
-		$this->add((new KeyMatcher)->setPlugins($this->getPlugins()));
-		$this->add((new RegexMatcher('\s*=>?\s*'))->setPlugins($this->getPlugins()));
-		$this->add((new ValueMatcher)->setPlugins($this->getPlugins()));
-	}
-
-	protected function process($parts)
-	{
-		return [$parts[0] => $parts[2]];
+		$this->add((new ConstantMatcher('\[\]', []))->setPlugins($this->getPlugins()));
+		$valuesMatcher = new SimpleSerialMatcher(1);
+		$valuesMatcher->setPlugins($this->getPlugins());
+		$valuesMatcher->add((new RegexMatcher('\s*\[\s*'))->setPlugins($this->getPlugins()));
+		$valuesMatcher->add((new ArrayValuesMatcher)->setPlugins($this->getPlugins()));
+		$valuesMatcher->add((new RegexMatcher('\s*\]\s*'))->setPlugins($this->getPlugins()));
+		$this->add($valuesMatcher);
 	}
 
 }
