@@ -16,10 +16,12 @@ namespace Maslosoft\Addendum\Matcher;
 
 use Maslosoft\Addendum\Exceptions\ClassNotFoundException;
 use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+use Maslosoft\Addendum\Interfaces\Plugins\Matcher\MatcherClassNotFoundHandlerInterface;
 use Maslosoft\Addendum\Matcher\Helpers\Processor;
 use Maslosoft\Addendum\Matcher\Traits\PluginsTrait;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Addendum\Utilities\ReflectionName;
+use Maslosoft\Gazebo\PluginFactory;
 
 /**
  * ClassLiteralMatcher
@@ -55,6 +57,19 @@ class ClassLiteralMatcher implements MatcherInterface
 						$name,
 						$string
 					];
+					$plugins = $this->getPlugins()->addendum->plugins->matcher;
+
+					$instances = PluginFactory::fly()->create($plugins, $this, MatcherClassNotFoundHandlerInterface::class);
+
+					/* @var $instances MatcherClassNotFoundHandlerInterface[] */
+
+					foreach($instances as $ignorer)
+					{
+						if($ignorer->shouldSkip($matches[0]))
+						{
+							return false;
+						}
+					}
 					throw new ClassNotFoundException(vsprintf("Could not find class %s, when processing annotations on %s, near %s", $params));
 				}
 				return false;
