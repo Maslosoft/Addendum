@@ -23,9 +23,6 @@ install:
   # Required for php 5
   - composer update
   - composer install --dev --prefer-dist
-  # Get fresh tests
-  - rm -rf vendor/maslosoft/addendumtest
-  - git clone https://github.com/Maslosoft/AddendumTest.git vendor/maslosoft/addendumtest
   - cd $TRAVIS_BUILD_DIR
 script:
   - bash run-travis

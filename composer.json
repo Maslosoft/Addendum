@@ -25,11 +25,19 @@
 			"Maslosoft\\Addendum\\": "src"
 		}
 	},
+	"autoload-dev": { 
+	    "psr-4": { 
+	      "AddendumTest\\": "tests", 
+	      "Maslosoft\\AddendumTest\\Models\\": "tests/models", 
+	      "Maslosoft\\AddendumTest\\Annotations\\": "tests/annotations" 
+	    } 
+	  }, 
 	"suggest": {
 		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services"
 	},
 	"require-dev": {
-		"maslosoft/addendumtest": "dev-master",
+		"codeception/codeception": "*", 
+    	"codeception/specify": "0.4.*" ,
 		"maslosoft/hedron": "*"
 	},
 	"require": {
