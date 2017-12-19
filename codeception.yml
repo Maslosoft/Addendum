@@ -1,9 +1,9 @@
 actor: Tester
 paths:
-    tests: vendor/maslosoft/addendumtest/tests
+    tests: tests
     log: tests/_output
-    data: vendor/maslosoft/addendumtest/tests/_data
-    helpers: vendor/maslosoft/addendumtest/tests/_support
+    data: tests/_data
+    helpers: tests/_support
 extensions:
     enabled:
         - AddendumWipe
