@@ -20,9 +20,11 @@ env:
   - ADDENDUM_CACHE_CLEAR=0
   - ADDENDUM_CACHE_CLEAR=1
 install:
+  # Remove possible obsolete tests
+  - bash -c 'if [ -e "vendor/maslosoft/addendumtest" ]; then rm -rf "vendor/maslosoft/addendumtest"; fi;'
   # Required for php 5
   - composer update
-  - composer install --dev --prefer-dist
+  - composer install --prefer-dist --dev --no-interaction
   - cd $TRAVIS_BUILD_DIR
 script:
   - bash run-travis
