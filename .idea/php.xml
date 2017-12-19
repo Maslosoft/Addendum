@@ -15,7 +15,6 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/vendor/stecman/symfony-console-completion" />
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
@@ -32,7 +31,6 @@
       <path value="$PROJECT_DIR$/vendor/maslosoft/gazebo" />
       <path value="$PROJECT_DIR$/vendor/maslosoft/cache" />
       <path value="$PROJECT_DIR$/vendor/maslosoft/signals" />
-      <path value="$PROJECT_DIR$/vendor/maslosoft/addendumtest" />
       <path value="$PROJECT_DIR$/vendor/maslosoft/embedi" />
       <path value="$PROJECT_DIR$/vendor/maslosoft/cli-shared" />
       <path value="$PROJECT_DIR$/vendor/maslosoft/hedron" />

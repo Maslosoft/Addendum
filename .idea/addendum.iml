@@ -2,8 +2,10 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/tests/annotations" isTestSource="true" packagePrefix="Maslosoft\AddendumTest\Annotations\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="AddendumTest\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/models" isTestSource="true" packagePrefix="Maslosoft\AddendumTest\Models\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="Maslosoft\Addendum\" />
-      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/generated" />
       <excludeFolder url="file://$MODULE_DIR$/nbproject" />
       <excludeFolder url="file://$MODULE_DIR$/runtime" />
@@ -18,7 +20,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/guzzle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/maslosoft/addendumtest" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/maslosoft/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/maslosoft/cli-shared" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/maslosoft/embedi" />
@@ -46,7 +47,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/stecman/symfony-console-completion" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/browser-kit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
@@ -74,7 +74,6 @@
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/guzzle" />
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
-          <root url="file://$MODULE_DIR$/vendor/maslosoft/addendumtest" />
           <root url="file://$MODULE_DIR$/vendor/maslosoft/cache" />
           <root url="file://$MODULE_DIR$/vendor/maslosoft/cli-shared" />
           <root url="file://$MODULE_DIR$/vendor/maslosoft/embedi" />
@@ -102,7 +101,6 @@
           <root url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/version" />
-          <root url="file://$MODULE_DIR$/vendor/stecman/symfony-console-completion" />
           <root url="file://$MODULE_DIR$/vendor/symfony/browser-kit" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
           <root url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
@@ -126,7 +124,6 @@
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/guzzle" />
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
           <root url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
-          <root url="file://$MODULE_DIR$/vendor/maslosoft/addendumtest" />
           <root url="file://$MODULE_DIR$/vendor/maslosoft/cache" />
           <root url="file://$MODULE_DIR$/vendor/maslosoft/cli-shared" />
           <root url="file://$MODULE_DIR$/vendor/maslosoft/embedi" />
@@ -154,7 +151,6 @@
           <root url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
           <root url="file://$MODULE_DIR$/vendor/sebastian/version" />
-          <root url="file://$MODULE_DIR$/vendor/stecman/symfony-console-completion" />
           <root url="file://$MODULE_DIR$/vendor/symfony/browser-kit" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
           <root url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
