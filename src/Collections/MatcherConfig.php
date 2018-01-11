@@ -30,14 +30,8 @@ class MatcherConfig
 
 	public function __construct($config)
 	{
-		if(!isset($config['addendum']))
-		{
-			throw new ConfigurationException('Matcher plugins require `addendum`');
-		}
-		if(!isset($config['reflection']))
-		{
-			throw new ConfigurationException('Matcher plugins require `reflection`');
-		}
+		assert(isset($config['addendum']), new ConfigurationException('Matcher plugins require `addendum`'));
+		assert(isset($config['reflection']), new ConfigurationException('Matcher plugins require `reflection`'));
 		$this->addendum = $config['addendum'];
 		$this->reflection = $config['reflection'];
 	}
