@@ -52,6 +52,13 @@ class ParametersMatcherTest extends Test
 			'({1,-2, -3})' => [1, -2, -3],
 			'({foo = 2, bar = 3})' => ['foo' => 2, 'bar' => 3],
 			'({foo = 2, bar = -3})' => ['foo' => 2, 'bar' => -3],
+			"({'foo' = 2, 'bar' = -3})" => ['foo' => 2, 'bar' => -3],
+			"({'foo' => 2, 'bar' => -3})" => ['foo' => 2, 'bar' => -3],
+			'({foo: 2, bar: -3})' => ['foo' => 2, 'bar' => -3],
+			"({'foo': 2, 'bar': -3})" => ['foo' => 2, 'bar' => -3],
+			"({'foo': 2, 'bar': [1,2,3]})" => ['foo' => 2, 'bar' => [1,2,3]],
+			"([data = {'foo': 2, 'bar': -3}])" => ['data' => ['foo' => 2, 'bar' => -3]],
+			"({'foo': 2, 'bar': {x: 'one', y: 'two', z: {'time': 1, 'gravity': 2}}})" => ['foo' => 2, 'bar' => ['x' => 'one', 'y' => 'two', 'z' => ['time' => 1, 'gravity' => 2]]],
 			// Anonymous params
 			'(Maslosoft\AddendumTest\Models\ModelWithLabels, 4, 5)' => [ModelWithLabels::class, 4, 5],
 		];
