@@ -70,7 +70,7 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	 * Get metadata class for whole entity.
 	 *
 	 * This allows access to type, method or property in any annotation,
-	 * regardles of it's location.
+	 * regardless of it's location.
 	 * 
 	 * @return Meta
 	 */
@@ -80,7 +80,7 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	}
 
 	/**
-	 * Set annotatins entity, it can be either class, property, or method
+	 * Set annotations entity, it can be either class, property, or method
 	 * @param AnnotationEntityInterface $entity
 	 */
 	public function setEntity(AnnotationEntityInterface $entity)
@@ -100,7 +100,7 @@ abstract class MetaAnnotation extends Annotation implements MetaAnnotationInterf
 	 * }
 	 * ```
 	 *
-	 * @return AnnotatedEntityInteface
+	 * @return AnnotationEntityInterface
 	 */
 	public function getEntity()
 	{
