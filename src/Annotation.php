@@ -75,7 +75,7 @@ abstract class Annotation implements AnnotationInterface
 		}
 		try
 		{
-			ConflictChecker::register($this, $target);
+			ConflictChecker::register($this);
 			TargetChecker::check($this, $target);
 		}
 		catch (UnexpectedValueException $ex)
@@ -93,7 +93,7 @@ abstract class Annotation implements AnnotationInterface
 	}
 
 	/**
-	 * Init annoattion
+	 * Init annotation
 	 */
 	abstract public function init();
 
