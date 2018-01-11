@@ -1,7 +1,8 @@
 {
 	"name": "maslosoft/addendum",
-	"description": "Easy to use php annotations",
+	"description": "Powerful and easy to use PHP annotations",
 	"keywords": [
+		"php",
 		"annotations",
 		"annotation",
 		"addendum",
@@ -14,8 +15,8 @@
 	"authors": [
 		{
 			"name": "Peter Maselkowski",
-			"email": "pmaselkowski@gmail.com",
-			"homepage": "http://maslosoft.com",
+			"email": "peter@maslosoft.com",
+			"homepage": "https://maslosoft.com",
 			"role": "Developer"
 		}
 	],
@@ -36,9 +37,10 @@
 		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services"
 	},
 	"require-dev": {
-		"codeception/codeception": "*", 
-    	"codeception/specify": "0.4.*" ,
-		"maslosoft/hedron": "*"
+		"codeception/codeception": "*",
+		"codeception/specify": "^0",
+		"maslosoft/hedron": "*",
+		"maslosoft/zamm": "*"
 	},
 	"require": {
 		"php": ">=5.5.0",
