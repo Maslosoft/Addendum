@@ -16,11 +16,11 @@ class MatcherException extends Exception
 {
 	public function __construct($message = "", $code = 0, Throwable $previous = null)
 	{
-		$message .= $this->errorToText($code);
+		$message .= $this->errorToText($code, $message);
 		parent::__construct($message, $code, $previous);
 	}
 
-	private function errorToText($errcode)
+	private function errorToText($errcode, $errtxt)
 	{
 		static $messages;
 
