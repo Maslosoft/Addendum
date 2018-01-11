@@ -20,7 +20,7 @@ class PairMatcher extends SerialMatcher implements \Maslosoft\Addendum\Interface
 	protected function build()
 	{
 		$this->add((new KeyMatcher)->setPlugins($this->getPlugins()));
-		$this->add((new RegexMatcher('\s*=>?\s*'))->setPlugins($this->getPlugins()));
+		$this->add((new RegexMatcher('\s*(=>?|:)\s*'))->setPlugins($this->getPlugins()));
 		$this->add((new ValueMatcher)->setPlugins($this->getPlugins()));
 	}
 
