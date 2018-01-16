@@ -58,7 +58,7 @@ class ClassChecker
 		}
 		try
 		{
-			if (class_exists($class))
+			if (@class_exists($class))
 			{
 				return self::confirm($class);
 			}
@@ -69,7 +69,7 @@ class ClassChecker
 		}
 		try
 		{
-			if (trait_exists($class))
+			if (@trait_exists($class))
 			{
 				return self::confirm($class);
 			}
@@ -80,7 +80,7 @@ class ClassChecker
 		}
 		try
 		{
-			if (interface_exists($class))
+			if (@interface_exists($class))
 			{
 				return self::confirm($class);
 			}
