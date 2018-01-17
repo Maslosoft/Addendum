@@ -10,6 +10,7 @@ use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Matcher\ParametersMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\AddendumTest\Models\ModelWithTopValues;
+use Maslosoft\AddendumTest\Models\ModelWithTopValuesDefaults;
 use ReflectionClass;
 use UnitTester;
 
@@ -83,4 +84,29 @@ DOC;
 		}
 	}
 
+	public function testIfWillExtractTopValuesAndDefaultValuesSetOnAnnotatinClass()
+	{
+		$model = new ModelWithTopValuesDefaults;
+
+		// Raw matcher for debug
+		$reflection = new ReflectionAnnotatedProperty($model, 'straight');
+		$matcher = new AnnotationsMatcher;
+		$matcher->setPlugins(new MatcherConfig([
+			'addendum' => new Addendum(),
+			'reflection' => $reflection
+		]));
+		$data = [];
+		$comment = Addendum::getDocComment($reflection);
+		$matcher->matches($comment, $data);
+
+		$meta = Meta::create($model);
+
+		// All fields have same annotation
+		foreach ($meta->fields() as $fieldMeta)
+		{
+			$title = sprintf('Annotation is defined on %s', $fieldMeta->name);
+			$this->assertSame(ModelWithTopValuesDefaults::ClassValue, $fieldMeta->class);
+			$this->assertSame(ModelWithTopValuesDefaults::UpdatableValue, $fieldMeta->updatable);
+		}
+	}
 }

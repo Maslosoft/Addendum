@@ -62,6 +62,8 @@ class ParamsExpander
 			if (is_array($values) && array_key_exists($name, $values))
 			{
 				$data[$name] = $values[$name];
+				unset($values[$name]);
+				continue;
 			}
 			if (isset($annotation->$name))
 			{
