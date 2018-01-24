@@ -8,7 +8,7 @@
 
 namespace Maslosoft\AddendumTest\Models\Debug;
 
-use Maslosoft\Ilmatar\Modules\Ua\Validators\SsoCredentialsValidator;
+use Maslosoft\Modules\Ua\Validators\SsoCredentialsValidator;
 
 /**
  * AbstractSettings
