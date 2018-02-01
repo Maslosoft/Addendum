@@ -9,8 +9,8 @@
 		"metadata"
 	],
 	"license": [
-		"AGPL",
-		"Commercial"
+ 		"AGPL-3.0-only",
+ 		"proprietary"
 	],
 	"authors": [
 		{

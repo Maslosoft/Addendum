@@ -12,12 +12,12 @@
 
     1.  **Limited:** Licensee may use Software for the purpose of:
 
-        1.  Running Software on Licensee’s Web Application using many Servers;
-        2.  Allowing 3rd Parties to run Software on Licensee’s Web Application using many Servers;
+        1.  Running one Instance of Software on Licensee’s Infrastructure;
+        2.  Allowing 3rd Parties to run one Instance of Software on Licensee’s Infrastructure;
         3.  Publishing Software’s output to Licensee and 3rd Parties;
         4.  Distribute verbatim copies of Software’s output (including compiled binaries);
         5.  Modify Software to suit Licensee’s needs and specifications.
-    2.  **Binary Restricted:** Licensee may sublicense Software as a part of a larger work containing more than Software, distributed solely in Object or Binary form under a personal, non-sublicensable, limited license. Such redistribution shall be limited to unlimited codebases.
+    2.  **Binary Restricted:** Licensee may not sublicense Software as a part of a larger work containing more than Software, distributed solely in Object or Binary form under a personal, non-sublicensable, limited license.
     3.  **Non Assignable & Non-Transferable:** Licensee may not assign or transfer his rights and duties under this license.
 
     4.  **Commercial, Royalty Free:** Licensee may use Software for any purpose, including paid-services, without any royalties
