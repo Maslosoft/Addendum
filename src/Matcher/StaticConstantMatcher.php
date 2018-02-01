@@ -35,6 +35,7 @@ class StaticConstantMatcher extends RegexMatcher implements MatcherInterface
 		$constName = $parts[1];
 		$className = Processor::process($this, $className);
 		$value = sprintf('%s::%s', $className, $constName);
+		$value = Processor::process($this, $value);
 		if ($className !== 'self' && $className !== 'static')
 		{
 			if (!ClassChecker::exists($className))
@@ -42,6 +43,12 @@ class StaticConstantMatcher extends RegexMatcher implements MatcherInterface
 				throw new ClassNotFoundException("Class $className not found while parsing annotations");
 			}
 		}
+
+		if($constName === 'class' && $value === $className)
+		{
+			return $value;
+		}
+
 		if (!defined($value))
 		{
 			return false;

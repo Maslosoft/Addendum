@@ -14,7 +14,9 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class ConstantMatcher extends RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+
+class ConstantMatcher extends RegexMatcher implements MatcherInterface
 {
 
 	private $constant;

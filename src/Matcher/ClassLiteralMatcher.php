@@ -41,7 +41,7 @@ class ClassLiteralMatcher implements MatcherInterface
 	public function matches($string, &$value)
 	{
 		$matches = [];
-		$regex = '([A-Z\\\][a-zA-Z0-9_\\\]+)';
+		$regex = '(static|self|[A-Z\\\][a-zA-Z0-9_\\\]+)';
 		if (preg_match("/^{$regex}/", $string, $matches))
 		{
 			$value = $this->process($matches);
