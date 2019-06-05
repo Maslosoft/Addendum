@@ -48,6 +48,10 @@ class ClassChecker
 	 */
 	public static function exists($class)
 	{
+		if(is_object($class))
+		{
+			$class = get_class($class);
+		}
 		if (Blacklister::ignores($class))
 		{
 			return false;
