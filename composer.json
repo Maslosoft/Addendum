@@ -45,12 +45,12 @@
 	},
 	"require": {
 		"php": ">=7.1",
-		"psr/log": "~1",
-		"maslosoft/embedi": "*",
-		"maslosoft/signals": "*",
-		"maslosoft/gazebo": "*",
+		"maslosoft/cache": "*",
 		"maslosoft/cli-shared": "*",
-		"maslosoft/cache": "*"
+		"maslosoft/embedi": "*",
+		"maslosoft/gazebo": "*",
+		"maslosoft/signals": "*",
+		"psr/log": "~1"
 	},
 	"homepage": "https://maslosoft.com/addendum/"
 }
