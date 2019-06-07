@@ -20,4 +20,13 @@ class CacheComponent
 	{
 		return sprintf("%s/%s.php", $this->basePath, Cacher::classToFile($className));
 	}
+
+	protected function getPartialsDir($className)
+	{
+		return sprintf(
+			'%s/%s',
+			$this->basePath,
+			Cacher::classToFile($className)
+		);
+	}
 }
