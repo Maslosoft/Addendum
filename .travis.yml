@@ -11,6 +11,7 @@ matrix:
   allow_failures:
     - php:
       - nightly
+      - hhvm
 cache:
   directories:
     - vendor
