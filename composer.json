@@ -44,7 +44,7 @@
 		"maslosoft/zamm": "*"
 	},
 	"require": {
-		"php": ">=7",
+		"php": ">=7.1",
 		"psr/log": "~1",
 		"maslosoft/embedi": "*",
 		"maslosoft/signals": "*",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "baa97f25a1822eae2b26348daae89868",
+    "content-hash": "178a25898c494b2ea9fb8a8b86058423",
     "packages": [
         {
             "name": "maslosoft/cache",
@@ -3965,7 +3965,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7"
+        "php": ">=7.1"
     },
     "platform-dev": []
 }
