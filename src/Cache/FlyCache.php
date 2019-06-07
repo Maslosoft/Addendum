@@ -28,7 +28,7 @@ class FlyCache
 
 	/**
 	 * Instances of meta cache
-	 * @var MetaCache[]
+	 * @var ClassCache[]
 	 */
 	private static $_instances = [];
 
@@ -38,7 +38,7 @@ class FlyCache
 	 * @param string $metaClass
 	 * @param string|object|AnnotatedInterface $component
 	 * @param MetaOptions $options
-	 * @return MetaCache
+	 * @return ClassCache
 	 */
 	public static function instance($metaClass = null, $component = null, MetaOptions $options = null)
 	{
@@ -54,9 +54,8 @@ class FlyCache
 
 		if (empty(self::$_instances[$key]))
 		{
-			self::$_instances[$key] = new MetaCache($metaClass, $component, $options);
+			self::$_instances[$key] = new ClassCache($metaClass, $component, $options);
 		}
-		self::$_instances[$key]->setComponent($component);
 		self::$_instances[$key]->setOptions($options);
 		return self::$_instances[$key];
 	}

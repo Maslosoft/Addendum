@@ -272,8 +272,8 @@ class Meta
 		}
 		$cache = FlyCache::instance(static::class, $model, $options);
 
-		$cached = $cache->get();
-		if ($cached)
+		$cached = $cache->get($class);
+		if ($cached !== false)
 		{
 			self::$c[$key] = $cached;
 			return $cached;
@@ -281,7 +281,8 @@ class Meta
 
 		$instance = new static($model, $options);
 		self::$c[$key] = $instance;
-		return $cache->set($instance);
+		$cache->set($class, $instance);
+		return $instance;
 	}
 
 	/**
