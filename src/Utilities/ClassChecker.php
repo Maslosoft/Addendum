@@ -14,7 +14,14 @@
 
 namespace Maslosoft\Addendum\Utilities;
 
+use function array_key_exists;
+use function array_unique;
 use Exception;
+use function get_class;
+use function get_parent_class;
+use function is_object;
+use ReflectionClass;
+use function sort;
 
 /**
  * ClassChecker
@@ -31,12 +38,22 @@ class ClassChecker
 	private static $_exists = [];
 
 	/**
+	 * Partials cache
+	 * @var array
+	 */
+	private static $partials = [];
+
+	/**
 	 * Check whenever class is anonymous.
-	 * @param string $class
+	 * @param string|object $class
 	 * @return bool True if class is anonymous
 	 */
 	public static function isAnonymous($class)
 	{
+		if(is_object($class))
+		{
+			$class = get_class($class);
+		}
 		return strpos($class, 'class@anonymous') !== false;
 	}
 
@@ -95,6 +112,61 @@ class ClassChecker
 		}
 		Blacklister::ignore($class);
 		return false;
+	}
+
+	/**
+	 * Get class/interface/trait names from which class is composed.
+	 *
+	 * @param string $className
+	 * @return array
+	 */
+	public static function getPartials($className)
+	{
+		if (array_key_exists($className, self::$partials))
+		{
+			return self::$partials[$className];
+		}
+		if(!ClassChecker::exists($className))
+		{
+			self::$partials[$className] = [];
+			return [];
+		}
+		$partials = [];
+		// Iterate over traits
+		foreach ((new ReflectionClass($className))->getTraitNames() as $trait)
+		{
+			$partials[] = $trait;
+		}
+
+		// Iterate over interfaces to get partials
+		foreach ((new ReflectionClass($className))->getInterfaceNames() as $interface)
+		{
+			$partials[] = $interface;
+		}
+
+		// Iterate over parent classes
+		do
+		{
+			$partials[] = $className;
+
+			// Iterate over traits of parent class
+			foreach ((new ReflectionClass($className))->getTraitNames() as $trait)
+			{
+				$partials[] = $trait;
+			}
+
+			// Iterate over interfaces of parent class
+			foreach ((new ReflectionClass($className))->getInterfaceNames() as $interface)
+			{
+				$partials[] = $interface;
+			}
+
+		}
+		while (($className = get_parent_class($className)) !== false);
+		$partials = array_unique($partials);
+		sort($partials);
+		self::$partials[$className] = $partials;
+		return $partials;
 	}
 
 	private static function isConfirmed($class)
