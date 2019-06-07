@@ -114,7 +114,7 @@ class ClassCache
 		{
 			if(!$this->checker->isValid($className))
 			{
-//				var_dump('INV:' . $className);
+				var_dump('INV:' . $className);
 				return false;
 			}
 		}
