@@ -21,12 +21,15 @@ class Writer extends CacheComponent
 
 	public function write($className, $data)
 	{
-		NameNormalizer::normalize($className);
+		NameNormalizer::normalize($className, false);
 
 
 		// Set partials cache
 		$filter = function ($partial) use($className) {
-			if($partial === AnnotatedInterface::class)
+			$interface = AnnotatedInterface::class;
+			NameNormalizer::normalize($interface, false);
+			NameNormalizer::normalize($partial, false);
+			if($partial === $interface)
 			{
 				return false;
 			}
@@ -43,17 +46,13 @@ class Writer extends CacheComponent
 			// Create directory for current class
 			// This directory will hold class names
 			// of partials
-			$partialsDir = sprintf(
-				'%s/%s',
-				$this->basePath,
-				Cacher::classToFile($className)
-			);
+			$partialsDir = $this->getPartialsDir($className);
 			if (!file_exists($partialsDir))
 			{
 				Io::mkdir($partialsDir);
 			}
 
-			foreach (ClassChecker::getPartials($className) as $partialClass)
+			foreach ($partials as $partialClass)
 			{
 				$partialFile = Cacher::classToFile($partialClass);
 

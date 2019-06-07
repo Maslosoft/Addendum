@@ -8,8 +8,8 @@ use AddendumTest\models\Cache\Writer\TraitOne;
 use Codeception\Test\Unit;
 use Maslosoft\Addendum\Cache\PhpCache\Writer;
 use Maslosoft\Addendum\Helpers\Cacher;
+use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Cli\Shared\Cmd;
-use Maslosoft\Cli\Shared\Os;
 use function sprintf;
 use UnitTester;
 
@@ -38,16 +38,25 @@ class WriterTest extends Unit
     	$writer->write(ModelWithPartials::class, true);
 
     	$this->checkClass(ModelWithPartials::class);
+    	$this->checkPartial(ModelWithPartials::class, false);
+		$this->checkPartial(AnnotatedInterface::class, false);
 		$this->checkPartial(InterfaceOne::class);
 		$this->checkPartial(InterfaceBase::class);
 		$this->checkPartial(TraitOne::class);
 		$this->checkPartial(TraitBase::class);
 	}
 
-    private function checkPartial($partial)
+    private function checkPartial($partial, $toExists = true)
 	{
 		$file = sprintf('%s/runtime/%s/%s.php', __DIR__, Cacher::classToFile(ModelWithPartials::class), Cacher::classToFile($partial));
-		$this->assertFileExists($file);
+		if($toExists)
+		{
+			$this->assertFileExists($file);
+		}
+		else
+		{
+			$this->assertFileNotExists($file);
+		}
 	}
 
 	private function checkClass($className)
