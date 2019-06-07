@@ -28,8 +28,7 @@ class CheckerTest extends Unit
     
     protected function _before()
     {
-		$path = sprintf('%s/runtime/*', __DIR__);
-		Cmd::run("rm -rf $path");
+		$this->clear();
 		(new Writer(__DIR__ . '/runtime'))->write(ModelWithPartials::class, true);
 		$this->checker = new Checker(__DIR__ . '/runtime');
     }
@@ -39,6 +38,11 @@ class CheckerTest extends Unit
     }
 
     // tests
+	public function testCheckingNotCached()
+	{
+		$this->clear();
+		$this->assertFalse($this->checker->isValid(ModelWithPartials::class));
+	}
 
 	public function testCheckingClass()
 	{
@@ -85,5 +89,11 @@ class CheckerTest extends Unit
 	{
 		$file = sprintf('%s/runtime/%s.php', __DIR__, Cacher::classToFile($className));
 		touch($file, time() - $by);
+	}
+
+	private function clear()
+	{
+		$path = sprintf('%s/runtime/*', __DIR__);
+		Cmd::run("rm -rf $path");
 	}
 }
