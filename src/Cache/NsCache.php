@@ -61,7 +61,7 @@ class NsCache
 	 * But only if no options provided
 	 * @var bool
 	 */
-	public static $addeNs = true;
+	public static $addedNs = true;
 
 	public function __construct($path, Addendum $addendum, MetaOptions $options = null)
 	{
@@ -79,7 +79,7 @@ class NsCache
 			{
 				if (empty($this->namespaces[$ns]))
 				{
-					self::$addeNs = true;
+					self::$addedNs = true;
 					$this->namespaces[$ns] = true;
 				}
 			}
@@ -91,7 +91,7 @@ class NsCache
 		$ns = $this->get();
 		$valid = $this->isValid($ns);
 
-		// Ovverride existing cache if not valid
+		// Override existing cache if not valid
 		if (!$valid)
 		{
 			$this->set();
@@ -141,7 +141,7 @@ class NsCache
 		}
 
 		// Additional check if added namespace manually
-		if (empty($this->options) && self::$addeNs)
+		if (empty($this->options) && self::$addedNs)
 		{
 			$addendumDiff = array_diff_key($this->ad->nameKeys, $this->namespaces);
 			if (!empty($addendumDiff))
@@ -151,7 +151,7 @@ class NsCache
 				{
 					$this->namespaces[$ns] = true;
 				}
-				self::$addeNs = false;
+				self::$addedNs = false;
 				return false;
 			}
 		}
@@ -159,7 +159,7 @@ class NsCache
 		$cachedDiff = array_diff_key($this->namespaces, $ns);
 		if (empty($cachedDiff))
 		{
-			self::$addeNs = false;
+			self::$addedNs = false;
 			return true;
 		}
 		return false;

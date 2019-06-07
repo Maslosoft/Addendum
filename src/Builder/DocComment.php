@@ -14,6 +14,9 @@
 
 namespace Maslosoft\Addendum\Builder;
 
+use function assert;
+use Exception;
+use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Addendum\Utilities\NameNormalizer;
 use ReflectionClass;
@@ -57,6 +60,7 @@ class DocComment
 		{
 			return $this->forProperty($reflection);
 		}
+		throw new Exception("This method can only be used on reflection classes");
 	}
 
 	/**
@@ -65,6 +69,7 @@ class DocComment
 	 * If file name matches class name, this class will be returned
 	 * @param string $name
 	 * @param string $className
+	 * @return array
 	 */
 	public function forFile($name, $className = null)
 	{
@@ -91,6 +96,7 @@ class DocComment
 
 	public function forClass(Reflector $reflection)
 	{
+		assert($reflection instanceof ReflectionClass);
 		if (ClassChecker::isAnonymous($reflection->name))
 		{
 			echo '';
@@ -99,7 +105,7 @@ class DocComment
 		$this->process($reflection->getFileName(), $fqn);
 		if (ClassChecker::isAnonymous($reflection->name))
 		{
-			$info = new \ReflectionClass($reflection->getName());
+			$info = new ReflectionClass($reflection->getName());
 			$anonFqn = $reflection->getName();
 			NameNormalizer::normalize($anonFqn);
 			$this->processAnonymous($info, $anonFqn);
@@ -115,6 +121,7 @@ class DocComment
 		];
 		if (ClassChecker::isAnonymous($reflection->name))
 		{
+			assert(!empty($anonFqn));
 			$result['className'] = self::$classNames[$anonFqn];
 			$result['class'] = self::$classes[$anonFqn];
 		}
@@ -123,6 +130,7 @@ class DocComment
 
 	public function forMethod(Reflector $reflection)
 	{
+		assert($reflection instanceof ReflectionMethod);
 		$this->process($reflection->getDeclaringClass()->getFileName());
 
 
@@ -134,6 +142,7 @@ class DocComment
 
 	public function forProperty(Reflector $reflection)
 	{
+		assert($reflection instanceof ReflectionProperty);
 		$this->process($reflection->getDeclaringClass()->getFileName());
 
 
@@ -146,16 +155,16 @@ class DocComment
 	{
 		if (!isset(self::$parsedFiles[$fqn]))
 		{
-			/* @var $reflection \Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass */
+			/* @var $reflection ReflectionAnnotatedClass */
 			self::$classNames[$fqn] = $fqn;
 			self::$classes[$fqn] = $reflection->getDocComment();
 			self::$methods[$fqn] = [];
 			self::$fields[$fqn] = [];
-			foreach ($reflection->getMethods(\ReflectionMethod::IS_PUBLIC) as $method)
+			foreach ($reflection->getMethods(ReflectionMethod::IS_PUBLIC) as $method)
 			{
 				self::$methods[$fqn][$method->name] = $method->getDocComment();
 			}
-			foreach ($reflection->getProperties(\ReflectionProperty::IS_PUBLIC) as $property)
+			foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property)
 			{
 				self::$fields[$fqn][$property->name] = $property->getDocComment();
 			}
@@ -252,6 +261,7 @@ class DocComment
 						$use[] = preg_replace('~^\\\\+~', '', $useNs);
 						if ($as)
 						{
+							assert(!empty($alias));
 							$aliases[$useNs] = $alias;
 						}
 						break;
@@ -327,7 +337,7 @@ class DocComment
 		do
 		{
 			/**
-			 * TODO Workaround for problem desribed near T_CLASS token
+			 * TODO Workaround for problem described near T_CLASS token
 			 */
 			if (!isset($tokens[$i]))
 			{

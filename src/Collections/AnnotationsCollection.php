@@ -57,7 +57,7 @@ class AnnotationsCollection
 	 * ```
 	 *
 	 * @param string $name
-	 * @return AnnotationInterface
+	 * @return AnnotationInterface|bool
 	 */
 	public function getAnnotation($name)
 	{

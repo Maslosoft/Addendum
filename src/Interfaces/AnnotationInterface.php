@@ -34,7 +34,7 @@ interface AnnotationInterface
 	public function getProperties();
 
 	/**
-	 * Init annoattion
+	 * Init annotation
 	 */
 	public function init();
 

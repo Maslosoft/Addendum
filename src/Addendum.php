@@ -24,7 +24,6 @@ use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Matcher\ClassLiteralMatcher;
-use Maslosoft\Addendum\Matcher\ParametersMatcher;
 use Maslosoft\Addendum\Matcher\StaticConstantMatcher;
 use Maslosoft\Addendum\Plugins\Matcher\ClassErrorSilencer;
 use Maslosoft\Addendum\Plugins\Matcher\DefencerDecorator;
@@ -136,7 +135,7 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * Cache for resolved annotations class names.
-	 * Key is shor annotation name.
+	 * Key is short annotation name.
 	 * @var string[]
 	 */
 	private static $classNames = [];
@@ -210,7 +209,7 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * Initialize addendum and store configuration.
-	 * This should be called upon first intstance creation.
+	 * This should be called upon first instance creation.
 	 *
 	 * @return Addendum
 	 */
@@ -283,7 +282,7 @@ class Addendum implements LoggerAwareInterface
 	 * Every added namespace will be included in annotation name resolving for current instance.
 	 *
 	 * @param string $ns
-	 * @renturn Addendum
+	 * @return Addendum
 	 */
 	public function addNamespace($ns)
 	{
@@ -297,7 +296,7 @@ class Addendum implements LoggerAwareInterface
 			if ($after !== $before)
 			{
 				$this->nameKeys = array_flip($this->namespaces);
-				Cache\NsCache::$addeNs = true;
+				Cache\NsCache::$addedNs = true;
 			}
 
 			$this->di->store($this, [], true);
@@ -349,7 +348,6 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * TODO This should not be static
 	 * @param Reflector $reflection
 	 * @return mixed[]
 	 */
@@ -358,7 +356,7 @@ class Addendum implements LoggerAwareInterface
 		// NOTE: Due to a nature of traits, raw doc parsing is always needed
 		// When using reflection's method `getDocComment` it will return
 		// doc comment like if it was pasted in code. Thus use statement
-		// from traits would be omited. See https://github.com/Maslosoft/Addendum/issues/24
+		// from traits would be omitted. See https://github.com/Maslosoft/Addendum/issues/24
 		$docComment = new DocComment();
 		if ($reflection instanceof ReflectionClass)
 		{

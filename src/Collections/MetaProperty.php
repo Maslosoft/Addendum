@@ -15,6 +15,7 @@
 namespace Maslosoft\Addendum\Collections;
 
 use Maslosoft\Addendum\Interfaces\AnnotationEntityInterface;
+use Maslosoft\Addendum\Traits\MetaState;
 use ReflectionProperty;
 
 /**
@@ -25,7 +26,7 @@ use ReflectionProperty;
 class MetaProperty implements AnnotationEntityInterface
 {
 
-	use \Maslosoft\Addendum\Traits\MetaState;
+	use MetaState;
 
 // <editor-fold defaultstate="collapsed" desc="Access Control">
 	/**

@@ -37,13 +37,14 @@
 		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services"
 	},
 	"require-dev": {
-		"codeception/codeception": "*",
+		"codeception/codeception": "^3",
+		"phpunit/phpunit": "^7.0",
 		"codeception/specify": "^0",
 		"maslosoft/hedron": "*",
 		"maslosoft/zamm": "*"
 	},
 	"require": {
-		"php": ">=5.5.0",
+		"php": ">=7",
 		"psr/log": "~1",
 		"maslosoft/embedi": "*",
 		"maslosoft/signals": "*",

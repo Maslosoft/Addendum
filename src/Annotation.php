@@ -15,7 +15,6 @@
 namespace Maslosoft\Addendum;
 
 use Maslosoft\Addendum\Exceptions\CircularReferenceException;
-use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Interfaces\AnnotationInterface;
 use Maslosoft\Addendum\Utilities\ConflictChecker;
 use Maslosoft\Addendum\Utilities\TargetChecker;

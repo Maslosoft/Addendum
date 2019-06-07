@@ -35,7 +35,7 @@ class ReflectionFile implements Reflector
 	const IS_FINAL = 64;
 
 	/**
-	 * Class anme
+	 * Class name
 	 * @var string
 	 */
 	public $name = '';

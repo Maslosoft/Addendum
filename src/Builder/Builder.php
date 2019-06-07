@@ -108,6 +108,7 @@ class Builder
 		}
 		else
 		{
+			assert($targetReflection instanceof ReflectionMethod || $targetReflection instanceof ReflectionProperty);
 			$targetClass = $targetReflection->getDeclaringClass();
 		}
 
@@ -126,7 +127,7 @@ class Builder
 			return $cached;
 		}
 
-		// Parials annotation data
+		// Partials annotation data
 		$partialsData = [];
 
 		// Extract annotations from all partials
@@ -310,7 +311,7 @@ class Builder
 	/**
 	 * Get doc comment
 	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $reflection
-	 * @return mixed[]
+	 * @return array
 	 */
 	private function parse($reflection)
 	{

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpSuperClassIncompatibleWithInterfaceInspection */
 
 /**
  * This software package is licensed under AGPL, Commercial license.

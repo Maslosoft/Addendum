@@ -26,7 +26,7 @@ trait PluginsTrait
 {
 
 	/**
-	 * Matcher confugration
+	 * Matcher configuration
 	 * @var MatcherConfig
 	 */
 	private $_plugins = [];
@@ -43,12 +43,14 @@ trait PluginsTrait
 	/**
 	 * Set matcher configuration
 	 * @param MatcherConfig $plugins
-	 * @return MatcherInterface
+	 * @return MatcherInterface|PluginsTrait
 	 */
 	public function setPlugins(MatcherConfig $plugins)
 	{
 		$this->_plugins = $plugins;
-		return $this;
+		$matcher = $this;
+		assert($matcher instanceof MatcherInterface);
+		return $matcher;
 	}
 
 }

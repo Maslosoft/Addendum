@@ -27,7 +27,7 @@ use Maslosoft\Addendum\Annotation;
  * @Ignored()
  * ```
  *
- * Explicitly mark method or property as not ignored. This might be usefull
+ * Explicitly mark method or property as not ignored. This might be useful
  * to inform other developers that method or property must be annotated.
  * ```
  * @Ignored(false)

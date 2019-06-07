@@ -30,8 +30,8 @@ class SoftIncluder
 	 */
 	public static function includeFile($filename)
 	{
-// Error reporting here is temporarly changed to ignore warnings.
-		// This is to avvoid include warning.
+		// Error reporting here is temporarily changed to ignore warnings.
+		// This is to avoid include warning.
 		$er = error_reporting(E_ERROR);
 
 		// Ignore file exists check for better performance, as mostly it should be there

@@ -26,11 +26,11 @@ class MatcherException extends Exception
 		parent::__construct($message, $code, $previous);
 	}
 
-	private function errorToText($errcode, $errtxt)
+	private function errorToText($errorCode, $errorMessage)
 	{
 		static $messages;
 
-		if (!isset($errtxt))
+		if (!isset($errorMessage))
 		{
 			$messages = array();
 			$constants = get_defined_constants(true);
@@ -43,6 +43,6 @@ class MatcherException extends Exception
 			}
 		}
 
-		return array_key_exists($errcode, $messages)? $messages[$errcode] : NULL;
+		return array_key_exists($errorCode, $messages)? $messages[$errorCode] : NULL;
 	}
 }

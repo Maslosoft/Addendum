@@ -23,7 +23,7 @@ use ReflectionMethod;
 use ReflectionProperty;
 
 /**
- * Check target constraits
+ * Check target constraints
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
@@ -34,7 +34,6 @@ class TargetChecker
 	 * Check target constraints
 	 * @param AnnotationInterface $annotation Annotation
 	 * @param ReflectionClass|ReflectionMethod|ReflectionProperty|bool $target
-	 * @return type
 	 * @throws TargetException
 	 */
 	public static function check($annotation, $target)

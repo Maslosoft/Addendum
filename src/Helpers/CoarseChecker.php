@@ -30,7 +30,7 @@ class CoarseChecker
 	 * Check if file contains annotations,
 	 * by checking if it contains @[A-Z] regular expression.
 	 *
-	 * It does not ensure that file really contains anniotations.
+	 * It does not ensure that file really contains annotations.
 	 *
 	 * @param string|Reflector|object $entity
 	 * @return bool

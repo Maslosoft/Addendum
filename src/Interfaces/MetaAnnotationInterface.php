@@ -30,14 +30,14 @@ interface MetaAnnotationInterface
 	public function setName($name);
 
 	/**
-	 * Set metada class to be accessible for annotation for init etc. methods
+	 * Set metadata class to be accessible for annotation for init etc. methods
 	 * @param Meta $meta
 	 * @return void
 	 */
 	public function setMeta(Meta $meta);
 
 	/**
-	 * Set annotatins entity, it can be either class, property, or method
+	 * Set annotations entity, it can be either class, property, or method
 	 * @param AnnotationEntityInterface $entity
 	 * @return void
 	 */

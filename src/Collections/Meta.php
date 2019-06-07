@@ -119,7 +119,7 @@ class Meta
 		 * for class OR methods it should use different fields
 		 * for class should be _main
 		 * for methods should be _methods
-		 * __get and __set should distinguish it somehow... - maybe by field type EComponentMetaProperty for fieltds etc.
+		 * __get and __set should distinguish it somehow... - maybe by field type EComponentMetaProperty for fields etc.
 		 * Currently disabled
 		 * OR add function to Annotation to setEntity, which should point to _field, _main or _method?
 		 */
@@ -249,11 +249,11 @@ class Meta
 	}
 
 	/**
-	 * Create flyghtweight instace of `Meta`.
+	 * Create flyweight instance of `Meta`.
 	 * Calling this function will create new instance only if it's not stored in cache.
 	 * This allows very effective retrieving of `Meta` container's meta data, without need of parsing annotations.
 	 * @param string|object|AnnotatedInterface $model
-	 * @param MetaOption|null $options
+	 * @param MetaOptions|null $options
 	 * @return static
 	 */
 	public static function create($model, MetaOptions $options = null)
@@ -288,8 +288,8 @@ class Meta
 	 * Get array of properties values for property field
 	 *
 	 * @param string $fieldName
-	 * @param enum $type type of entities to return Meta::Type|Meta::Field|Meta::Method
-	 * @return type
+	 * @param int $type type of entities to return Meta::Type|Meta::Field|Meta::Method
+	 * @return array
 	 */
 	public function properties($fieldName, $type = Meta::Field)
 	{

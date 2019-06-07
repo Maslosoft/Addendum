@@ -15,6 +15,7 @@
 namespace Maslosoft\Addendum\Collections;
 
 use Maslosoft\Addendum\Interfaces\AnnotationEntityInterface;
+use Maslosoft\Addendum\Traits\MetaState;
 use ReflectionMethod;
 
 /**
@@ -25,7 +26,7 @@ use ReflectionMethod;
 class MetaMethod implements AnnotationEntityInterface
 {
 
-	use \Maslosoft\Addendum\Traits\MetaState;
+	use MetaState;
 
 	/**
 	 * Name of method

@@ -23,14 +23,14 @@ class ParallelMatcher extends CompositeMatcher implements MatcherInterface
 	{
 		$maxLength = false;
 		$result = null;
-		$subvalue = [];
+		$subValue = [];
 		foreach ($this->matchers as $matcher)
 		{
-			$length = $matcher->matches($string, $subvalue);
+			$length = $matcher->matches($string, $subValue);
 			if ($maxLength === false || $length > $maxLength)
 			{
 				$maxLength = $length;
-				$result = $subvalue;
+				$result = $subValue;
 			}
 		}
 		$value = $this->process($result);

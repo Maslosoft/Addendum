@@ -15,6 +15,7 @@
 namespace Maslosoft\Addendum\Utilities;
 
 use Exception;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
@@ -30,14 +31,15 @@ class ReflectionHelper
 	/**
 	 * Get reflection class.
 	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedProperty|ReflectionAnnotatedMethod $reflection Reflection
+	 * @param MatcherInterface                                                               $matcher
 	 * @return ReflectionAnnotatedClass
 	 * @throws Exception
 	 */
-	public static function getReflectionClass($reflection)
+	public static function getReflectionClass($reflection, MatcherInterface $matcher)
 	{
 		if (null === $reflection)
 		{
-			throw new Exception(sprintf('No reflection class for matcher `%s`', get_class($this)));
+			throw new Exception(sprintf('No reflection class for matcher `%s`', get_class($matcher)));
 		}
 		if ($reflection instanceof ReflectionAnnotatedMethod)
 		{

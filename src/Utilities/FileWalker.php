@@ -19,7 +19,7 @@ use DirectoryIterator;
 /**
  * FileWalker
  *
- * This walks recursivelly on symlinks too, with loop detection.
+ * This walks recursively on symlinks too, with loop detection.
  * Will process only files starting with Capital Letters.
  *
  * Will skip files with identical content.
@@ -32,7 +32,7 @@ class FileWalker
 {
 
 	/**
-	 * Pahts to scan
+	 * Paths to scan
 	 * @var string[]
 	 */
 	private $paths = [];
@@ -114,7 +114,7 @@ class FileWalker
 			{
 				// Skip ignored dirs,
 				// this is might be important when scanning nested projects
-				// containning it's own vendors, cache paths etc.
+				// containing it's own vendors, cache paths etc.
 				if (in_array($info->getBasename(), $this->ignoreDirs))
 				{
 					continue;

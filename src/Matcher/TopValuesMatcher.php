@@ -14,12 +14,14 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+
 /**
  * TopValuesMatcher
  *
  * @author Piotr Maselkowski <pmaselkowski at gmail.com>
  */
-class TopValuesMatcher extends ParallelMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
+class TopValuesMatcher extends ParallelMatcher implements MatcherInterface
 {
 
 	protected function build()

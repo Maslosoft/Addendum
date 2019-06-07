@@ -15,6 +15,7 @@
 namespace Maslosoft\Addendum\Collections;
 
 use Maslosoft\Addendum\Interfaces\AnnotationEntityInterface;
+use Maslosoft\Addendum\Traits\MetaState;
 use ReflectionClass;
 
 /**
@@ -25,7 +26,7 @@ use ReflectionClass;
 class MetaType implements AnnotationEntityInterface
 {
 
-	use \Maslosoft\Addendum\Traits\MetaState;
+	use MetaState;
 
 	/**
 	 * Class name

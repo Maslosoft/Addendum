@@ -74,8 +74,8 @@ abstract class PhpCache
 	private static $runtimePath = null;
 
 	/**
-	 * Local cacheq
-	 * @var type
+	 * Local cache
+	 * @var array
 	 */
 	private static $cache = [];
 
@@ -140,7 +140,11 @@ abstract class PhpCache
 		$this->nsCache->setOptions($options);
 	}
 
-	private function prepare()
+	/**
+	 * Prepare cache storage
+	 * @return bool
+	 */
+	private function prepare(): bool
 	{
 		$fileDir = dirname($this->getFilename());
 		if (isset(self::$prepared[$fileDir]) && self::$prepared[$fileDir])
@@ -175,6 +179,7 @@ abstract class PhpCache
 			$this->mkdir($fileDir);
 		}
 		self::$prepared[$fileDir] = true;
+		return false;
 	}
 
 	public function get()
@@ -182,7 +187,7 @@ abstract class PhpCache
 		$this->prepare();
 		$fileName = $this->getFilename();
 
-		if (NsCache::$addeNs && !$this->nsCache->valid())
+		if (NsCache::$addedNs && !$this->nsCache->valid())
 		{
 			$this->clearCurrentPath();
 			return false;
@@ -241,7 +246,10 @@ abstract class PhpCache
 		return $data;
 	}
 
-	public function remove()
+	/**
+	 * @return bool
+	 */
+	public function remove(): bool
 	{
 		$fileName = $this->getFilename();
 		$key = $this->getCacheKey();
@@ -257,19 +265,26 @@ abstract class PhpCache
 	 * Clear entire cache
 	 * @return boolean
 	 */
-	public function clear()
+	public function clear(): bool
 	{
 		self::$prepared = [];
 		return $this->clearPath($this->path);
 	}
 
-	private function clearCurrentPath()
+	/**
+	 * @return bool
+	 */
+	private function clearCurrentPath(): bool
 	{
 		$path = dirname($this->getFilename());
 		return $this->clearPath($path);
 	}
 
-	private function clearPath($path)
+	/**
+	 * @param string $path
+	 * @return bool
+	 */
+	private function clearPath(string $path): bool
 	{
 		if (!file_exists($path))
 		{
@@ -298,6 +313,7 @@ abstract class PhpCache
 			}
 		}
 		self::$prepared[$path] = false;
+		return true;
 	}
 
 	private function getFilename()
@@ -316,7 +332,7 @@ abstract class PhpCache
 		}
 		else
 		{
-			throw new UnexpectedValueException(sprintf('Expected string or object or null got: `%s`', gettype($className)));
+			throw new UnexpectedValueException(sprintf('Expected string or object or null got: `%s`', gettype($this->component)));
 		}
 
 		if (ClassChecker::isAnonymous($className))

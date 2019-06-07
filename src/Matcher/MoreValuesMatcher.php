@@ -14,7 +14,9 @@
 
 namespace Maslosoft\Addendum\Matcher;
 
-class MoreValuesMatcher extends SimpleSerialMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
+
+class MoreValuesMatcher extends SimpleSerialMatcher implements MatcherInterface
 {
 
 	protected function build()

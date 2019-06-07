@@ -15,9 +15,10 @@
 namespace Maslosoft\Addendum\Matcher;
 
 use Maslosoft\Addendum\Exceptions\MatcherException;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 use Maslosoft\Addendum\Matcher\Traits\PluginsTrait;
 
-class RegexMatcher implements \Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface
+class RegexMatcher implements MatcherInterface
 {
 	use PluginsTrait;
 

@@ -20,7 +20,7 @@ class SelfKeywordDecorator implements MatcherDecoratorInterface
 	{
 		if($value === 'self' || $value === 'static')
 		{
-			$reflection = ReflectionHelper::getReflectionClass($matcher->getPlugins()->reflection);
+			$reflection = ReflectionHelper::getReflectionClass($matcher->getPlugins()->reflection, $matcher);
 			$value = $reflection->name;
 		}
 	}

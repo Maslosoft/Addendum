@@ -30,7 +30,7 @@ class UseResolverDecorator implements MatcherDecoratorInterface
 
 	public function decorate(MatcherInterface $matcher, &$value)
 	{
-		$reflection = ReflectionHelper::getReflectionClass($matcher->getPlugins()->reflection);
+		$reflection = ReflectionHelper::getReflectionClass($matcher->getPlugins()->reflection, $matcher);
 		$resolved = UseResolver::resolve($reflection, $value);
 		if (ClassChecker::exists($resolved))
 		{

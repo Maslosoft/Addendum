@@ -100,7 +100,7 @@ class AnnotationUtility
 	/**
 	 * Annotate file without including php file and without using reflection.
 	 * This method returns raw annotation values.
-	 * <i>This is intented for various builders, which should not include files.</i>
+	 * <i>This is intended for various builders, which should not include files.</i>
 	 * This <b>ALWAYS</b> parses file.
 	 * @param string $file
 	 * @param string $className <b>NOT RECOMMENDED!</b> Optional class name if multiple classes are declared in one file

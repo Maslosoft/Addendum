@@ -32,7 +32,7 @@ class NameNormalizer
 	{
 		if ($className === '\\')
 		{
-			return;
+			return '';
 		}
 		$replaces = [
 			'~\\\+~' => '\\',
