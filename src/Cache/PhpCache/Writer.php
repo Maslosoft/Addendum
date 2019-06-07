@@ -6,7 +6,6 @@ namespace Maslosoft\Addendum\Cache\PhpCache;
 
 use function array_filter;
 use function chmod;
-use function dirname;
 use function file_exists;
 use function file_put_contents;
 use Maslosoft\Addendum\Helpers\Cacher;
@@ -17,14 +16,8 @@ use Maslosoft\Cli\Shared\Helpers\PhpExporter;
 use Maslosoft\Cli\Shared\Io;
 use function sprintf;
 
-class Writer
+class Writer extends CacheComponent
 {
-	private $basePath = '';
-
-	public function __construct($basePath)
-	{
-		$this->basePath = $basePath;
-	}
 
 	public function write($className, $data)
 	{
@@ -75,7 +68,7 @@ class Writer
 				file_put_contents($classMarkerFile, PhpExporter::export(true));
 			}
 		}
-		$fileName = sprintf("%s/%s.php", $this->basePath, Cacher::classToFile($className));
+		$fileName = $this->getFilename($className);
 		file_put_contents($fileName, PhpExporter::export($data));
 		@chmod($fileName, 0666);
 	}
