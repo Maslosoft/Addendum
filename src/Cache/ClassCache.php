@@ -4,10 +4,8 @@
 namespace Maslosoft\Addendum\Cache;
 
 
-use function dirname;
 use function get_class;
 use function is_object;
-use function is_writable;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Cache\PhpCache\Checker;
 use Maslosoft\Addendum\Cache\PhpCache\Cleaner;
@@ -18,7 +16,6 @@ use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Options\MetaOptions;
 use Maslosoft\Cli\Shared\ConfigDetector;
 use UnexpectedValueException;
-use function var_dump;
 
 class ClassCache
 {
@@ -109,16 +106,13 @@ class ClassCache
 	public function get($className)
 	{
 		assert(!empty($className));
-//		var_dump('TRY:' . $className);
 		if($this->addendum->checkMTime)
 		{
 			if(!$this->checker->isValid($className))
 			{
-				var_dump('INV:' . $className);
 				return false;
 			}
 		}
-//		var_dump('HIT:' . $className);
 		$data = $this->reader->read($className);
 
 		return $data;
@@ -126,7 +120,6 @@ class ClassCache
 
 	public function set($className, $data): bool
 	{
-//		var_dump('SET:' . $className);
 		$this->cleaner->clean($className);
 		return $this->writer->write($className, $data);
 	}
