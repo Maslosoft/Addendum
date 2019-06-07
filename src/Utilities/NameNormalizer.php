@@ -25,10 +25,10 @@ class NameNormalizer
 	/**
 	 * Normalize class name
 	 * @param string $className
-	 * @param bool $trailingSlash
+	 * @param bool   $leadingSlash
 	 * @return string
 	 */
-	public static function normalize(&$className, $trailingSlash = true)
+	public static function normalize(&$className, $leadingSlash = true)
 	{
 		if ($className === '\\')
 		{
@@ -41,7 +41,7 @@ class NameNormalizer
 		];
 
 		$className = preg_replace(array_keys($replaces), $replaces, $className);
-		if ($trailingSlash)
+		if ($leadingSlash)
 		{
 			$className = '\\' . $className;
 		}
