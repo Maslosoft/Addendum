@@ -240,6 +240,51 @@ abstract class PhpCache
 		$key = $this->getCacheKey();
 		self::$cache[$key] = $data;
 
+		// Write data for detecting changes in partial
+		// classes
+		$className = $this->getClassName();
+		if(ClassChecker::isAnonymous($className))
+		{
+			NameNormalizer::normalize($className);
+		}
+
+
+		// Set partials cache
+		$filter = function($className)
+		{
+			return $className !== AnnotatedInterface::class;
+		};
+		$partials = array_filter(ClassChecker::getPartials($className), $filter);
+
+		if(!empty($partials))
+		{
+			// Create directory for current class
+			// This directory will hold class names
+			// of partials
+			$partialsDir = sprintf(
+				'%s/%s',
+				dirname($fileName),
+				$this->classToFile($className)
+			);
+			if (!file_exists($partialsDir))
+			{
+				$this->mkdir($partialsDir);
+			}
+
+			foreach (ClassChecker::getPartials($className) as $partialClass)
+			{
+				// Write current class name to partial dir
+				// so that it can be retrieved on modification
+				// time check
+				$classMarkerFile = sprintf(
+					'%s/%s.php',
+					$partialsDir,
+					$this->classToFile($partialClass)
+				);
+				file_put_contents($classMarkerFile, PhpExporter::export(true));
+			}
+		}
+
 		file_put_contents($fileName, PhpExporter::export($data));
 		@chmod($fileName, 0666);
 		$this->nsCache->set();
