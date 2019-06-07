@@ -28,7 +28,7 @@ class NameNormalizer
 	 * @param bool   $leadingSlash
 	 * @return string
 	 */
-	public static function normalize(&$className, $leadingSlash = true)
+	public static function normalize(string &$className, bool $leadingSlash = true)
 	{
 		if ($className === '\\')
 		{
