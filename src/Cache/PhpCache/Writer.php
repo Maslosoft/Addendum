@@ -5,6 +5,7 @@ namespace Maslosoft\Addendum\Cache\PhpCache;
 
 
 use function array_filter;
+use function array_sum;
 use function chmod;
 use function file_exists;
 use function file_put_contents;
@@ -19,28 +20,28 @@ use function sprintf;
 class Writer extends CacheComponent
 {
 
-	public function write($className, $data)
+	public function write($className, $data): bool
 	{
 		NameNormalizer::normalize($className, false);
 
 
 		// Set partials cache
-		$filter = function ($partial) use($className) {
+		$filter = function ($partial) use ($className) {
 			$interface = AnnotatedInterface::class;
 			NameNormalizer::normalize($interface, false);
 			NameNormalizer::normalize($partial, false);
-			if($partial === $interface)
+			if ($partial === $interface)
 			{
 				return false;
 			}
-			if($partial === $className)
+			if ($partial === $className)
 			{
 				return false;
 			}
 			return true;
 		};
 		$partials = array_filter(ClassChecker::getPartials($className), $filter);
-
+		$success = [];
 		if (!empty($partials))
 		{
 			// Create directory for current class
@@ -64,11 +65,12 @@ class Writer extends CacheComponent
 					$partialsDir,
 					$partialFile
 				);
-				file_put_contents($classMarkerFile, PhpExporter::export(true));
+				$success[] = (bool)file_put_contents($classMarkerFile, PhpExporter::export(true));
 			}
 		}
 		$fileName = $this->getFilename($className);
-		file_put_contents($fileName, PhpExporter::export($data));
+		$success[] = (bool)file_put_contents($fileName, PhpExporter::export($data));
 		@chmod($fileName, 0666);
+		return array_sum($success) === count($success);
 	}
 }

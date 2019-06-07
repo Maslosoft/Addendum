@@ -35,7 +35,9 @@ class WriterTest extends Unit
     {
     	$writer = new Writer(__DIR__ . '/runtime');
 
-    	$writer->write(ModelWithPartials::class, true);
+    	$success = $writer->write(ModelWithPartials::class, true);
+
+    	$this->assertTrue($success);
 
     	$this->checkClass(ModelWithPartials::class);
     	$this->checkPartial(ModelWithPartials::class, false);
