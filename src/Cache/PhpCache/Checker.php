@@ -20,8 +20,14 @@ class Checker extends CacheComponent
 		NameNormalizer::normalize($className, false);
 		$info = new ReflectionClass($className);
 		$filename = $info->getFileName();
+		$cacheFilename = $this->getFilename($className);
 		$fileTime = filemtime($filename);
-		$cacheTime = $this->getFilename($className);
+
+		$cacheTime = 0;
+		if(file_exists($cacheFilename))
+		{
+			$cacheTime = filemtime($cacheFilename);
+		}
 		if($fileTime > $cacheTime)
 		{
 			return false;
@@ -29,42 +35,39 @@ class Checker extends CacheComponent
 
 		$partialsDir = $this->getPartialsDir($className);
 
-		// Partials cache does not exists
-		// assume it is not outdated
-		if(!file_exists($partialsDir))
+		if(file_exists($partialsDir) && is_dir($partialsDir))
 		{
-			return false;
-		}
-
-		if(!is_dir($partialsDir))
-		{
-			return false;
-		}
-		NameNormalizer::normalize($usingClass, false);
-		foreach (new DirectoryIterator($partialsDir) as $info)
-		{
-			$usingFile = $info->getFilename();
-			$usingClass = basename($usingFile, '.php');
-			$usingClass = str_replace('.', '\\', $usingClass);
-			NameNormalizer::normalize($usingClass, false);
-
-			// Prevent infinite loops
-			if($usingClass === $className)
+			NameNormalizer::normalize($className, false);
+			foreach (new DirectoryIterator($partialsDir) as $info)
 			{
-				continue;
-			}
-			if (!$this->isValid($usingClass))
-			{
-				return false;
-			}
-			$usingTime = filemtime((new ReflectionClass($usingClass))->getFileName());
-			if($usingTime > $fileTime)
-			{
-				return false;
-			}
+				$usingFile = $info->getFilename();
+				if (strpos($usingFile, '.php') === false)
+				{
+					continue;
+				}
+				$usingClass = basename($usingFile, '.php');
+				$usingClass = str_replace('.', '\\', $usingClass);
+				NameNormalizer::normalize($usingClass, false);
 
+				if (empty($usingClass))
+				{
+					continue;
+				}
+				// Prevent infinite loops
+				if ($usingClass === $className)
+				{
+					continue;
+				}
+				$usingTime = filemtime((new ReflectionClass($usingClass))->getFileName());
+
+				// Compares partial file time with cache time
+				if ($usingTime > $cacheTime)
+				{
+					return false;
+				}
+
+			}
 		}
-
 		return true;
 	}
 }
