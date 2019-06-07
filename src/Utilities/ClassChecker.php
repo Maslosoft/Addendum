@@ -136,6 +136,10 @@ class ClassChecker
 		foreach ((new ReflectionClass($className))->getTraitNames() as $trait)
 		{
 			$partials[] = $trait;
+			foreach(self::getPartials($trait) as $traitPart)
+			{
+				$partials[] = $traitPart;
+			}
 		}
 
 		// Iterate over interfaces to get partials
