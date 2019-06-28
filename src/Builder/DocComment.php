@@ -16,7 +16,9 @@ namespace Maslosoft\Addendum\Builder;
 
 use function assert;
 use Exception;
+use function get_class;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
+use Maslosoft\Addendum\Reflection\ReflectionFile;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Addendum\Utilities\NameNormalizer;
 use ReflectionClass;
@@ -96,7 +98,7 @@ class DocComment
 
 	public function forClass(Reflector $reflection)
 	{
-		assert($reflection instanceof ReflectionClass);
+		assert($reflection instanceof ReflectionClass || $reflection instanceof ReflectionFile, sprintf("Expected `%s` or `%s`, got `%s`", ReflectionClass::class, ReflectionFile::class, get_class($reflection)));
 		if (ClassChecker::isAnonymous($reflection->name))
 		{
 			echo '';
