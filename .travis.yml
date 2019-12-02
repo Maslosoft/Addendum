@@ -5,13 +5,11 @@ php:
   - 7.2
   - 7.3
   - nightly
-  - hhvm
 sudo: false
 matrix:
   allow_failures:
     - php:
       - nightly
-      - hhvm
 cache:
   directories:
     - vendor
