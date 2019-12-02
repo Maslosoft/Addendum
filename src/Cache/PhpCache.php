@@ -23,6 +23,7 @@ use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Addendum\Utilities\NameNormalizer;
 use Maslosoft\Cli\Shared\ConfigDetector;
 use Maslosoft\Cli\Shared\Helpers\PhpExporter;
+use Maslosoft\Cli\Shared\Io;
 use ReflectionClass;
 use RuntimeException;
 use UnexpectedValueException;
@@ -102,7 +103,7 @@ abstract class PhpCache
 		$this->path = self::$runtimePath . '/addendum';
 		$this->metaClass = $metaClass;
 		$this->component = $component;
-		if (empty($options))
+		if ($options === null)
 		{
 			$this->instanceId = Addendum::DefaultInstanceId;
 		}
@@ -158,7 +159,7 @@ abstract class PhpCache
 
 				if (is_writable(dirname(self::$runtimePath)))
 				{
-					$this->mkdir(self::$runtimePath);
+					Io::mkdir(self::$runtimePath);
 				}
 				if (!is_writable(self::$runtimePath))
 				{
@@ -167,7 +168,7 @@ abstract class PhpCache
 			}
 			if (is_writable(self::$runtimePath))
 			{
-				$this->mkdir($this->path);
+				Io::mkdir($this->path);
 			}
 			if (!is_writable($this->path))
 			{
@@ -176,7 +177,7 @@ abstract class PhpCache
 		}
 		if (!file_exists($fileDir))
 		{
-			$this->mkdir($fileDir);
+			Io::mkdir($fileDir);
 		}
 		self::$prepared[$fileDir] = true;
 		return false;
@@ -213,7 +214,7 @@ abstract class PhpCache
 			$cacheTime = filemtime($fileName);
 
 			// Partial component name, split by @ and take first argument
-			if (is_string($this->component) && strstr($this->component, '@'))
+			if (is_string($this->component) && strpos($this->component, '@') !== false)
 			{
 				$parts = explode('@', $this->component);
 				$componentClass = array_shift($parts);
@@ -322,7 +323,7 @@ abstract class PhpCache
 		{
 			return $this->fileName;
 		}
-		if (is_object($this->component))
+		if (null !== $this->component && is_object($this->component))
 		{
 			$className = get_class($this->component);
 		}
@@ -352,7 +353,7 @@ abstract class PhpCache
 
 	private function getCacheKey()
 	{
-		if (is_object($this->component))
+		if (null !== $this->component && is_object($this->component))
 		{
 			$className = get_class($this->component);
 		}
@@ -372,17 +373,4 @@ abstract class PhpCache
 	{
 		return str_replace('\\', '.', $className);
 	}
-
-	/**
-	 * Recursively create dir with proper permissions.
-	 *
-	 * @param string $path
-	 */
-	private function mkdir($path)
-	{
-		$mask = umask(0000);
-		mkdir($path, 0777, true);
-		umask($mask);
-	}
-
 }
