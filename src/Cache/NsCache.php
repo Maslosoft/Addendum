@@ -27,7 +27,7 @@ use Maslosoft\Cli\Shared\Helpers\PhpExporter;
 class NsCache
 {
 
-	const FileName = '_ns.php';
+	public const FileName = '_ns.php';
 
 	private $file = '';
 
@@ -73,7 +73,7 @@ class NsCache
 
 	public function setOptions(MetaOptions $options = null)
 	{
-		if (!empty($options) && !empty($options->namespaces))
+		if ($options !== null && !empty($options->namespaces))
 		{
 			foreach ($options->namespaces as $ns)
 			{
@@ -147,9 +147,9 @@ class NsCache
 			if (!empty($addendumDiff))
 			{
 				// Add missing namespaces to cache them
-				foreach (array_keys($addendumDiff) as $ns)
+				foreach (array_keys($addendumDiff) as $nsName)
 				{
-					$this->namespaces[$ns] = true;
+					$this->namespaces[$nsName] = true;
 				}
 				self::$addedNs = false;
 				return false;
