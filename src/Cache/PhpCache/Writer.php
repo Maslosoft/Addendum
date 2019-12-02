@@ -7,6 +7,7 @@ namespace Maslosoft\Addendum\Cache\PhpCache;
 use function array_filter;
 use function array_sum;
 use function chmod;
+use function dirname;
 use function file_exists;
 use function file_put_contents;
 use Maslosoft\Addendum\Helpers\Cacher;
@@ -69,6 +70,11 @@ class Writer extends CacheComponent
 			}
 		}
 		$fileName = $this->getFilename($className);
+		$dirName = dirname($fileName);
+		if(!Io::dirExists($dirName))
+		{
+			Io::mkdir($dirName);
+		}
 		$success[] = (bool)file_put_contents($fileName, PhpExporter::export($data));
 		@chmod($fileName, 0666);
 		return array_sum($success) === count($success);
