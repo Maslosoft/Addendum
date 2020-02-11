@@ -51,6 +51,8 @@ class ReflectionFile implements Reflector
 	private $methods;
 	private $fields;
 
+	private $type;
+
 	/**
 	 * (PHP 5)<br/>
 	 * Constructs a ReflectionClass from file
@@ -67,7 +69,7 @@ class ReflectionFile implements Reflector
 		$this->file = $file;
 		$this->methods = $this->_docs['methods'];
 		$this->fields = $this->_docs['fields'];
-
+		$this->type = $this->_docs['type'];
 		$this->namespace = $this->_docs['namespace'];
 		$this->shortName = $this->_docs['className'];
 		if (empty($this->shortName))
@@ -391,7 +393,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isInterface()
 	{
-
+		return $this->type === DocComment::TypeInterface;
 	}
 
 	/**
@@ -441,7 +443,7 @@ class ReflectionFile implements Reflector
 	 */
 	public function isTrait()
 	{
-
+		return $this->type === DocComment::TypeTrait;
 	}
 
 	/**

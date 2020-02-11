@@ -25,13 +25,19 @@ use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
 use Reflector;
+use const T_CLASS;
+use const T_INTERFACE;
+use const T_TRAIT;
 
 class DocComment
 {
-
+	const TypeTrait = 'trait';
+	const TypeClass = 'class';
+	const TypeInterface = 'interface';
 	private static $use = [];
 	private static $useAliases = [];
 	private static $namespaces = [];
+	private static $types = [];
 	private static $classNames = [];
 	private static $classes = [];
 	private static $methods = [];
@@ -41,6 +47,7 @@ class DocComment
 	public static function clearCache()
 	{
 		self::$namespaces = [];
+		self::$types = [];
 		self::$classNames = [];
 		self::$classes = [];
 		self::$methods = [];
@@ -85,6 +92,7 @@ class DocComment
 		 */
 		$result = [
 			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
+			'type' => isset(self::$types[$fqn]) ? self::$types[$fqn] : '',
 			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
 			'useAliases' => isset(self::$useAliases[$fqn]) ? self::$useAliases[$fqn] : [],
 			'className' => isset(self::$classNames[$fqn]) ? self::$classNames[$fqn] : [],
@@ -114,6 +122,7 @@ class DocComment
 		}
 		$result = [
 			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
+			'type' => isset(self::$types[$fqn]) ? self::$types[$fqn] : '',
 			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
 			'useAliases' => isset(self::$useAliases[$fqn]) ? self::$useAliases[$fqn] : [],
 			'className' => isset(self::$classNames[$fqn]) ? self::$classNames[$fqn] : [],
@@ -192,6 +201,7 @@ class DocComment
 		$namespace = '\\';
 		$tokens = $this->getTokens($file);
 		$class = false;
+		$isTrait = $isClass = $isInterface = false;
 		$comment = null;
 		$max = count($tokens);
 		$i = 0;
@@ -200,7 +210,7 @@ class DocComment
 			$token = $tokens[$i];
 			if (is_array($token))
 			{
-				list($code, $value) = $token;
+				[$code, $value] = $token;
 
 				switch ($code)
 				{
@@ -289,6 +299,20 @@ class DocComment
 						self::$classNames[$fqn] = $class;
 						self::$use[$fqn] = $use;
 						self::$useAliases[$fqn] = $aliases;
+
+						if($code === T_TRAIT)
+						{
+							self::$types[$fqn] = self::TypeTrait;
+						}
+						elseif($code === T_CLASS)
+						{
+							self::$types[$fqn] = self::TypeClass;
+						}
+						elseif($code === T_INTERFACE)
+						{
+							self::$types[$fqn] = self::TypeInterface;
+						}
+
 						break;
 
 					case T_VARIABLE:
