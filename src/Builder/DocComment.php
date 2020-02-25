@@ -250,10 +250,6 @@ class DocComment
 						for ($j = $i + 1; $j < $tokensCount; $j++)
 						{
 							$tokenName = $tokens[$j][0];
-							if (isset($tokens[$j][1]) && $tokens[$j][1] == 'IMatcher')
-							{
-								echo 's';
-							}
 							if ($tokenName === T_STRING && !$as)
 							{
 								$useNs .= '\\' . $tokens[$j][1];
