@@ -90,7 +90,7 @@ class ReflectionFile implements Reflector
 
 	public function __toString()
 	{
-
+		return $this->_docs['className'];
 	}
 
 	/**

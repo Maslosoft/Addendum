@@ -25,8 +25,19 @@ use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
 use Reflector;
+use function is_array;
+use function str_replace;
+use function strpos;
+use function token_name;
+use function var_dump;
+use const T_ABSTRACT;
+use const T_ARRAY;
 use const T_CLASS;
 use const T_INTERFACE;
+use const T_PRIVATE;
+use const T_PROTECTED;
+use const T_PUBLIC;
+use const T_STRING;
 use const T_TRAIT;
 
 class DocComment
@@ -109,10 +120,7 @@ class DocComment
 	public function forClass(Reflector $reflection)
 	{
 		assert($reflection instanceof ReflectionClass || $reflection instanceof ReflectionFile, sprintf("Expected `%s` or `%s`, got `%s`", ReflectionClass::class, ReflectionFile::class, get_class($reflection)));
-		if (ClassChecker::isAnonymous($reflection->name))
-		{
-			echo '';
-		}
+
 		$fqn = $reflection->getName();
 		$this->process($reflection->getFileName(), $fqn);
 		if (ClassChecker::isAnonymous($reflection->name))
@@ -213,6 +221,16 @@ class DocComment
 			if (is_array($token))
 			{
 				[$code, $value] = $token;
+
+//				$tokenType = token_name($code);
+//
+//				// Seems doc comment before some entity
+//				if(strpos($value, '@') !== false)
+//				{
+////					echo $value;
+//				}
+//
+//				codecept_debug("$tokenType: " . str_replace("\n", '\n', str_replace("\t", '\t', $value)));
 
 				switch ($code)
 				{
@@ -342,6 +360,45 @@ class DocComment
 					case T_VAR:
 						break;
 
+					// Might be scalar typed property, eg:
+					// `public string $title;`
+					case T_STRING:
+					case T_ARRAY:
+						// NOTE: Maybe it will better to check ahead, ie if T_STRING, then check it next value is variable
+
+						// Skip whitespace and check token before T_STRING and T_WHITESPACE
+						if(isset($tokens[$i - 2]) && is_array($tokens[$i - 2]))
+						{
+							$prevType = $tokens[$i - 2][0];
+							$prevVal = $tokens[$i - 2][1];
+							switch ($prevType)
+							{
+								case T_PUBLIC:
+								case T_PROTECTED:
+								case T_PRIVATE:
+								case T_ABSTRACT:
+									break 2;
+							}
+
+						}
+						// Optional typed parameter, the `?` is present as a *string* token,
+						// ie contains only `?` string, not an array
+						// Skip whitespace and check token before T_STRING and T_WHITESPACE
+						if(isset($tokens[$i - 3]) && is_array($tokens[$i - 3]))
+						{
+							$prevType = $tokens[$i - 3][0];
+							$prevVal = $tokens[$i - 3][1];
+							switch ($prevType)
+							{
+								case T_PUBLIC:
+								case T_PROTECTED:
+								case T_PRIVATE:
+								case T_ABSTRACT:
+									break 2;
+							}
+
+						}
+						break;
 					default:
 						$comment = false;
 						break;
@@ -349,7 +406,14 @@ class DocComment
 			}
 			else
 			{
-				$comment = false;
+				switch ($token)
+				{
+					// Don't reset comment tag on `?` token, as it *probably* means optional val
+					case '?':
+						break;
+					default:
+						$comment = false;
+				}
 			}
 			$i++;
 		}
