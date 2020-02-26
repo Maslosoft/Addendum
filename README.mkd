@@ -25,6 +25,11 @@
 composer require maslosoft/addendum
 ```
 
+### Documentation
+
+<a href="https://maslosoft.com/addendum/docs/">Full Addendum Documentation</a>
+
+
 
 
 
