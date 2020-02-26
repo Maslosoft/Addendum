@@ -44,3 +44,6 @@ $signal->resetCache();
 $addendum = new Addendum();
 $addendum->namespaces[] = NamespacedAnnotation::Ns;
 $addendum->init();
+
+// Here you can initialize variables that will be available to your tests
+echo "Addendum " . $addendum->getVersion();
