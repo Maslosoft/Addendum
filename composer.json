@@ -9,8 +9,8 @@
 		"metadata"
 	],
 	"license": [
- 		"AGPL-3.0-only",
- 		"proprietary"
+		"AGPL-3.0-only",
+		"proprietary"
 	],
 	"authors": [
 		{
@@ -26,13 +26,13 @@
 			"Maslosoft\\Addendum\\": "src"
 		}
 	},
-	"autoload-dev": { 
-	    "psr-4": { 
-	      "AddendumTest\\": "tests", 
-	      "Maslosoft\\AddendumTest\\Models\\": "tests/models", 
-	      "Maslosoft\\AddendumTest\\Annotations\\": "tests/annotations" 
-	    } 
-	  }, 
+	"autoload-dev": {
+		"psr-4": {
+			"AddendumTest\\": "tests",
+			"Maslosoft\\AddendumTest\\Models\\": "tests/models",
+			"Maslosoft\\AddendumTest\\Annotations\\": "tests/annotations"
+		}
+	},
 	"suggest": {
 		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services"
 	},
