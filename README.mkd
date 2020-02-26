@@ -25,4 +25,93 @@
 composer require maslosoft/addendum
 ```
 
+
+
+
+# Annotations for PHP
+
+This project provides smart annotations support for PHP
+language with the aim on performance and ease of use.
+
+Annotations are in fact a kind declarative language embedded
+in PHP code. It does not allow and flow control structures, loops,
+conditions. It allows us to describe what is required or what
+we expect from parf of code.
+
+## Where to use annotations
+
+While (PHP) programming language itself is very flexible and allows
+us to describe complex bahaviors, there are some aspects where
+we want to only describe (or configure) such behaviors. And we
+want to keep our *main* code as is, while adding some additional
+behaviors, which might include:
+
+* Access control
+* Way to display data
+* Whether to store data
+* Where to store data
+* Should the data be searchable
+
+And so on, with ever growing list of aspects and behaviors. While this
+could be made by implementing in our classe more and more interfaces,
+soon those would end up in hundreds of methods.
+
+Another way could be some kind of extra meta-data configuration,
+let it be in XML, JSON or YAML files. This requires us to keep
+those too files in sync and also separates declarations from
+code. But we might need extra behaviors/aspects for many libraries - 
+resulting in code being split into two or more files.
+
+### Embed behavior into code
+
+So the idea is to embed those extra aspects of class into code. With
+annotations - special comment tags placed just above class/method/property
+declaration.
+
+These annotations can be interpreted independently by different parts
+of program. These are extensible, so that adding more annotations
+does not influence existing code.
+
+Different application parts might interpret just part of annotations
+while ignoring unknown ones.
+
+In below example one part will react `@Label` and `@Description` declarations,
+other will perform some extra operations when will encouner `@I18N` annotation.
+
+Example:
+
+```php
+class Page implements AnnotatedInterface
+{
+	/**
+	 * Page URL
+	 * @Label('Page URL')
+	 * @Description('Relative URL, it should be simple lowercase string with words separated by hyphen')
+	 * @SearchBoost(3.5)
+	 * @I18N
+	 * @SafeValidator
+	 * @UrlValidator
+	 * @Decorator(Action, 'update')
+	 * @see Action
+	 * @var string
+	 */
+	public $url = '';
+}
+
+```
+
+All extra metadata is contained just where class property is declared. This is it. 
+Annotations itself are *not* evaluated on each request. These are used to generate
+metadata, which is later available by using meta containers. Having any object
+implementing `AnnotatedInterface`, metadata can be obtained by passing either 
+object or class name.
+
+Example of getting meta data:
+```php
+echo Meta::create(Page::class)->url->label;
+// Will echo "Page URL"
+```
+
+This metadata is cached, so there is no overhead of parsing annotations.
+
 <!--/header-->
