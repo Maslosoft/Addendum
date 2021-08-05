@@ -65,7 +65,7 @@ class Addendum implements LoggerAwareInterface
 
 	/**
 	 * Namespaces to check for annotations.
-	 * By default global and addendum namespace is included.
+	 * By default, global and addendum namespace is included.
 	 * @var string[]
 	 */
 	public $namespaces = [

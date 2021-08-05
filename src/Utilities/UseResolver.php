@@ -64,7 +64,7 @@ class UseResolver
 		}
 		foreach ($use as $useClause)
 		{
-			$patternClass = preg_quote($className);
+			$patternClass = preg_quote($className, '~');
 			$pattern = "~\\\\$patternClass$~";
 			if (preg_match($pattern, $useClause))
 			{

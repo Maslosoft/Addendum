@@ -310,7 +310,7 @@ class Builder
 
 	/**
 	 * Get doc comment
-	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty $reflection
+	 * @param ReflectionAnnotatedClass|ReflectionAnnotatedMethod|ReflectionAnnotatedProperty|Reflector $reflection
 	 * @return array
 	 */
 	private function parse($reflection)

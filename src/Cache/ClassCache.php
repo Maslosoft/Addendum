@@ -139,7 +139,7 @@ class ClassCache
 
 	private function getInstanceId(MetaOptions $options = null)
 	{
-		if (empty($options))
+		if ($options === null)
 		{
 			$instanceId = Addendum::DefaultInstanceId;
 		}

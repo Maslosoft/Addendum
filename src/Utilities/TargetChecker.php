@@ -43,24 +43,24 @@ class TargetChecker
 		{
 			return;
 		}
-		$value = $reflection->getAnnotation('Target')->value;
-		$values = is_array($value) ? $value : [$value];
+		$rawValue = $reflection->getAnnotation('Target')->value;
+		$values = is_array($rawValue) ? $rawValue : [$rawValue];
 		
 		foreach ($values as $value)
 		{
-			if ($value == TargetAnnotation::TargetClass && $target instanceof ReflectionClass)
+			if ($value === TargetAnnotation::TargetClass && $target instanceof ReflectionClass)
 			{
 				return;
 			}
-			if ($value == TargetAnnotation::TargetMethod && $target instanceof ReflectionMethod)
+			if ($value === TargetAnnotation::TargetMethod && $target instanceof ReflectionMethod)
 			{
 				return;
 			}
-			if ($value == TargetAnnotation::TargetProperty && $target instanceof ReflectionProperty)
+			if ($value === TargetAnnotation::TargetProperty && $target instanceof ReflectionProperty)
 			{
 				return;
 			}
-			if ($value == TargetAnnotation::TargetNested && $target === false)
+			if ($value === TargetAnnotation::TargetNested && $target === false)
 			{
 				return;
 			}
@@ -70,7 +70,7 @@ class TargetChecker
 					TargetAnnotation::TargetMethod,
 					TargetAnnotation::TargetProperty,
 					TargetAnnotation::TargetNested
-				]))
+				], true))
 		{
 			if ($target instanceof ReflectionClass)
 			{
@@ -90,11 +90,11 @@ class TargetChecker
 				throw new TargetException(sprintf('Annotation "%s" used in "%s" is only allowed on instances of "%s" (see @Target)',  basename($reflection->name), $interfaceTarget->name, $value));
 			}
 		}
-		if ($target === false && $value == TargetAnnotation::TargetNested)
+		if ($target === false && $value === TargetAnnotation::TargetNested)
 		{
 			throw new TargetException("Annotation '" . get_class($annotation) . "' nesting not allowed");
 		}
-		elseif (in_array($value, TargetAnnotation::getTargets()))
+		elseif (in_array($value, TargetAnnotation::getTargets(), true))
 		{
 			throw new TargetException(sprintf("Annotation '%s' not allowed on %s, it's target is %s  (see @Target)", get_class($annotation), ReflectionName::createName($target), $value));
 		}
