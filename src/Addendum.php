@@ -138,32 +138,32 @@ class Addendum implements LoggerAwareInterface
 	 * Key is short annotation name.
 	 * @var string[]
 	 */
-	private static $classNames = [];
+	private static array $classNames = [];
 
 	/**
 	 * This holds information about all declared classes implementing AnnotatedInterface.
 	 * @see AnnotatedInterface
 	 * @var string[]
 	 */
-	private static $annotations = [];
+	private static array $annotations = [];
 
 	/**
 	 * Version holder
-	 * @var string
+	 * @var ?string
 	 */
-	private static $versionNumber = null;
+	private static ?string $versionNumber = null;
 
 	/**
 	 * Addendum instances
 	 * @var Addendum[]
 	 */
-	private static $addendums = [];
+	private static array $addendums = [];
 
 	/**
 	 *
 	 * @param string $instanceId
 	 */
-	public function __construct($instanceId = self::DefaultInstanceId)
+	public function __construct(string $instanceId = self::DefaultInstanceId)
 	{
 		$this->instanceId = $instanceId;
 		$this->plugins = new AddendumPlugins($this->plugins);
@@ -179,7 +179,7 @@ class Addendum implements LoggerAwareInterface
 	 * @param string $instanceId
 	 * @return Addendum
 	 */
-	public static function fly($instanceId = self::DefaultInstanceId)
+	public static function fly(string $instanceId = self::DefaultInstanceId)
 	{
 		if (empty(self::$addendums[$instanceId]))
 		{
@@ -188,7 +188,7 @@ class Addendum implements LoggerAwareInterface
 		return self::$addendums[$instanceId];
 	}
 
-	public function getInstanceId()
+	public function getInstanceId(): string
 	{
 		return $this->instanceId;
 	}
@@ -198,7 +198,7 @@ class Addendum implements LoggerAwareInterface
 	 *
 	 * @return string
 	 */
-	public function getVersion()
+	public function getVersion(): string
 	{
 		if (null === self::$versionNumber)
 		{
@@ -213,7 +213,7 @@ class Addendum implements LoggerAwareInterface
 	 *
 	 * @return Addendum
 	 */
-	public function init()
+	public function init(): Addendum
 	{
 		if (!$this->di->isStored($this))
 		{
@@ -230,7 +230,7 @@ class Addendum implements LoggerAwareInterface
 	 * @param string|object $class
 	 * @return bool
 	 */
-	public function hasAnnotations($class)
+	public function hasAnnotations($class): bool
 	{
 		return (new ReflectionClass($class))->implementsInterface(AnnotatedInterface::class);
 	}
@@ -247,8 +247,7 @@ class Addendum implements LoggerAwareInterface
 		{
 			throw new ReflectionException(sprintf('To annotate class "%s", it must implement interface %s', $className, AnnotatedInterface::class));
 		}
-		$reflection = new ReflectionAnnotatedClass($class, $this);
-		return $reflection;
+		return new ReflectionAnnotatedClass($class, $this);
 	}
 
 	/**
@@ -257,7 +256,7 @@ class Addendum implements LoggerAwareInterface
 	 * @param LoggerInterface $logger
 	 * @return Addendum
 	 */
-	public function setLogger(LoggerInterface $logger)
+	public function setLogger(LoggerInterface $logger): Addendum
 	{
 		$this->loggerInstance = $logger;
 		return $this;
@@ -268,7 +267,7 @@ class Addendum implements LoggerAwareInterface
 	 *
 	 * @return LoggerInterface logger
 	 */
-	public function getLogger()
+	public function getLogger(): LoggerInterface
 	{
 		if (null === $this->loggerInstance)
 		{
@@ -284,7 +283,7 @@ class Addendum implements LoggerAwareInterface
 	 * @param string $ns
 	 * @return Addendum
 	 */
-	public function addNamespace($ns)
+	public function addNamespace(string $ns): Addendum
 	{
 		NameNormalizer::normalize($ns, false);
 		if (!in_array($ns, $this->namespaces))
@@ -326,7 +325,7 @@ class Addendum implements LoggerAwareInterface
 	 * @param string[] $nss
 	 * @return Addendum
 	 */
-	public function addNamespaces($nss)
+	public function addNamespaces(array $nss): Addendum
 	{
 		foreach ($nss as $ns)
 		{
@@ -338,7 +337,7 @@ class Addendum implements LoggerAwareInterface
 	/**
 	 * Clear entire annotations cache.
 	 */
-	public static function cacheClear()
+	public static function cacheClear(): void
 	{
 		self::$annotations = [];
 		self::$classNames = [];
@@ -370,22 +369,12 @@ class Addendum implements LoggerAwareInterface
 	}
 
 	/**
-	 * This method has no effect
-	 * @deprecated Since 4.0.4 this has no effect
-	 * @param bool $enabled
-	 */
-	public static function setRawMode($enabled = true)
-	{
-		// Deprecated
-	}
-
-	/**
 	 * Resolve annotation class name to prefixed annotation class name
 	 *
 	 * @param string|bool $class
-	 * @return string
+	 * @return string|null
 	 */
-	public static function resolveClassName($class)
+	public static function resolveClassName($class): ?string
 	{
 		if (false === $class)
 		{
@@ -398,14 +387,14 @@ class Addendum implements LoggerAwareInterface
 		$matching = [];
 		foreach (self::getDeclaredAnnotations() as $declared)
 		{
-			if ($declared == $class)
+			if ($declared === $class)
 			{
 				$matching[] = $declared;
 			}
 			else
 			{
 				$pos = strrpos($declared, "_$class");
-				if ($pos !== false && ($pos + strlen($class) == strlen($declared) - 1))
+				if ($pos !== false && ($pos + strlen($class) === strlen($declared) - 1))
 				{
 					$matching[] = $declared;
 				}
@@ -424,14 +413,14 @@ class Addendum implements LoggerAwareInterface
 		return $result;
 	}
 
-	private static function getDeclaredAnnotations()
+	private static function getDeclaredAnnotations(): array
 	{
 		if (empty(self::$annotations))
 		{
 			self::$annotations = [];
 			foreach (get_declared_classes() as $class)
 			{
-				if ((new ReflectionClass($class))->implementsInterface(AnnotationInterface::class) || $class == AnnotationInterface::class)
+				if ((new ReflectionClass($class))->implementsInterface(AnnotationInterface::class) || $class === AnnotationInterface::class)
 				{
 					self::$annotations[] = $class;
 				}
