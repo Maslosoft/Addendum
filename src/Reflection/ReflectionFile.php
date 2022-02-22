@@ -83,14 +83,14 @@ class ReflectionFile implements Reflector
 		$this->name = $this->namespace . '\\' . $this->shortName;
 	}
 
-	final private function __clone()
+	private function __clone()
 	{
 
 	}
 
 	public function __toString()
 	{
-		return $this->_docs['className'];
+		return (string)$this->_docs['className'];
 	}
 
 	/**
