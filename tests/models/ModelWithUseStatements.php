@@ -12,6 +12,7 @@ use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Annotation;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Collections\AddendumPlugins as Config;
+use ReflectionClass;
 
 /**
  * ModelWithUseStatements
@@ -22,7 +23,8 @@ class ModelWithUseStatements
 {
 
 	/**
-	 *
+	 * NOTE: These are to trick IDE to keep use statements
+	 * @see ReflectionClass
 	 * @see Addendum
 	 * @see Annotation
 	 * @see Meta

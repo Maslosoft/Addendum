@@ -7,6 +7,7 @@ use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Annotation;
 use Maslosoft\Addendum\Builder\DocComment;
 use Maslosoft\Addendum\Collections\Meta;
+use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\AddendumTest\Models\ModelWithSelfKeyword;
 use Maslosoft\AddendumTest\Models\ModelWithUseStatements;
 use ReflectionClass;
@@ -85,5 +86,33 @@ class ParserTest extends Test
 			$this->assertNotEmpty($currentStatement);
 			$this->assertSame($expectedStatement, $currentStatement);
 		}
+	}
+
+	public function testParsingAnonymousClass()
+	{
+		/**
+		 * @Label('Class Name')
+		 */
+		$model = new class implements AnnotatedInterface {
+
+			/**
+			 * @Label('Test')
+			 * @var type
+			 */
+			public $test = '';
+
+			/**
+			 * @Label('Method Test')
+			 */
+			public function doSomething(): void
+			{
+
+			}
+		};
+
+		$reflection = new ReflectionClass($model);
+		$docs = (new DocComment())->forClass($reflection);
+
+		$this->assertNotEmpty($docs);
 	}
 }

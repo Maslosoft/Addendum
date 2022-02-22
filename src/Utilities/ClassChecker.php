@@ -22,6 +22,7 @@ use function get_parent_class;
 use function is_object;
 use ReflectionClass;
 use function sort;
+use function str_contains;
 
 /**
  * ClassChecker
@@ -35,35 +36,35 @@ class ClassChecker
 	 * Array with existent classes
 	 * @var string[]
 	 */
-	private static $_exists = [];
+	private static array $_exists = [];
 
 	/**
 	 * Partials cache
 	 * @var array
 	 */
-	private static $partials = [];
+	private static array $partials = [];
 
 	/**
 	 * Check whenever class is anonymous.
 	 * @param string|object $class
 	 * @return bool True if class is anonymous
 	 */
-	public static function isAnonymous($class)
+	public static function isAnonymous($class): bool
 	{
 		if(is_object($class))
 		{
 			$class = get_class($class);
 		}
-		return strpos($class, 'class@anonymous') !== false;
+		return str_contains($class, '@anonymous');
 	}
 
 	/**
 	 * Check whenever class or trait or interface exists.
 	 * It does autoload if needed.
-	 * @param string $class
+	 * @param string|object $class
 	 * @return bool True if class or trait or interface exists
 	 */
-	public static function exists($class)
+	public static function exists($class): bool
 	{
 		if(is_object($class))
 		{
@@ -126,7 +127,7 @@ class ClassChecker
 		{
 			return self::$partials[$className];
 		}
-		if(!ClassChecker::exists($className))
+		if(!self::exists($className))
 		{
 			self::$partials[$className] = [];
 			return [];
@@ -173,12 +174,12 @@ class ClassChecker
 		return $partials;
 	}
 
-	private static function isConfirmed($class)
+	private static function isConfirmed($class): bool
 	{
 		return isset(self::$_exists[$class]);
 	}
 
-	private static function confirm($class)
+	private static function confirm($class): bool
 	{
 		self::$_exists[$class] = true;
 		return true;

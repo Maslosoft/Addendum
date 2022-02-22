@@ -9,6 +9,7 @@ use Maslosoft\AddendumTest\Models\Debug\Model2WithMethodInjection;
 use ReflectionClass;
 use ReflectionObject;
 use UnitTester;
+use function codecept_debug;
 
 class UseResolverTest extends Test
 {
@@ -32,6 +33,7 @@ class UseResolverTest extends Test
 		foreach ($data as $src => $expected)
 		{
 			$result = UseResolver::resolve(new ReflectionObject($this), $src);
+			codecept_debug($src);
 			$this->assertSame($expected, $result);
 		}
 	}

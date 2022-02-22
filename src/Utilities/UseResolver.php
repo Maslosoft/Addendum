@@ -34,7 +34,7 @@ class UseResolver
 	 * @param string $className
 	 * @return string
 	 */
-	public static function resolve(Reflector $reflection, $className)
+	public static function resolve(Reflector $reflection, string $className): string
 	{
 		if ($reflection instanceof ReflectionProperty || $reflection instanceof ReflectionMethod)
 		{
@@ -48,8 +48,7 @@ class UseResolver
 		// Resolve to itself with keywords
 		if ($className === 'self' || $className === 'static')
 		{
-			$fqn = $ns . '\\' . $docs['className'];
-			return $fqn;
+			return $ns . '\\' . $docs['className'];
 		}
 
 		// This is for same namespaced class as current class
@@ -58,7 +57,7 @@ class UseResolver
 			$aliases[$ns . '\\' . $className] = $className;
 		}
 
-		if (in_array($className, $use))
+		if (in_array($className, $use, true))
 		{
 			return $className;
 		}
@@ -73,7 +72,7 @@ class UseResolver
 		}
 		foreach ($aliases as $useClause => $alias)
 		{
-			if ($className == $alias)
+			if ($className === $alias)
 			{
 				NameNormalizer::normalize($useClause, false);
 				return $useClause;
