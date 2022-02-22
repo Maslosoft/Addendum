@@ -24,7 +24,10 @@
 	"autoload": {
 		"psr-4": {
 			"Maslosoft\\Addendum\\": "src"
-		}
+		},
+		"files": [
+			"src/polyfills.php"
+		]
 	},
 	"autoload-dev": {
 		"psr-4": {
@@ -44,7 +47,7 @@
 		"maslosoft/zamm": "*"
 	},
 	"require": {
-		"php": ">=7.1",
+		"php": ">=7.4",
 		"maslosoft/cache": "*",
 		"maslosoft/cli-shared": "*",
 		"maslosoft/embedi": "*",
