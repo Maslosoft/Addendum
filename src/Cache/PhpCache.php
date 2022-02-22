@@ -27,6 +27,8 @@ use Maslosoft\Cli\Shared\Io;
 use ReflectionClass;
 use RuntimeException;
 use UnexpectedValueException;
+use function str_replace;
+use function strpos;
 
 /**
  * PhpCache
@@ -48,37 +50,37 @@ abstract class PhpCache
 	 * Options
 	 * @var string
 	 */
-	private $instanceId = null;
+	private string $instanceId ;
 
 	/**
 	 * Addendum runtime path
 	 * @var string
 	 */
-	private $path = '';
+	private string $path;
 
 	/**
 	 *
 	 * @var NsCache
 	 */
-	private $nsCache = null;
+	private NsCache $nsCache;
 
 	/**
 	 *
 	 * @var Addendum
 	 */
-	private $addendum = null;
+	private Addendum $addendum;
 
 	/**
 	 * Runtime path
-	 * @var string
+	 * @var ?string
 	 */
-	private static $runtimePath = null;
+	private static ?string $runtimePath = null;
 
 	/**
 	 * Local cache
 	 * @var array
 	 */
-	private static $cache = [];
+	private static array $cache = [];
 
 	/**
 	 * Hash map of prepared directories
@@ -317,12 +319,13 @@ abstract class PhpCache
 		return true;
 	}
 
-	private function getFilename()
+	private function getFilename(): string
 	{
 		if (!empty($this->fileName))
 		{
-			return $this->fileName;
+			return $this->cleanupFilename($this->fileName);
 		}
+		// NOTE: Null check is required for further get_class call
 		if (null !== $this->component && is_object($this->component))
 		{
 			$className = get_class($this->component);
@@ -348,11 +351,17 @@ abstract class PhpCache
 			(string) str_replace('\\', '/', $this->classToFile($className))
 		];
 		$this->fileName = vsprintf('%s/%s@%s/%s.php', $params);
-		return $this->fileName;
+		return $this->cleanupFilename($this->fileName);
 	}
 
-	private function getCacheKey()
+	private function cleanupFilename(string $name): string
 	{
+		return str_replace("\0", "", $name);
+	}
+
+	private function getCacheKey(): string
+	{
+		// NOTE: Null check is required for further get_class call
 		if (null !== $this->component && is_object($this->component))
 		{
 			$className = get_class($this->component);
@@ -366,10 +375,10 @@ abstract class PhpCache
 
 	/**
 	 * Convert slash separated class name to dot separated name.
-	 * @param string $className
+	 * @param string|null $className
 	 * @return string
 	 */
-	private function classToFile($className)
+	private function classToFile(string $className = null): string
 	{
 		return str_replace('\\', '.', $className);
 	}
