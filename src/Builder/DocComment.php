@@ -34,6 +34,7 @@ use const T_ABSTRACT;
 use const T_ARRAY;
 use const T_CLASS;
 use const T_INTERFACE;
+use const T_NAME_QUALIFIED;
 use const T_PRIVATE;
 use const T_PROTECTED;
 use const T_PUBLIC;
@@ -131,14 +132,14 @@ class DocComment
 			$this->processAnonymous($info, $anonFqn);
 		}
 		$result = [
-			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
-			'type' => isset(self::$types[$fqn]) ? self::$types[$fqn] : '',
-			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
-			'useAliases' => isset(self::$useAliases[$fqn]) ? self::$useAliases[$fqn] : [],
-			'className' => isset(self::$classNames[$fqn]) ? self::$classNames[$fqn] : [],
-			'class' => isset(self::$classes[$fqn]) ? self::$classes[$fqn] : '',
-			'methods' => isset(self::$methods[$fqn]) ? self::$methods[$fqn] : [],
-			'fields' => isset(self::$fields[$fqn]) ? self::$fields[$fqn] : []
+			'namespace' => self::$namespaces[$fqn] ?? [],
+			'type' => self::$types[$fqn] ?? '',
+			'use' => self::$use[$fqn] ?? [],
+			'useAliases' => self::$useAliases[$fqn] ?? [],
+			'className' => self::$classNames[$fqn] ?? [],
+			'class' => self::$classes[$fqn] ?? '',
+			'methods' => self::$methods[$fqn] ?? [],
+			'fields' => self::$fields[$fqn] ?? []
 		];
 		if (ClassChecker::isAnonymous($reflection->name))
 		{
@@ -222,16 +223,6 @@ class DocComment
 			{
 				[$code, $value] = $token;
 
-//				$tokenType = token_name($code);
-//
-//				// Seems doc comment before some entity
-//				if(strpos($value, '@') !== false)
-//				{
-////					echo $value;
-//				}
-//
-//				codecept_debug("$tokenType: " . str_replace("\n", '\n', str_replace("\t", '\t', $value)));
-
 				switch ($code)
 				{
 					case T_DOC_COMMENT:
@@ -243,7 +234,7 @@ class DocComment
 						$tokensCount = count($tokens);
 						for ($j = $i + 1; $j < $tokensCount; $j++)
 						{
-							if ($tokens[$j][0] === T_STRING)
+							if ($tokens[$j][0] === T_STRING || $tokens[$j][0] === T_NAME_QUALIFIED)
 							{
 								$namespace .= '\\' . $tokens[$j][1];
 							}
