@@ -21,7 +21,6 @@ use Maslosoft\Addendum\Matcher\AnnotationsMatcher;
 use Maslosoft\Addendum\Reflection\ReflectionFile;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use RecursiveRegexIterator;
 use RegexIterator;
 
 /**
@@ -31,12 +30,6 @@ use RegexIterator;
 class AnnotationUtility
 {
 
-	public $searchPaths = [
-		'annotations'
-	];
-	public $settingsPath = 'config/Preferences/org/netbeans/modules/php/project/';
-	public $outputPath = null;
-
 	/**
 	 * This utility method find files containing $annotations
 	 * annotates them and performs callback
@@ -44,11 +37,11 @@ class AnnotationUtility
 	 * TODO: Use FileWalker after extensive tests
 	 * NOTE: It is recommended to use FileWalker class
 	 *
-	 * @see FileWalker
 	 * @param string[] $annotations
 	 * @param callback $callback param is file path
+	 * @see FileWalker
 	 */
-	public static function fileWalker($annotations, $callback, $searchPaths = [])
+	public static function fileWalker(array $annotations, callable $callback, $searchPaths = []): void
 	{
 		$patterns = [];
 
@@ -62,7 +55,7 @@ class AnnotationUtility
 		{
 			$directoryIterator = new RecursiveDirectoryIterator($path);
 			$iterator = new RecursiveIteratorIterator($directoryIterator);
-			$regexIterator = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+			$regexIterator = new RegexIterator($iterator, '/^.+\.php$/i', RegexIterator::GET_MATCH);
 			foreach ($regexIterator as $matches)
 			{
 				$file = $matches[0];
@@ -92,7 +85,7 @@ class AnnotationUtility
 				{
 					continue;
 				}
-				call_user_func($callback, $file, $contents);
+				$callback($file, $contents);
 			}
 		}
 	}
@@ -104,9 +97,9 @@ class AnnotationUtility
 	 * This <b>ALWAYS</b> parses file.
 	 * @param string $file
 	 * @param string $className <b>NOT RECOMMENDED!</b> Optional class name if multiple classes are declared in one file
-	 * @return mixed[][]
+	 * @return array[][]
 	 */
-	public static function rawAnnotate($file, $className = null)
+	public static function rawAnnotate(string $file, string $className = ''): array
 	{
 
 		$docExtractor = new DocComment();
@@ -133,14 +126,13 @@ class AnnotationUtility
 			$fields[$name] = [];
 			$matcher->matches($doc, $fields[$name]);
 		}
-		$result = [
+		return [
 			'namespace' => $docs['namespace'],
 			'className' => $docs['className'],
 			'class' => $class,
 			'methods' => $methods,
 			'fields' => $fields
 		];
-		return $result;
 	}
 
 }
