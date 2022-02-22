@@ -40,18 +40,18 @@
 		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services"
 	},
 	"require-dev": {
-		"codeception/codeception": "^3",
-		"phpunit/phpunit": "^7",
-		"codeception/specify": "^0",
-		"maslosoft/hedron": "*",
-		"maslosoft/zamm": "*"
+		"codeception/codeception": "^4",
+		"codeception/module-asserts": "^2",
+		"codeception/specify": "^2",
+		"maslosoft/hedron": "^1 || ^2",
+		"maslosoft/zamm": "^1 || ^2"
 	},
 	"require": {
 		"php": ">=7.4",
 		"maslosoft/cache": "*",
 		"maslosoft/cli-shared": "*",
-		"maslosoft/embedi": "*",
-		"maslosoft/gazebo": "*",
+		"maslosoft/embedi": "^2",
+		"maslosoft/gazebo": "^2",
 		"maslosoft/signals": "*",
 		"psr/log": "~1"
 	},
