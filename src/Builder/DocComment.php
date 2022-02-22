@@ -14,8 +14,8 @@
 
 namespace Maslosoft\Addendum\Builder;
 
+use InvalidArgumentException;
 use function assert;
-use Exception;
 use function get_class;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionFile;
@@ -26,10 +26,6 @@ use ReflectionMethod;
 use ReflectionProperty;
 use Reflector;
 use function is_array;
-use function str_replace;
-use function strpos;
-use function token_name;
-use function var_dump;
 use const T_ABSTRACT;
 use const T_ARRAY;
 use const T_CLASS;
@@ -43,20 +39,20 @@ use const T_TRAIT;
 
 class DocComment
 {
-	const TypeTrait = 'trait';
-	const TypeClass = 'class';
-	const TypeInterface = 'interface';
-	private static $use = [];
-	private static $useAliases = [];
-	private static $namespaces = [];
-	private static $types = [];
-	private static $classNames = [];
-	private static $classes = [];
-	private static $methods = [];
-	private static $fields = [];
-	private static $parsedFiles = [];
+	public const TypeTrait = 'trait';
+	public const TypeClass = 'class';
+	public const TypeInterface = 'interface';
+	private static array $use = [];
+	private static array $useAliases = [];
+	private static array $namespaces = [];
+	private static array $types = [];
+	private static array $classNames = [];
+	private static array $classes = [];
+	private static array $methods = [];
+	private static array $fields = [];
+	private static array $parsedFiles = [];
 
-	public static function clearCache()
+	public static function clearCache(): void
 	{
 		self::$namespaces = [];
 		self::$types = [];
@@ -83,7 +79,7 @@ class DocComment
 		{
 			return $this->forProperty($reflection);
 		}
-		throw new Exception("This method can only be used on reflection classes");
+		throw new InvalidArgumentException("This method can only be used on reflection classes");
 	}
 
 	/**
@@ -94,28 +90,14 @@ class DocComment
 	 * @param string $className
 	 * @return array
 	 */
-	public function forFile($name, $className = null)
+	public function forFile(string $name, string $className = ''): array
 	{
 		$fqn = $this->process($name, $className);
-		if (null !== $className)
+		if ($className !== '')
 		{
 			$fqn = $className;
 		}
-		/**
-		 * TODO Use some container here with ArrayAccess interface. Array-like access is *required* here.
-		 */
-		$result = [
-			'namespace' => isset(self::$namespaces[$fqn]) ? self::$namespaces[$fqn] : [],
-			'type' => isset(self::$types[$fqn]) ? self::$types[$fqn] : '',
-			'use' => isset(self::$use[$fqn]) ? self::$use[$fqn] : [],
-			'useAliases' => isset(self::$useAliases[$fqn]) ? self::$useAliases[$fqn] : [],
-			'className' => isset(self::$classNames[$fqn]) ? self::$classNames[$fqn] : [],
-			'class' => isset(self::$classes[$fqn]) ? self::$classes[$fqn] : '',
-			'methods' => isset(self::$methods[$fqn]) ? self::$methods[$fqn] : [],
-			'fields' => isset(self::$fields[$fqn]) ? self::$fields[$fqn] : []
-		];
-
-		return $result;
+		return $this->getResultFor($fqn);
 	}
 
 	public function forClass(Reflector $reflection)
@@ -131,16 +113,7 @@ class DocComment
 			NameNormalizer::normalize($anonFqn);
 			$this->processAnonymous($info, $anonFqn);
 		}
-		$result = [
-			'namespace' => self::$namespaces[$fqn] ?? [],
-			'type' => self::$types[$fqn] ?? '',
-			'use' => self::$use[$fqn] ?? [],
-			'useAliases' => self::$useAliases[$fqn] ?? [],
-			'className' => self::$classNames[$fqn] ?? [],
-			'class' => self::$classes[$fqn] ?? '',
-			'methods' => self::$methods[$fqn] ?? [],
-			'fields' => self::$fields[$fqn] ?? []
-		];
+		$result = $this->getResultFor($fqn);
 		if (ClassChecker::isAnonymous($reflection->name))
 		{
 			assert(!empty($anonFqn));
@@ -159,7 +132,7 @@ class DocComment
 
 		$class = $reflection->getDeclaringClass()->getName();
 		$method = $reflection->getName();
-		return isset(self::$methods[$class][$method]) ? self::$methods[$class][$method] : false;
+		return self::$methods[$class][$method] ?? false;
 	}
 
 	public function forProperty(Reflector $reflection)
@@ -170,10 +143,10 @@ class DocComment
 
 		$class = $reflection->getDeclaringClass()->getName();
 		$field = $reflection->getName();
-		return isset(self::$fields[$class][$field]) ? self::$fields[$class][$field] : false;
+		return self::$fields[$class][$field] ?? false;
 	}
 
-	private function processAnonymous(Reflector $reflection, $fqn)
+	private function processAnonymous(Reflector $reflection, string $fqn): void
 	{
 		if (!isset(self::$parsedFiles[$fqn]))
 		{
@@ -192,10 +165,9 @@ class DocComment
 			}
 			self::$parsedFiles[$fqn] = $fqn;
 		}
-		return self::$parsedFiles[$fqn];
 	}
 
-	private function process($file, $fqn = false)
+	private function process(string $file, string $fqn = ''): string
 	{
 		if (!isset(self::$parsedFiles[$file]))
 		{
@@ -205,14 +177,13 @@ class DocComment
 		return self::$parsedFiles[$file];
 	}
 
-	protected function parse($file, $fqn = false)
+	protected function parse(string $file, string $fqn = ''): string
 	{
 		$use = [];
 		$aliases = [];
 		$namespace = '\\';
 		$tokens = $this->getTokens($file);
 		$class = false;
-		$isTrait = $isClass = $isInterface = false;
 		$comment = null;
 		$max = count($tokens);
 		$i = 0;
@@ -259,11 +230,12 @@ class DocComment
 						for ($j = $i + 1; $j < $tokensCount; $j++)
 						{
 							$tokenName = $tokens[$j][0];
-							if ($tokenName === T_STRING && !$as)
+
+							if (($tokenName === T_STRING || $tokenName === T_NAME_QUALIFIED) && !$as)
 							{
 								$useNs .= '\\' . $tokens[$j][1];
 							}
-							if ($tokenName === T_STRING && $as)
+							if (($tokenName === T_STRING || $tokenName === T_NAME_QUALIFIED) && $as)
 							{
 								$alias = $tokens[$j][1];
 								break;
@@ -288,12 +260,12 @@ class DocComment
 					case T_CLASS:
 					case T_INTERFACE:
 						// Ignore magic constant `::class`
-						if ($tokens[$i - 1][0] == T_DOUBLE_COLON)
+						if ($tokens[$i - 1][0] === T_DOUBLE_COLON)
 						{
 							break;
 						}
 						$class = $this->getString($tokens, $i, $max);
-						if (!$fqn)
+						if (empty($fqn))
 						{
 							$fqn = sprintf('%s\%s', $namespace, $class);
 						}
@@ -355,13 +327,12 @@ class DocComment
 					// `public string $title;`
 					case T_STRING:
 					case T_ARRAY:
-						// NOTE: Maybe it will better to check ahead, ie if T_STRING, then check it next value is variable
+						// NOTE: Maybe it will be better to check ahead, ie if T_STRING, then check it next value is variable
 
 						// Skip whitespace and check token before T_STRING and T_WHITESPACE
 						if(isset($tokens[$i - 2]) && is_array($tokens[$i - 2]))
 						{
 							$prevType = $tokens[$i - 2][0];
-							$prevVal = $tokens[$i - 2][1];
 							switch ($prevType)
 							{
 								case T_PUBLIC:
@@ -378,7 +349,6 @@ class DocComment
 						if(isset($tokens[$i - 3]) && is_array($tokens[$i - 3]))
 						{
 							$prevType = $tokens[$i - 3][0];
-							$prevVal = $tokens[$i - 3][1];
 							switch ($prevType)
 							{
 								case T_PUBLIC:
@@ -425,21 +395,32 @@ class DocComment
 			}
 			$token = $tokens[$i];
 			$i++;
-			if (is_array($token))
+			if (is_array($token) && $token[0] === T_STRING)
 			{
-				if ($token[0] == T_STRING)
-				{
-					return $token[1];
-				}
+				return $token[1];
 			}
 		}
 		while ($i <= $max);
 		return false;
 	}
 
-	private function getTokens($file)
+	private function getTokens(string $file): array
 	{
 		return token_get_all(file_get_contents($file));
+	}
+
+	private function getResultFor(string $fqn): array
+	{
+		return [
+			'namespace' => self::$namespaces[$fqn] ?? [],
+			'type' => self::$types[$fqn] ?? '',
+			'use' => self::$use[$fqn] ?? [],
+			'useAliases' => self::$useAliases[$fqn] ?? [],
+			'className' => self::$classNames[$fqn] ?? [],
+			'class' => self::$classes[$fqn] ?? '',
+			'methods' => self::$methods[$fqn] ?? [],
+			'fields' => self::$fields[$fqn] ?? []
+		];
 	}
 
 }

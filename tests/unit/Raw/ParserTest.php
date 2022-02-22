@@ -64,4 +64,26 @@ class ParserTest extends Test
 		$this->assertNotEmpty($ns);
 		$this->assertSame('Maslosoft\AddendumTest\Models', $ns);
 	}
+
+	public function testCollectingUseStatements()
+	{
+		$expectedUseStatements = [
+			'Maslosoft\Addendum\Addendum',
+			'Maslosoft\Addendum\Annotation',
+			'Maslosoft\Addendum\Collections\Meta',
+			'Maslosoft\Addendum\Collections\AddendumPlugins',
+			'ReflectionClass',
+		];
+		$reflection = new ReflectionClass(ModelWithUseStatements::class);
+		$docs = (new DocComment())->forClass($reflection);
+		$useStatements = $docs['use'];
+		$this->assertNotEmpty($useStatements);
+
+		foreach ($expectedUseStatements as $key => $expectedStatement)
+		{
+			$currentStatement = $useStatements[$key];
+			$this->assertNotEmpty($currentStatement);
+			$this->assertSame($expectedStatement, $currentStatement);
+		}
+	}
 }
