@@ -375,11 +375,11 @@ abstract class PhpCache
 
 	/**
 	 * Convert slash separated class name to dot separated name.
-	 * @param string|null $className
+	 * @param string $className
 	 * @return string
 	 */
 	private function classToFile(string $className = null): string
 	{
-		return str_replace('\\', '.', $className);
+		return str_replace('\\', '.', (string)$className);
 	}
 }

@@ -51,6 +51,10 @@ class ClassChecker
 	 */
 	public static function isAnonymous($class): bool
 	{
+		if($class === null)
+		{
+			return false;
+		}
 		if(is_object($class))
 		{
 			$class = get_class($class);
@@ -66,6 +70,10 @@ class ClassChecker
 	 */
 	public static function exists($class): bool
 	{
+		if($class === null)
+		{
+			return false;
+		}
 		if(is_object($class))
 		{
 			$class = get_class($class);
@@ -121,7 +129,7 @@ class ClassChecker
 	 * @param string $className
 	 * @return array
 	 */
-	public static function getPartials($className)
+	public static function getPartials(string $className): array
 	{
 		if (array_key_exists($className, self::$partials))
 		{
