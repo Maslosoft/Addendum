@@ -35,6 +35,7 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\Addendum\Signals\NamespacesSignal;
 use Maslosoft\Addendum\Utilities\Blacklister;
+use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Addendum\Utilities\NameNormalizer;
 use Maslosoft\EmbeDi\EmbeDi;
 use Maslosoft\Signals\Signal;
@@ -217,7 +218,10 @@ class Addendum implements LoggerAwareInterface
 	{
 		if (!$this->di->isStored($this))
 		{
-			(new Signal())->emit(new NamespacesSignal($this));
+			if(ClassChecker::exists(Signal::class))
+			{
+				(new Signal())->emit(new NamespacesSignal($this));
+			}
 		}
 		$this->di->store($this);
 		return $this;

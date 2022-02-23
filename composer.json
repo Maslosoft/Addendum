@@ -52,7 +52,6 @@
 		"maslosoft/cli-shared": "*",
 		"maslosoft/embedi": "^2",
 		"maslosoft/gazebo": "^2",
-		"maslosoft/signals": "*",
 		"psr/log": "~1"
 	},
 	"homepage": "https://maslosoft.com/addendum/"

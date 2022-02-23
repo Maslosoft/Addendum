@@ -1,6 +1,7 @@
 <?php
 
 use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\AddendumTest\Annotations\NamespacedAnnotation;
 use Maslosoft\Signals\Signal;
 use Maslosoft\Signals\Utility;
@@ -29,11 +30,14 @@ const ANNOTATIONS_PATH = __DIR__ . '/annotations';
 const MODELS_PATH = __DIR__ . '/models';
 const RUNTIME_PATH = __DIR__ . '/../runtime';
 
-$signal = new Signal();
-$signal->runtimePath = RUNTIME_PATH;
-$signal->paths = [ANNOTATIONS_PATH, MODELS_PATH];
-$signal->init();
-$signal->resetCache();
+if(ClassChecker::exists(Signal::class))
+{
+	$signal = new Signal();
+	$signal->runtimePath = RUNTIME_PATH;
+	$signal->paths = [ANNOTATIONS_PATH, MODELS_PATH];
+	$signal->init();
+	$signal->resetCache();
+}
 
 $addendum = new Addendum();
 $addendum->namespaces[] = NamespacedAnnotation::Ns;
