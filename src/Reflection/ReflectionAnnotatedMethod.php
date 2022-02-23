@@ -19,6 +19,7 @@ use Maslosoft\Addendum\Builder\Builder;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Interfaces\AnnotatedReflectorInterface;
 use Maslosoft\Addendum\Utilities\ConflictChecker;
+use ReflectionClass;
 use ReflectionMethod;
 
 class ReflectionAnnotatedMethod extends ReflectionMethod implements AnnotatedReflectorInterface
@@ -28,13 +29,13 @@ class ReflectionAnnotatedMethod extends ReflectionMethod implements AnnotatedRef
 	 * Collection of annotations
 	 * @var AnnotationsCollection
 	 */
-	private $annotations;
+	private AnnotationsCollection $annotations;
 
 	/**
 	 * Addendum instance
-	 * @var Addendum
+	 * @var ?Addendum
 	 */
-	private $addendum;
+	private ?Addendum $addendum = null;
 
 	public function __construct($class, $name, Addendum $addendum = null)
 	{
@@ -44,7 +45,7 @@ class ReflectionAnnotatedMethod extends ReflectionMethod implements AnnotatedRef
 		ConflictChecker::check($this, $this->annotations);
 	}
 
-	public function hasAnnotation($class)
+	public function hasAnnotation($class): bool
 	{
 		return $this->annotations->hasAnnotation($class);
 	}
@@ -54,17 +55,17 @@ class ReflectionAnnotatedMethod extends ReflectionMethod implements AnnotatedRef
 		return $this->annotations->getAnnotation($annotation);
 	}
 
-	public function getAnnotations()
+	public function getAnnotations(): array
 	{
 		return $this->annotations->getAnnotations();
 	}
 
-	public function getAllAnnotations($restriction = false)
+	public function getAllAnnotations($restriction = false): array
 	{
 		return $this->annotations->getAllAnnotations($restriction);
 	}
 
-	public function getDeclaringClass()
+	public function getDeclaringClass(): ReflectionClass
 	{
 		$class = parent::getDeclaringClass();
 		return new ReflectionAnnotatedClass($class->name, $this->addendum);

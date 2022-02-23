@@ -20,6 +20,8 @@ use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Interfaces\AnnotatedReflectorInterface;
 use Maslosoft\Addendum\Utilities\ConflictChecker;
 use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
 
 class ReflectionAnnotatedClass extends ReflectionClass implements AnnotatedReflectorInterface
 {
@@ -44,7 +46,7 @@ class ReflectionAnnotatedClass extends ReflectionClass implements AnnotatedRefle
 		ConflictChecker::check($this, $this->annotations);
 	}
 
-	public function hasAnnotation($class)
+	public function hasAnnotation($class): bool
 	{
 		return $this->annotations->hasAnnotation($class);
 	}
@@ -54,27 +56,29 @@ class ReflectionAnnotatedClass extends ReflectionClass implements AnnotatedRefle
 		return $this->annotations->getAnnotation($annotation);
 	}
 
-	public function getAnnotations()
+	public function getAnnotations(): array
 	{
 		return $this->annotations->getAnnotations();
 	}
 
-	public function getAllAnnotations($restriction = false)
+	public function getAllAnnotations($restriction = false): array
 	{
 		return $this->annotations->getAllAnnotations($restriction);
 	}
 
-	public function getConstructor()
+	public function getConstructor(): ?ReflectionMethod
 	{
 		return $this->createReflectionAnnotatedMethod(parent::getConstructor());
 	}
 
-	public function getMethod($name)
+	#[\ReturnTypeWillChange]
+	public function getMethod($name): ?ReflectionMethod
 	{
 		return $this->createReflectionAnnotatedMethod(parent::getMethod($name));
 	}
 
-	public function getMethods($filter = -1)
+	#[\ReturnTypeWillChange]
+	public function getMethods($filter = -1): array
 	{
 		$result = [];
 		foreach (parent::getMethods($filter) as $method)
@@ -84,12 +88,14 @@ class ReflectionAnnotatedClass extends ReflectionClass implements AnnotatedRefle
 		return $result;
 	}
 
-	public function getProperty($name)
+	#[\ReturnTypeWillChange]
+	public function getProperty($name): ?ReflectionProperty
 	{
 		return $this->createReflectionAnnotatedProperty(parent::getProperty($name));
 	}
 
-	public function getProperties($filter = -1)
+	#[\ReturnTypeWillChange]
+	public function getProperties($filter = -1): array
 	{
 		$result = [];
 		foreach (parent::getProperties($filter) as $property)
@@ -99,7 +105,8 @@ class ReflectionAnnotatedClass extends ReflectionClass implements AnnotatedRefle
 		return $result;
 	}
 
-	public function getInterfaces()
+	#[\ReturnTypeWillChange]
+	public function getInterfaces(): array
 	{
 		$result = [];
 		foreach (parent::getInterfaces() as $interface)
@@ -109,6 +116,7 @@ class ReflectionAnnotatedClass extends ReflectionClass implements AnnotatedRefle
 		return $result;
 	}
 
+	#[\ReturnTypeWillChange]
 	public function getParentClass()
 	{
 		$class = parent::getParentClass();
@@ -120,12 +128,12 @@ class ReflectionAnnotatedClass extends ReflectionClass implements AnnotatedRefle
 		return ($class !== false) ? new ReflectionAnnotatedClass($class->name, $this->addendum) : false;
 	}
 
-	private function createReflectionAnnotatedMethod($method)
+	private function createReflectionAnnotatedMethod($method): ?ReflectionAnnotatedMethod
 	{
 		return ($method !== null) ? new ReflectionAnnotatedMethod($this->name, $method->name, $this->addendum) : null;
 	}
 
-	private function createReflectionAnnotatedProperty($property)
+	private function createReflectionAnnotatedProperty($property): ?ReflectionAnnotatedProperty
 	{
 		return ($property !== null) ? new ReflectionAnnotatedProperty($this->name, $property->name, $this->addendum) : null;
 	}
