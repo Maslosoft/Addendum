@@ -258,12 +258,10 @@ class Addendum implements LoggerAwareInterface
 	 * Set logger
 	 *
 	 * @param LoggerInterface $logger
-	 * @return Addendum
 	 */
-	public function setLogger(LoggerInterface $logger): Addendum
+	public function setLogger(LoggerInterface $logger): void
 	{
 		$this->loggerInstance = $logger;
-		return $this;
 	}
 
 	/**
