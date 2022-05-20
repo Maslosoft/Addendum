@@ -52,7 +52,7 @@
 		"maslosoft/cli-shared": "^1 | ^2",
 		"maslosoft/embedi": "^2",
 		"maslosoft/gazebo": "^2",
-		"psr/log": "~1"
+		"psr/log": "^1|^2|^3"
 	},
 	"homepage": "https://maslosoft.com/addendum/"
 }

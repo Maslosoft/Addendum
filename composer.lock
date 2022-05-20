@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67a5a10e647fe28e46fdf1e43655e9e9",
+    "content-hash": "eeb66f4549a7ef1cae240fc745973384",
     "packages": [
         {
             "name": "maslosoft/cache",
@@ -43,24 +43,28 @@
         },
         {
             "name": "maslosoft/cli-shared",
-            "version": "1.0.5",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/CLIShared.git",
-                "reference": "f0fc3bd77233019130755bb2e647523a2bc59ade"
+                "reference": "62b7079282bb49b67e03e562db440e17f0992e63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/CLIShared/zipball/f0fc3bd77233019130755bb2e647523a2bc59ade",
-                "reference": "f0fc3bd77233019130755bb2e647523a2bc59ade",
+                "url": "https://api.github.com/repos/Maslosoft/CLIShared/zipball/62b7079282bb49b67e03e562db440e17f0992e63",
+                "reference": "62b7079282bb49b67e03e562db440e17f0992e63",
                 "shasum": ""
             },
             "require": {
-                "psr/log": "^1",
+                "php": ">=8",
+                "psr/log": "^1|^2|^3",
                 "symfony/finder": ">=2.7 <5.0",
                 "symfony/yaml": ">=2.7 <5.0"
             },
             "require-dev": {
+                "codeception/codeception": "^4",
+                "codeception/module-asserts": "^1.0.0",
+                "codeception/module-phpbrowser": "^1.0.0",
                 "maslosoft/hedron": "*",
                 "maslosoft/zamm": "*"
             },
@@ -90,9 +94,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Maslosoft/CLIShared/issues",
-                "source": "https://github.com/Maslosoft/CLIShared/tree/master"
+                "source": "https://github.com/Maslosoft/CLIShared/tree/1.0.7"
             },
-            "time": "2019-12-03T20:03:43+00:00"
+            "time": "2022-05-20T12:14:00+00:00"
         },
         {
             "name": "maslosoft/embedi",
@@ -195,30 +199,30 @@
         },
         {
             "name": "psr/log",
-            "version": "1.1.4",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=8.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "3.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Psr\\Log\\": "Psr/Log/"
+                    "Psr\\Log\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -239,22 +243,22 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.4"
+                "source": "https://github.com/php-fig/log/tree/3.0.0"
             },
-            "time": "2021-05-03T11:20:27+00:00"
+            "time": "2021-07-14T16:46:02+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v4.4.37",
+            "version": "v4.4.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "b17d76d7ed179f017aad646e858c90a2771af15d"
+                "reference": "40790bdf293b462798882ef6da72bb49a4a6633a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/b17d76d7ed179f017aad646e858c90a2771af15d",
-                "reference": "b17d76d7ed179f017aad646e858c90a2771af15d",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/40790bdf293b462798882ef6da72bb49a4a6633a",
+                "reference": "40790bdf293b462798882ef6da72bb49a4a6633a",
                 "shasum": ""
             },
             "require": {
@@ -287,7 +291,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v4.4.37"
+                "source": "https://github.com/symfony/finder/tree/v4.4.41"
             },
             "funding": [
                 {
@@ -303,7 +307,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:41:36+00:00"
+            "time": "2022-04-14T15:36:10+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1236,21 +1240,22 @@
         },
         {
             "name": "maslosoft/miniview",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maslosoft/MiniView.git",
-                "reference": "78c1be3a8676698cbc23d23bce0d05c18ccb2d55"
+                "reference": "893bd985825c89e752943b8df62f14c3cdda77ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maslosoft/MiniView/zipball/78c1be3a8676698cbc23d23bce0d05c18ccb2d55",
-                "reference": "78c1be3a8676698cbc23d23bce0d05c18ccb2d55",
+                "url": "https://api.github.com/repos/Maslosoft/MiniView/zipball/893bd985825c89e752943b8df62f14c3cdda77ce",
+                "reference": "893bd985825c89e752943b8df62f14c3cdda77ce",
                 "shasum": ""
             },
             "require-dev": {
-                "codeception/codeception": "*",
-                "maslosoft/hedron": "~1"
+                "codeception/codeception": "^4",
+                "codeception/module-asserts": "^1",
+                "maslosoft/hedron": "^1"
             },
             "suggest": {
                 "latte/latte": "Use tatte templates",
@@ -1277,9 +1282,9 @@
             "homepage": "https://maslosoft.com/miniview/",
             "support": {
                 "issues": "https://github.com/Maslosoft/MiniView/issues",
-                "source": "https://github.com/Maslosoft/MiniView/tree/master"
+                "source": "https://github.com/Maslosoft/MiniView/tree/1.1.2"
             },
-            "time": "2017-02-16T07:45:53+00:00"
+            "time": "2022-04-11T19:14:35+00:00"
         },
         {
             "name": "maslosoft/staple",
@@ -3633,16 +3638,16 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v4.4.37",
+            "version": "v4.4.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "5de6c6e7f52b364840e53851c126be4d71e60470"
+                "reference": "6637e62480b60817b9a6984154a533e8e64c6bd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/5de6c6e7f52b364840e53851c126be4d71e60470",
-                "reference": "5de6c6e7f52b364840e53851c126be4d71e60470",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/6637e62480b60817b9a6984154a533e8e64c6bd5",
+                "reference": "6637e62480b60817b9a6984154a533e8e64c6bd5",
                 "shasum": ""
             },
             "require": {
@@ -3681,7 +3686,7 @@
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug/tree/v4.4.37"
+                "source": "https://github.com/symfony/debug/tree/v4.4.41"
             },
             "funding": [
                 {
@@ -3697,7 +3702,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:41:36+00:00"
+            "time": "2022-04-12T15:19:55+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
