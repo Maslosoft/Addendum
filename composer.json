@@ -37,14 +37,17 @@
 		}
 	},
 	"suggest": {
-		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services"
+		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services",
+		"maslosoft/signals": "Collect annotation namespaces with signals"
 	},
 	"require-dev": {
+		"roave/security-advisories": "dev-latest",
 		"codeception/codeception": "^4",
 		"codeception/module-asserts": "^2",
 		"codeception/specify": "^2",
 		"maslosoft/hedron": "^1 || ^2",
-		"maslosoft/zamm": "^1 || ^2"
+		"maslosoft/zamm": "^1 || ^2",
+		"maslosoft/signals": "*"
 	},
 	"require": {
 		"php": ">=7.4",
