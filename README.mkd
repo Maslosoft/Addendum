@@ -1,7 +1,7 @@
 <!--header-->
 <!-- Auto generated do not modify between `header` and `/header` -->
 
-# <a href="https://maslosoft.com/addendum/"><img src="https://maslosoft.com/addendum/addendum.svg" style="height:1em;" alt="Addendum Logo"></a> <a href="https://maslosoft.com/addendum/">Maslosoft Addendum</a>
+# <a href="https://maslosoft.com/addendum/"><img src="https://maslosoft.com/addendum/addendum.svg" style="height:.71em;" alt="Addendum Logo"></a> <a href="https://maslosoft.com/addendum/">Maslosoft Addendum</a>
 <a href="https://maslosoft.com/addendum/">_Powerful and easy to use PHP annotations_</a>
 
 <a href="https://packagist.org/packages/maslosoft/addendum" title="Latest Stable Version">
