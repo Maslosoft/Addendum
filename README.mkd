@@ -16,9 +16,6 @@
 <a href="https://scrutinizer-ci.com/g/Maslosoft/Addendum/?branch=master">
 	<img src="https://scrutinizer-ci.com/g/Maslosoft/Addendum/badges/coverage.png?b=master" alt="Code Coverage" />
 </a>
-<a href="https://travis-ci.org/Maslosoft/Addendum">
-<img src="https://travis-ci.org/Maslosoft/Addendum.svg?branch=master"/>
-</a>
 
 ### Quick Install
 ```bash
