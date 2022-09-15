@@ -45,7 +45,6 @@
 		"codeception/codeception": "^4",
 		"codeception/module-asserts": "^2",
 		"codeception/specify": "^2",
-		"maslosoft/hedron": "^1 || ^2",
 		"maslosoft/zamm": "^1 || ^2",
 		"maslosoft/signals": "*",
 		"monolog/monolog": "^2"
