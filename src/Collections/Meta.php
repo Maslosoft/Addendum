@@ -120,7 +120,7 @@ class Meta
 		 * for class should be _main
 		 * for methods should be _methods
 		 * __get and __set should distinguish it somehow... - maybe by field type EComponentMetaProperty for fields etc.
-		 * Currently disabled
+		 * Currently, disabled
 		 * OR add function to Annotation to setEntity, which should point to _field, _main or _method?
 		 */
 		// Setup class annotations
@@ -146,7 +146,7 @@ class Meta
 			}
 
 			// Ignore magic methods
-			if (preg_match('~^__~', $method->name))
+			if (0 === strpos($method->name, "__"))
 			{
 				continue;
 			}
@@ -251,7 +251,7 @@ class Meta
 	/**
 	 * Create flyweight instance of `Meta`.
 	 * Calling this function will create new instance only if it's not stored in cache.
-	 * This allows very effective retrieving of `Meta` container's meta data, without need of parsing annotations.
+	 * This allows very effective retrieving of `Meta` container's metadata, without need of parsing annotations.
 	 * @param string|object|AnnotatedInterface $model
 	 * @param MetaOptions|null $options
 	 * @return static

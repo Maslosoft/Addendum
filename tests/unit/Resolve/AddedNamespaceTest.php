@@ -49,7 +49,7 @@ class AddedNamespaceTest extends Test
 		$this->assertTrue($meta2->namespaced);
 
 		// Added second namespace
-		$this->assertTrue($meta2->second, 'That namespace added via options id detected');
+		$this->assertTrue($meta2->second, 'That namespace added via options is detected');
 
 		// Third ns
 		Addendum::fly()->addNamespace(ThirdNsAnnotation::Ns);
