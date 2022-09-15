@@ -49,27 +49,27 @@ use Reflector;
 class Addendum implements LoggerAwareInterface
 {
 
-	const DefaultInstanceId = 'addendum';
+	public const DefaultInstanceId = 'addendum';
 
 	/**
 	 * Runtime path
 	 * @var string
 	 */
-	public $runtimePath = 'runtime';
+	public string $runtimePath = 'runtime';
 
 	/**
 	 * Whether to check modification time of file to invalidate cache.
 	 * Set this to true for development, and false for production.
 	 * @var bool
 	 */
-	public $checkMTime = false;
+	public bool $checkMTime = false;
 
 	/**
 	 * Namespaces to check for annotations.
 	 * By default, global and addendum namespace is included.
 	 * @var string[]
 	 */
-	public $namespaces = [
+	public array $namespaces = [
 		'\\',
 		TargetAnnotation::Ns
 	];
@@ -78,14 +78,15 @@ class Addendum implements LoggerAwareInterface
 	 * @var bool[]
 	 * @internal Do not use, this for performance only
 	 */
-	public $nameKeys = [];
+	public array $nameKeys = [];
 
 	/**
 	 * Translatable annotations
 	 * TODO This should be moved to `maslosoft/addendum-i18n-extractor`
+	 * @deprecated
 	 * @var string[]
 	 */
-	public $i18nAnnotations = [
+	public array $i18nAnnotations = [
 		'Label',
 		'Description'
 	];
@@ -120,19 +121,19 @@ class Addendum implements LoggerAwareInterface
 	 * Current instance id
 	 * @var string
 	 */
-	protected $instanceId = self::DefaultInstanceId;
+	protected string $instanceId = self::DefaultInstanceId;
 
 	/**
 	 * DI
 	 * @var EmbeDi
 	 */
-	protected $di = null;
+	protected EmbeDi $di;
 
 	/**
 	 * Logger
-	 * @var LoggerInterface
+	 * @var LoggerInterface|null
 	 */
-	private $loggerInstance;
+	private ?LoggerInterface $loggerInstance = null;
 
 	/**
 	 * Cache for resolved annotations class names.
