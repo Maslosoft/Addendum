@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0228b8a3f5cc82dc6c11cb5f7bdd74a5",
+    "content-hash": "5198bfaedf0fd9cc5bc75edccaca44d6",
     "packages": [
         {
             "name": "maslosoft/cache",
@@ -4281,7 +4281,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "roave/security-advisories": 20
+        "roave/security-advisories": 20,
+        "maslosoft/signals": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

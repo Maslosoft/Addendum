@@ -46,7 +46,7 @@
 		"codeception/module-asserts": "^2",
 		"codeception/specify": "^2",
 		"maslosoft/zamm": "^1 || ^2",
-		"maslosoft/signals": "*",
+		"maslosoft/signals": "*@dev",
 		"monolog/monolog": "^2"
 	},
 	"require": {
