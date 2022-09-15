@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Maslosoft\Addendum\Cache\PhpCache;
-
 
 use function basename;
 use DirectoryIterator;
@@ -15,7 +13,7 @@ use function str_replace;
 
 class Checker extends CacheComponent
 {
-	public function isValid($className)
+	public function isValid($className): bool
 	{
 		NameNormalizer::normalize($className, false);
 		$info = new ReflectionClass($className);
