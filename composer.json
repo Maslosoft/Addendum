@@ -47,7 +47,8 @@
 		"codeception/specify": "^2",
 		"maslosoft/hedron": "^1 || ^2",
 		"maslosoft/zamm": "^1 || ^2",
-		"maslosoft/signals": "*"
+		"maslosoft/signals": "*",
+		"monolog/monolog": "^2"
 	},
 	"require": {
 		"php": ">=7.4",
