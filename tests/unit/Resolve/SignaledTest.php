@@ -6,6 +6,7 @@ use Codeception\TestCase\Test;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\AddendumTest\Models\ModelWithSignaledAnnotation;
+use Maslosoft\Signals\Signal;
 use UnitTester;
 
 class SignaledTest extends Test
