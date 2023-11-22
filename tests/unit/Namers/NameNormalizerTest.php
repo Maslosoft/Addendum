@@ -5,7 +5,7 @@ namespace Namers;
 use Maslosoft\Addendum\Utilities\NameNormalizer;
 use UnitTester;
 
-class NameNormalizerTest extends \Codeception\TestCase\Test
+class NameNormalizerTest extends  \Codeception\Test\Unit
 {
 
 	/**

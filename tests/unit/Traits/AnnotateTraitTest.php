@@ -8,7 +8,7 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\AddendumTest\Models\TraitWithLabels;
 use UnitTester;
 
-class AnnotateTraitTest extends \Codeception\TestCase\Test
+class AnnotateTraitTest extends  \Codeception\Test\Unit
 {
 
 	/**

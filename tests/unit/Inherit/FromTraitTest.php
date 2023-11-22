@@ -9,7 +9,7 @@ use Maslosoft\AddendumTest\Models\Inherit\BaseTraitWithLabel;
 use Maslosoft\AddendumTest\Models\Inherit\ModelWithInheritedLabelFromTrait;
 use UnitTester;
 
-class FromTraitTest extends \Codeception\TestCase\Test
+class FromTraitTest extends  \Codeception\Test\Unit
 {
 
 	/**

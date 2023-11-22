@@ -6,7 +6,7 @@ use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\AddendumTest\Models\Debug\NestedTraits\ModelWithNestedTraits;
 use UnitTester;
 
-class NestedTraitAnnotationTest extends \Codeception\TestCase\Test
+class NestedTraitAnnotationTest extends  \Codeception\Test\Unit
 {
 
 	/**

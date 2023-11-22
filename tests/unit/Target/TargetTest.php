@@ -2,7 +2,7 @@
 
 namespace Target;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Exceptions\TargetException;
 use Maslosoft\AddendumTest\Models\InterfaceTarget;

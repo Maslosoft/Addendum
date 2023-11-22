@@ -2,7 +2,7 @@
 
 namespace Resolve;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\AddendumTest\Models\ModelWithSignaledAnnotation;

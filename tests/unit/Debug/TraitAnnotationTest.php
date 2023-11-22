@@ -11,7 +11,7 @@ use Maslosoft\AddendumTest\Models\Debug\TreeTraits\Traits\SimpleTreeTrait;
 use Maslosoft\AddendumTest\Models\Debug\TreeTraits\Traits\SimpleTreeTraitProper;
 use UnitTester;
 
-class TraitAnnotationTest extends \Codeception\TestCase\Test
+class TraitAnnotationTest extends  \Codeception\Test\Unit
 {
 
 	/**

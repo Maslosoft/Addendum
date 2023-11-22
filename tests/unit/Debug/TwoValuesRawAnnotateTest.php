@@ -2,7 +2,7 @@
 
 namespace Debug;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Matcher\AnnotationsMatcher;

@@ -2,7 +2,7 @@
 
 namespace Ignore;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Collections\MetaMethod;
 use Maslosoft\Addendum\Collections\MetaProperty;

@@ -2,7 +2,7 @@
 
 namespace Conflicts;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Exceptions\ConflictException;

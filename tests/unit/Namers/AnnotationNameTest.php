@@ -2,7 +2,7 @@
 
 namespace Namers;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Utilities\AnnotationName;
 use Maslosoft\AddendumTest\Annotations\LabelAnnotation;
 use UnitTester;

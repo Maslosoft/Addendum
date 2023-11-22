@@ -2,8 +2,8 @@
 
 namespace Plugins;
 
-use Codeception\TestCase\Test;
-use Maslosoft\Addendum\Interfaces\Matcher\IMatcher as WithAlias;
+use Codeception\Test\Unit as Test;
+use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface as WithAlias;
 use Maslosoft\Addendum\Utilities\UseResolver;
 use Maslosoft\AddendumTest\Models\Debug\Model2WithMethodInjection;
 use ReflectionClass;

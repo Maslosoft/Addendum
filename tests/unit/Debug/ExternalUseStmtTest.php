@@ -11,7 +11,7 @@ use Maslosoft\AddendumTest\Models\Debug\UseInTraits\PageItemInline;
 use Maslosoft\AddendumTest\Models\Debug\UseInTraits\PageItemOverride;
 use UnitTester;
 
-class ExternalUseStmtTest extends \Codeception\TestCase\Test
+class ExternalUseStmtTest extends  \Codeception\Test\Unit
 {
 
 	/**

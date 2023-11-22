@@ -8,7 +8,7 @@
 
 namespace Debug;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\AddendumTest\Models\Debug\AbstractSettings;
 use ReflectionClass;
 

@@ -10,7 +10,7 @@ use Maslosoft\AddendumTest\Models\Inherit\ModelWithInheritedLabel;
 use Maslosoft\AddendumTest\Models\Inherit\ModelWithInheritedLabelDeep;
 use UnitTester;
 
-class FromClassTest extends \Codeception\TestCase\Test
+class FromClassTest extends  \Codeception\Test\Unit
 {
 
 	/**

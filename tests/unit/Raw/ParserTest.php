@@ -2,7 +2,7 @@
 
 namespace Raw;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Annotation;
 use Maslosoft\Addendum\Builder\DocComment;

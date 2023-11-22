@@ -2,7 +2,7 @@
 
 namespace Meta;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Collections\MetaMethod;
 use Maslosoft\AddendumTest\Models\ModelWithoutAnnotations;

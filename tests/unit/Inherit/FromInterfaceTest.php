@@ -8,7 +8,7 @@ use Maslosoft\AddendumTest\Models\Inherit\BaseInterfaceWithLabel;
 use Maslosoft\AddendumTest\Models\Inherit\ModelWithInheritedLabelFromInterface;
 use UnitTester;
 
-class FromInterfaceTest extends \Codeception\TestCase\Test
+class FromInterfaceTest extends  \Codeception\Test\Unit
 {
 
 	/**

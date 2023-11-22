@@ -2,7 +2,7 @@
 
 namespace Utilities;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Utilities\AnnotationUtility;
 use UnitTester;
 

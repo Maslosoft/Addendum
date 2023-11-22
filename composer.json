@@ -42,8 +42,8 @@
 	},
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",
-		"codeception/codeception": "^4",
-		"codeception/module-asserts": "^2",
+		"codeception/codeception": "^5",
+		"codeception/module-asserts": "^3",
 		"codeception/specify": "^2",
 		"maslosoft/zamm": "^1 || ^2",
 		"maslosoft/signals": "*@dev",

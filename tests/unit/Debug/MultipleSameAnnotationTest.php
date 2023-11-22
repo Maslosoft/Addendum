@@ -8,7 +8,7 @@ use Maslosoft\AddendumTest\Annotations\LabelAnnotation;
 use Maslosoft\AddendumTest\Models\Debug\MultipleSameAnnotations\TestDerivedDocument;
 use UnitTester;
 
-class MultipleSameAnnotationTest extends \Codeception\TestCase\Test
+class MultipleSameAnnotationTest extends  \Codeception\Test\Unit
 {
 
 	/**

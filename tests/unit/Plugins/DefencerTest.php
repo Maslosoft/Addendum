@@ -2,7 +2,7 @@
 
 namespace Plugins;
 
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit as Test;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Utilities\AnnotationUtility;
 use Maslosoft\AddendumTest\Models\ModelWithFences;
@@ -26,7 +26,7 @@ class DefencerTest extends Test
 		codecept_debug($meta);
 
 		$this->assertSame('LABEL', $meta->label, 'That @Label was evaluated');
-		$this->assertTrue(empty($meta->description), 'That @Description was ignoded');
+		$this->assertTrue(empty($meta->description), 'That @Description was ignored');
 	}
 
 	public function testIgnoreAnnotationsSurroundedByFenceWhenRawAnnotateIsUsed()

@@ -9,7 +9,7 @@ use Maslosoft\AddendumTest\Models\Cache\CacheOptionsTwo;
 use Maslosoft\Cli\Shared\ConfigDetector;
 use UnitTester;
 
-class CachingTest extends \Codeception\TestCase\Test
+class CachingTest extends \Codeception\Test\Unit
 {
 
 	/**

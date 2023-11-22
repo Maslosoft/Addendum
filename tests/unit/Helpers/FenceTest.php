@@ -5,7 +5,7 @@ namespace Helpers;
 use Maslosoft\Addendum\Helpers\Fence;
 use UnitTester;
 
-class FenceTest extends \Codeception\TestCase\Test
+class FenceTest extends  \Codeception\Test\Unit
 {
 
 	/**
