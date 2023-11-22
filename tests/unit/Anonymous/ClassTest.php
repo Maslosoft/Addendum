@@ -2,12 +2,13 @@
 
 namespace Anonymous;
 
+use Codeception\Test\Unit;
 use Maslosoft\Addendum\Collections\Meta;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\AddendumTest\Models\ModelWithAnonumousClass;
 use UnitTester;
 
-class ClassTest extends \Codeception\TestCase\Test
+class ClassTest extends Unit
 {
 
 	/**
@@ -19,7 +20,7 @@ class ClassTest extends \Codeception\TestCase\Test
 	{
 		if (version_compare(PHP_VERSION, '7.0.0', '<'))
 		{
-			throw new \PHPUnit_Framework_SkippedTestError('Feature available only on PHP 7');
+			$this->markTestSkipped('Feature available only on PHP 7 or later');
 		}
 	}
 
