@@ -135,7 +135,7 @@ class ClassCache
 		return $this->writer->write($className, $data);
 	}
 
-	public function setOptions(MetaOptions $options = null)
+	public function setOptions(?MetaOptions $options = null)
 	{
 		$instanceId = $this->getInstanceId($options);
 		$this->addendum = Addendum::fly($instanceId);
@@ -148,7 +148,7 @@ class ClassCache
 		$this->nsCache->setOptions($options);
 	}
 
-	private function getInstanceId(MetaOptions $options = null)
+	private function getInstanceId(?MetaOptions $options = null)
 	{
 		if ($options === null)
 		{

@@ -27,15 +27,15 @@ interface MetaAdapterInterface
 
 	/**
 	 * Set working component
-	 * @param object $component
+	 * @param AnnotatedInterface|null $component
 	 */
-	public function setComponent(AnnotatedInterface $component = null);
+	public function setComponent(?AnnotatedInterface $component = null);
 
 	/**
 	 * Set meta options
-	 * @param MetaOptions $options
+	 * @param MetaOptions|null $options
 	 */
-	public function setOptions(MetaOptions $options = null);
+	public function setOptions(?MetaOptions $options = null);
 
 	/**
 	 * Set metadata

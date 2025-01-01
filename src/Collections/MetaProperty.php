@@ -82,9 +82,9 @@ class MetaProperty implements AnnotationEntityInterface
 
 	/**
 	 * Class constructor, sets some basic data for field
-	 * @param ReflectionProperty $info
+	 * @param ReflectionProperty|null $info
 	 */
-	public function __construct(ReflectionProperty $info = null)
+	public function __construct(?ReflectionProperty $info = null)
 	{
 		// For internal use
 		if (null === $info)

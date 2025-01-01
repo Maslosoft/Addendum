@@ -37,7 +37,7 @@ class ReflectionAnnotatedProperty extends ReflectionProperty implements Annotate
 	 */
 	private ?Addendum $addendum = null;
 
-	public function __construct($class, $name, Addendum $addendum = null)
+	public function __construct($class, $name, ?Addendum $addendum = null)
 	{
 		parent::__construct($class, $name);
 		$this->annotations = (new Builder($addendum))->build($this);

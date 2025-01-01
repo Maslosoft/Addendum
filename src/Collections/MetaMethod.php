@@ -48,9 +48,9 @@ class MetaMethod implements AnnotationEntityInterface
 
 	/**
 	 * Class constructor, set some basic metadata
-	 * @param ReflectionMethod $info
+	 * @param ReflectionMethod|null $info
 	 */
-	public function __construct(ReflectionMethod $info = null)
+	public function __construct(?ReflectionMethod $info = null)
 	{
 		// For internal use
 		if (null === $info)

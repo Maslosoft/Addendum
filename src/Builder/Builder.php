@@ -59,7 +59,10 @@ class Builder
 	 */
 	private $buildCache = null;
 
-	public function __construct(Addendum $addendum = null)
+	/**
+	 * @param Addendum|null $addendum
+	 */
+	public function __construct(?Addendum $addendum = null)
 	{
 		$this->addendum = $addendum ?: new Addendum();
 		$this->buildCache = new BuildOneCache(static::class, null, $this->addendum);

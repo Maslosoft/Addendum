@@ -137,7 +137,7 @@ abstract class PhpCache
 		$this->component = $component;
 	}
 
-	public function setOptions(MetaOptions $options = null)
+	public function setOptions(?MetaOptions $options = null)
 	{
 		$this->fileName = null;
 		$this->nsCache->setOptions($options);
@@ -375,10 +375,10 @@ abstract class PhpCache
 
 	/**
 	 * Convert slash separated class name to dot separated name.
-	 * @param string $className
+	 * @param string|null $className
 	 * @return string
 	 */
-	private function classToFile(string $className = null): string
+	private function classToFile(?string $className = null): string
 	{
 		return str_replace('\\', '.', (string)$className);
 	}

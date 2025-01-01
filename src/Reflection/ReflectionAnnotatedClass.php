@@ -38,7 +38,7 @@ class ReflectionAnnotatedClass extends ReflectionClass implements AnnotatedRefle
 	 */
 	private $addendum = null;
 
-	public function __construct($class, Addendum $addendum = null)
+	public function __construct($class, ?Addendum $addendum = null)
 	{
 		parent::__construct($class);
 		$this->annotations = (new Builder($addendum))->build($this);

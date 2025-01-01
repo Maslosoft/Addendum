@@ -40,7 +40,7 @@ class FlyCache
 	 * @param MetaOptions $options
 	 * @return ClassCache
 	 */
-	public static function instance($metaClass = null, $component = null, MetaOptions $options = null)
+	public static function instance($metaClass = null, $component = null, ?MetaOptions $options = null)
 	{
 		if (empty($options))
 		{

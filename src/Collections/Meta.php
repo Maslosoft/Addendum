@@ -24,6 +24,7 @@ use Maslosoft\Addendum\Reflection\ReflectionAnnotatedClass;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedMethod;
 use Maslosoft\Addendum\Reflection\ReflectionAnnotatedProperty;
 use Maslosoft\Addendum\Utilities\IgnoredChecker;
+use ReflectionException;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -71,11 +72,11 @@ class Meta
 	public static $addNs = false;
 
 	/**
-	 * @param string|object|AnnotatedInterface $model
-	 * @param MetaOptions $options
-	 * @throws Exception
+	 * @param null             $model
+	 * @param MetaOptions|null $options
+	 * @throws ReflectionException
 	 */
-	protected function __construct($model = null, MetaOptions $options = null)
+	protected function __construct($model = null, ?MetaOptions $options = null)
 	{
 		// For internal use
 		if (null === $model)
@@ -256,7 +257,7 @@ class Meta
 	 * @param MetaOptions|null $options
 	 * @return static
 	 */
-	public static function create($model, MetaOptions $options = null)
+	public static function create($model, ?MetaOptions $options = null)
 	{
 		// Reset local cache if dynamically added namespace
 		if (self::$addNs)
@@ -318,22 +319,6 @@ class Meta
 			}
 		}
 		return $result;
-	}
-
-	/**
-	 * Get fields annotations for selected field or for all fields
-	 * @param string $fieldName
-	 * @return mixed[]
-	 * @todo Remove this
-	 * @deprecated since version number
-	 */
-	public function annotations($fieldName = null)
-	{
-		if ($fieldName)
-		{
-			return $this->_annotations[$fieldName];
-		}
-		return $this->_annotations;
 	}
 
 	/**

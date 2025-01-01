@@ -46,3 +46,4 @@ $addendum->init();
 // Here you can initialize variables that will be available to your tests
 echo "PHP " . PHP_VERSION . PHP_EOL;
 echo "Addendum " . $addendum->getVersion() . PHP_EOL;
+error_reporting(E_ALL);

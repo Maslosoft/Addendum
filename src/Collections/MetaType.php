@@ -36,9 +36,9 @@ class MetaType implements AnnotationEntityInterface
 
 	/**
 	 * Class constructor, set some basic metadata
-	 * @param ReflectionClass $info
+	 * @param ReflectionClass|null $info
 	 */
-	public function __construct(ReflectionClass $info = null)
+	public function __construct(?ReflectionClass $info = null)
 	{
 		// For internal use
 		if (null === $info)

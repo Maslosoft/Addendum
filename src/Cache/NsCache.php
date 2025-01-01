@@ -63,7 +63,7 @@ class NsCache
 	 */
 	public static $addedNs = true;
 
-	public function __construct($path, Addendum $addendum, MetaOptions $options = null)
+	public function __construct($path, Addendum $addendum, ?MetaOptions $options = null)
 	{
 		$this->file = sprintf('%s/%s', $path, self::FileName);
 		$this->namespaces = $addendum->nameKeys;
@@ -71,7 +71,7 @@ class NsCache
 		$this->setOptions($options);
 	}
 
-	public function setOptions(MetaOptions $options = null)
+	public function setOptions(?MetaOptions $options = null)
 	{
 		if ($options !== null && !empty($options->namespaces))
 		{
