@@ -1,61 +1,62 @@
 {
-	"name": "maslosoft/addendum",
-	"description": "Powerful and easy to use PHP annotations",
-	"keywords": [
-		"php",
-		"annotations",
-		"annotation",
-		"addendum",
-		"metadata"
-	],
-	"license": [
-		"AGPL-3.0-only",
-		"proprietary"
-	],
-	"authors": [
-		{
-			"name": "Peter Maselkowski",
-			"email": "peter@maslosoft.com",
-			"homepage": "https://maslosoft.com",
-			"role": "Developer"
-		}
-	],
-	"minimum-stability": "stable",
-	"autoload": {
-		"psr-4": {
-			"Maslosoft\\Addendum\\": "src"
-		},
-		"files": [
-			"src/polyfills.php"
-		]
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"AddendumTest\\": "tests",
-			"Maslosoft\\AddendumTest\\Models\\": "tests/models",
-			"Maslosoft\\AddendumTest\\Annotations\\": "tests/annotations"
-		}
-	},
-	"suggest": {
-		"monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services",
-		"maslosoft/signals": "Collect annotation namespaces with signals"
-	},
-	"require-dev": {
-		"roave/security-advisories": "dev-latest",
-		"codeception/codeception": "^5",
-		"codeception/module-asserts": "^3",
-		"codeception/specify": "^2|^3",
-		"maslosoft/zamm": "^2|^3",
-		"maslosoft/signals": "*@dev",
-		"monolog/monolog": "^2|^3"
-	},
-	"require": {
-		"php": ">=7.4",
-		"maslosoft/cache": "^2|^3",
-		"maslosoft/cli-shared": "^2|^3",
-		"maslosoft/embedi": "^2|^3",
-		"maslosoft/gazebo": "^2|^3",
-		"psr/log": "^1|^2|^3"
-	},
-	"homepage": "https://maslosoft.com/addendum/"
+    "name": "maslosoft/addendum",
+    "version": "7.0.6",
+    "description": "Powerful and easy to use PHP annotations",
+    "keywords": [
+        "php",
+        "annotations",
+        "annotation",
+        "addendum",
+        "metadata"
+    ],
+    "license": [
+        "AGPL-3.0-only",
+        "proprietary"
+    ],
+    "authors": [
+        {
+            "name": "Peter Maselkowski",
+            "email": "peter@maslosoft.com",
+            "homepage": "https://maslosoft.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Maslosoft\\Addendum\\": "src"
+        },
+        "files": [
+            "src/polyfills.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AddendumTest\\": "tests",
+            "Maslosoft\\AddendumTest\\Models\\": "tests/models",
+            "Maslosoft\\AddendumTest\\Annotations\\": "tests/annotations"
+        }
+    },
+    "suggest": {
+        "monolog/monolog": "Sends your logs to files, sockets, inboxes, databases and various web services",
+        "maslosoft/signals": "Collect annotation namespaces with signals"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "codeception/codeception": "^5",
+        "codeception/module-asserts": "^3",
+        "codeception/specify": "^2|^3",
+        "maslosoft/zamm": "^2|^3",
+        "maslosoft/signals": "*@dev",
+        "monolog/monolog": "^2|^3"
+    },
+    "require": {
+        "php": ">=7.4",
+        "maslosoft/cache": "^2|^3",
+        "maslosoft/cli-shared": "^2|^3",
+        "maslosoft/embedi": "^2|^3",
+        "maslosoft/gazebo": "^2|^3",
+        "psr/log": "^1|^2|^3"
+    },
+    "homepage": "https://maslosoft.com/addendum/"
 }
