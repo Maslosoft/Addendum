@@ -44,17 +44,17 @@
 		"roave/security-advisories": "dev-latest",
 		"codeception/codeception": "^5",
 		"codeception/module-asserts": "^3",
-		"codeception/specify": "^2",
-		"maslosoft/zamm": "^1 || ^2",
+		"codeception/specify": "^2|^3",
+		"maslosoft/zamm": "^1|^2",
 		"maslosoft/signals": "*@dev",
-		"monolog/monolog": "^2"
+		"monolog/monolog": "^2|^3"
 	},
 	"require": {
 		"php": ">=7.4",
-		"maslosoft/cache": "*",
-		"maslosoft/cli-shared": "^1 | ^2",
-		"maslosoft/embedi": "^2",
-		"maslosoft/gazebo": "^2",
+		"maslosoft/cache": "^2|^3",
+		"maslosoft/cli-shared": "^1|^2|^3",
+		"maslosoft/embedi": "^2|^3",
+		"maslosoft/gazebo": "^2|^3",
 		"psr/log": "^1|^2|^3"
 	},
 	"homepage": "https://maslosoft.com/addendum/"
