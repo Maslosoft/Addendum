@@ -43,6 +43,13 @@ class UseResolverDecorator implements MatcherDecoratorInterface
 			return;
 		}
 		$resolved = UseResolver::resolve($reflection, $value);
+		// A raw ReflectionFile describes a class which may not be loaded at all.
+		// Never trigger autoload for its own name while parsing its constants.
+		if ($reflection instanceof ReflectionFile && $resolved === $reflection->getName())
+		{
+			$value = $resolved;
+			return;
+		}
 		if (ClassChecker::exists($resolved))
 		{
 			$value = $resolved;
