@@ -19,6 +19,7 @@ use function get_class;
 use function is_object;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Cache\PhpCache\Checker;
+use Maslosoft\Addendum\Cache\TimeoutGuard;
 use Maslosoft\Addendum\Cache\PhpCache\Cleaner;
 use Maslosoft\Addendum\Cache\PhpCache\Reader;
 use Maslosoft\Addendum\Cache\PhpCache\Writer;
@@ -131,6 +132,7 @@ class ClassCache
 
 	public function set($className, $data): bool
 	{
+		TimeoutGuard::check();
 		$this->cleaner->clean($className);
 		return $this->writer->write($className, $data);
 	}
