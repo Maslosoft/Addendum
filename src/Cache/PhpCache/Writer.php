@@ -21,6 +21,7 @@ use function chmod;
 use function dirname;
 use function file_exists;
 use function file_put_contents;
+use Maslosoft\Addendum\Cache\TimeoutGuard;
 use Maslosoft\Addendum\Helpers\Cacher;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Utilities\ClassChecker;
@@ -35,6 +36,7 @@ class Writer extends CacheComponent
 	public function write($className, $data): bool
 	{
 		NameNormalizer::normalize($className, false);
+		TimeoutGuard::check();
 
 
 		// Set partials cache
@@ -77,6 +79,7 @@ class Writer extends CacheComponent
 					$partialsDir,
 					$partialFile
 				);
+				TimeoutGuard::check();
 				$success[] = (bool)file_put_contents($classMarkerFile, PhpExporter::export(true));
 			}
 		}
@@ -86,6 +89,7 @@ class Writer extends CacheComponent
 		{
 			Io::mkdir($dirName);
 		}
+		TimeoutGuard::check();
 		$success[] = (bool)file_put_contents($fileName, PhpExporter::export($data));
 		@chmod($fileName, 0666);
 		return array_sum($success) === count($success);

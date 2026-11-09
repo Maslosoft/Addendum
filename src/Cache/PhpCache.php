@@ -16,6 +16,7 @@ namespace Maslosoft\Addendum\Cache;
 
 use DirectoryIterator;
 use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Cache\TimeoutGuard;
 use Maslosoft\Addendum\Helpers\SoftIncluder;
 use Maslosoft\Addendum\Interfaces\AnnotatedInterface;
 use Maslosoft\Addendum\Options\MetaOptions;
@@ -240,6 +241,7 @@ abstract class PhpCache
 	{
 		$fileName = $this->getFilename();
 		$this->prepare();
+		TimeoutGuard::check();
 		$key = $this->getCacheKey();
 		self::$cache[$key] = $data;
 
