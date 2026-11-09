@@ -18,6 +18,7 @@ use Exception;
 use Maslosoft\Addendum\Addendum;
 use Maslosoft\Addendum\Annotations\TargetAnnotation;
 use Maslosoft\Addendum\Cache\BuildOneCache;
+use Maslosoft\Addendum\Cache\TimeoutGuard;
 use Maslosoft\Addendum\Collections\AnnotationsCollection;
 use Maslosoft\Addendum\Collections\MatcherConfig;
 use Maslosoft\Addendum\Helpers\CoarseChecker;
@@ -129,6 +130,9 @@ class Builder
 		{
 			return $cached;
 		}
+
+		// Do not start another expensive cold-cache rebuild near timeout.
+		TimeoutGuard::check();
 
 		// Partials annotation data
 		$partialsData = [];

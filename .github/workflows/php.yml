@@ -1,0 +1,53 @@
+name: PHP CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }} / clear cache ${{ matrix.cache_clear }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.4', '8.5', '8.6']
+        cache_clear: ['0', '1']
+
+    env:
+      ADDENDUM_CACHE_CLEAR: ${{ matrix.cache_clear }}
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, dom, xmlwriter, curl
+          coverage: none
+          tools: composer:v2
+          ini-values: memory_limit=1024M
+
+      - name: Install Composer dependencies
+        env:
+          PHP_VERSION: ${{ matrix.php }}
+        shell: bash
+        run: |
+          if [[ "$PHP_VERSION" == "8.6" ]]; then
+            # behat/gherkin currently declares PHP <8.6. Ignore only upper PHP bounds
+            # to test the existing locked dependencies against the PHP 8.6 prerelease.
+            composer install --prefer-dist --no-interaction --no-progress --ignore-platform-req=php+
+          else
+            composer install --prefer-dist --no-interaction --no-progress
+          fi
+
+      - name: Run Codeception unit tests
+        run: vendor/bin/codecept run unit --no-ansi

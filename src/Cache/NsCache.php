@@ -15,6 +15,7 @@
 namespace Maslosoft\Addendum\Cache;
 
 use Maslosoft\Addendum\Addendum;
+use Maslosoft\Addendum\Cache\TimeoutGuard;
 use Maslosoft\Addendum\Helpers\SoftIncluder;
 use Maslosoft\Addendum\Options\MetaOptions;
 use Maslosoft\Cli\Shared\Helpers\PhpExporter;
@@ -117,6 +118,7 @@ class NsCache
 			$ns[$name] = true;
 		}
 		$data = PhpExporter::export($ns);
+		TimeoutGuard::check();
 		$mask = umask(0);
 		file_put_contents($this->file, $data);
 		umask($mask);
