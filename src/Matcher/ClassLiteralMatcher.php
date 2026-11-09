@@ -19,6 +19,7 @@ use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 use Maslosoft\Addendum\Interfaces\Plugins\Matcher\MatcherClassNotFoundHandlerInterface;
 use Maslosoft\Addendum\Matcher\Helpers\Processor;
 use Maslosoft\Addendum\Matcher\Traits\PluginsTrait;
+use Maslosoft\Addendum\Reflection\ReflectionFile;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 use Maslosoft\Addendum\Utilities\ReflectionName;
 use Maslosoft\Gazebo\PluginFactory;
@@ -44,8 +45,16 @@ class ClassLiteralMatcher implements MatcherInterface
 		$regex = '(static|self|[A-Z\\\][a-zA-Z0-9_\\\]+)';
 		if (preg_match("~^{$regex}~", $string, $matches))
 		{
+			// Leave ClassName::CONSTANT (including self/static) to StaticConstantMatcher.
+			if (substr($string, strlen($matches[0]), 2) === '::')
+			{
+				$value = false;
+				return false;
+			}
 			$value = $this->process($matches);
-			if (!ClassChecker::exists($value))
+			// Raw file reflections intentionally do not load their declaring class.
+			$rawSelf = $this->getPlugins()->reflection instanceof ReflectionFile && in_array($matches[0], ['self', 'static'], true);
+			if (!$rawSelf && !ClassChecker::exists($value))
 			{
 				// Might be constant...
 				if (!defined($matches[0]))
