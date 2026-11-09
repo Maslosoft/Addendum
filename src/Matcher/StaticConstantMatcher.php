@@ -17,6 +17,8 @@ namespace Maslosoft\Addendum\Matcher;
 use Maslosoft\Addendum\Exceptions\ClassNotFoundException;
 use Maslosoft\Addendum\Interfaces\Matcher\MatcherInterface;
 use Maslosoft\Addendum\Matcher\Helpers\Processor;
+use Maslosoft\Addendum\Reflection\ReflectionFile;
+use Maslosoft\Addendum\Utilities\RawClassConstantResolver;
 use Maslosoft\Addendum\Utilities\ClassChecker;
 
 class StaticConstantMatcher extends RegexMatcher implements MatcherInterface
@@ -36,6 +38,20 @@ class StaticConstantMatcher extends RegexMatcher implements MatcherInterface
 		$className = Processor::process($this, $className);
 		$value = sprintf('%s::%s', $className, $constName);
 		$value = Processor::process($this, $value);
+		// PHP resolves ::class without loading the referenced class.
+		if ($constName === 'class' && $value === $className)
+		{
+			return $value;
+		}
+
+		$reflection = $this->getPlugins()->reflection;
+		if ($reflection instanceof ReflectionFile && $className === $reflection->getName()
+			&& !class_exists($className, false) && !trait_exists($className, false) && !interface_exists($className, false))
+		{
+			// rawAnnotate() must not include or autoload the inspected PHP file.
+			return RawClassConstantResolver::resolve($reflection, $constName);
+		}
+
 		if ($className !== 'self' && $className !== 'static')
 		{
 			if (!ClassChecker::exists($className))
@@ -44,10 +60,6 @@ class StaticConstantMatcher extends RegexMatcher implements MatcherInterface
 			}
 		}
 
-		if($constName === 'class' && $value === $className)
-		{
-			return $value;
-		}
 
 		if (!defined($value))
 		{
